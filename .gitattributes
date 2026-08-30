@@ -1,0 +1,3 @@
+# Keep research artifacts portable across Windows, Linux, and CI.
+*.md text eol=lf
+.gitignore text eol=lf
