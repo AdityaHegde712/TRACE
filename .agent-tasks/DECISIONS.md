@@ -14,6 +14,7 @@
 - FSD-010: A framework-only contribution is insufficient. The selected direction must address a source-supported operational problem and define a measurable success condition before architecture commitment.
 - FSD-011: Market validation is recorded separately in `docs/MARKET_VALIDATION_SUMMER_2027.md`; market evidence does not convert a proposed application framing into an accepted architecture decision.
 - FSD-012: Active handoff state remains only in `.agent-tasks/PLAN.md`, `.agent-tasks/DECISIONS.md`, and `.agent-tasks/TASKS.md`; current survey, evidence, proposal, and study documents are versioned in `docs/`. Superseded material is retained locally under ignored `.agent-tasks/archived/`.
+- FSD-013: `dev` is the integration branch. Changes are pushed to `dev` first and may reach `main` only after the required checks pass and the owner merges the reviewed change. `main` is the primary deliverable branch.
 
 ## Pending
 

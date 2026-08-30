@@ -25,3 +25,6 @@
 11. [x] Consolidate the active framework survey into the TRACE repository layout.
    - Evidence: `.gitignore`, `.agent-tasks/PLAN.md`, `.agent-tasks/DECISIONS.md`, `.agent-tasks/TASKS.md`, and `docs/`.
    - Acceptance: archived legacy material is excluded from Git; only the root handoff triple remains under `.agent-tasks`; active survey artifacts are in `docs/`.
+12. [x] Establish the TRACE branch policy and initial deliverable branch.
+   - Evidence: `FSD-013`; `origin/dev` and `origin/main` start at the same validated commit.
+   - Acceptance: work integrates through `dev`; `main` is reserved for checked, owner-merged deliverables.
