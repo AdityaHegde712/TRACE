@@ -1,12 +1,12 @@
 # Direction Proposal: Evidence-Gated Visual Task Orchestration
 
-**Status:** Proposed working direction for team and faculty review. This is a direction-evaluation document, not a design specification or an implementation commitment.
+**Status:** Owner-approved reference mission; team and faculty approval is still reported as tentative. This is a direction-evaluation document, not a design specification or an implementation commitment.
 **Capstone umbrella title:** _Agentic Visual Perception in Distributed Autonomous Systems_
-**Reference application:** Simulator-first cooperative search-and-inspect with heterogeneous autonomous agents.
+**Reference application:** Owner-approved simulator-first road-blockage verification near critical infrastructure, using two simulated drones.
 
-## Decision Requested
+## Decision Status
 
-Approve or reject this as the capstone’s working direction:
+The owner approved the narrow reference mission on 2026-10-01. The methodology, initial dataset, metrics, ownership, schedule, and implementation plan remain pending confirmation; this document does not authorize implementation.
 
 > Build and evaluate an open, simulator-first runtime that converts distributed visual observations into provenance-linked evidence claims and allows only policy-defined belief states to create, close, reopen, verify, or reassign mission tasks.
 

@@ -1,2 +1,5 @@
 # Historical research artifacts retained locally for traceability only.
-.agent-tasks/archived
+.agent-tasks
+Submissions
+docs/Capstone-TRACE*.md
+docs/ai_docs
