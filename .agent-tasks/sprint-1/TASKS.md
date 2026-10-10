@@ -14,8 +14,12 @@
 6. [x] REFACTOR: isolate policy and serialization concerns; add integration smoke.
    - Acceptance: formatter and full test suite pass; each CLI scenario emits
      deterministic JSONL trace and oracle report.
+7. [x] Commit the Sprint 1 prototype.
+   - Evidence: `4dc33ce feat: add evidence resolution prototype`.
+   - Acceptance: source, fixtures, documents, and zero-context handoff are
+     preserved on `feature/evidence-resolution-sprint-1`.
 
 ## Immediate Next Action
 
-Review the staged Sprint 1 changes, then create the milestone commit on the
-feature branch.
+Owner reviews `4dc33ce` and decides whether to merge the feature branch through
+the project remote-review workflow.
