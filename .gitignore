@@ -3,3 +3,7 @@
 Submissions
 docs/Capstone-TRACE*.md
 docs/ai_docs
+.venv/
+artifacts/
+__pycache__/
+.pytest_cache/

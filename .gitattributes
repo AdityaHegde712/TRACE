@@ -1,3 +1,8 @@
 # Keep research artifacts portable across Windows, Linux, and CI.
 *.md text eol=lf
+*.py text eol=lf
+*.toml text eol=lf
+*.json text eol=lf
+*.lock text eol=lf
 .gitignore text eol=lf
+.gitattributes text eol=lf
