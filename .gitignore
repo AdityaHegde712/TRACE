@@ -2,7 +2,8 @@
 .agent-tasks
 Submissions
 docs/Capstone-TRACE*.md
-docs/ai_docs
+docs/**/*/archived/
+docs/personal
 .venv/
 artifacts/
 __pycache__/
