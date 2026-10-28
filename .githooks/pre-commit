@@ -1,0 +1,9 @@
+#!/bin/sh
+# Blocks commits that remove or weaken existing test assertions.
+# See .agents/skills/git-workflow/SKILL.md ("Test change escalation").
+guard=".agents/skills/git-workflow/scripts/check_test_changes.py"
+
+if command -v uv >/dev/null 2>&1; then
+    exec uv run --no-project python "$guard"
+fi
+exec python3 "$guard"

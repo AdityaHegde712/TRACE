@@ -14,7 +14,7 @@ Before committing to material UI/UX decisions, interview the user to resolve rel
 Create an HTML/CSS representation representing intended content hierarchy, layout, spacing, typography, visual language, components, interaction states, and navigation/flow. Do not create token mockups.
 
 ## 3. Render With Playwright
-Render the HTML prototype using Playwright. Inspect for: clipping, overflow, broken layout, visual hierarchy, spacing, responsive issues, and obvious accessibility/usability problems. Fix visible issues before presenting.
+Render the HTML prototype using Playwright. Inspect for: clipping, overflow, broken layout, visual hierarchy, spacing, responsive issues, and obvious accessibility/usability problems. Fix visible issues before presenting. If Playwright is unavailable, install it at the project level to proceed.
 
 ## 4. Capture and Present Screenshots
 Capture screenshots sufficient to communicate the design and present to the user. Use actual rendered results (not only prose, wireframes, or code) as the basis for approval.
