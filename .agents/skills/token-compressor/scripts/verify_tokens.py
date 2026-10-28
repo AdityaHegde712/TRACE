@@ -78,7 +78,7 @@ def cmd_diff(before_str: str, after_str: str) -> None:
     tok_pct = (tok_diff / m_before["tokens"] * 100) if m_before["tokens"] else 0
 
     print("=" * 60)
-    print(f"Token Compression Report")
+    print("Token Compression Report")
     print(f"Before: {before_path}")
     print(f"After:  {after_path}")
     print("=" * 60)

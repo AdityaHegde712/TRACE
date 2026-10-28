@@ -35,7 +35,7 @@ def build_quote_pattern(quote: str, case_sensitive: bool = True) -> re.Pattern[s
 def validate_in_file(file_path: Path, quote: str, case_sensitive: bool = True) -> tuple[bool, str, int | None]:
     try:
         content = file_path.read_text(encoding="utf-8", errors="replace")
-    except Exception as e:
+    except OSError as e:
         return False, f"Failed to read file: {e}", None
 
     pattern = build_quote_pattern(quote, case_sensitive=case_sensitive)
