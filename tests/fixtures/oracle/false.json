@@ -1,0 +1,13 @@
+{
+  "scenario_id": "false",
+  "policy_version": "fixed-v1",
+  "truth": {"blockage_present": false},
+  "events": [
+    {"event_id": "evt-001", "sequence": 1, "event_type": "claim", "claim": {"claim_id": "clm-001", "source_id": "drone-a", "observed_at": "2026-10-10T12:00:00Z", "assertion": "present", "role": "report", "confidence": 0.90, "entity_id": "road-blockage-1", "frame_id": "map", "pose_ref": "pose-a-001", "model_version": "synthetic-v1", "artifact_ref": "sim://false/a"}},
+    {"event_id": "evt-002", "sequence": 2, "event_type": "claim", "claim": {"claim_id": "clm-002", "source_id": "drone-b", "observed_at": "2026-10-10T12:01:00Z", "assertion": "absent", "role": "verification", "confidence": 0.95, "entity_id": "road-blockage-1", "frame_id": "map", "pose_ref": "pose-b-001", "model_version": "synthetic-v1", "artifact_ref": "sim://false/b"}}
+  ],
+  "expected_trace": [
+    {"event_id": "evt-001", "belief_status": "proposed", "action": "create", "reason_code": "positive_report_requires_verification", "policy_version": "fixed-v1", "causal_claim_ids": ["clm-001"]},
+    {"event_id": "evt-002", "belief_status": "invalid", "action": "close", "reason_code": "verifier_disproves_blockage", "policy_version": "fixed-v1", "causal_claim_ids": ["clm-001", "clm-002"]}
+  ]
+}

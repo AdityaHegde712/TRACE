@@ -5,6 +5,26 @@
 Applies to **all work in this project** unless a higher-priority instruction explicitly conflicts. Explicit user instructions override project defaults (except higher-priority instructions/mandatory safeguards). Do not silently skip required skills, validation stages, approval gates, or workflows.
 </authority>
 
+<session_start>
+## Session Start
+First action of every session: invoke `team-onboarding`, then `track-guide` (asks who is working, loads their track). Teammates may be new to the domain, to coding, and to agents: explain plainly, work in small steps, ask before risky actions.
+</session_start>
+
+<skill_routing>
+## Skill Routing
+| Need | Skill |
+| --- | --- |
+| Project primer, glossary, frozen decisions | `team-onboarding` |
+| Who is working, track scope, starter prompts | `track-guide` |
+| Writing or changing code behavior | `test-driven-development` + `clean-code` |
+| Branches, commits, hooks, pull requests, merges | `git-workflow` |
+| Research, literature, quick lookups | `research` (routes to full or condensed) |
+| Report or doc prose | `humanize-report` |
+| UI/UX design | `ui-ux` |
+| Slide decks | `slide-deck` |
+| Shrinking prompts/skills | `token-compressor` |
+</skill_routing>
+
 <universal_directives>
 ## Universal Directives
 
@@ -29,7 +49,7 @@ Treat every turn as potentially the last turn of the session. Continuously updat
 
 <development>
 ## Test-Driven Development — Mandatory
-All implementation MUST use **TDD** via project-level `tdd-dev` skill:
+All implementation MUST use **TDD** via project-level `test-driven-development` skill:
 1. **RED**: Write/update test demonstrating required behavior; verify failure for expected reason.
 2. **GREEN**: Implement smallest correct change to pass.
 3. **REFACTOR**: Improve structure without changing behavior; rerun relevant tests.
@@ -50,14 +70,14 @@ Development work must be understandable by a junior developer. Communicate obser
 
 <git>
 ## Git Workflow
-For Git operations or repo/branch state work, invoke project-level `git-workflow` skill (sprint/feature startup, branch creation, rebasing, committing, resuming interrupted work, continuing after remote merges, or changing Git state).
+For Git operations or repo/branch state work, invoke project-level `git-workflow` skill (sprint/feature startup, branch creation, rebasing, committing, resuming interrupted work, continuing after remote merges, opening pull requests, or changing Git state). A commit blocked by the test-change hook must be escalated to the user, never bypassed.
 </git>
 
 <writing>
 ## Reports & Humanization Gate
 When a **report** is requested, check if user specified whether output should be humanized/stripped of LLM patterns:
-- If requested: Invoke project-level `humanize-doc` skill.
-- If explicitly unnecessary: Proceed without `humanize-doc`.
+- If requested: Invoke project-level `humanize-report` skill.
+- If explicitly unnecessary: Proceed without `humanize-report`.
 - If unspecified: **Ask before starting** whether they want it humanized/stripped of LLM patterns (blocking prerequisite before research/outline/drafting).
 </writing>
 
