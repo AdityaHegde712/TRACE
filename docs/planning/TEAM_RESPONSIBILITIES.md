@@ -1,6 +1,8 @@
 # Team Responsibilities and Milestones
 
-**Project:** Measuring correlated failure in multi-agent visual evidence resolution **Status:** Proposed allocation for team and advisor review. Supersedes the work split in the superseded `PROJECT_EXECUTION_PLAN.md` (archived) if the framing in the accompanying `PROPOSAL_CORRELATED_FAILURE.md` is approved. **Date:** 2026-10-27 **Window:** 2026-10-27 to 2027-01-22
+**Project:** Measuring correlated failure in multi-agent visual evidence resolution **Status:** Proposed allocation for team and advisor review. Supersedes the work split in the superseded `PROJECT_EXECUTION_PLAN.md` (archived) if the framing in the accompanying `PROPOSAL_METHOD_DEPENDENCE_AWARE_TRUST.md` is approved. That proposal supersedes the earlier `PROPOSAL_CORRELATED_FAILURE.md`. **Date:** 2026-10-27, allocation unchanged as of 2026-11-03 **Window:** 2026-10-27 to 2027-01-22
+
+**Note (2026-11-03).** The allocation below predates the dependence spike and is unchanged by it. One item is now an open design question rather than a settled one: the spike places roughly 71% of the measured dependence at the level of the individual observed object, so the M1 gate must decide whether the dependence estimate is keyed per object pair or per agent pair. That decision sits on the project lead's track. See `docs/spike/SPIKE_CAUSATION_CONTROL.md`.
 
 ---
 
