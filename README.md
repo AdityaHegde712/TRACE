@@ -4,32 +4,42 @@ Measuring correlated failure in multi-agent visual evidence resolution. SJSU cap
 
 ## The idea
 
-A team of drones inspects a road. Drone A reports a blockage, drone B confirms it, and the system closes the task because two sources agreed. That is only safe if the two reports can be wrong independently. If both drones use the same detector, the same viewpoint, or the same lighting, they can agree and be wrong together.
+A team of drones inspects a road. Drone A reports a blockage, drone B confirms it, and the system closes the task because two sources agreed. That is only safe if the two reports can be wrong independently. Looking at the same scene, the drones can agree and be wrong together.
+
+**This is measured, not assumed.** A one-week spike in November 2026 ran one detector from two viewpoints over 54 CARLA scenes and scored both against simulator ground truth. The two agents were wrong about the same object **1.67 times more often than independence predicts** (95% CI [1.50, 1.87], 448 objects). Giving the agents *different* detectors reduced the effect but did not remove it, so the dominant shared cause is the scene itself rather than the shared model. See [`docs/spike/SPIKE_RESULT.md`](docs/spike/SPIKE_RESULT.md).
 
 This project builds a benchmark and measurement harness that answers:
 
 1. At what level of dependence between agents does a second confirming report stop reducing false task closures?
 2. Can dependence be measured from claim streams alone, without simulator truth?
-3. Do the four correlation channels (shared occluder, detector model version, viewpoint, illumination) hurt decisions equally?
+3. Do the four correlation channels (viewpoint, shared occluder, illumination, detector model version) hurt decisions equally? The spike says no: the scene-level channels dominate the detector-model channel.
 
 It is not a new fusion algorithm, and results apply to simulation only. Full argument: [`docs/planning/PROPOSAL_CORRELATED_FAILURE.md`](docs/planning/PROPOSAL_CORRELATED_FAILURE.md).
 
 ## Status
 
 - **Phase:** design. The research framing awaits advisor approval (milestone M0); implementation is a separate gate.
-- **Code today:** a small deterministic prototype that turns synthetic road-blockage claims into a belief status, a task action, and a causal trace. It is disposable and is expected to be rebuilt. See [`docs/planning/APPENDIX_PROTOTYPE_STATUS.md`](docs/planning/APPENDIX_PROTOTYPE_STATUS.md).
+- **Spike complete (2026-11-03):** the independence assumption this project attacks was tested and it failed. Result, stratified analysis, and the shared-model contrast condition are under [`docs/spike/`](docs/spike/).
+- **Code today:** a small deterministic prototype that turns synthetic road-blockage claims into a belief status, a task action, and a causal trace, plus `src/spike_dependence/`, the measurement harness built for the spike. See [`docs/planning/APPENDIX_PROTOTYPE_STATUS.md`](docs/planning/APPENDIX_PROTOTYPE_STATUS.md).
 - **Schedule:** 2026-10-27 to 2027-01-22. Milestones and owners are in [`docs/planning/TEAM_RESPONSIBILITIES.md`](docs/planning/TEAM_RESPONSIBILITIES.md).
 
 ## Quickstart
 
-Requires Python 3.12+ and [uv](https://docs.astral.sh/uv/).
+Requires Python 3.12 exactly and [uv](https://docs.astral.sh/uv/). The CARLA
+client publishes `cp312` wheels at the latest, so 3.13+ cannot resolve.
 
 ```bash
 git clone https://github.com/AdityaHegde712/TRACE.git
 cd TRACE
 git switch dev
-uv sync
+uv sync          # lint and tests; no GPU, CARLA or detector needed
 uv run pytest
+```
+
+To run the spike pipeline as well, install the optional extra:
+
+```bash
+uv sync --extra spike   # adds carla, torch (cu128) and ultralytics
 ```
 
 Run one scenario and look at the output:
