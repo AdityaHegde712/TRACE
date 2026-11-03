@@ -86,3 +86,27 @@ class TestLoadPairedRecords:
     def test_rejects_a_missing_directory(self, tmp_path) -> None:
         with pytest.raises(ValueError, match="no scene folders"):
             load_paired_records(tmp_path / "nope", iou_threshold=0.5)
+
+
+class TestHeterogeneousDetectors:
+    def test_reads_a_different_detection_file_per_agent(self, tmp_path) -> None:
+        shared = [_truth("actor-1", 0.0)]
+        scene_dir = _write_scene(tmp_path, "scene-000", shared, shared, [], [])
+        # Agent A keeps the default file; agent B gets a second detector's.
+        detections_to_json([_hit(0.0)], scene_dir / "det_b_rtdetr.json")
+
+        (record,) = load_paired_records(
+            tmp_path, iou_threshold=0.5, det_b_name="det_b_rtdetr.json"
+        )
+
+        assert (record.agent_a_wrong, record.agent_b_wrong) == (True, False)
+
+    def test_skips_a_scene_missing_the_named_file(self, tmp_path) -> None:
+        shared = [_truth("actor-1", 0.0)]
+        _write_scene(tmp_path, "scene-000", shared, shared, [], [])
+
+        records = load_paired_records(
+            tmp_path, iou_threshold=0.5, det_b_name="det_b_absent.json"
+        )
+
+        assert records == []

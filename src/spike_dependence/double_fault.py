@@ -10,6 +10,7 @@ module (project decision AD-001); nothing here reads simulator state.
 
 from __future__ import annotations
 
+import math
 import random
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -77,6 +78,41 @@ class InflationEstimate:
     upper: float
     resamples_used: int
     table: ContingencyTable
+
+
+def odds_ratio(table: ContingencyTable) -> float:
+    """Return the odds ratio of joint error; 1.0 means independent.
+
+    Unlike the inflation ratio, this does not divide by the marginals, so it
+    compares fairly across detectors with different accuracy. A Haldane-
+    Anscombe half-count keeps it finite when a cell is empty.
+    """
+    both = table.both_wrong + 0.5
+    only_a = table.only_a_wrong + 0.5
+    only_b = table.only_b_wrong + 0.5
+    neither = table.neither_wrong + 0.5
+    return (both * neither) / (only_a * only_b)
+
+
+def phi_coefficient(table: ContingencyTable) -> float:
+    """Return the phi correlation between the two agents' error indicators.
+
+    0.0 means independent, 1.0 means they always fail together and succeed
+    together, -1.0 means exactly one of them is always wrong.
+    """
+    denominator = math.sqrt(
+        (table.both_wrong + table.only_a_wrong)
+        * (table.only_b_wrong + table.neither_wrong)
+        * (table.both_wrong + table.only_b_wrong)
+        * (table.only_a_wrong + table.neither_wrong)
+    )
+    if denominator == 0.0:
+        raise ValueError("phi is undefined when an agent makes no errors")
+
+    numerator = (table.both_wrong * table.neither_wrong) - (
+        table.only_a_wrong * table.only_b_wrong
+    )
+    return numerator / denominator
 
 
 def contingency(records: Sequence[PairedErrorRecord]) -> ContingencyTable:

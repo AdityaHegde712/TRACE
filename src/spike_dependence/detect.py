@@ -19,7 +19,7 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-from spike_dependence.artifacts_io import detections_to_json
+from spike_dependence.artifacts_io import detection_filename, detections_to_json
 from spike_dependence.instance_mask import VEHICLE_LABELS
 from spike_dependence.scoring import BoundingBox, Detection
 
@@ -88,7 +88,12 @@ def _predict_frame(model: Any, image_path: Path, min_confidence: float) -> list[
 
 def run(args: argparse.Namespace) -> int:
     """Detect over every saved frame and write detections beside them."""
-    from ultralytics import YOLO  # Imported here so the module imports without it.
+    # Imported here so the module stays importable without ultralytics.
+    from ultralytics import RTDETR, YOLO
+
+    # RT-DETR is a transformer detector from a separate lineage, so it needs
+    # its own loader class; the weights filename says which one to use.
+    loader = RTDETR if Path(args.weights).name.lower().startswith("rtdetr") else YOLO
 
     raw_dir = Path(args.raw)
     scene_dirs = sorted(path for path in raw_dir.iterdir() if path.is_dir())
@@ -97,7 +102,7 @@ def run(args: argparse.Namespace) -> int:
         return 1
 
     _log(f"loading {args.weights} on {args.device}")
-    model = YOLO(args.weights)
+    model = loader(args.weights)
     model.to(args.device)
 
     started = time.time()
@@ -111,7 +116,9 @@ def run(args: argparse.Namespace) -> int:
                 _log(f"{scene_dir.name}: missing {image_path.name}, skipped")
                 continue
             detections = _predict_frame(model, image_path, args.min_confidence)
-            detections_to_json(detections, scene_dir / f"det_{view}.json")
+            detections_to_json(
+                detections, scene_dir / detection_filename(view, args.tag)
+            )
             counts[view] = len(detections)
             totals[view] += len(detections)
             frames += 1
@@ -134,6 +141,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--weights", default="yolo11m.pt")
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--min-confidence", type=float, default=0.25)
+    parser.add_argument(
+        "--tag", default=None,
+        help="alphanumeric suffix so a second detector does not overwrite the first",
+    )
     return run(parser.parse_args(argv))
 
 

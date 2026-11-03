@@ -21,6 +21,20 @@ DETECTION_SCHEMA = "spike.detections.v1"
 MANIFEST_SCHEMA = "spike.manifest.v1"
 
 
+def detection_filename(view: str, tag: str | None) -> str:
+    """Return the detections filename for one viewpoint and detector.
+
+    An untagged run keeps the default name. A tag lets a second detector's
+    output sit beside the first instead of overwriting it, which is what the
+    heterogeneous-agent contrast condition needs.
+    """
+    if not tag:
+        return f"det_{view}.json"
+    if not tag.isalnum():
+        raise ValueError("detector tag must be alphanumeric to stay filename-safe")
+    return f"det_{view}_{tag}.json"
+
+
 def _write_json(payload: dict[str, Any], path: Path) -> None:
     """Write UTF-8 JSON with LF endings, creating parent folders as needed."""
     path = Path(path)

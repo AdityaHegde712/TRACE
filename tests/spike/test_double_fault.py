@@ -8,6 +8,8 @@ assumption survives; well above 1 means it does not.
 
 from __future__ import annotations
 
+import math
+
 import pytest
 
 from spike_dependence.double_fault import (
@@ -15,6 +17,8 @@ from spike_dependence.double_fault import (
     contingency,
     dependence_inflation_ratio,
     inflation_ratio_with_interval,
+    odds_ratio,
+    phi_coefficient,
 )
 
 
@@ -116,3 +120,54 @@ class TestBootstrapInterval:
         result = inflation_ratio_with_interval(records, resamples=800, seed=3)
 
         assert result.lower > 1.0
+
+
+class TestAssociationMeasures:
+    def test_independent_table_gives_unit_odds_ratio(self) -> None:
+        table = contingency(
+            _records([(True, True), (True, False), (False, True), (False, False)])
+        )
+
+        assert odds_ratio(table) == pytest.approx(1.0)
+
+    def test_independent_table_gives_zero_phi(self) -> None:
+        table = contingency(
+            _records([(True, True), (True, False), (False, True), (False, False)])
+        )
+
+        assert phi_coefficient(table) == pytest.approx(0.0)
+
+    def test_perfect_agreement_gives_phi_of_one(self) -> None:
+        table = contingency(_records([(True, True)] * 10 + [(False, False)] * 10))
+
+        assert phi_coefficient(table) == pytest.approx(1.0)
+
+    def test_perfect_disagreement_gives_phi_of_minus_one(self) -> None:
+        table = contingency(_records([(True, False)] * 10 + [(False, True)] * 10))
+
+        assert phi_coefficient(table) == pytest.approx(-1.0)
+
+    def test_positive_association_raises_the_odds_ratio_above_one(self) -> None:
+        table = contingency(
+            _records(
+                [(True, True)] * 40
+                + [(False, False)] * 40
+                + [(True, False)] * 10
+                + [(False, True)] * 10
+            )
+        )
+
+        assert odds_ratio(table) > 1.0
+
+    def test_odds_ratio_stays_finite_on_an_empty_cell(self) -> None:
+        # No object had exactly one agent wrong, so a raw odds ratio divides
+        # by zero; the correction must keep it finite.
+        table = contingency(_records([(True, True)] * 10 + [(False, False)] * 10))
+
+        assert math.isfinite(odds_ratio(table))
+
+    def test_phi_is_undefined_when_an_agent_never_errs(self) -> None:
+        table = contingency(_records([(False, False), (False, True)]))
+
+        with pytest.raises(ValueError, match="no errors"):
+            phi_coefficient(table)

@@ -12,6 +12,7 @@ import json
 import pytest
 
 from spike_dependence.artifacts_io import (
+    detection_filename,
     detections_from_json,
     detections_to_json,
     ground_truth_from_json,
@@ -106,3 +107,18 @@ class TestManifest:
 
         with pytest.raises(ValueError, match="unsupported manifest schema"):
             read_manifest(path)
+
+
+class TestDetectionFilename:
+    def test_untagged_name_is_the_default(self) -> None:
+        assert detection_filename("a", None) == "det_a.json"
+
+    def test_tagged_name_keeps_the_detector_apart(self) -> None:
+        assert detection_filename("b", "rtdetr") == "det_b_rtdetr.json"
+
+    def test_an_empty_tag_behaves_like_no_tag(self) -> None:
+        assert detection_filename("a", "") == "det_a.json"
+
+    def test_rejects_a_tag_that_would_break_the_filename(self) -> None:
+        with pytest.raises(ValueError, match="tag"):
+            detection_filename("a", "has space")
