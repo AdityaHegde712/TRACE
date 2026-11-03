@@ -1,6 +1,8 @@
 # Appendix: Prototype Status
 
-**Companion to** `PROPOSAL_CORRELATED_FAILURE.md`. One page. This records what currently runs, so the proposal's feasibility claim can be checked rather than taken on trust.
+**Companion to** `PROPOSAL_METHOD_DEPENDENCE_AWARE_TRUST.md`, which supersedes the earlier `PROPOSAL_CORRELATED_FAILURE.md`. One page. This records what currently runs, so the proposal's feasibility claim can be checked rather than taken on trust.
+
+**Note (2026-11-03).** This appendix describes the Sprint 1 prototype only. The measurement harness built for the dependence spike — `src/spike_dependence/`, 103 tests — is separate and is evidenced by the reports under `docs/spike/`.
 
 ## What exists
 

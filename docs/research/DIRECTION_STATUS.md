@@ -4,7 +4,9 @@
 
 ## Where we are
 
-Sprint 1 remains complete and frozen. No Sprint 2 implementation is authorized. The open question is still which research framing sits on top of the existing deterministic core — not what to build.
+Sprint 1 remains complete. It carries **no frozen status**: AD-005 was withdrawn on 2026-10-27, so its implementation, fixtures, and tests may be changed or discarded. No Sprint 2 implementation is authorized. The open question is still which research framing sits on top of the existing deterministic core — not what to build.
+
+**Superseded by events (2026-11-03).** The framing question below was settled in favour of framing A, and the one-week spike has since tested its central assumption and found it false (inflation ratio 1.671, 95% CI [1.500, 1.870]). This document is retained as the record of how the framing was chosen, not as a current status note. For current status see `PROPOSAL_METHOD_DEPENDENCE_AWARE_TRUST.md` and `docs/spike/`.
 
 Eight rounds of retrieval and adversarial review were run on a candidate framing (see the accompanying document `DEPENDENCE_NOVELTY_SURVEY.md`). The result narrowed the candidate significantly and surfaced three alternatives.
 
