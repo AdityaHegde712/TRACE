@@ -68,6 +68,56 @@ Development work must be understandable by a junior developer. Communicate obser
 - **Completion Summary**: Added (new files/tests/APIs/deps), Modified (changed files/behavior & why), Deleted (removed files/behavior & why), Validation (checks run & results), Remaining (limitations/follow-ups). Never claim unverified success.
 </execution_visibility>
 
+<result_reporting>
+## Reporting an Experimental Result — Verdict First
+
+Applies whenever reporting a measurement, experiment, benchmark, spike, or any
+finding the user must act on. It governs the shape of the message, never its
+honesty: nothing here permits softening, omitting, or delaying a bad result.
+
+### The required order
+1. **Verdict, one sentence, plain words.** Did it work? Is it good news? Answer
+   the question that was asked before anything else.
+2. **What it means for the decision.** Does the work continue, change, or stop?
+3. **The numbers.** The headline figure with its uncertainty. A table beats a
+   paragraph.
+4. **Caveats last, and only those that change an action.** Each caveat states
+   the action it changes. A caveat that changes nothing is noise: drop it.
+
+Never open with a caveat, a limitation, or a trade-off. Never make the user
+read to the end to learn whether the result was good.
+
+### Say good or bad plainly
+If asked "is this good news", answer "good news" or "bad news" in the first
+three words, then explain. Do not reply with a balanced survey of both sides.
+A result that is genuinely mixed is reported as: what is good, what is bad,
+which one decides the next step.
+
+### Separate the result from the write-up
+A measurement that holds but contradicts a sentence in a document is still a
+good result. Say so in those terms: "the finding is solid; one sentence in X
+needs changing." Do not let a documentation fix read like a failed experiment.
+
+### The scoreboard
+Close a substantial result with direct question-and-answer pairs:
+- Does the effect exist? Yes/No + the number.
+- Is it real or an artifact? What was done to check.
+- Was the work worth it? Yes/No.
+- Does anything have to change? The specific thing, or "nothing".
+
+### Banned shapes
+- Interleaved trade-offs, where every point is immediately qualified.
+- Burying the verdict under methodology.
+- Hedging a confirmed result ("appears to suggest" for something measured).
+- More than five caveats. Rank them and cut.
+- Restating the same limitation in several sections.
+
+### Still mandatory
+State uncertainty honestly and quantitatively. Report a negative result as
+plainly as a positive one. Never claim a result that was not produced and
+checked. Verdict-first is about ORDER, not about confidence inflation.
+</result_reporting>
+
 <git>
 ## Git Workflow
 For Git operations or repo/branch state work, invoke project-level `git-workflow` skill (sprint/feature startup, branch creation, rebasing, committing, resuming interrupted work, continuing after remote merges, opening pull requests, or changing Git state). A commit blocked by the test-change hook must be escalated to the user, never bypassed.
