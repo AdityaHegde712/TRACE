@@ -9,7 +9,8 @@ files are linked for when you need them.
 ## Handoff metadata
 
 - **Project:** `C:\Users\hifia\Projects\Capstone`
-- **Last updated:** `2026-11-03 (America/Los_Angeles)`
+- **Last updated:** `2026-11-03 (America/Los_Angeles)`, revised the same day
+  after PRs #13 and #14 merged and the advisor-package documents were reconciled.
 - **Status:** `In progress` — the one-week dependence spike is `Complete`; the
   M1 design gate (2026-11-10) is `Not started`.
 - **Evidence boundary:** Every material claim below is labeled
@@ -70,7 +71,7 @@ MATE declares untested is false in our setting. State only that.
 
 ## Current state
 
-- `Workspace-confirmed` Branch `dev` at `159c6d1`; `main` at `5615902`; working
+- `Workspace-confirmed` Branch `dev` at `2025da1`; `main` at `a36c0af`; working
   tree **clean**; no stray feature branches (local: `dev`, `main` only).
 - `Workspace-confirmed` Test suite green: **153 passed in 32.60s**. Lint clean
   (`All checks passed!`). Interpreter `.venv/Scripts/python.exe`, Python 3.12.13.
@@ -200,8 +201,8 @@ All commands were run in `C:\Users\hifia\Projects\Capstone` on 2026-11-03.
 | --- | --- | --- | --- |
 | Existing handoff read before overwrite | Read `HANDOFF.md` in full | Present, dated 2026-10-29, stale (`Not started`, "CARLA not installed"); owner constraints carried forward | `Workspace-confirmed` |
 | Branch | `git rev-parse --abbrev-ref HEAD` | `dev` | `Workspace-confirmed` |
-| `dev` head | `git rev-parse --short dev` | `159c6d1` | `Workspace-confirmed` |
-| `main` head | `git rev-parse --short main` | `5615902` | `Workspace-confirmed` |
+| `dev` head | `git rev-parse --short dev` | `2025da1` | `Workspace-confirmed` |
+| `main` head | `git rev-parse --short main` | `a36c0af` | `Workspace-confirmed` |
 | No stray branches | `git branch -a` | Local `dev`, `main`; remotes `origin/dev`, `origin/main`, `origin/HEAD` | `Workspace-confirmed` |
 | Working tree | `git status --porcelain` | Empty — clean | `Workspace-confirmed` |
 | Test suite | `.venv/Scripts/python.exe -m pytest -q` | `153 passed in 32.60s` (exit 0) | `Workspace-confirmed` |
@@ -255,16 +256,16 @@ validation:**
     and gates everything downstream. Only the owner can clear it by sending the
     proposal.
 - **Conflicts (retained, not silently resolved):**
-  - `Workspace-confirmed` The "Blockers" section of `.agent-tasks/TASKS.md` still
-    says "Nothing on this branch is committed. Commits are owner-only per
-    `HANDOFF.md`." That is **stale**: the spike work is committed and merged, and
-    `dev` is at `159c6d1` with a clean tree. Do not edit that file to fix this
-    without the owner's instruction; just do not believe the line.
+  - `Workspace-confirmed` **Resolved 2026-11-03.** `.agent-tasks/TASKS.md`
+    previously claimed "Nothing on this branch is committed" and named
+    `spike/dependence-correlation` as an open branch. Both lines were corrected
+    with the owner's instruction after this handoff was first written. The
+    file's "Immediate next action" block now points at the M1 keying question.
+    One reference to `spike/dependence-correlation` remains on purpose, in the
+    completed-task record for S1.
   - `Workspace-confirmed` **SD-024 vs SD-026** both remain in `DECISIONS.md`.
     SD-026 supersedes SD-024's "the scene dominates". The object dominates
     (~71%). Both entries are kept on purpose as a record of the correction.
-  - `Workspace-confirmed` `.agent-tasks/TASKS.md` still names
-    `spike/dependence-correlation` as an open branch; it is merged and gone.
 - **Assumptions:**
   - The project continues on this Windows machine, in this repo, under the
     existing `.venv`.
