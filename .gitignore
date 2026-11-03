@@ -1,10 +1,54 @@
-# Historical research artifacts retained locally for traceability only.
-.agent-tasks
-Submissions
+# ==========================================
+# Environments & Packages
+# ==========================================
+.venv/
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# ==========================================
+# Python & Testing Caches
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ==========================================
+# Secrets & Local Configurations
+# ==========================================
+.env
+*.env
+!.env.example
+
+# ==========================================
+# IDE & Operating System Artifacts
+# ==========================================
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# Project-Specific, Agent, & Historical Artifacts
+# ==========================================
+.agent-tasks/
+.claude/skills
+Submissions/
+artifacts/
 docs/Capstone-TRACE*.md
 docs/**/*/archived/
-docs/personal
-.venv/
-artifacts/
-__pycache__/
-.pytest_cache/
+docs/personal/
+
+# Detector weights, fetched on demand by ultralytics (yolo11m.pt is 40 MB).
+*.pt

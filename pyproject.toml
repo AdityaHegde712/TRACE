@@ -2,8 +2,22 @@
 name = "evidence-resolution-prototype"
 version = "0.1.0"
 description = "Deterministic evidence-resolution contract prototype"
-requires-python = ">=3.12"
-dependencies = []
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy>=2.5.4",
+]
+
+[project.optional-dependencies]
+# Needed only to RUN the spike pipeline, not to lint or run the test suite.
+# render_scenes imports carla and detect imports ultralytics inside run(), so
+# the tests exercise everything else without these installed. Keeping them out
+# of the default install also stops CI downloading 2.6 GB of torch for a lint.
+spike = [
+    "carla==0.9.16",
+    "torch>=2.11.0",
+    "torchvision>=0.26.0",
+    "ultralytics>=8.4.201",
+]
 
 [dependency-groups]
 dev = [
@@ -16,8 +30,22 @@ requires = ["hatchling>=1.26"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/evidence_resolution"]
+packages = ["src/evidence_resolution", "src/spike_dependence"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+
+# The RTX 5060 is Blackwell (sm_120); it needs a cu128 build. PyPI ships a
+# CPU-only torch on Windows, so torch and torchvision are pinned to PyTorch's
+# own index. `explicit = true` keeps every OTHER package resolving from PyPI:
+# without it uv tries to resolve the build backend from this index too, and
+# the resolution fails.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }

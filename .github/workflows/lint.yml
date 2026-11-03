@@ -12,6 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
+        with:
+          # carla 0.9.16 publishes cp312 wheels at the latest, and .python-version
+          # pins the same interpreter locally.
+          python-version: "3.12"
       # --locked fails if uv.lock is stale, so CI uses the same ruff version as local.
+      # The spike extra is deliberately NOT installed: lint and tests do not need
+      # carla, torch or ultralytics.
       - run: uv sync --locked
       - run: uv run ruff check .
+      - run: uv run pytest -q
