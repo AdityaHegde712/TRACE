@@ -2,10 +2,18 @@
 name = "evidence-resolution-prototype"
 version = "0.1.0"
 description = "Deterministic evidence-resolution contract prototype"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
-    "carla==0.9.16",
     "numpy>=2.5.4",
+]
+
+[project.optional-dependencies]
+# Needed only to RUN the spike pipeline, not to lint or run the test suite.
+# render_scenes imports carla and detect imports ultralytics inside run(), so
+# the tests exercise everything else without these installed. Keeping them out
+# of the default install also stops CI downloading 2.6 GB of torch for a lint.
+spike = [
+    "carla==0.9.16",
     "torch>=2.11.0",
     "torchvision>=0.26.0",
     "ultralytics>=8.4.201",
