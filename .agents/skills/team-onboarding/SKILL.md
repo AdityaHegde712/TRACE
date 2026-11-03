@@ -21,7 +21,8 @@ The current prototype assumes "different `source_id` means independent". This pr
 **We have now measured it (2026-11-03).** Two agents across 54 CARLA scenes were wrong about the same object 1.67 times more often than independence predicts (95% CI [1.50, 1.87], 448 objects). Two things to carry from that:
 
 1. It is not just an artifact of hard objects. The effect survives after accounting for how large each object appears.
-2. **Giving the agents different detectors did not fix it.** Sharing a detector makes things worse, but most of the correlation comes from sharing the *scene* - the same objects, the same angles, the same things blocking the view. So do not describe this project as "identical models fail together". That is too narrow, and our own data contradicts it.
+2. **Giving the agents different detectors did not fix it.** Sharing a detector makes things worse, but most of the correlation remains without it. So do not describe this project as "identical models fail together". That is too narrow, and our own data contradicts it.
+3. **We checked that this is cause, not coincidence.** If you pair up two agents that looked at unrelated objects, the number drops to 1.0 - no correlation at all. So the shared context really is what does it. Splitting that up: about 71% comes from both agents looking at the *same individual object*, and about 29% from scene-wide things like weather and camera angle.
 
 Reports: `docs/spike/`.
 

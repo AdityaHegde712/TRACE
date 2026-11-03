@@ -36,8 +36,17 @@ Two follow-up experiments qualify the headline:
    agents sharing a detector are measurably more associated than agents running
    different ones (+0.0915 phi, paired 95% CI [+0.0466, +0.1401]). Yet
    heterogeneous agents remain strongly associated (phi 0.285, odds ratio
-   roughly 4.0). The dominant shared cause is the scene itself — the same
-   objects, the same geometry, the same occlusion — not the shared weights.
+   roughly 4.0), so shared weights are a contributing channel rather than the
+   operative one.
+3. **The shared context is causal, and the effect decomposes.** A permutation
+   control breaks one shared thing at a time while holding both agents' error
+   rates exactly fixed. Pairing agents across unrelated objects returns a ratio
+   of **0.999** (95% range [0.835, 1.166]), which both confirms the statistic is
+   unbiased and supplies the counterfactual: with nothing shared there is no
+   correlation. Holding the scene fixed but breaking the object pairing leaves
+   **1.197** [1.062, 1.340]. So of the 0.671 excess, roughly **29% is scene-wide**
+   (weather, town, viewpoint geometry) and roughly **71% is attributable to the
+   two agents observing the same individual object**.
 
 **This broadens the claim rather than weakening it.** The failure is not
 confined to teams that deploy identical perception models. It appears between
@@ -46,8 +55,17 @@ would reach for precisely to obtain independence. Section 3 cites a 2026 survey
 naming "homogeneous agents with identical perception models" as the susceptible
 case; this measurement says the susceptible case is wider than that.
 
+**It also localises the cause.** The largest single contribution is not the
+shared model and not the shared weather, but the shared *object*: two agents
+looking at one car fail on that car together far more than their individual
+error rates permit. The effect survives conditioning on apparent object size,
+so it is not reducible to "small objects are hard". That points the method at
+per-object dependence between agents rather than a per-agent or per-scene
+trust scalar, and it is the finding most likely to shape the M1 design.
+
 Reports and the commands that generate them: `docs/spike/SPIKE_RESULT.md`,
-`docs/spike/SPIKE_STRATIFIED_ANALYSIS.md`, `docs/spike/SPIKE_CONTRAST_CONDITION.md`.
+`docs/spike/SPIKE_STRATIFIED_ANALYSIS.md`, `docs/spike/SPIKE_CONTRAST_CONDITION.md`,
+`docs/spike/SPIKE_CAUSATION_CONTROL.md`.
 
 **Limits of this measurement**, carried forward rather than resolved: one town,
 one frame per scene, one IoU threshold, and two detectors that are both
@@ -128,7 +146,9 @@ Correct the trust update for measured dependence: discount a confirming report b
 
 **A real detector is non-negotiable.** If claims are generated synthetically with a correlation parameter chosen by the experimenter, the experiment assumes its own conclusion. The shared-model channel only means something if two agents running the same weights produce genuinely correlated errors that are measured rather than imposed. **This condition is now met:** the spike ran YOLO11m and RT-DETR-L over rendered CARLA frames and scored both against simulator ground truth, with truth used for scoring only.
 
-**One revision to the channel list.** The detector-model channel was expected to be the principal one. It is not. It is real but secondary, and the scene-level channels — viewpoint overlap and occlusion — carry the larger share. The sweep should allocate its budget accordingly, and the design gate should not freeze a channel ranking that the spike has already contradicted.
+**One revision to the channel list.** The detector-model channel was expected to be the principal one. It is not. It is real but secondary. The permutation control in Section 0 localises the dominant contribution more precisely than "scene-level": roughly 71% of the excess attaches to the two agents observing the *same object*, against roughly 29% for scene-wide conditions. The sweep should allocate its budget accordingly, and the design gate should not freeze a channel ranking that the spike has already contradicted.
+
+This has a direct consequence for the estimator in Section 4.3. Dependence that lives mostly at the object level is not well represented by a per-agent or per-scene trust scalar, which is what the four-channel framing implicitly assumes. The M1 design should decide whether the dependence estimate is keyed per object pair or per agent pair, and that question is now an empirical one rather than a matter of taste.
 
 ### Carried over from the Sprint 1 prototype
 
@@ -153,7 +173,7 @@ A direct check on a Vista GH node established that CARLA cannot run there: the n
 - **Not the discovery of correlated failure.** It is established in distributed estimation, truth discovery, crowdsourcing, multi-version software and classifier ensembles.
 - **Not a defeat of MATE at its own task.** MATE is an attack-detection system; this work reuses its trust machinery for evidence resolution and task decisions. Any comparison is on the independence assumption they share, not on security performance.
 - **No real-world safety claim.** Results establish decision-policy behaviour in simulation.
-- **Not an isolated mechanism.** The spike establishes that correlated failure is present and is not an artifact of shared object difficulty. It does not establish *which* shared cause dominates. Viewpoint overlap gave the largest single stratum but the effect is not monotonic in it.
+- **Partially isolated mechanism.** The permutation control does establish that shared context is causal and does separate the object-level share from the scene-wide share. It does NOT identify which per-object property is responsible. Apparent size is excluded; pose, colour, class and occlusion by a specific obstacle are not distinguished from one another.
 - **Not independent models.** Both detectors in the contrast condition are COCO-pretrained on overlapping data. "Different architecture" is not "independently trained on disjoint data", and the detector-pair training in Section 6 is what would close that gap.
 
 ## 8. Risks
@@ -167,6 +187,7 @@ Three of the four risks below were retired by the spike. They are retained with 
 | CARLA (Unreal 4.26) misbehaves on Blackwell-generation hardware | **Retired** | 0.9.16 renders correctly on the RTX 5060. Separate defect found instead: `client.load_world()` crashes the server, so the town is fixed at launch. |
 | Grant hours expire 2026-11-18 | **Open** | Detector-pair training is front-loaded into the first two weeks of November. |
 | Sweep cannot separate the correlation channels | **New** | The spike shows dependence is present across the whole matrix, so the sweep must detect *differences between* levels, not the presence of an effect. Power the matrix for the contrast, and treat the scene-level floor as a nuisance parameter rather than a signal. |
+| Dependence is keyed at the wrong level | **New** | Roughly 71% of the excess is object-level, so a per-agent or per-scene trust scalar may not be able to represent it. M1 must decide explicitly whether the estimator is keyed per object pair or per agent pair. |
 
 ## 9. Requested decision
 

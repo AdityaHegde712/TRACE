@@ -6,7 +6,9 @@ Measuring correlated failure in multi-agent visual evidence resolution. SJSU cap
 
 A team of drones inspects a road. Drone A reports a blockage, drone B confirms it, and the system closes the task because two sources agreed. That is only safe if the two reports can be wrong independently. Looking at the same scene, the drones can agree and be wrong together.
 
-**This is measured, not assumed.** A one-week spike in November 2026 ran one detector from two viewpoints over 54 CARLA scenes and scored both against simulator ground truth. The two agents were wrong about the same object **1.67 times more often than independence predicts** (95% CI [1.50, 1.87], 448 objects). Giving the agents *different* detectors reduced the effect but did not remove it, so the dominant shared cause is the scene itself rather than the shared model. See [`docs/spike/SPIKE_RESULT.md`](docs/spike/SPIKE_RESULT.md).
+**This is measured, not assumed.** A one-week spike in November 2026 ran one detector from two viewpoints over 54 CARLA scenes and scored both against simulator ground truth. The two agents were wrong about the same object **1.67 times more often than independence predicts** (95% CI [1.50, 1.87], 448 objects).
+
+A permutation control establishes that the shared context *causes* this rather than merely accompanying it: give the two agents unrelated objects and the ratio returns to **0.999**. Breaking down the excess, about **71% comes from the two agents looking at the same individual object** and about **29% from scene-wide conditions** such as weather and viewpoint geometry. Giving the agents different detectors reduces the effect but does not remove it. See [`docs/spike/`](docs/spike/).
 
 This project builds a benchmark and measurement harness that answers:
 
