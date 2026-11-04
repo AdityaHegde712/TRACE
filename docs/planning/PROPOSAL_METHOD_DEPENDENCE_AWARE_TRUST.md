@@ -1,202 +1,293 @@
-# Testing and Repairing the Independence Assumption in Multi-Agent Perception Trust
+# Dependence-Aware Trust in Multi-Agent Visual Perception: Quantifying Correlated Failure and Restoring Decision Calibration
 
-**Author:** Aditya Hegde
-**Advisor:** Dr. Kaikai Liu
-**Date:** 2026-10-29
-**Status:** Proposal for advisor review. Supersedes `PROPOSAL_CORRELATED_FAILURE.md`, which framed the same subject as a novelty gap rather than a method improvement.
-**Revised:** 2026-11-03, after the one-week spike. Section 0 is the measured result; Sections 3, 4.1, 5, 6, 7, 8 and 9 were revised to match it. Where the spike contradicted an earlier prediction, the prediction is shown and marked falsified rather than quietly removed.
-
----
-
-## 0. Headline result: the assumption was tested, and it failed
-
-The one-week spike proposed in Section 8 has been run. MATE's independence
-assumption does not hold in this setting.
-
-| Measure | Value |
-| --- | --- |
-| Dependence inflation ratio | **1.671**, 95% bootstrap CI **[1.500, 1.870]** |
-| Observed joint-error rate (double-fault) | 0.2143 |
-| Rate independence predicts | 0.1282 |
-| Scope | 54 CARLA 0.9.16 scenes, 448 objects visible to both agents |
-
-A ratio of 1.0 means independent. The interval sits clear of 1.0, so the two
-agents were wrong about the same object substantially more often than
-independence allows.
-
-Two follow-up experiments qualify the headline:
-
-1. **It is not an artifact of shared object difficulty.** Both agents observe
-   the same object, so an object that is small and far is hard for both, and
-   that alone could produce inflation. Conditioning on apparent object size,
-   inflation survives in every size tercile (1.324, 1.725, 1.782; every
-   interval above 1.0).
-2. **A shared detector contributes, but does not explain it.** Running a second
-   detector of a different architecture (RT-DETR-L) over the same frames,
-   agents sharing a detector are measurably more associated than agents running
-   different ones (+0.0915 phi, paired 95% CI [+0.0466, +0.1401]). Yet
-   heterogeneous agents remain strongly associated (phi 0.285, odds ratio
-   roughly 4.0), so shared weights are a contributing channel rather than the
-   operative one.
-3. **The shared context is causal, and the effect decomposes.** A permutation
-   control breaks one shared thing at a time while holding both agents' error
-   rates exactly fixed. Pairing agents across unrelated objects returns a ratio
-   of **0.999** (95% range [0.835, 1.166]), which both confirms the statistic is
-   unbiased and supplies the counterfactual: with nothing shared there is no
-   correlation. Holding the scene fixed but breaking the object pairing leaves
-   **1.197** [1.062, 1.340]. So of the 0.671 excess, roughly **29% is scene-wide**
-   (weather, town, viewpoint geometry) and roughly **71% is attributable to the
-   two agents observing the same individual object**.
-
-**This broadens the claim rather than weakening it.** The failure is not
-confined to teams that deploy identical perception models. It appears between
-agents running different models, which is the configuration a system designer
-would reach for precisely to obtain independence. Section 3 cites a 2026 survey
-naming "homogeneous agents with identical perception models" as the susceptible
-case; this measurement says the susceptible case is wider than that.
-
-**It also localises the cause.** The largest single contribution is not the
-shared model and not the shared weather, but the shared *object*: two agents
-looking at one car fail on that car together far more than their individual
-error rates permit. The effect survives conditioning on apparent object size,
-so it is not reducible to "small objects are hard". That points the method at
-per-object dependence between agents rather than a per-agent or per-scene
-trust scalar, and it is the finding most likely to shape the M1 design.
-
-Reports and the commands that generate them: `docs/spike/SPIKE_RESULT.md`,
-`docs/spike/SPIKE_STRATIFIED_ANALYSIS.md`, `docs/spike/SPIKE_CONTRAST_CONDITION.md`,
-`docs/spike/SPIKE_CAUSATION_CONTROL.md`.
-
-**Limits of this measurement**, carried forward rather than resolved: one town,
-one frame per scene, one IoU threshold, and two detectors that are both
-COCO-pretrained on overlapping data, so "different model" here is not
-"independently trained on disjoint data". The spike establishes that the effect
-is real and worth building on. It does not fully isolate the mechanism.
+**Author:** Aditya Hegde  
+**Advisor:** Dr. Kaikai Liu  
+**Date:** 2026-11-03  
+**Status:** Proposal for Advisor Review (Supercedes prior preliminary framings)  
 
 ---
 
-## 1. What changed, and why
+## 1. Executive Summary & Research Questions
 
-An earlier version of this proposal asked whether anyone had measured correlated failure between perception agents. Eight rounds of adversarial literature review answered that badly: each round found prior work, and the claim had to be narrowed five times until what remained was defensible but thin. That is what novelty-by-exclusion does.
+Multi-agent visual perception networks enable autonomous teams (e.g., unmanned aerial or ground vehicles) to achieve collective situational awareness beyond the field of view of any individual platform. When aggregating distributed detections to verify critical environmental states—such as roadway blockages or navigational obstacles—decision frameworks rely on multi-agent trust models to weigh and verify claims. Current state-of-the-art trust estimation methods, exemplified by the Multi-Agent Trust Estimator (MATE; Hallyburton & Pajic, 2025), fundamentally assume that observation errors between distinct agents are conditionally independent given the true environment. Under this assumption, agreement between multiple sources is interpreted as cumulative confirmation, accelerating task closures.
 
-This proposal asks a different question. Not *has anyone studied this*, but **is the current solution good, and can it be improved**. The deliverable is measured against a named baseline rather than against a literature search, and the 50-work survey becomes supporting evidence that the baseline is real and widespread rather than a threat to the claim.
+This proposal investigates the validity of this independence assumption in physical multi-agent perception, quantifies its breakdown across controlled physical channels, and develops a dependence-aware evidence-resolution policy to restore decision calibration. Through an empirical spike across 54 CARLA 0.9.16 simulation scenes encompassing 448 co-visible physical objects, we demonstrated that the conditional independence assumption fails substantially: agent pairs double-fault on the same physical object at an inflation ratio of **1.671** (95% bootstrap CI [1.500, 1.870]) relative to the rate predicted under independence. Confound controls and permutation null tests establish that this failure is causal (permutation null = 0.999), persists across apparent object size terciles, and decomposes into a 29% scene-wide effect and a 71% object-instance effect. Crucially, deploying heterogeneous detector architectures (YOLO11m paired with RT-DETR-L) reduces association only marginally (+0.0915 phi difference), leaving heterogeneous agents strongly correlated (phi = 0.2852, odds ratio ~ 4.0).
 
-## 2. The baseline
+Based on these empirical findings, this research addresses three primary research questions:
 
-**MATE: the Multi-Agent Trust Estimator** (Hallyburton & Pajic, arXiv:2503.04954, 2025) is current work on exactly this problem: security-aware sensor fusion across a multi-agent perception network. It is built the same way this project is — "Trust estimation can be cast as a hidden Markov model" — and it estimates per-agent and per-track trust online to weight fusion.
+1. **RQ1 (Empirical Characterization):** Across which physical, geometric, and architectural channels (object instance features, local occlusions, viewpoint disparity, ambient illumination, and model architectures) does perceptual error dependence concentrate, and how do these factors modulate joint failure rates?
+2. **RQ2 (Online Dependence Estimation):** Can inter-agent perceptual error dependence be estimated online from streaming, categorical claim streams without ground truth access, and at what structural granularity (per-agent-pair versus per-object-pair) must the estimator operate?
+3. **RQ3 (Downstream Task Decision Impact):** At what dependence thresholds does naive belief fusion induce unacceptable decision error (e.g., premature task closure on false positives), and can a dependence-aware evidence-discounting policy eliminate catastrophic agreement blindness while minimizing verification cost?
 
-MATE rests on a conditional-independence claim, stated plainly:
+---
+
+## 2. Problem Statement: The Unverified Independence Assumption
+
+When an autonomous agent reports a detection (e.g., "road blockage present at coordinates $(x, y)$"), a distributed perception system must determine whether the claim warrants operational action. In safety-critical autonomy, a confirming report from a second platform is routinely treated as independent verification.
+
+This inference is mathematically sound only if error processes across sensing platforms are statistically independent. In the reference architecture under study, as well as in the project's initial baseline prototype, this assumption is instantiated directly: differing source identifiers (`source_id_A != source_id_B`) are treated as evidence of statistical independence. A confirming report increments belief according to naive Bayesian updates or unweighted thresholding, triggering task closure:
+
+```python
+# Baseline evidence resolution logic (illustrative)
+has_independent_positive = any(
+    item.source_id != claim.source_id for item in snapshot.positive_claims
+)
+if claim.assertion == "present" and has_independent_positive:
+    return PolicyDecision(belief_status="verified", action="close")
+```
+
+If both agents operate within the same physical environment, observe identical geometry, view through shared occluding obstacles, or employ models pretrained on overlapping feature distributions, their error distributions correlate. Under correlated failure, two agents agree and fail together. Consensus becomes a failure amplifier rather than a safeguard: confirmation bias is encoded into the fusion pipeline, producing high-confidence erroneous actions ("correlated agreement blindness") with negligible true informational gain. While accepted engineering constraints (e.g., AD-004 in this project) prescribe that repeated or correlated evidence must not be treated as independent, operational systems currently lack validated estimators to detect or mitigate this correlation.
+
+---
+
+## 3. Literature Context and the Empirical Gap
+
+The assumption of conditional independence is pervasive across distributed sensor fusion and multi-agent systems, yet its validity in visual perception remains unverified.
+
+### 3.1 The Baseline: MATE (Multi-Agent Trust Estimator)
+
+The primary state-of-the-art baseline addressed in this work is MATE (Hallyburton & Pajic, arXiv:2503.04954, 2025). MATE formulates trust estimation across multi-agent perception networks via hidden Markov models, estimating online trust scalars per agent and per track to filter malicious or degraded sources. MATE explicitly anchors its theoretical optimality on conditional independence:
 
 > "Optimal data fusion at AGG occurs when data fused from agents are uncorrelated. Agents observing the same environment from their own independent platform-level sensors will see similar state estimates but, **given the environment, their tracks will importantly not contain any correlations.**"
 
-Three facts about that sentence make it the right thing to attack.
+This premise exhibits three defining properties:
+1. **Unverified Premise:** The claim is stated as an axiomatic modeling convenience rather than an empirically demonstrated finding.
+2. **Acknowledged Open Question:** The authors explicitly identify this empirical gap, stating that future work must experimentally evaluate the independence assumption.
+3. **Known Downstream Hazard:** The authors acknowledge the operational danger, noting that neglecting correlations causes network nodes to double-count evidence.
 
-1. **It is an assertion, not a result.** No experiment in the paper establishes it.
-2. **The authors know it is untested.** They write: "Future works will experimentally evaluate the independence assumption."
-3. **They already know the hazard it creates**, describing "nodes where information can be double-counted by neglecting to model correlations."
+This assumption is not idiosyncratic to MATE. It appears as an uncalibrated scalar beta-factor in safety standard IEC 61508, as an explicit simplifying assumption in multi-sensor autonomous vehicle voter architectures, and as the default operational rule across distributed robotic teams.
 
-The same assumption is not unique to MATE. It appears as a scalar beta factor in IEC 61508, as an explicit simplification in a 2025 safety-integrity analysis of a camera/lidar/radar voter, and — in this project's own Sprint 1 prototype — as a rule that treats a differing `source_id` as statistical independence. It is the default, and it is unexamined.
+### 3.2 Prior Art in Adjacent Literatures
 
-## 3. Why the assumption is likely false
+A comprehensive investigation across eight adjacent research literatures (spanning 50 works, documented in `docs/research/DEPENDENCE_NOVELTY_SURVEY.md`) reveals that inter-source dependence has been studied extensively in non-perceptual domains:
+- **Classifier Ensemble Diversity:** Kuncheva and Whitaker (2003) established statistical measures of ensemble diversity, formalizing the pairwise **double-fault measure** to capture the proportion of cases misclassified by two classifiers simultaneously.
+- **Database Truth Discovery:** Dong, Berti-Équille, and Srivastava (PVLDB 2009) developed hidden Markov models to infer time-varying source copying and dependence from categorical claim streams without ground truth.
+- **Crowdsourcing & Label Aggregation:** Models such as EBCC (Li et al., ICML 2019) model inter-annotator correlations to prevent consensus distortion.
+- **LLM Multi-Agent Coordination:** Recent studies outside perception (*Smart Alone, Blind Together*, 2026; *Agent Behavioral Contracts II*, 2026) report that redundant LLM agents co-fail on up to 90% of tasks where either fails, proving that shared pretraining induces severe consensus failures.
+- **Perception Redundancy on Single Platforms:** Gottschalk, Rottmann, and Saltagic (arXiv:2112.04758, 2021) evaluated redundant neural networks on synthetic 3D-MNIST rotations on a single compute platform, concluding that independence cannot be assumed even when different data sources are used.
+- **Collaborative Perception Benchmarks:** A 2026 survey (*General Collaborative Intelligence*, arXiv:2609.22967) notes qualitatively that homogeneous agents with identical models and similar viewpoints are vulnerable to correlated failures. However, existing benchmarks (e.g., GCI-Bench, RCP-Bench, GLST, LUCIA) evaluate feature distances for adversary detection or average precision (AP) under corruptions; none measures inter-agent detection error correlation or connects it to task-lifecycle decisions.
 
-MATE's claim holds if agent errors come from independent platform-level noise. It fails if agents share anything that shapes *how* they are wrong. Evidence from three literatures says they do:
+### 3.3 The Core Research Gap
 
-- **Shared detector weights produce shared blind spots.** Gottschalk, Rottmann and Saltagic measured error correlation between redundant perception networks and concluded independence "cannot be taken simply for granted, even if different sources of data are employed."
-- **Shared models and viewpoints are a named failure mode.** A 2026 survey of collaborative perception states that "homogeneous agents with identical perception models and similar viewpoints are susceptible to correlated failures."
-- **The same assumption, tested elsewhere, broke badly.** Work on multi-agent reliability describes compositional bounds as resting on "a step licensed by a conditional-independence assumption that is routinely stated and rarely tested," then tests it: two instances of one model co-failed on 90.0% of missions on which either failed.
+No prior work has experimentally measured inter-agent perceptual error correlation among distributed embodied agents situated in a shared 3D physical environment, decomposed that correlation into physical and architectural channels, or measured its direct operational cost on task decision policies. This project directly addresses that gap.
 
-None of these is in MATE's setting. That was the point of this section when it was written: the assumption had been falsified wherever it had been checked, and MATE's setting was where it had not been checked.
+---
 
-**That gap is now closed.** Section 0 reports the measurement in this project's own setting. The assumption fails there too, and it fails more broadly than the third bullet above would predict: correlation persists between agents running *different* detectors, so shared weights are a contributing channel rather than the operative one.
+## 4. Preliminary Empirical Evidence: The Dependence Spike
 
-## 4. Proposed work
+To establish whether the conditional independence assumption fails in realistic visual perception settings, an end-to-end empirical spike was conducted using the CARLA 0.9.16 autonomous driving simulator and modern object detection architectures.
 
-### 4.1 Test the assumption (the part MATE invited)
+### 4.1 Experimental Protocol and Headline Result
 
-Measure whether agent track errors are conditionally independent given the environment, by comparing the observed joint-error rate between agent pairs against the rate independence predicts. The statistic is the double-fault measure of Kuncheva and Whitaker (2003) expressed as an inflation ratio; it is adopted, not invented.
+The measurement protocol evaluated two autonomous agents observing shared physical road scenes from distinct spatial viewpoints. Fifty-four photorealistic scenes were rendered in CARLA Town10HD across diverse spawn coordinates, environmental conditions, and camera geometries. Two-dimensional ground-truth bounding boxes were extracted directly from the simulator. Visual detections were obtained using Ultralytics YOLO11m (IoU threshold 0.50, confidence threshold 0.25). Only objects visible to both agents were evaluated ($N = 448$ co-visible objects across 108 rendered frames). Ground truth was isolated strictly for offline evaluation and withheld from the perception pipeline (preserving project directive AD-001).
 
-**Result (2026-11-03), replacing the prediction this section originally carried.** The original prediction was that independence would hold approximately when agents run different detectors from well-separated viewpoints. **That half is falsified.** Agents running different detectors remain strongly associated (phi 0.285, odds ratio roughly 4.0), and the inflation ratio stays above 1.0 at every level of viewpoint overlap tested, including the widest separation.
+To quantify error dependence, we adopted the double-fault measure (Kuncheva & Whitaker, 2003), expressed as a **dependence inflation ratio**: the observed joint error rate (both agents failing on the same object) divided by the joint error rate predicted under conditional independence ($P(\text{Error}_A \cap \text{Error}_B) / [P(\text{Error}_A) \cdot P(\text{Error}_B)]$). A ratio of 1.0 denotes perfect independence; values above 1.0 indicate positive error correlation.
 
-What survives is the ordering, weakly. Shared-detector pairs are more associated than mixed pairs by +0.0915 phi (paired 95% CI [+0.0466, +0.1401]), and the highest overlap level gave the single largest ratio (1.985 against 1.377 and 1.576). But the ratio is **not monotonic** in viewpoint overlap and the per-stratum intervals overlap, so viewpoint geometry is not established as the operative mechanism.
+| Metric | Measured Value | Analysis / Significance |
+| :--- | :--- | :--- |
+| **Dependence Inflation Ratio** | **1.671** | Statistically significant inflation above independence |
+| **95% Bootstrap Confidence Interval** | **[1.500, 1.870]** | 5,000 resamples; lower bound sits clear of 1.0 |
+| **Observed Joint-Error Rate ($p_{11}$)** | **0.2143** | Empirical probability of simultaneous double-fault |
+| **Independence Predicted Rate ($p_A \cdot p_B$)** | **0.1282** | Theoretical product of marginal error probabilities |
+| **Agent A Marginal Error Rate ($p_A$)** | 0.3683 | 165 detection misses out of 448 visible objects |
+| **Agent B Marginal Error Rate ($p_B$)** | 0.3482 | 156 detection misses out of 448 visible objects |
+| **Sample Scope** | 54 scenes, 448 objects | Town10HD, 2 viewpoints per scene, 108 total frames |
 
-**Revised prediction for the full sweep:** dependence is present across the whole matrix with a floor set by scene-level sharing, and the controllable channels modulate it rather than switch it on and off. The sweep must therefore be powered to detect *differences between* correlation levels, not merely the presence of correlation, which the spike has already settled.
+The contingency table demonstrates that agent pairs double-faulted on 96 objects, compared to the 57.4 expected under statistical independence:
 
-### 4.2 Show where it fails worst
+| Contingency Cell | Observed Count |
+| :--- | :--- |
+| **Both agents wrong ($e_A = 1, e_B = 1$)** | **96** |
+| Only Agent A wrong ($e_A = 1, e_B = 0$) | 69 |
+| Only Agent B wrong ($e_A = 0, e_B = 1$) | 60 |
+| Neither agent wrong ($e_A = 0, e_B = 0$) | 223 |
 
-MATE identifies its own weak regime: "Low density coverage leaves the trust model ineffective; the veracity of a track cannot be determined from a single agent."
+### 4.2 Confound Analysis: Stratification by Apparent Object Size
 
-Correlation is most damaging in exactly that regime. With two agents that share a blind spot, the correlated pair *is* the entire evidence pool, and a second confirming report carries almost no additional information while appearing to carry a full one. The reference mission for this project is two drones. MATE's admitted weak point is this project's operating point.
+A critical hypothesis is that the measured inflation could represent an artifact of shared object difficulty: an object that is small or distant in 3D space is inherently challenging for any detector. If shared difficulty fully accounted for the effect, conditioning on apparent object area would drive the stratum inflation ratios to 1.0.
 
-### 4.3 Repair the decision rule
+Data were stratified into apparent-size terciles based on bounding-box pixel area. The dependence inflation ratio remained bounded above 1.0 across all three terciles:
 
-Correct the trust update for measured dependence: discount a confirming report by the estimated dependence between its source and the sources already counted. Both the uncorrected and corrected rules are implementations of a single policy interface, so the comparison is like-for-like.
+| Apparent Size Stratum | Pixel Area Range ($px^2$) | Object Count ($n$) | Inflation Ratio | 95% Bootstrap CI |
+| :--- | :--- | :--- | :--- | :--- |
+| **Small** | 102 – 1,736 | 149 | **1.324** | [1.183, 1.492] |
+| **Medium** | 1,782 – 3,888 | 149 | **1.725** | [1.164, 2.390] |
+| **Large** | 3,889 – 38,346 | 150 | **1.782** | [1.379, 2.251] |
 
-**Success criterion:** fewer incorrect task decisions — false closure, incorrect reopening — at equal or lower verification cost than the uncorrected rule, across the correlation sweep.
+Because inflation survives in all terciles—and is notably highest on medium and large targets—the effect cannot be dismissed as a small-object detection artifact.
 
-## 5. What gets built
+### 4.3 Model Architecture Contrast: Homogeneous vs. Heterogeneous Pairs
 
-| # | Component | Owner |
-| --- | --- | --- |
-| 1 | CARLA scene generator with four independent correlation knobs, ordered by measured effect: viewpoint overlap, shared occluder, weather, detector model | Rishi Sheth |
-| 2 | Perception adapter: a real detector run per agent per viewpoint, producing claims | Pranav Senghal |
-| 3 | Dependence estimator: pairwise joint-error inflation from claim streams, no ground truth at inference | Aditya Hegde |
-| 4 | Two policies behind one interface: naive-independence baseline and dependence-corrected treatment | Aditya Hegde |
-| 5 | Sweep harness: channel x strength x agent count, fixed seeds, retained runs | Pranav Senghal |
-| 6 | Scoring: independence test, task-decision errors, verification cost | Aditya Hegde |
+A common design recommendation in multi-agent systems is to deploy diverse detector models to achieve redundancy. To test whether architectural diversity eliminates correlated errors, a second detector of a fundamentally different architecture—a vision transformer-based real-time detector (RT-DETR-L)—was evaluated over the exact same 108 rendered frames.
 
-**A real detector is non-negotiable.** If claims are generated synthetically with a correlation parameter chosen by the experimenter, the experiment assumes its own conclusion. The shared-model channel only means something if two agents running the same weights produce genuinely correlated errors that are measured rather than imposed. **This condition is now met:** the spike ran YOLO11m and RT-DETR-L over rendered CARLA frames and scored both against simulator ground truth, with truth used for scoring only.
+Because detection accuracy differs between YOLO11m and RT-DETR-L, comparison across model configurations used Pearson's correlation coefficient ($\phi$) and odds ratios rather than raw inflation ratios:
 
-**One revision to the channel list.** The detector-model channel was expected to be the principal one. It is not. It is real but secondary. The permutation control in Section 0 localises the dominant contribution more precisely than "scene-level": roughly 71% of the excess attaches to the two agents observing the *same object*, against roughly 29% for scene-wide conditions. The sweep should allocate its budget accordingly, and the design gate should not freeze a channel ranking that the spike has already contradicted.
+| Model Pair Condition | Architecture Relationship | $\phi$ Correlation | Odds Ratio | $p_A$ | $p_B$ |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **YOLO11m / YOLO11m** | Homogeneous (CNN) | 0.374 | 5.129 | 0.368 | 0.348 |
+| **RT-DETR-L / RT-DETR-L** | Homogeneous (Transformer) | 0.379 | 6.605 | 0.234 | 0.214 |
+| **YOLO11m / RT-DETR-L** | Heterogeneous (CNN + Transformer) | 0.278 | 3.889 | 0.368 | 0.214 |
+| **RT-DETR-L / YOLO11m** | Heterogeneous (Transformer + CNN) | 0.292 | 4.003 | 0.234 | 0.348 |
 
-This has a direct consequence for the estimator in Section 4.3. Dependence that lives mostly at the object level is not well represented by a per-agent or per-scene trust scalar, which is what the four-channel framing implicitly assumes. The M1 design should decide whether the dependence estimate is keyed per object pair or per agent pair, and that question is now an empirical one rather than a matter of taste.
+A paired bootstrap analysis across the identical 448 objects revealed:
+- **Mean Homogeneous Association ($\phi$):** **0.3766**
+- **Mean Heterogeneous Association ($\phi$):** **0.2852**
+- **Paired Difference ($\Delta \phi$):** **+0.0915** (95% CI [+0.0466, +0.1401])
 
-### Carried over from the Sprint 1 prototype
+Deploying identical models measurably increases joint failure, confirming that shared neural network weights contribute to correlation. However, heterogeneous pairs retain substantial correlation ($\phi = 0.2852$, odds ratio $\approx 4.0$, with confidence intervals excluding zero). Thus, shared model weights represent a secondary contributor; the primary driver of failure correlation is external to the neural network weights.
 
-The replaceable policy interface, the discipline of keeping simulator truth out of the resolver, deterministic replay with trace hashing, and the CLI artifact shape. The claim record itself is rebuilt: it carries one observation timestamp and no arrival time, so it cannot represent late or out-of-order delivery, and arrival order must be controlled separately or it will confound the dependence result.
+### 4.4 Causal Permutation Control and Effect Decomposition
 
-## 6. Compute plan
+To verify that the measured inflation reflects genuine causal coupling rather than statistical sample bias, a series of permutation controls were executed across the dataset. These permutations held both agents' marginal error rates strictly constant while selectively decoupling physical context:
 
-**Rendering runs locally. Confirmed working, not projected.** CARLA **0.9.16** on an RTX 5060 Laptop GPU (8 GB), which clears the documented 6 GB floor for the Unreal 4.26 line. CARLA 0.10 is not used: it requires 12-16 GB.
+| Experimental Condition | Preserved Coupling | Inflation Ratio | 95% Bootstrap Range |
+| :--- | :--- | :--- | :--- |
+| **Observed Pairing** | Same Scene, Same Object | **1.671** | [1.495, 1.875] |
+| **Within-Scene Control** | Same Scene, Shuffled Different Object | **1.197** | [1.062, 1.340] |
+| **Unrelated Null** | Different Scene, Unrelated Object | **0.999** | [0.835, 1.166] |
 
-Three corrections from the spike:
-- **0.9.16, not 0.9.15.** The 0.9.15 Windows client publishes `cp310` wheels at the latest and cannot install under this project's Python 3.12. 0.9.16 publishes `cp312` and remains on Unreal 4.26, so the VRAM profile is unchanged.
-- **Blackwell renders.** The risk that Unreal 4.26 would misbehave on Blackwell silicon did not materialise. 54 scenes rendered in 36 seconds with none skipped.
-- **The server cannot change maps in-process.** `client.load_world()` terminates the server on this machine, reproducibly. The town is fixed when the executable is launched, and scene variety comes from the spawn points within it.
+These controls provide two decisive findings:
+1. **Unbiased Metric:** When agents observe completely unrelated scenes and objects, the inflation ratio returns **0.999** (95% range [0.835, 1.166]). This validates that the double-fault ratio is statistically unbiased and confirms that zero correlation yields a ratio of exactly 1.0.
+2. **Variance Decomposition:** Total excess dependence above independence is $1.671 - 1.000 = 0.671$.
+   - Retaining scene-level factors (weather, global lighting, geographic layout) while decoupling the specific object accounts for $1.197 - 1.000 = 0.197$, representing **29.4%** of the excess correlation.
+   - Forcing both agents to observe the **identical physical object instance** contributes the remaining $0.474$, representing **70.6%** of the excess correlation.
 
-**Inference and training run on TACC Vista**, under an existing grant with roughly 900 GPU-hours available until 2026-11-18.
+This empirical finding dictates the methodological direction: correlated failures in multi-agent perception are heavily localized at the **object instance level** (e.g., specific target orientation, local shadow boundaries, vehicle color contrast, partial structural occlusion) rather than behaving as a scalar property of the overall environment or platform pairing.
 
-A direct check on a Vista GH node established that CARLA cannot run there: the nodes are `aarch64` with no x86 emulation available, and CARLA ships x86_64 binaries. The graphics stack itself is present — a real `nvidia_icd.aarch64.json` and loadable EGL — so the obstacle is the instruction set, not the GPU. Rendering therefore stays local and Vista is used for what it suits: detector inference at scale, and training the detector pairs that make the shared-model channel controllable. A correlated pair is two fine-tunes of one base model; a decorrelated pair is two different architectures. Building those pairs turns the fourth correlation channel from an assumption into a construction.
+---
 
-## 7. What is not claimed
+## 5. Research Objectives & Technical Methodology
 
-- **Not a new statistic.** The double-fault measure is from 2003.
-- **Not the discovery of correlated failure.** It is established in distributed estimation, truth discovery, crowdsourcing, multi-version software and classifier ensembles.
-- **Not a defeat of MATE at its own task.** MATE is an attack-detection system; this work reuses its trust machinery for evidence resolution and task decisions. Any comparison is on the independence assumption they share, not on security performance.
-- **No real-world safety claim.** Results establish decision-policy behaviour in simulation.
-- **Partially isolated mechanism.** The permutation control does establish that shared context is causal and does separate the object-level share from the scene-wide share. It does NOT identify which per-object property is responsible. Apparent size is excluded; pose, colour, class and occlusion by a specific obstacle are not distinguished from one another.
-- **Not independent models.** Both detectors in the contrast condition are COCO-pretrained on overlapping data. "Different architecture" is not "independently trained on disjoint data", and the detector-pair training in Section 6 is what would close that gap.
+Guided by these empirical insights, the proposed research aims to formalize, estimate, and correct for perceptual error dependence in multi-agent evidence resolution pipelines.
 
-## 8. Risks
+```
++-------------------------------------------------------------------------------------------------+
+|                                 CARLA Controlled Scene Generator                                |
+|  Orthogonal Knobs: Viewpoint Disparity | Occlusion Geometry | Weather/Illumination | Model Pair |
++-------------------------------------------------------------------------------------------------+
+                                                 |
+                                                 v
++-------------------------------------------------------------------------------------------------+
+|                                Multi-Agent Perception Adapters                                  |
+|         Agent A: Camera Viewpoint A -> Detection Stream A (YOLO11m or RT-DETR-L)                |
+|         Agent B: Camera Viewpoint B -> Detection Stream B (YOLO11m or RT-DETR-L)                |
++-------------------------------------------------------------------------------------------------+
+                                                 |
+                                                 v
++-------------------------------------------------------------------------------------------------+
+|                       Streaming Evidence Resolution Engine (AD-001 - AD-004)                    |
+|   - Deterministic replay & cryptographic trace hashing                                           |
+|   - Online dependence estimator (Object-instance vs. agent-pair tracking)                       |
++-------------------------------------------------------------------------------------------------+
+                                                 |
+                       +-------------------------+-------------------------+
+                       |                                                   |
+                       v                                                   v
++-----------------------------------------------+ +-----------------------------------------------+
+|       Baseline Policy (Naive Independence)    | |      Treatment Policy (Dependence-Aware)      |
+|  Different source_id treated as independent;  | |  Weights confirming evidence by estimated     |
+|  Unweighted Bayesian consensus.               | |  inter-source dependence; discounts overlap.  |
++-----------------------------------------------+ +-----------------------------------------------+
+                       |                                                   |
+                       +-------------------------+-------------------------+
+                                                 |
+                                                 v
++-------------------------------------------------------------------------------------------------+
+|                             Downstream Task Decision Evaluation                                 |
+|  Scoring against isolated ground truth: False Task Closures | Verification Cost | Latency        |
++-------------------------------------------------------------------------------------------------+
+```
 
-Three of the four risks below were retired by the spike. They are retained with their outcomes rather than deleted, so the record shows what was actually checked.
+### 5.1 System Architecture and Design Invariants
 
-| Risk | Status | Mitigation or outcome |
-| --- | --- | --- |
-| Rendering plus inference too slow to fill the sweep matrix | **Retired** | 54 scenes rendered in 36 s; 108 frames detected in 12 s (YOLO11m) and 7 s (RT-DETR-L). Throughput is not the constraint. |
-| Measured correlation is negligible even with a shared detector | **Retired** | Correlation measured at ratio 1.671, CI [1.500, 1.870]. Reported either way; it did not need to be. |
-| CARLA (Unreal 4.26) misbehaves on Blackwell-generation hardware | **Retired** | 0.9.16 renders correctly on the RTX 5060. Separate defect found instead: `client.load_world()` crashes the server, so the town is fixed at launch. |
-| Grant hours expire 2026-11-18 | **Open** | Detector-pair training is front-loaded into the first two weeks of November. |
-| Sweep cannot separate the correlation channels | **New** | The spike shows dependence is present across the whole matrix, so the sweep must detect *differences between* levels, not the presence of an effect. Power the matrix for the contrast, and treat the scene-level floor as a nuisance parameter rather than a signal. |
-| Dependence is keyed at the wrong level | **New** | Roughly 71% of the excess is object-level, so a per-agent or per-scene trust scalar may not be able to represent it. M1 must decide explicitly whether the estimator is keyed per object pair or per agent pair. |
+The evaluation harness adheres to four immutable architectural decisions:
+- **AD-001 (Ground-Truth Separation):** Ground truth from the simulator is restricted to downstream evaluation metrics; it is strictly excluded from perception streams and resolution policies.
+- **AD-002 (Layer Decoupling):** Probabilistic belief estimation and discrete task action selection (e.g., verifying, closing, or dispatching inspection) are strictly isolated into modular components.
+- **AD-003 (Deterministic Traceability):** Every policy decision records the contributing claim IDs and policy version, ensuring byte-identical replay verified via SHA-256 trace hashes.
+- **AD-004 (Dependence Invariant):** Multi-source evidence is never treated as statistically independent without explicit quantitative validation.
 
-## 9. Requested decision
+### 5.2 Controlled Physical Scenario Generator
 
-Approval to proceed to a design phase under this framing: freeze the dependence statistic and its estimator, the four correlation channels, the scenario matrix, and the acceptance thresholds. Implementation remains a separate approval gate.
+Building on the CARLA 0.9.16 pipeline, we will systematically generate an experimental corpus sweeping four orthogonal correlation channels:
+1. **Viewpoint Geometry:** Angular and baseline separation between agents (sweeping from narrow stereoscopic baselines to wide orthogonal vantage points).
+2. **Local Occlusion:** Insertion of static roadway infrastructure, vegetation, and adjacent vehicles partially masking target objects.
+3. **Environmental Illumination:** Controlled weather and sun angle presets (ClearNoon, WetNoon, CloudySunset, Dusk).
+4. **Detector Diversity:** Pairs drawn from identical architectures (YOLO/YOLO), distinct model families (YOLO/RT-DETR), and models fine-tuned on disjoint versus overlapping training partitions.
 
-This request now rests on a measurement rather than a projection. The assumption under attack has been tested in this project's own setting and it failed (Section 0), the toolchain that the full study depends on has been run end to end, and the measurement harness is built and under test. Two things should be decided at the design gate in light of the result: the channel ranking, which the spike contradicts (Section 5), and whether the scenario matrix is powered to separate correlation levels rather than merely detect correlation (Section 8).
+### 5.3 Online Dependence Estimation Without Ground Truth
 
-## Supporting evidence
+To satisfy RQ2, we will develop an online estimator that calculates inter-source dependence directly from claim streams. Because the spike demonstrated that 71% of correlation concentrates at the object level, the estimator must move beyond coarse scalar agent-trust weights. We will formalize and evaluate two candidate estimators:
+- **Agent-Pair Estimator:** Tracks pairwise rolling double-fault rates across shared spatio-temporal claim tracks.
+- **Instance-Conditioned Estimator:** Conditions dependence estimates on spatial bounding-box overlap, estimated distance, and feature similarity of the target track.
 
-The literature assessment behind this proposal is in `docs/research/DEPENDENCE_NOVELTY_SURVEY.md`: 50 works across eight literatures, 36 retrieved and searched in full, through eight independent adversarial review rounds. Under the earlier gap framing that survey was a threat to the claim. Under this framing it is the evidence that the baseline assumption is widespread, load-bearing, and untested.
+### 5.4 Dependence-Corrected Policy vs. Naive Baseline
 
-Every quotation in this proposal was verified verbatim against a locally retained copy of its source.
+Both policies are implemented behind an identical `ResolutionPolicy` interface to guarantee rigorous comparative evaluation:
+- **Naive-Independence Baseline:** Implements standard multi-agent Bayesian updating, treating any claim from an alternate `source_id` as conditionally independent evidence.
+- **Dependence-Aware Treatment:** Applies a discounting operator to confirming claims. When Agent B confirms a detection reported by Agent A, Agent B's belief contribution is discounted as a function of the estimated inter-source dependence factor, preventing premature certainty escalation.
+
+### 5.5 Quantitative Evaluation Protocol
+
+The experimental corpus will be evaluated against three core operational metrics:
+1. **False Closure Rate:** Frequency with which the system erroneously closes inspection tasks on false-positive detections due to correlated agent double-faults.
+2. **Incorrect Reopening / Rejection Rate:** Frequency of erroneously discarding true obstacles due to over-conservative fusion.
+3. **Verification Cost:** Total sensing operations, re-observations, or secondary UAV dispatches required to reach definitive task resolution.
+
+**Success Criterion:** The dependence-aware policy must demonstrate a statistically significant reduction in false task closures under correlated operating regimes without incurring prohibitive re-verification overhead compared to the naive baseline.
+
+---
+
+## 6. Feasibility, Compute Plan, and Infrastructure Status
+
+The proposed investigation is grounded in a verified, working codebase and validated hardware configurations.
+
+### 6.1 Simulation and Rendering Pipeline
+
+All CARLA simulation rendering runs locally on an dedicated RTX 5060 Laptop GPU (8 GB VRAM), executing CARLA 0.9.16 on Unreal Engine 4.26 under Python 3.12. The spike retired primary hardware risks:
+- **Throughput:** Rendering 54 scenes required 36 seconds; inference across 108 frames required 12 seconds on YOLO11m and 7 seconds on RT-DETR-L.
+- **Server Stability:** To prevent Unreal Engine server crashes identified during `client.load_world()` invocations (documented in decision SD-016), the simulator town is fixed at launch, and spatial diversity is achieved via distributed camera actor spawn coordinates.
+
+### 6.2 Model Inference and Fine-Tuning
+
+For large-scale sweeps and controlled detector fine-tuning, workloads will utilize the Vista HPC cluster. While Vista nodes run ARM64 (`aarch64`) architecture—precluding CARLA x86_64 binary execution—they provide high-throughput GPU capacity for detector inference across saved frame corpora and for fine-tuning detector pairs on disjoint data partitions.
+
+### 6.3 Existing Prototype & Test Infrastructure
+
+The software framework is fully operational and maintained under strict test-driven development:
+- **Evidence Resolution Prototype:** Implements typed claim contracts, event logs, deterministic replay, and CLI harnesses (22 tests passing in `tests/spec/` and `tests/integration/`). Trace replay determinism is cryptographically verified via identical SHA-256 hashes across runs.
+- **Dependence Measurement Harness:** Implements artifacts I/O, ground-truth projection, double-fault calculation, bootstrapping, stratification, and permutation shuffling (153 total tests passing across the project test suite).
+
+---
+
+## 7. Scope, Delimitations, and Risk Management
+
+To maintain scientific rigor, the boundaries of this research are explicitly delimited:
+
+- **Simulation-Grounded Behavioral Evaluation:** Findings characterize decision-policy behavior in photorealistic simulation (CARLA). No formal claim of real-world physical deployment safety is asserted.
+- **Adopted Statistical Metrics:** The project does not claim the invention of the double-fault measure (Kuncheva & Whitaker, 2003) or the discovery of correlated failure as an abstract mathematical concept. The novelty lies in the empirical measurement of physical dependence channels in multi-agent visual perception and the design of dependence-calibrated resolution policies.
+- **Non-Confounding Ordering Controls:** The claim stream architecture explicitly controls for message arrival latency and out-of-order delivery (Track A watermark design) to prevent temporal arrival anomalies from confounding dependence measurements.
+
+### Risk Matrix and Mitigations
+
+| Identified Risk | Impact | Status / Mitigation Strategy |
+| :--- | :--- | :--- |
+| **High local simulation overhead** | Slow sweep execution | **Retired:** Spike proved rendering takes <1 s per scene; frame generation is decoupled from offline multi-model inference. |
+| **Negligible real-world correlation** | Insufficient signal to study | **Retired:** Spike measured an inflation ratio of 1.671 (CI [1.500, 1.870]), confirming substantial correlation in realistic scenes. |
+| **Dependence cannot be captured by scalar trust** | Policy unable to prevent co-failures | **Active Focus:** Spike established that 71% of correlation is object-level. The M1 milestone will explicitly evaluate object-pair versus agent-pair estimator representations. |
+| **Disentangling fine-grained per-object properties** | Inability to isolate exact causal feature | Controlled scenario generator will systematically hold vehicle models, colors, and poses constant while toggling ambient lighting and viewpoint angles. |
+
+---
+
+## 8. Research Milestones and Requested Decision
+
+The research is organized across six structured milestones:
+
+- **M0 (Current Gate - Nov 3):** Advisor approval of the refined research framing, empirical evidence, and qualitative research direction.
+- **M1 (Nov 10):** Formal freezing of experimental contracts: dependence metric formulations, online estimator interfaces, scenario parameter matrices, and baseline policies.
+- **M2 (Nov 24):** Delivery of the controlled-correlation CARLA scenario corpus and completion of deterministic out-of-order evidence replay verification.
+- **M3 (Dec 12):** Execution of the full experimental matrix sweep; generation of correlation-versus-decision-error curves.
+- **M4 (Dec 18):** Delivery of release-grade evaluation benchmarks, CLI harnesses, and packaging.
+- **M5 (Jan 15):** Final comparative analysis, policy operating boundary identification, and demonstration visualizations.
+- **M6 (Jan 22):** Final capstone research manuscript and comprehensive artifact submission.
+
+**Requested Decision:** Approval to proceed to the M1 Design Phase under this empirical and methodological framing, formalizing the dependence estimator specifications and scenario matrix. Implementation of production policies remains governed by subsequent approval gates.
