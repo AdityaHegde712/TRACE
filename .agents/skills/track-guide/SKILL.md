@@ -5,7 +5,7 @@ description: Session opener for team members. Asks who is working, saves the ans
 
 # Track Guide
 
-**Current gate (Aditya updates this line):** M0 pending (advisor approval due Nov 3). Until M0 passes, work is limited to setup, reading, and drafting questions. No implementation.
+**Current gate (Aditya updates this line):** M1 interfaces frozen (`m1-v0`, 2026-11-12; see `docs/planning/M1_CONTRACTS.md`). M0 is complete. Tracks B and C may implement against `src/trace_contracts/`; do not edit that package. The M1 research answer (estimator choice, thresholds) is still in progress on Track A.
 
 ## 1. Identify who is working
 1. Read `.agent-tasks/WHO.md`. If it exists, confirm in one line: "You are <name>, Track <letter>. Correct?"
