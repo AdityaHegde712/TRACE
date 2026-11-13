@@ -30,7 +30,12 @@ requires = ["hatchling>=1.26"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/evidence_resolution", "src/spike_dependence", "src/trace_contracts"]
+packages = [
+    "src/evidence_resolution",
+    "src/scenario_gen",
+    "src/spike_dependence",
+    "src/trace_contracts",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
