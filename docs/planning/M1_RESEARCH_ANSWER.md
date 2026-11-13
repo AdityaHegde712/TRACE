@@ -1,0 +1,61 @@
+# M1 Research Answer (Track A, draft v0)
+
+**Status:** Draft for owner review, 2026-11-12. Plugs in behind the frozen `m1-v0` interfaces (`M1_CONTRACTS.md`); nothing here changes them.
+
+| Item | State | Where |
+| --- | --- | --- |
+| 1. Dependence estimator | Leading design chosen; **blocked on an AD-001 ruling** | Section 1 |
+| 2. Cross-agent association | v0 implemented and tested on synthetic geometry | `src/evidence_resolution/association.py` |
+| 3. Sample-size floor | Measured from spike data | Section 3 |
+| 4. Acceptance thresholds | Proposed; owner confirms | Section 4 |
+| 5. Policy skeleton | v0 runs end to end through the ports | `src/evidence_resolution/miss_risk_policy.py` |
+
+## 1. Dependence estimator
+
+**Finding:** shared misses cannot be estimated from claim streams alone. When both agents miss an object, neither emits a claim, so the both-missed cell is never observed. This is the two-list capture-recapture problem: every dependence value fits the observed counts equally well. Supporting source: Albert & Dodd (JASA 2008) state that these quantities "are identifiable with multiple tests and an assumed model for the dependence between these tests", and that "gold standard evaluation on even a small percentage of cases greatly lowers the bias".
+
+Consequences:
+- Per-object-pair estimation online is ruled out. The spike's 71% object-instance share can only be reached through observable object features (label, apparent size), never object identity.
+- Audits must sample **random regions**. Verification triggered by claims inspects only claimed objects and never sees a double miss.
+
+**Leading design (not decided):** per agent pair × observable covariates (detector pair, illumination, viewpoint angle from poses, apparent size). The model is fitted offline on a labelled training split disjoint from evaluation scenes, then recalibrated online from random-region audits, with the offline fit as the prior.
+
+**Blocking decision (owner):** AD-001 says ground truth never enters resolution. Does fitting frozen estimator parameters on a disjoint training split count, given that the detector itself is trained on labels? If no, the only route is random audits from an uninformed prior, which is costly and slow.
+
+## 2. Association v0
+
+Each detection's bottom-centre pixel is projected onto the ground plane using the camera pose. Same-label detections from different agents within 4 m are merged greedily by nearest pair, with at most one detection per agent per track. The camera setup (800×600, 90° FOV, 14 m above ground) is configuration, not contract.
+
+**Unmeasured against ground truth.** The spike did not save camera poses, so accuracy can only be measured once Track B records poses in the agent frame reports (already required by `m1-v0`). Known error source: a vehicle's bottom edge seen from opposite sides projects to ground points a few metres apart.
+
+## 3. Sample-size floor (measured)
+
+Method: resample the spike's own 448 co-visible objects at n = 100, 200, and 448 (2,000 draws each). Measure the standard error of log(ratio), which scales as 1/√n. Then compute n for 80% power at a two-sided 5% test. Reproduce with `uv run python scripts/sample_size_floor.py artifacts/spike/raw`.
+
+| Detector pair | Spike ratio | SE at n=448 | n for ratio 1.3 | n for ratio 1.5 |
+| --- | --- | --- | --- | --- |
+| YOLO11m / YOLO11m | 1.671 | 0.056 | 167 | 70 |
+| YOLO11m / RT-DETR-L | 1.697 | 0.076 | 309 | 130 |
+| RT-DETR-L / RT-DETR-L | 2.311 | 0.086 | 400 | 168 |
+
+**Floor:** 400 co-visible objects per sweep cell, driven by the worst pair. At about 8.3 co-visible objects per scene, that is **50 scenes per render cell, 900 scenes total**. The spike rendered 54 scenes in 36 s and ran detection over 108 frames in 12 s, so this is minutes, not hours.
+
+Note: the RT-DETR/RT-DETR inflation ratio (2.31) is higher than YOLO's and is not reported in the proposal, which compared pairs by φ. This needs checking before it is cited.
+
+## 4. Acceptance thresholds (proposed)
+
+1. **Dependence present in a cell:** the 95% bootstrap interval's lower bound is above 1.0 (existing rule SD-006).
+2. **Minimum detectable dependence:** ratio 1.3 at 80% power. Cells below the 400-object floor are reported as underpowered, never as "no dependence".
+3. **RQ3 success:** the dependence-aware policy lowers the false-clearance rate below the naive baseline's, with a paired bootstrap 95% interval on the difference excluding 0.
+4. **Verification budget:** the dependence-aware policy's verification actions stay at or below 50% of always-verify's. *Placeholder: owner sets the number.*
+
+## 5. Policy skeleton v0
+
+`MissRiskPolicy` is one policy that is naive or dependence-aware depending on the estimator it is given:
+- `WAIT` until two agents have reported.
+- `VERIFY` if any object track is seen by one agent only.
+- Otherwise it computes the shared-miss risk = ratio × miss_A × miss_B, then picks `VERIFY` above the tolerance and `CLOSE` below it.
+
+With `IndependenceEstimator` the risk is zero, so it always closes. That is exactly the assumption under test.
+
+v0 limitation: the risk is per task, not per unseen location, and the case of more than two agents uses the first two.
