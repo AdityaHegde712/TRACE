@@ -4,7 +4,7 @@
 
 | Item | State | Where |
 | --- | --- | --- |
-| 1. Dependence estimator | Design decided (AD-001 clarified 2026-11-12); implementation next | Section 1 |
+| 1. Dependence estimator | v0 built and checked on spike data; weather covariate is the next step | Sections 1, 6 |
 | 2. Cross-agent association | v0 implemented and tested on synthetic geometry | `src/evidence_resolution/association.py` |
 | 3. Sample-size floor | Measured from spike data | Section 3 |
 | 4. Acceptance thresholds | Approved 2026-11-12 (curve-based) | Section 4 |
@@ -65,3 +65,22 @@ Note: the RT-DETR/RT-DETR inflation ratio (2.31) is higher than YOLO's and is no
 With `IndependenceEstimator` the risk is zero, so it always closes. That is exactly the assumption under test.
 
 v0 limitation: the risk is per task, not per unseen location, and the case of more than two agents uses the first two.
+
+## 6. Estimator v0: first check on spike data
+
+`src/evidence_resolution/calibration.py` (9 tests). It splits scenes into practice and exam sets by seed, counts each detector pair's misses on practice scenes, freezes those numbers under a fingerprint version, and checks them on exam scenes. v0 is keyed by detector pair only. Reproduce with `uv run python scripts/fit_estimator.py artifacts/spike/raw`.
+
+**Random split (27 practice / 27 exam scenes): it works.** The predicted rate of both agents missing the same object is close to what happened, and far closer than the naive prediction.
+
+| Detector pair | Observed both-miss | Calibrated prediction | Naive prediction |
+| --- | --- | --- | --- |
+| YOLO / YOLO | 0.223 | 0.205 | 0.131 |
+| RT-DETR / RT-DETR | 0.118 | 0.114 | 0.048 |
+| YOLO / RT-DETR | 0.126 | 0.143 | 0.082 |
+
+**Shift test (one weather held out entirely): it fails.** For example, with ClearNoon held out, YOLO/YOLO predicts 0.273 against an observed 0.103. The cause is measured: each detector's own miss rate roughly doubles between weathers (YOLO 0.21 in ClearNoon, 0.46 in CloudySunset), while the fail-together ratio is steadier (YOLO 1.55 to 1.76).
+
+What this means:
+1. **Next depth step:** make miss rates depend on weather, which agents can observe. Every weather appears in the practice scenes of the real sweep, so this is fittable.
+2. **A weather the estimator never saw is a known limit.** The estimator should refuse it (it already refuses unknown detector pairs) rather than guess.
+3. These are 54-scene dry-run numbers. The real check uses Track B's 900-scene corpus.
