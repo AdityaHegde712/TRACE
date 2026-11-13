@@ -7,10 +7,10 @@ In `docs/planning/PROPOSAL_CORRELATED_FAILURE.md`: "The problem" and "What we pr
 ## Scope
 Owns B1 (latent-variable scenario generator with four correlation channels: shared occluder, shared detector model version, shared viewpoint, shared illumination), B2 (fixed-seed versioned corpus, generation parameters kept), B3 (truth kept out of the claim stream), and B4 (PX4/Gazebo spike, optional).
 
-New code goes in a new generator module and corpus folder. Aditya confirms exact paths at M1; until then ask before creating top-level folders.
+M1 interfaces are frozen (`m1-v0`): build against `src/trace_contracts/` and read `docs/planning/M1_CONTRACTS.md` first. New code goes in `src/scenario_gen/`, generalizing `src/spike_dependence/scene_matrix.py` and the render and detect adapters.
 
 ## Off limits (read only)
-`src/evidence_resolution/contracts.py`, `policy.py`, `scenario.py`, `tests/spec/`, and anything defining the dependence measure, channels, scenario matrix, or thresholds. Those are Aditya's. Send requests through `.agent-tasks/TASKS.md` "Handoffs".
+`src/trace_contracts/`, `tests/contracts/`, `src/evidence_resolution/contracts.py`, `policy.py`, `scenario.py`, `tests/spec/`, and anything defining the dependence measure, channels, scenario matrix, or thresholds. Those are Aditya's. Send requests through `.agent-tasks/TASKS.md` "Handoffs".
 
 ## Rules that matter most
 - **Truth separation (AD-001):** simulator truth is written beside the claim stream, never inside it. Done-check: no field naming the true state appears in any claim record.

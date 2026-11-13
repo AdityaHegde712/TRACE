@@ -3,7 +3,7 @@
 **Author:** Aditya Hegde  
 **Advisor:** Dr. Kaikai Liu  
 **Date:** 2026-11-03  
-**Status:** Proposal for Advisor Review (Supercedes prior preliminary framings)  
+**Status:** Approved by advisor at M0 (recorded 2026-11-12). Supersedes prior preliminary framings.  
 
 ---
 

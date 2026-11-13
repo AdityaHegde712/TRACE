@@ -55,7 +55,7 @@ Following milestone M1, development tracks execute concurrently. Milestone M1 se
 | Milestone | Target Date | Primary Deliverables | Owner | Decision Gate |
 | :--- | :--- | :--- | :--- | :--- |
 | **M0** | Nov 3 | Advisor approval of refined proposal framing, spike findings, and research questions | Aditya | Gate: Authorizes M1 design phase. |
-| **M1** | Nov 10 | Immutable contracts frozen: dependence estimator, scenario matrix, policy interface | Aditya | Gate: Serializes B1 and C1. Tracks run in parallel after this. |
+| **M1** | Nov 10 | Immutable contracts frozen: dependence estimator, scenario matrix, policy interface. Split on 2026-11-12: interfaces frozen as `m1-v0` (`docs/planning/M1_CONTRACTS.md`); the estimator choice and thresholds follow on Track A behind those interfaces | Aditya | Gate: Serializes B1 and C1. Tracks run in parallel after the interface freeze. |
 | **M2** | Nov 24 | Controlled CARLA scenario corpus generated; deterministic arrival tests passing; baselines implemented | All | Verification: Determinism tests pass; corpus generates reproducibly from seed. |
 | **M3** | Dec 12 | Initial end-to-end parameter sweep; preliminary correlation-vs-decision-error curves | Aditya, Pranav | Verification: First empirical comparison curve generated. |
 | **M4** | Dec 18 | Release benchmark packaging completed; go/no-go decision on optional PX4 spike | Pranav, Rishi | Verification: Clean clone runs end-to-end evaluation. |

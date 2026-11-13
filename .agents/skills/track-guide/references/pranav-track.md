@@ -7,10 +7,10 @@ In `docs/planning/PROPOSAL_CORRELATED_FAILURE.md`: "The problem" and "What we pr
 ## Scope
 Owns C1 (sweep harness, re-runnable by one command), C2 (baselines: latest-report, first-report-wins, unweighted majority vote, always-verify), C3 (README, Apache-2.0 LICENSE, installable package, one-command quickstart), C4 (visual demo of two agents agreeing and being wrong together), C5 (camera-to-claim adapter docs).
 
-C2 starts immediately after M1 and depends on nothing else. New code goes in new modules; Aditya confirms paths at M1, so ask before creating top-level folders.
+M1 interfaces are frozen (`m1-v0`): build against `src/trace_contracts/` and read `docs/planning/M1_CONTRACTS.md` first. C2 can start now. New code goes in `src/sweep/` (harness, scorer) and `src/baselines/` (policies).
 
 ## Off limits (read only)
-`src/evidence_resolution/contracts.py`, `policy.py`, `scenario.py`, `tests/spec/`, and the definitions of the measures, channels, matrix, and thresholds. Baselines implement the existing `ResolutionPolicy` interface; read it, do not change it. Requests go through `.agent-tasks/TASKS.md` "Handoffs".
+`src/trace_contracts/`, `tests/contracts/`, `src/evidence_resolution/contracts.py`, `policy.py`, `scenario.py`, `tests/spec/`, and the definitions of the measures, channels, matrix, and thresholds. Baselines implement the existing `ResolutionPolicy` interface; read it, do not change it. Requests go through `.agent-tasks/TASKS.md` "Handoffs".
 
 ## Rules that matter most
 - You hand Aditya **result tables, never conclusions.** Interpretation is Track A.
