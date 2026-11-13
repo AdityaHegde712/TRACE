@@ -4,10 +4,10 @@
 
 | Item | State | Where |
 | --- | --- | --- |
-| 1. Dependence estimator | Leading design chosen; **blocked on an AD-001 ruling** | Section 1 |
+| 1. Dependence estimator | Design decided (AD-001 clarified 2026-11-12); implementation next | Section 1 |
 | 2. Cross-agent association | v0 implemented and tested on synthetic geometry | `src/evidence_resolution/association.py` |
 | 3. Sample-size floor | Measured from spike data | Section 3 |
-| 4. Acceptance thresholds | Proposed; owner confirms | Section 4 |
+| 4. Acceptance thresholds | Approved 2026-11-12 (curve-based) | Section 4 |
 | 5. Policy skeleton | v0 runs end to end through the ports | `src/evidence_resolution/miss_risk_policy.py` |
 
 ## 1. Dependence estimator
@@ -18,9 +18,15 @@ Consequences:
 - Per-object-pair estimation online is ruled out. The spike's 71% object-instance share can only be reached through observable object features (label, apparent size), never object identity.
 - Audits must sample **random regions**. Verification triggered by claims inspects only claimed objects and never sees a double miss.
 
-**Leading design (not decided):** per agent pair × observable covariates (detector pair, illumination, viewpoint angle from poses, apparent size). The model is fitted offline on a labelled training split disjoint from evaluation scenes, then recalibrated online from random-region audits, with the offline fit as the prior.
+**Decided design (owner-approved 2026-11-12):** per agent pair × observable covariates (detector pair, illumination, viewpoint angle from poses, apparent size). The model is fitted offline on a labelled training split disjoint from evaluation scenes, then recalibrated online from random-region audits, with the offline fit as the prior.
 
-**Blocking decision (owner):** AD-001 says ground truth never enters resolution. Does fitting frozen estimator parameters on a disjoint training split count, given that the detector itself is trained on labels? If no, the only route is random audits from an uninformed prior, which is costly and slow.
+**AD-001 clarification (owner-approved 2026-11-12):** ground truth about the scene being decided never reaches the policy. Statistics fitted on separate, labelled training scenes may, the same way the detector itself is trained on labels. Three guardrails:
+
+1. Split by scene, fixed by seed and recorded in the manifest. No scene is in both the training and the evaluation set.
+2. The fitted estimator is frozen and versioned before any evaluation run (AD-003).
+3. A shift test is reported: fit on two illumination presets, evaluate on the third, to show the calibration generalizes.
+
+Random-region audits from an uninformed prior are kept as a secondary ablation (the "no labels at all" setting), not as the main method.
 
 ## 2. Association v0
 
@@ -46,8 +52,8 @@ Note: the RT-DETR/RT-DETR inflation ratio (2.31) is higher than YOLO's and is no
 
 1. **Dependence present in a cell:** the 95% bootstrap interval's lower bound is above 1.0 (existing rule SD-006).
 2. **Minimum detectable dependence:** ratio 1.3 at 80% power. Cells below the 400-object floor are reported as underpowered, never as "no dependence".
-3. **RQ3 success:** the dependence-aware policy lowers the false-clearance rate below the naive baseline's, with a paired bootstrap 95% interval on the difference excluding 0.
-4. **Verification budget:** the dependence-aware policy's verification actions stay at or below 50% of always-verify's. *Placeholder: owner sets the number.*
+3. **RQ3 success, at equal verification cost:** sweep each policy's risk tolerance across its full range and plot false-clearance rate against verification rate. The dependence-aware curve must lie below the naive curve. At matched verification rates, the paired bootstrap 95% interval on the false-clearance difference must exclude 0.
+4. **No fixed verification budget.** Verifying everything trivially removes false clearances, so policies are only compared at equal verification cost (item 3). Always-verify and never-verify mark the two ends of the curve.
 
 ## 5. Policy skeleton v0
 
