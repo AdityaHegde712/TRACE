@@ -10,7 +10,7 @@ evaluator truth in any agent-visible artifact.
 From the repository root, create a one-scene-per-cell corpus plan with:
 
 ```bash
-.agent-tasks/tooling/bin/uv run python -m scenario_gen \
+uv run python -m scenario_gen \
   --out artifacts/scenario-gen/plan \
   --town Town10HD \
   --scenes-per-render-cell 1 \
