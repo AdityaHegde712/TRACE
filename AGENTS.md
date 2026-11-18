@@ -121,6 +121,15 @@ checked. Verdict-first is about ORDER, not about confidence inflation.
 <git>
 ## Git Workflow
 For Git operations or repo/branch state work, invoke project-level `git-workflow` skill (sprint/feature startup, branch creation, rebasing, committing, resuming interrupted work, continuing after remote merges, opening pull requests, or changing Git state). A commit blocked by the test-change hook must be escalated to the user, never bypassed.
+
+### PR Drafts in .agent-tasks/
+Whenever a feature branch is ready or a Pull Request is due, the agent must generate a comprehensive, paste-ready PR draft in `.agent-tasks/PR_DRAFT_<FEATURE_NAME>.md` (or `.agent-tasks/PULL_REQUEST.md`). The draft must contain:
+1. **Title**: Conventional commit format (e.g. `feat: ...`).
+2. **Summary**: Plain-English executive overview answering what changed, why, and architectural fit.
+3. **Changes**: Itemized list of added, modified, and deleted files with rationale.
+4. **Validation Evidence**: Exact test commands run, test counts, execution time, and linter/formatter outcomes.
+5. **Decisions & Contracts Preserved**: Direct references to active architectural directives (e.g. AD-001, frozen interfaces).
+6. **Next Steps**: Exact reviewer actions and merge sequencing.
 </git>
 
 <writing>

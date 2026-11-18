@@ -12,6 +12,9 @@ import json
 import pytest
 
 from spike_dependence.artifacts_io import (
+    CAMERA_POSES_SCHEMA,
+    camera_poses_from_json,
+    camera_poses_to_json,
     detection_filename,
     detections_from_json,
     detections_to_json,
@@ -20,7 +23,7 @@ from spike_dependence.artifacts_io import (
     read_manifest,
     write_manifest,
 )
-from spike_dependence.scene_matrix import build_scene_matrix
+from spike_dependence.scene_matrix import CameraPose, build_scene_matrix
 from spike_dependence.scoring import BoundingBox, Detection, GroundTruthObject
 
 
@@ -122,3 +125,39 @@ class TestDetectionFilename:
     def test_rejects_a_tag_that_would_break_the_filename(self) -> None:
         with pytest.raises(ValueError, match="tag"):
             detection_filename("a", "has space")
+
+
+def _poses() -> dict[str, CameraPose]:
+    return {
+        "a": CameraPose(12.5, -3.0, 14.0, 180.0, -32.5, 0.0, (1.0, 2.0, 0.5)),
+        "b": CameraPose(-8.25, 7.5, 14.0, 45.0, -32.5, 60.0, (1.0, 2.0, 0.5)),
+    }
+
+
+class TestCameraPoses:
+    def test_round_trip_preserves_every_pose(self, tmp_path) -> None:
+        path = tmp_path / "s000" / "camera_poses.json"
+        camera_poses_to_json(_poses(), path)
+
+        assert camera_poses_from_json(path) == _poses()
+
+    def test_target_comes_back_as_a_tuple(self, tmp_path) -> None:
+        path = tmp_path / "camera_poses.json"
+        camera_poses_to_json(_poses(), path)
+
+        assert isinstance(camera_poses_from_json(path)["a"].target, tuple)
+
+    def test_payload_carries_the_schema_marker(self, tmp_path) -> None:
+        path = tmp_path / "camera_poses.json"
+        camera_poses_to_json(_poses(), path)
+
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        assert payload["schema"] == CAMERA_POSES_SCHEMA == "spike.camera_poses.v1"
+        assert set(payload["poses"]) == {"a", "b"}
+
+    def test_rejects_an_unknown_schema(self, tmp_path) -> None:
+        path = tmp_path / "camera_poses.json"
+        path.write_text(json.dumps({"schema": "nope", "poses": {}}), encoding="utf-8")
+
+        with pytest.raises(ValueError, match="unsupported camera-poses schema"):
+            camera_poses_from_json(path)
