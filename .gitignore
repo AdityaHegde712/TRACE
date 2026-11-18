@@ -52,3 +52,4 @@ docs/personal/
 
 # Detector weights, fetched on demand by ultralytics (yolo11m.pt is 40 MB).
 *.pt
+HANDOFF.md
