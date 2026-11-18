@@ -9,16 +9,17 @@ it would produce a wrong inflation ratio that still looked reasonable.
 from __future__ import annotations
 
 import json
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-from spike_dependence.scene_matrix import Overlap, SceneSpec, Weather
+from spike_dependence.scene_matrix import CameraPose, Overlap, SceneSpec, Weather
 from spike_dependence.scoring import BoundingBox, Detection, GroundTruthObject
 
 GROUND_TRUTH_SCHEMA = "spike.ground_truth.v1"
 DETECTION_SCHEMA = "spike.detections.v1"
 MANIFEST_SCHEMA = "spike.manifest.v1"
+CAMERA_POSES_SCHEMA = "spike.camera_poses.v1"
 
 
 def detection_filename(view: str, tag: str | None) -> str:
@@ -124,6 +125,51 @@ def detections_from_json(path: Path | str) -> list[Detection]:
         )
         for raw in payload["detections"]
     ]
+
+
+def camera_poses_to_json(
+    poses: Mapping[str, CameraPose], path: Path | str
+) -> None:
+    """Write the pose of each viewpoint camera, keyed by viewpoint name.
+
+    Cross-view association projects one camera's detections into the other,
+    so the poses must survive the render phase alongside the images.
+    """
+    _write_json(
+        {
+            "schema": CAMERA_POSES_SCHEMA,
+            "poses": {
+                view: {
+                    "x": pose.x,
+                    "y": pose.y,
+                    "z": pose.z,
+                    "yaw": pose.yaw,
+                    "pitch": pose.pitch,
+                    "orbit_degrees": pose.orbit_degrees,
+                    "target": list(pose.target),
+                }
+                for view, pose in poses.items()
+            },
+        },
+        Path(path),
+    )
+
+
+def camera_poses_from_json(path: Path | str) -> dict[str, CameraPose]:
+    """Read the viewpoint camera poses written by the render phase."""
+    payload = _read_json(Path(path), CAMERA_POSES_SCHEMA, "camera-poses")
+    return {
+        view: CameraPose(
+            x=raw["x"],
+            y=raw["y"],
+            z=raw["z"],
+            yaw=raw["yaw"],
+            pitch=raw["pitch"],
+            orbit_degrees=raw["orbit_degrees"],
+            target=tuple(raw["target"]),
+        )
+        for view, raw in payload["poses"].items()
+    }
 
 
 def write_manifest(

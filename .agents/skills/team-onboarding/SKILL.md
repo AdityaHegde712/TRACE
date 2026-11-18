@@ -45,7 +45,7 @@ Deliverable: a benchmark plus a measurement harness, and a plot of how decisions
 
 ## Decisions nobody changes
 Source of truth: `docs/planning/DECISIONS.md`. Short form:
-- **AD-001** Simulator truth never enters the claim stream or the policy. It is used for scoring only.
+- **AD-001** Simulator truth about the scene being decided never enters the claim stream or the policy; it is used for scoring. Clarified 2026-11-12: the dependence estimator may be fitted on separate, labelled training scenes (like training a detector), then frozen before evaluation. See `docs/planning/M1_RESEARCH_ANSWER.md`.
 - **AD-002** Estimating belief and choosing a task action are separate layers.
 - **AD-003** Every decision records the source claim IDs and the policy version, so it can be replayed.
 - **AD-004** Repeated or correlated evidence is never treated as independent without a measurement.

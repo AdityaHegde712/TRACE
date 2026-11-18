@@ -25,7 +25,11 @@ from typing import Any
 
 import numpy as np
 
-from spike_dependence.artifacts_io import ground_truth_to_json, write_manifest
+from spike_dependence.artifacts_io import (
+    camera_poses_to_json,
+    ground_truth_to_json,
+    write_manifest,
+)
 from spike_dependence.instance_mask import ground_truth_from_instance_frame
 from spike_dependence.scene_matrix import (
     CameraPose,
@@ -258,6 +262,7 @@ def render_scene(
 
         scene_dir = out_dir / scene.scene_id
         scene_dir.mkdir(parents=True, exist_ok=True)
+        camera_poses_to_json({"a": pose_a, "b": pose_b}, scene_dir / "camera_poses.json")
         counts: dict[str, int] = {}
         for name, (rgb_queue, seg_queue) in captures.items():
             _latest(rgb_queue).save_to_disk(str(scene_dir / f"rgb_{name}.png"))
