@@ -17,9 +17,15 @@ from trace_contracts.observations import (
 REPORT_ARTIFACT_SCHEMA = "scenario_gen.report.m1-v0"
 
 
-def write_report(layout: CorpusLayout, report: AgentFrameReport) -> Path:
-    """Write one agent's observation-only report under the reports boundary."""
-    path = layout.report_path(report.scene_id, report.frame_id, report.source_id)
+def write_report(
+    layout: CorpusLayout, report: AgentFrameReport, path: Path | None = None
+) -> Path:
+    """Write one agent's observation-only report under the reports boundary.
+
+    `path` overrides the default location, e.g. a per-detector subfolder.
+    """
+    if path is None:
+        path = layout.report_path(report.scene_id, report.frame_id, report.source_id)
     _write_json({"schema": REPORT_ARTIFACT_SCHEMA, "report": report_to_dict(report)}, path)
     return path
 
