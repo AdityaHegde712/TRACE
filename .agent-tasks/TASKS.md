@@ -4,6 +4,14 @@ Updated: 2026-11-18. Owner: Pranav Senghal.
 M0 and M1 are complete per Aditya's confirmation. Frozen interface: m1-v0.
 C1/C2 implementation commit: 6cb9925. Publication branch: feature/track-c.
 
+## Pre-merge review findings (2026-11-18)
+
+- [ ] Fix first/latest-report scoring: shared tracks currently allow unselected reports to contribute truth matches. Reproduced first-report case: selected detection has zero overlap, but a later correct detection yields confirmed=1, missed=0, false confirmations=0. Add a regression test and preserve selected evidence through scoring.
+- [ ] Reject unsupported zero slack or coordinate boundary handling with Aditya: --slack-seconds 0 accepts configuration but rejects the second simultaneous report as late. Add a regression test without editing frozen Track A code.
+- [x] Final review reran the existing suite: 258 passed; lint and diff checks passed. Those tests do not cover the two failures above.
+
+PR status: ready for draft review; do not merge until these findings are resolved.
+
 ## Setup and contracts
 
 1. [x] Load onboarding and confirm Track C ownership.
