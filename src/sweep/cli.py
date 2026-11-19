@@ -18,6 +18,7 @@ from baselines import (
     arrival_key,
 )
 from evidence_resolution.association import CameraSetup, PoseProjectionAssociation
+from evidence_resolution.miss_risk_policy import MissRiskPolicy
 from evidence_resolution.reconciliation import WatermarkedReconciler
 from sweep.corpus import load_tasks
 from sweep.scoring import score_decision
@@ -31,7 +32,10 @@ POLICIES = {
     "majority-vote": MajorityVotePolicy,
     "always-verify": AlwaysVerifyPolicy,
     "never-verify": NeverVerifyPolicy,
+    "miss-risk": MissRiskPolicy,
 }
+# The default sweep stays the five frozen baselines; the Track A treatment is opt-in.
+DEFAULT_POLICIES = [name for name in POLICIES if name != "miss-risk"]
 
 
 def _json_bytes(value: object) -> bytes:
@@ -63,11 +67,14 @@ def run(args: argparse.Namespace) -> int:
         args.slack_seconds,
         args.match_distance_m,
         args.iou_threshold,
+        args.miss_risk_tolerance,
     ]
     if not all(math.isfinite(value) for value in values):
         raise ValueError("configuration values must be finite")
     if args.width_px <= 0 or args.height_px <= 0 or not 0 < args.fov_degrees < 180:
         raise ValueError("invalid camera dimensions or field of view")
+    if not 0 <= args.miss_risk_tolerance <= 1:
+        raise ValueError("miss-risk tolerance must lie in [0, 1]")
     if args.slack_seconds <= 0:
         raise ValueError("slack must be strictly positive")
     if args.camera_height_m <= 0 or args.match_distance_m <= 0:
@@ -93,6 +100,7 @@ def run(args: argparse.Namespace) -> int:
         "slack_seconds": args.slack_seconds,
         "match_distance_m": args.match_distance_m,
         "iou_threshold": args.iou_threshold,
+        "miss_risk_tolerance": args.miss_risk_tolerance,
         "association_version": association.version,
         "policies": args.policies,
         "pairings": args.pairings,
@@ -117,7 +125,12 @@ def run(args: argparse.Namespace) -> int:
             )
         tracks = association.associate(reports)
         for name in args.policies:
-            policy = POLICIES[name](association)
+            if name == "miss-risk":
+                policy = MissRiskPolicy(
+                    association, miss_risk_tolerance=args.miss_risk_tolerance
+                )
+            else:
+                policy = POLICIES[name](association)
             decision = policy.decide(scene, reports, estimator)
             result = score_decision(
                 decision,
@@ -160,7 +173,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--corpus", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument(
-        "--policies", nargs="+", choices=POLICIES, default=list(POLICIES)
+        "--policies", nargs="+", choices=POLICIES, default=DEFAULT_POLICIES
     )
     parser.add_argument(
         "--pairings",
@@ -175,6 +188,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--match-distance-m", type=float, default=4.0)
     parser.add_argument("--slack-seconds", type=float, default=1.0)
     parser.add_argument("--iou-threshold", type=float, default=0.5)
+    parser.add_argument("--miss-risk-tolerance", type=float, default=0.05)
     args = parser.parse_args(argv)
     try:
         return run(args)

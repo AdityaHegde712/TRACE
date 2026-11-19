@@ -205,3 +205,30 @@ def test_scorer_counts_false_tracks_and_single_view_truth():
     assert result.false_confirmations == 1
     assert result.objects_missed_at_close == 0
     assert not result.false_clearance
+
+
+def test_sweep_runs_miss_risk_policy(tmp_path):
+    make_corpus(tmp_path / "corpus", detected=True)
+    out = tmp_path / "out"
+    result = run_cli(
+        tmp_path / "corpus",
+        out,
+        "--policies",
+        "miss-risk",
+        "--miss-risk-tolerance",
+        "0.2",
+    )
+    assert result.returncode == 0, result.stderr
+    with (out / "results.csv").open(newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    assert len(rows) == 3
+    assert json.loads((out / "run.json").read_text())["miss_risk_tolerance"] == 0.2
+    for row in rows:
+        assert row["policy_version"] == "miss-risk-v0"
+        assert row["objects_confirmed"] == "1"
+        trace = out / "traces" / row["cell_id"] / row["scene_id"] / "miss-risk-v0.json"
+        data = trace.read_bytes()
+        assert hashlib.sha256(data).hexdigest() == row["trace_sha256"]
+        (record,) = json.loads(data)
+        assert record["policy_version"] == "miss-risk-v0"
+        assert record["action"] in {"close", "verify", "wait"}
