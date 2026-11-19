@@ -44,14 +44,19 @@ consume the shared association port; the CLI uses Track A's pose projection rule
 `--match-distance-m` defaults to 4.0.
 
 Reports pass through `WatermarkedReconciler` before the policy is called. The default
-slack is one second (`--slack-seconds`). Late reports cause an explicit failure.
+slack is one second (`--slack-seconds`) and must be strictly positive. Zero and
+negative slack are rejected before reading the corpus. Late reports cause an
+explicit failure.
 Each policy is called once after the scene's stream is flushed, consistent with the
 M1 task-decision unit. Verification cost is one requested re-observation per VERIFY
 decision, not the number of detections. The runner does not simulate that follow-up.
 
 ## Scores and retained evidence
 
-The evaluator matches confirmed tracks to truth using same-label, same-view boxes
+The evaluator matches only detections from the decision's causal report IDs to truth,
+so unselected reports cannot supply matches for first/latest-report policies.
+Co-visible object counts still use truth from both views. Matching uses same-label,
+same-view boxes
 at IoU >= 0.5 (`--iou-threshold`). A deterministic one-to-one matching prevents
 duplicate confirmations. `objects_confirmed` counts matched co-visible objects;
 objects visible to only one source do not enter that denominator. Tracks matching

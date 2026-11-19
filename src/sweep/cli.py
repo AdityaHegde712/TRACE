@@ -68,12 +68,10 @@ def run(args: argparse.Namespace) -> int:
         raise ValueError("configuration values must be finite")
     if args.width_px <= 0 or args.height_px <= 0 or not 0 < args.fov_degrees < 180:
         raise ValueError("invalid camera dimensions or field of view")
-    if (
-        args.camera_height_m <= 0
-        or args.match_distance_m <= 0
-        or args.slack_seconds < 0
-    ):
-        raise ValueError("invalid camera height, match distance or slack")
+    if args.slack_seconds <= 0:
+        raise ValueError("slack must be strictly positive")
+    if args.camera_height_m <= 0 or args.match_distance_m <= 0:
+        raise ValueError("invalid camera height or match distance")
     pairings = tuple(DetectorPairing(p) for p in args.pairings)
     if len(set(pairings)) != len(pairings) or len(set(args.policies)) != len(
         args.policies

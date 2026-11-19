@@ -42,10 +42,13 @@ def score_decision(
         raise ValueError("policy confirmed an unknown track")
     if len(set(decision.confirmed_track_ids)) != len(decision.confirmed_track_ids):
         raise ValueError("policy confirmed a track more than once")
+    causal_report_ids = set(decision.causal_report_ids)
     candidates: dict[str, list[str]] = {}
     for track_id in sorted(decision.confirmed_track_ids):
         overlaps: dict[str, float] = {}
         for report_id, detection_id in by_track[track_id].members:
+            if report_id not in causal_report_ids:
+                continue
             detection = detections[(report_id, detection_id)]
             for obj in truth[report_id]:
                 overlap = _iou(detection.box, obj.box)
