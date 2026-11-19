@@ -13,8 +13,8 @@ The experimental spike established that approximately 71% of measured error depe
 
 | Member | Role | Track Ownership |
 | :--- | :--- | :--- |
-| **Aditya Hegde** | Project Lead | Formal measurement definitions, deterministic evidence resolution engine, evaluation protocol, and immutable architectural contracts. |
-| **Rishi Sheth** | Simulation Engineer | CARLA controlled-correlation scenario generation, ground-truth extraction, and optional robotics simulation spike. |
+| **Aditya Hegde** | Project Lead | Formal measurement definitions, deterministic evidence resolution engine, evaluation protocol, immutable architectural contracts, and physical CARLA 0.9.16 corpus execution. |
+| **Rishi Sheth** | Simulation & Visualization Engineer | Procedural scenario generator architecture, evaluation tradeoff plotting (`scripts/plot_tradeoffs.py`), visual failure demonstration artifacts (`scripts/visualize_double_fault.py`), and scenario documentation. (GPU execution reallocated to Aditya). |
 | **Pranav Senghal** | Systems & Harness Engineer | Parameter sweep harness, baseline policy implementations, CI/CD pipeline, and public benchmark release artifacts. |
 
 Each member owns the technical correctness of their assigned track. The project lead governs cross-track contracts and serves as the sole authority for modifying frozen definitions.
@@ -32,13 +32,16 @@ Following milestone M1, development tracks execute concurrently. Milestone M1 se
 - **A3. Deterministic Replay Under Concurrency:** Formalize arrival watermarks and out-of-order reconciliation windows. Validate through property-based tests proving that any claim arrival permutation within the watermark window produces byte-identical traces.
 - **A4. Evidence Resolver and Policy Suite:** Implement the dependence-aware discounting policy behind the `ResolutionPolicy` interface, and implement the naive-independence baseline rule treating distinct `source_id` attributes as statistically independent.
 - **A5. Empirical Evaluation and Manuscript:** Synthesize the correlation-versus-decision-error operating curves, establish decision boundary thresholds, and lead the research manuscript.
+- **A6. Physical CARLA Corpus Execution (Reallocated from Track B):** Execute the 900-scene procedural CARLA generation and multi-model detector batching on the lead's local GPU workstation.
 
-### Track B: Scenario Generation and Sensor Simulation (Rishi)
+### Track B: Scenario Generation, Sensor Simulation, and Visualizations (Rishi)
 
-- **B1. Controlled Physical Scenario Generator:** Construct CARLA 0.9.16 scene generation pipelines controlling four physical channels: viewpoint angular disparity, static occluder placement, ambient illumination/weather presets, and detector model pairings.
+- **B1. Controlled Physical Scenario Generator Architecture:** Construct CARLA 0.9.16 scene generation pipelines controlling four physical channels: viewpoint angular disparity, static occluder placement, ambient illumination/weather presets, and detector model pairings. (Architecture complete; merged in `dev`).
 - **B2. Corpus Versioning and Determinism:** Implement fixed-seed scene manifests ensuring bit-exact procedural scene reconstruction and frame extraction.
 - **B3. Ground-Truth Separation:** Isolate simulator 2D/3D bounding boxes into evaluator-only artifacts, preventing ground truth from entering the claim stream (enforcing AD-001).
-- **B4. Robotics Simulation Spike (PX4 / Gazebo):** Optional secondary integration. Kept off the critical path to ensure core evaluation remains independent of robotics simulation stability.
+- **B4. Automated Tradeoff Curves & Empirical Plotting (Swapped Task):** Construct `scripts/plot_tradeoffs.py` to ingest Track C sweep results (`results.csv`) and render publication-ready RQ3 figures (false clearance vs. verification rate across policies, cell stratifications, and illumination breakdowns).
+- **B5. Visual Failure Case Demonstration (Swapped Task, Buffer C4):** Construct `scripts/visualize_double_fault.py` to render side-by-side visual demonstration figures illustrating double-faults under naive consensus versus calibrated verification under `MissRiskPolicy`.
+- **B6. Robotics Simulation Spike (PX4 / Gazebo):** Optional secondary integration. Kept off the critical path to ensure core evaluation remains independent of robotics simulation stability.
 
 ### Track C: Parameter Sweep Harness and Release Engineering (Pranav)
 
@@ -80,6 +83,7 @@ Following milestone M1, development tracks execute concurrently. Milestone M1 se
 3. **Robotics Simulation Failure:** The PX4/Gazebo spike is non-blocking. If robotics simulator integration fails, the CARLA benchmark provides 100% of required empirical evaluation.
 4. **Negligible Impact on Decision Outcomes:** If empirical results reveal that decision errors do not scale with dependence, document and publish the calibrated negative result.
 5. **Workload Imbalance Late in Cycle:** Track C incorporates buffer tasks (C4 visual demonstration, C5 adapters) that can be rescheduled to support Track A analysis.
+6. **Simulation Hardware Constraint (GPU Access):** Recorded 2026-11-19. Rishi lacks local GPU hardware to render CARLA 0.9.16. Workload rebalanced: physical 900-scene CARLA generation transferred to Aditya; visualization plotting (`scripts/plot_tradeoffs.py`) and visual demonstration artifacts (`scripts/visualize_double_fault.py`) transferred to Rishi.
 
 ---
 
