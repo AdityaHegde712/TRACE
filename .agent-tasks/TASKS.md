@@ -67,7 +67,7 @@ The frozen result schema does not include the old checklist's latency/rejection 
 44. [x] Validate CLI help and subprocess execution from the installed worktree.
 45. [x] Document inputs, outputs, scoring rules and commands in docs/planning/TRACK_C_SWEEP.md.
 46. [x] Commit implementation on a feature branch without changing existing tests, Track A/B code or frozen contracts.
-47. [ ] Publish feature/track-c and verify the remote commit.
+47. [x] Publish feature/track-c and verify the remote commit (initial publication bd7d8d3).
 48. [ ] Open a PR into dev and obtain Aditya and Rishi reviews.
 
 Full-suite invocation used a fresh workspace-local --basetemp after the Windows
@@ -107,4 +107,4 @@ checkout; repository-wide formatting has not been revalidated on this branch.
 67. [ ] Retain every experimental run and confirm reported statistics trace to its artifacts.
 68. [ ] Deliver the integrated benchmark, demo, adapter documentation and release instructions.
 
-Next action: publish feature/track-c, then open its PR into dev and evaluate Rishi's corpus.
+Next action: open the feature/track-c PR into dev and evaluate Rishi's corpus.
