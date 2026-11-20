@@ -2,6 +2,22 @@
 \label{sec:results}
 
 \subsection{Joint misses exceed the independence prediction}
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/double_fault_demo}
+\caption{One double fault from the 900-scene corpus (scene-0515, medium
+viewpoint, static occluder, CloudySunset). A bus, dashed red, is visible to both
+agents in the ground truth and is detected by neither YOLO11m run. Green boxes
+are detections. Camera~B has none, and the single detection in Camera~A does not
+match the bus (IoU below 0.3). Foliage hides the bus from Camera~B and
+partly covers it in Camera~A. (c)~Top view in the simulator frame: camera positions,
+headings and 90$^\circ$ fields of view; the star is the bus's ground position
+from the box bottoms. This is the largest object missed by both agents in the
+homogeneous YOLO11m pairing, chosen as an illustration and not as a typical
+case.}
+\label{fig:double-fault}
+\end{figure*}
+
 Table~\ref{tab:calib} reports the practice-scene ratios and the exam-scene
 joint miss rates for the random split. Each pairing misses jointly far more
 often than the naive product predicts. The calibrated prediction lands within
@@ -13,7 +29,8 @@ often than the naive product predicts. The calibrated prediction lands within
 exam objects. Ratio is fitted on practice scenes. Joint-miss columns are exam
 rates.}
 \label{tab:calib}
-\small
+\footnotesize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 Pairing & Ratio $\ratio$ [95\% CI] & Obs. & Calib. & Naive \\
@@ -30,8 +47,21 @@ The RT-DETR-L ratio is the largest, but RT-DETR-L also misses less often
 ratio. The pairing with the most joint misses in absolute terms is the YOLO11m
 pair. Mixing detectors lowers the joint miss rate below the YOLO11m pair
 (0.141 against 0.241) without bringing the ratio near 1.
+Figure~\ref{fig:double-fault} shows one shared miss.
 
 \subsection{The calibration holds across held-out illumination}
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/calibration_stability}
+\caption{Exam joint-miss rate: observed, calibrated prediction and naive
+independence prediction. (a)~Random split; error bars carry the 95\% interval
+of the fitted ratio onto the calibrated prediction. The naive prediction is
+45--58\% below the observed rate. (b)~The nine held-out illumination folds
+(Y = YOLO11m, R = RT-DETR-L); the naive prediction is 41--63\% below the
+observed rate. Values are those of Tables~\ref{tab:calib} and~\ref{tab:shift}.}
+\label{fig:calibration}
+\end{figure*}
+
 Table~\ref{tab:shift} holds out one illumination at a time (600 practice
 scenes, 300 exam scenes). The calibrated prediction stays within 0.025 of the
 observed joint miss rate in every case, and is closer than the naive
@@ -40,6 +70,7 @@ observed against 0.115) and CloudySunset (YOLO11m, 0.255 against 0.232).
 An earlier 54-scene dry run failed this test: with ClearNoon held out, YOLO11m
 was predicted at 0.273 against 0.103 observed. At 900 scenes the practice
 ratios are stable across folds (1.78--1.83 for YOLO11m).
+Figure~\ref{fig:calibration} plots both tables.
 
 \begin{table}[t]
 \centering
@@ -47,6 +78,7 @@ ratios are stable across folds (1.78--1.83 for YOLO11m).
 Obs.\ = observed, Cal.\ = calibrated prediction, Naive = independence.}
 \label{tab:shift}
 \small
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}llccc@{}}
 \toprule
 Held out & Pairing & Obs. & Cal. & Naive \\
@@ -65,6 +97,20 @@ WetNoon      & YOLO / YOLO        & 0.228 & 0.246 & 0.134 \\
 \end{table}
 
 \subsection{Decision cost of assuming independence}
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/tradeoffs_pareto}
+\caption{Verification rate against risk for six rules over the same 2{,}700
+tasks. (a)~False clearance rate. (b)~Missed objects per task. Never-verify
+closes on the merged tracks of both agents; first-report-wins and latest-report
+close on one agent's report; always-verify verifies every task. Majority-vote
+and miss-risk v0 give the same counts (61 false clearances, 122 missed objects):
+with two agents and the independence estimator, both verify exactly when a
+track has a single source. The dashed line joins the rules that no other rule
+beats on both axes.}
+\label{fig:tradeoffs}
+\end{figure*}
+
 Table~\ref{tab:policy} gives the decision outcomes over all 2{,}700 tasks
 (5{,}400 decision rows, two per task).
 
@@ -75,6 +121,7 @@ with at least one co-visible object missed. Both rules used the independence
 estimator.}
 \label{tab:policy}
 \small
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 Rule & False clear. & Rate & Missed obj. & Verified \\
@@ -91,6 +138,7 @@ and missed objects from 6{,}084 to 122. It did this by sending 2{,}629 of
 2{,}700 tasks (97.4\%) to verification. Of the 71 tasks it closed, 61 still
 had a missed object.
 
+Figure~\ref{fig:tradeoffs} places four further rules on the same axes.
 The comparison shows what unconditional trust costs. It does not show that a
 dependence-aware policy beats a naive one, for the reasons in the next
 section.
