@@ -133,6 +133,111 @@ def test_a_missing_manifest_is_planned_with_900_scenes_first(
     assert len(render_cells()) * 50 == 900
 
 
+def run_with(production, tmp_path, *flags):
+    args = make_args(production, tmp_path)
+    args = production.parse_args(
+        ["--corpus", str(args.corpus), "--out", str(args.out), *flags]
+    )
+    recorder = Recorder()
+    run_pipeline(production, args, recorder)
+    return args, recorder
+
+
+def test_skip_render_resumes_at_detection_and_still_frees_the_gpu(
+    production, tmp_path
+) -> None:
+    _, recorder = run_with(production, tmp_path, "--skip-render")
+
+    commands = recorder.commands()
+    assert not any("--skip-detect" in command for command in commands)
+    assert "taskkill" in commands[0] or "pkill" in commands[0]
+    assert "--skip-render" in commands[1]
+    assert "harness.sweep" in commands[2]
+
+
+def test_skip_detect_stops_after_rendering_without_killing_carla(
+    production, tmp_path
+) -> None:
+    _, recorder = run_with(production, tmp_path, "--skip-detect")
+
+    commands = recorder.commands()
+    assert len(commands) == 2
+    assert "--skip-detect" in commands[0]
+    assert "harness.sweep" in commands[1]
+    assert ("sleep", 5) not in recorder.events
+
+
+def test_skipping_both_phases_runs_only_the_sweep(production, tmp_path) -> None:
+    _, recorder = run_with(production, tmp_path, "--skip-render", "--skip-detect")
+
+    assert len(recorder.commands()) == 1
+    assert "harness.sweep" in recorder.commands()[0]
+
+
+def test_skip_render_does_not_plan_a_missing_manifest(production, tmp_path) -> None:
+    args = production.parse_args(
+        ["--corpus", str(tmp_path / "fresh"), "--out", str(tmp_path / "eval"), "--skip-render"]
+    )
+    recorder = Recorder()
+    run_pipeline(production, args, recorder)
+
+    assert not any(command.endswith("--scenes-per-render-cell 50") for command in recorder.commands())
+
+
+def test_overwrite_out_removes_a_previous_sweep_output(production, tmp_path) -> None:
+    args = make_args(production, tmp_path)
+    (args.out / "traces").mkdir(parents=True)
+    (args.out / "run.json").write_text("{}", encoding="utf-8")
+    args = production.parse_args(
+        ["--corpus", str(args.corpus), "--out", str(args.out), "--overwrite-out"]
+    )
+
+    run_pipeline(production, args, Recorder())
+
+    assert not args.out.exists()
+
+
+def test_without_overwrite_out_a_previous_output_is_left_alone(
+    production, tmp_path
+) -> None:
+    args = make_args(production, tmp_path)
+    args.out.mkdir()
+    (args.out / "run.json").write_text("{}", encoding="utf-8")
+
+    run_pipeline(production, args, Recorder())
+
+    assert (args.out / "run.json").exists()
+
+
+def test_overwrite_out_refuses_a_folder_that_is_not_sweep_output(
+    production, tmp_path
+) -> None:
+    args = make_args(production, tmp_path)
+    args.out.mkdir()
+    (args.out / "precious.txt").write_text("keep", encoding="utf-8")
+    args = production.parse_args(
+        ["--corpus", str(args.corpus), "--out", str(args.out), "--overwrite-out"]
+    )
+
+    with pytest.raises(production.PipelineError, match="sweep output"):
+        run_pipeline(production, args, Recorder())
+
+    assert (args.out / "precious.txt").exists()
+
+
+def test_overwrite_out_refuses_the_corpus_itself(production, tmp_path) -> None:
+    args = make_args(production, tmp_path)
+    (args.corpus / "run.json").write_text("{}", encoding="utf-8")
+    args = production.parse_args(
+        ["--corpus", str(args.corpus), "--out", str(args.corpus), "--overwrite-out"]
+    )
+
+    with pytest.raises(production.PipelineError, match="corpus"):
+        run_pipeline(production, args, Recorder())
+
+    assert (args.corpus / "manifest.json").exists()
+
+
 def test_a_failed_phase_stops_the_pipeline(production, tmp_path) -> None:
     recorder = Recorder(failing="--skip-detect")
 

@@ -176,3 +176,60 @@ def test_empty_reports_give_no_tracks_and_output_is_deterministic() -> None:
     assert association.associate(reports) == association.associate(
         list(reversed(reports))
     )
+
+
+ABOVE_HORIZON = BoundingBox(380.0, 0.0, 420.0, 20.0)  # bottom edge looks above the horizon
+
+
+def test_above_horizon_pixels_cannot_be_projected_to_the_ground() -> None:
+    with pytest.raises(ValueError, match="does not reach the ground"):
+        PoseProjectionAssociation(SETUP).ground_point(POSE_A, 400.0, 20.0)
+
+
+def test_above_horizon_detections_become_singleton_tracks_instead_of_crashing() -> None:
+    association = PoseProjectionAssociation(SETUP)
+    reports = [
+        report(
+            "agent-a",
+            POSE_A,
+            [
+                ("a1", "car", box_standing_at(POSE_A, (2.0, 0.0))),
+                ("a-sky", "car", ABOVE_HORIZON),
+            ],
+        ),
+        report(
+            "agent-b",
+            POSE_B,
+            [
+                ("b1", "car", box_standing_at(POSE_B, (2.0, 0.0))),
+                ("b-sky", "car", ABOVE_HORIZON),
+            ],
+        ),
+    ]
+
+    tracks = association.associate(reports)
+
+    # The ground object still merges; each sky detection stays alone, even though
+    # both agents report the same box and label.
+    assert sorted(set(t.members) for t in tracks) == sorted(
+        [
+            {("rep-agent-a", "a-sky")},
+            {("rep-agent-b", "b-sky")},
+            {("rep-agent-a", "a1"), ("rep-agent-b", "b1")},
+        ],
+        key=sorted,
+    )
+    assert [t.track_id for t in tracks] == ["track-000", "track-001", "track-002"]
+
+
+def test_tracks_with_unprojected_detections_are_deterministic() -> None:
+    association = PoseProjectionAssociation(SETUP)
+    reports = [
+        report("agent-a", POSE_A, [("a-sky", "car", ABOVE_HORIZON)]),
+        report("agent-b", POSE_B, [("b-sky", "truck", ABOVE_HORIZON)]),
+    ]
+
+    forward = association.associate(reports)
+
+    assert len(forward) == 2
+    assert forward == association.associate(list(reversed(reports)))

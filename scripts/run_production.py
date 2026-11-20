@@ -10,13 +10,16 @@ Phases, in order:
     4. sweep      Evaluate the policies over the corpus.
     5. calibrate  Fit the offline estimator on practice scenes and print the check.
 
-A failed phase stops the run with a non-zero exit code. The sweep refuses to
-overwrite its output folder, so rerun with a new --out after a failed sweep.
+A failed phase stops the run with a non-zero exit code. To resume, skip the
+phases that already finished (--skip-render, --skip-detect). The sweep refuses to
+overwrite its output folder, so rerun with a new --out or pass --overwrite-out,
+which deletes the previous sweep output (only a folder holding run.json).
 """
 
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 import sys
 import time
@@ -72,6 +75,17 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--out", type=Path, default=Path("artifacts/corpus_900_eval"))
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--seed", type=int, default=0, help="Calibration split seed")
+    parser.add_argument(
+        "--skip-render", action="store_true", help="Reuse the rendered frames"
+    )
+    parser.add_argument(
+        "--skip-detect", action="store_true", help="Reuse the detector reports"
+    )
+    parser.add_argument(
+        "--overwrite-out",
+        action="store_true",
+        help="Delete a previous sweep output at --out before the sweep",
+    )
     return parser.parse_args(argv)
 
 
@@ -118,6 +132,23 @@ def stop_carla(
         )
     log(f"CARLA stopped; waiting {CARLA_SHUTDOWN_WAIT_S}s for VRAM to be released")
     sleep(CARLA_SHUTDOWN_WAIT_S)
+
+
+def check_out_is_removable(corpus: Path, out: Path) -> None:
+    """Refuse to delete anything that is not a previous sweep output.
+
+    Deletion is irreversible, so the folder must look like sweep output
+    (it holds run.json) and must not overlap the corpus that feeds the sweep.
+    """
+    if not out.exists():
+        return
+    corpus, out = corpus.resolve(), out.resolve()
+    if out == corpus or corpus in out.parents or out in corpus.parents:
+        raise PipelineError(f"--out must be separate from the corpus: {out}")
+    if not (out / "run.json").is_file():
+        raise PipelineError(
+            f"refusing to delete {out}: it is not sweep output (no run.json)"
+        )
 
 
 def _agent_view(report: AgentFrameReport, truth: Sequence[TruthObject]) -> AgentView:
@@ -188,8 +219,10 @@ def run_pipeline(
 ) -> None:
     """Run every phase in order; raise PipelineError at the first failure."""
     corpus = str(args.corpus)
+    if args.overwrite_out:
+        check_out_is_removable(args.corpus, args.out)
 
-    if not (args.corpus / "manifest.json").exists():
+    if not args.skip_render and not (args.corpus / "manifest.json").exists():
         plan_command = module_command(
             "scenario_gen",
             "--out",
@@ -199,22 +232,32 @@ def run_pipeline(
         )
         run_phase("plan", plan_command, run=run, log=log)
 
-    render_command = module_command(
-        "scenario_gen.runner", "--corpus", corpus, "--skip-detect"
-    )
-    run_phase("render", render_command, run=run, log=log)
+    if args.skip_render:
+        log("phase render: skipped")
+    else:
+        render_command = module_command(
+            "scenario_gen.runner", "--corpus", corpus, "--skip-detect"
+        )
+        run_phase("render", render_command, run=run, log=log)
 
-    stop_carla(run=run, sleep=sleep, log=log, platform=sys.platform)
+    if args.skip_detect:
+        log("phase detect: skipped")
+    else:
+        # Only detection needs the GPU, so only it needs CARLA gone.
+        stop_carla(run=run, sleep=sleep, log=log, platform=sys.platform)
+        detect_command = module_command(
+            "scenario_gen.runner",
+            "--corpus",
+            corpus,
+            "--skip-render",
+            "--device",
+            args.device,
+        )
+        run_phase("detect", detect_command, run=run, log=log)
 
-    detect_command = module_command(
-        "scenario_gen.runner",
-        "--corpus",
-        corpus,
-        "--skip-render",
-        "--device",
-        args.device,
-    )
-    run_phase("detect", detect_command, run=run, log=log)
+    if args.overwrite_out and args.out.exists():
+        log(f"removing previous sweep output at {args.out}")
+        shutil.rmtree(args.out)
 
     sweep_command = module_command(
         "harness.sweep", "--corpus", corpus, "--out", str(args.out)

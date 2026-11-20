@@ -9,6 +9,10 @@ Known limitation: the bottom edge of a vehicle seen from opposite sides touches 
 ground at different points, so ground points of one object can sit a few metres
 apart; `max_match_distance_m` absorbs that and must stay below typical vehicle
 spacing. Accuracy against ground truth is unmeasured until scenes record poses.
+
+A detection whose bottom edge looks above the horizon (a distant structure or a
+false positive) has no ground point. It cannot be matched, so it stays a
+single-detection track rather than aborting the whole association.
 """
 
 from __future__ import annotations
@@ -75,9 +79,8 @@ class PoseProjectionAssociation:
         return pose.x + distance * direction[0], pose.y + distance * direction[1]
 
     def associate(self, reports: Sequence[AgentFrameReport]) -> tuple[ObjectTrack, ...]:
-        detections = sorted(
-            self._project(reports), key=lambda d: (d.report_id, d.detection_id)
-        )
+        projected, unprojected = self._project(reports)
+        detections = sorted(projected, key=lambda d: (d.report_id, d.detection_id))
         cluster_of = list(range(len(detections)))
         sources_in = [{d.source_id} for d in detections]
 
@@ -98,20 +101,30 @@ class PoseProjectionAssociation:
             members.setdefault(cluster_of[index], []).append(
                 (detection.report_id, detection.detection_id)
             )
-        ordered = sorted(tuple(sorted(group)) for group in members.values())
+        groups = [tuple(sorted(group)) for group in members.values()]
+        groups.extend((member,) for member in unprojected)
+        ordered = sorted(groups)
         return tuple(
             ObjectTrack(track_id=f"track-{n:03d}", members=group)
             for n, group in enumerate(ordered)
         )
 
-    def _project(self, reports: Sequence[AgentFrameReport]) -> list[_GroundDetection]:
-        projected = []
+    def _project(
+        self, reports: Sequence[AgentFrameReport]
+    ) -> tuple[list[_GroundDetection], list[tuple[str, str]]]:
+        """Split detections into ground-projected ones and ones with no ground point."""
+        projected: list[_GroundDetection] = []
+        unprojected: list[tuple[str, str]] = []
         for report in reports:
             for detection in report.detections:
                 box = detection.box
-                x, y = self.ground_point(
-                    report.camera_pose, (box.x1 + box.x2) / 2, box.y2
-                )
+                try:
+                    x, y = self.ground_point(
+                        report.camera_pose, (box.x1 + box.x2) / 2, box.y2
+                    )
+                except ValueError:
+                    unprojected.append((report.report_id, detection.detection_id))
+                    continue
                 projected.append(
                     _GroundDetection(
                         report.report_id,
@@ -122,7 +135,7 @@ class PoseProjectionAssociation:
                         y,
                     )
                 )
-        return projected
+        return projected, unprojected
 
     @staticmethod
     def _candidate_pairs(
