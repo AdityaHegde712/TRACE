@@ -1,0 +1,88 @@
+\section{The TRACE Framework: Dependence-Aware Evidence Gating}
+\label{sec:framework}
+
+TRACE sits between the detectors and the task manager. Detectors emit
+per-frame reports. TRACE orders them, groups detections that refer to the
+same physical object, and decides whether a task may close. Four pieces do
+this work: a reconciler, a spatial association step, a decision policy, and an
+audit record.
+
+\subsection{Stream reconciliation with arrival watermarks}
+Reports from different cameras arrive late and out of order. If the decision
+depended on arrival order, the same evidence could close a task on one run and
+hold it on the next.
+
+The reconciler buffers each report and tracks the newest observation time it
+has seen. The watermark is that time minus a fixed slack $\Delta t$. A report
+is released once the watermark passes its observation time. Released reports
+leave in one canonical order: observation time, then source identifier, then
+report identifier. Any arrival permutation whose skew stays within $\Delta t$
+therefore yields the same sequence, the same decisions, and the same trace
+digest, byte for byte. A report that arrives behind the watermark cannot be
+placed without rewriting decisions already released. TRACE stores it in a
+separate late list. It is neither dropped nor merged into the ordered stream.
+The slack is a parameter of the run. The sweep reported in
+Section~\ref{sec:results} used $\Delta t = 1$\,s.
+
+\subsection{Ground-plane spatial association}
+Two cameras report the same vehicle at unrelated pixel coordinates, so TRACE
+matches detections in the world. For each detection it casts a ray through the
+bottom-centre pixel of the box, using the camera pose and the known camera
+height, and intersects that ray with the ground plane. The result is a ground
+point.
+
+Matching is greedy. TRACE lists every pair of detections from different
+agents that share a class label, sorts the pairs by ground distance, and
+merges them in that order while the distance stays under 4\,m. A merge is
+allowed only if the two clusters contain no agent in common, so one track
+holds at most one detection per agent. The 4\,m limit absorbs the offset
+between a vehicle's bottom edge as seen from opposite sides.
+
+Some detections have no ground point. If the ray points at or above the
+horizon, it never meets the ground. This happens for distant structures and
+for false positives. TRACE keeps each such detection as its own single-source
+track. It never matches them, so an unprojectable detection cannot be counted
+as confirmed by a second camera.
+
+\subsection{Dependence-aware lifecycle policy}
+A vote count treats two agreeing reports as two units of evidence. The
+calibration in Section~\ref{sec:results} shows that is wrong: the
+agents miss together more often than independence allows. \texttt{MissRiskPolicy}
+instead prices the chance that both agents missed something.
+
+For an agent pair with detectors $d_A$ and $d_B$, the calibrated estimator
+supplies the fitted ratio $\hat{\ratio}(d_A,d_B)$ and the two marginal miss
+rates $p_A$ and $p_B$. The joint miss risk is
+\begin{equation}
+  P(\text{both miss}) = \hat{\ratio}(d_A,d_B)\; p_A\; p_B .
+\end{equation}
+The policy applies three actions.
+\begin{itemize}
+  \item \textsc{Wait}: fewer than two agents have reported, so the task waits
+        for the second camera.
+  \item \textsc{Verify}: any track has only one agent behind it, or the joint
+        miss risk exceeds the tolerance $\tau$. The second case triggers a
+        targeted secondary audit.
+  \item \textsc{Close}: every track is co-observed and the joint miss risk is
+        at most $\tau$.
+\end{itemize}
+Single-source tracks are checked first, because a lone detection is not
+confirmed whatever the risk estimate says. With the independence estimator the
+risk is zero, so the rule reduces to the single-source test alone. The
+evaluation in Section~\ref{sec:results} ran in that mode, with
+$\tau = 0.05$. The same policy code becomes dependence-aware when it is handed
+the calibrated estimator. Evaluating that configuration is the open
+experiment in Section~\ref{sec:limits}.
+
+The policy handles two agents per task. With more, it reads the first two
+source identifiers.
+
+\subsection{Causal audit lineage}
+Every decision records the identifiers of the reports that caused it, the
+confirmed track identifiers, the reason code, the policy version, and the
+estimator version. The estimator version is a fingerprint, the first 12 hex
+characters of a SHA-256 over the frozen calibration numbers, so a decision
+names exactly the estimator that produced it. The trace digest is the SHA-256
+of the decisions serialised as canonical JSON (sorted keys, no whitespace).
+Given the same reports, policy, and calibration, a replay reproduces the
+digest. A changed digest means a changed input or a changed rule.
