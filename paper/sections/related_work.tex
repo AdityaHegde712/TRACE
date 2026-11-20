@@ -1,0 +1,34 @@
+\section{Related Work}
+
+\paragraph{Diversity and joint error.}
+The double-fault measure comes from the classifier-ensemble literature, where
+Kuncheva and Whitaker~\cite{kuncheva2003} compared it with other pairwise
+diversity measures and with ensemble accuracy. We use it as defined there. Our
+change is the domain: agents observing one physical scene rather than
+classifiers scored on a shared test set.
+
+\paragraph{Unknown correlation in fusion.}
+Covariance intersection~\cite{julier1997} fuses estimates when the cross
+correlation between sources is unknown, by choosing a conservative bound that
+holds for any correlation. It works on continuous state estimates. We study
+discrete detection outcomes and ask how much correlation exists in a concrete
+benchmark.
+
+\paragraph{Source dependence in truth discovery.}
+Dong et al.~\cite{dong2009} show that data sources that copy each other make
+naive voting overconfident, and that detecting the dependence repairs the
+vote. Our sources share a scene, not a copying relation, but the failure
+mechanism is the same: dependent sources counted as independent.
+
+\paragraph{Estimating shared errors.}
+Estimating the rate at which two imperfect observers both fail is a
+capture--recapture problem. Both-missed cases leave no trace in the reports,
+so the quantity is not identifiable from reports alone~\cite{albert2004}.
+This is why we fit the dependence factor offline on labelled scenes and
+freeze it before evaluation.
+
+\paragraph{Simulator and detectors.}
+We render with CARLA~\cite{dosovitskiy2017}. The detectors are YOLO11m from the
+Ultralytics release~\cite{ultralytics2024} and RT-DETR-L~\cite{zhao2024}. Both
+are COCO-pretrained, so ``different detector'' here does not mean trained on
+disjoint data.

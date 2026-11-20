@@ -1,0 +1,30 @@
+\section{Benchmark}
+
+\subsection{Scenes}
+The corpus has 900 physical scenes rendered in CARLA Town10HD. Scenes fall
+into 18 cells from a full factorial of three factors: viewpoint disparity
+(the angular gap between the two cameras on a shared orbit), the presence of a
+static occluder, and illumination (ClearNoon, CloudySunset, WetNoon). Each
+cell holds 50 scenes. The generator is seeded (seed 42) and its manifest is
+hashed, so a run can be replayed. Each scene is rendered once and read by
+every detector pairing.
+
+Two agents view each scene from cameras 14\,m above ground (800$\times$600,
+$90^\circ$ field of view). The scene supplies the agents with the same objects
+and the same static geometry, which is the shared context we want to measure.
+
+\subsection{Detectors and pairings}
+Each of the 1{,}800 frames (900 scenes $\times$ two viewpoints) goes through
+both YOLO11m and RT-DETR-L, giving 3{,}600 detector reports. Detections are
+matched to truth at IoU 0.5. Three pairings are scored: YOLO11m with
+YOLO11m, RT-DETR-L with RT-DETR-L, and YOLO11m with RT-DETR-L. A task is one
+scene under one pairing, so the corpus has $900\times 3 = 2{,}700$ tasks.
+
+\subsection{Truth and visibility}
+Ground truth comes from CARLA's instance-segmentation pixels, not from
+projected 3D boxes. An object enters an agent's visible set only if it covers
+enough pixels in that agent's frame. We score only objects visible to both
+agents. An object one agent cannot see says nothing about joint failure, and
+including it would pull the double-fault rate down. Projected boxes cannot
+tell an occluded object from a visible one, which is why we avoided them.
+Truth is kept in a separate directory and never reaches the policies.

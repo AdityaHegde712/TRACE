@@ -1,0 +1,22 @@
+\section{Limitations}
+\label{sec:limits}
+
+\begin{enumerate}
+  \item \textbf{The policy comparison does not test dependence-aware
+        closing.} Both rules ran with the independence estimator. The 2.3\%
+        figure comes from the single-source test, which fired on nearly every
+        task. A run with the calibrated estimator, and a sweep of the
+        tolerance to draw false clearance against verification rate, is not
+        done. Until it is, we claim no advantage for dependence awareness at
+        equal verification cost. A rule that verifies every task also reaches
+        zero false clearance.
+  \item \textbf{Scope.} One town (Town10HD), vehicle objects, one frame per
+        scene, two cameras, simulation only.
+  \item \textbf{Detectors overlap in training data.} Both are COCO-pretrained,
+        so the mixed pairing is not an independently trained pair.
+  \item \textbf{The ratio depends on marginal accuracy.} Ratios are not
+        comparable across detectors as measures of coupling.
+  \item \textbf{Association is unvalidated against truth.} Ground-projection
+        matching has no measured accuracy, and a vehicle seen from opposite
+        sides can project metres apart.
+\end{enumerate}

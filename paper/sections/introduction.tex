@@ -1,0 +1,40 @@
+\section{Introduction}
+
+Picture two drones surveying a road. The first reports a blockage. The second,
+looking from a different angle, reports the same thing. A task manager that
+counts distinct \texttt{source\_id} values sees two sources and closes the
+task. That step is safe only if the two reports can fail separately. When both
+drones look at the same parked truck, the same shadow, or the same low-contrast
+vehicle, they can miss together, and agreement carries less evidence than the
+count suggests.
+
+Classifier-ensemble research has measured this problem for decades. Kuncheva
+and Whitaker~\cite{kuncheva2003} study the double-fault measure, the rate at
+which two classifiers are wrong on the same sample, and compare it with the
+rate expected if the classifiers erred independently. We port that statistic
+into collaborative visual perception, where the ``samples'' are physical
+objects and the ``classifiers'' are agents that may differ in model, position,
+and view. We do not propose a new metric. The contribution is a measured
+benchmark, a calibration procedure, and an accounting of what naive agreement
+costs in task decisions.
+
+We ask three questions, each answered only for the corpus we built.
+\begin{enumerate}
+  \item How far above the independence prediction is the joint miss rate of
+        two agents, and does it differ by detector pairing?
+  \item Can that inflation be fitted on labelled scenes and carried to scenes
+        and illuminations the fit never saw?
+  \item What does a closing rule that assumes independence cost in missed
+        hazards, and what does a more cautious rule cost in verifications?
+\end{enumerate}
+
+\paragraph{Scope.} Everything here is simulation: CARLA 0.9.16, one town, two
+detectors, vehicle objects, one frame per scene. We make no claim about field
+deployments or about detectors we did not run.
+
+\paragraph{Contributions.}
+(i)~A balanced 900-scene corpus with per-viewpoint, pixel-derived visibility
+truth. (ii)~Inflation ratios with bootstrap intervals for three detector
+pairings, with a held-out-illumination check. (iii)~A decision-level comparison
+of two closing rules, reported together with its verification cost and with the
+limit that the cautious rule did not use a dependence estimate.

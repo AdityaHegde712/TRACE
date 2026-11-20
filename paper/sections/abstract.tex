@@ -1,0 +1,19 @@
+\begin{abstract}
+A fleet of cameras can report the same hazard and still be wrong together.
+Resolution logic that treats two agreeing reports as two independent votes
+inherits that mistake. We measure how large it is. Using the double-fault
+statistic of Kuncheva and Whitaker~\cite{kuncheva2003}, applied unchanged, we
+score pairs of detectors that view the same CARLA scene from two positions.
+The benchmark has 900 physical Town10HD scenes across 18 cells (viewpoint
+disparity, static occluders, illumination) and two detectors, YOLO11m and
+RT-DETR-L. Both agents miss the same object 1.80 times as often as
+independence predicts for YOLO11m pairs, 2.52 times for RT-DETR-L pairs, and
+1.99 times for mixed pairs (95\% intervals $[1.73,1.87]$, $[2.38,2.67]$,
+$[1.90,2.08]$). A calibration fitted on 450 scenes predicts the joint miss
+rate on 450 held-out scenes, and on each of three held-out illuminations, to
+within 0.025 absolute. A closing rule that trusts the latest report cleared
+2{,}172 of 2{,}700 tasks while at least one co-visible object was still missed
+(80.4\%). A rule that verifies any track seen by one agent only cut that to 61
+tasks (2.3\%), but verified 2{,}629 tasks (97.4\%) to do so, and it used no
+dependence estimate. All results are over this simulated corpus.
+\end{abstract}

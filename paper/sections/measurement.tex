@@ -1,0 +1,47 @@
+\section{Measurement}
+
+\subsection{Dependence inflation}
+For two agents $A$ and $B$ and the set of co-visible objects, let $p_A$ and
+$p_B$ be the marginal miss rates and $p_{AB}$ the rate at which both miss the
+same object. If misses were independent, $p_{AB}$ would equal $p_A p_B$. The
+inflation ratio is
+\begin{equation}
+  \ratio = \frac{p_{AB}}{p_A\,p_B}.
+\end{equation}
+A value of 1 means independence. This is the double-fault comparison of
+Kuncheva and Whitaker~\cite{kuncheva2003}, used without modification. We
+attach a percentile bootstrap interval, resampling objects, and drop
+resamples in which an agent makes no error because the ratio is undefined
+there.
+
+The ratio has a known weakness. It divides by $p_A p_B$, so a more accurate
+detector can show a larger ratio without its errors being any more associated.
+In an earlier 54-scene study RT-DETR-L had the highest ratio while its $\phi$
+coefficient matched YOLO11m's. We therefore compare pairings with that in
+mind and do not read a larger ratio as stronger coupling.
+
+\subsection{Offline calibration}
+Both-missed objects emit no report, so $p_{AB}$ cannot be estimated online from
+reports. We fit it offline instead. Scenes are split by seed into 450
+practice and 450 exam scenes, with no scene in both. On practice scenes we
+count each detector pair's marginal miss rates and ratio, then freeze them
+under a fingerprinted version before any exam scene is scored. The estimator
+predicts $p_{AB}=\ratio\,p_A p_B$ for a pair. We also run a shift test: fit on
+two illuminations, predict the third.
+
+\subsection{Decision policies}
+A task is closed, verified, or held. We define a \emph{false clearance} as a
+task closed while at least one co-visible object was missed by the agents.
+Two rules are compared.
+\begin{itemize}
+  \item \textbf{Latest-report.} Close on the most recent report. This is the
+        naive consensus baseline and never verifies.
+  \item \textbf{Miss-risk (v0).} Associate detections across agents by ground
+        projection (4\,m match distance). Verify if any track is seen by one
+        agent only. Otherwise estimate $\ratio\,p_A p_B$ and verify if it
+        exceeds a tolerance of 0.05, else close.
+\end{itemize}
+In the evaluated run both rules were given the independence estimator, for
+which the shared-miss term is zero. The miss-risk rule therefore acted only
+through its single-source test. We return to this in
+Section~\ref{sec:limits}.

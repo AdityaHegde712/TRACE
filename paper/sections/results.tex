@@ -1,0 +1,104 @@
+\section{Results}
+
+\subsection{Joint misses exceed the independence prediction}
+Table~\ref{tab:calib} reports the practice-scene ratios and the exam-scene
+joint miss rates for the random split. Each pairing misses jointly far more
+often than the naive product predicts. The calibrated prediction lands within
+0.007 of the observed rate for all three pairings.
+
+\begin{table}[t]
+\centering
+\caption{Random split, 450 practice / 450 exam scenes, 4{,}068 co-visible
+exam objects. Ratio is fitted on practice scenes. Joint-miss columns are exam
+rates.}
+\label{tab:calib}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Pairing & Ratio $\ratio$ [95\% CI] & Obs. & Calib. & Naive \\
+\midrule
+YOLO / YOLO       & 1.80 [1.73, 1.87] & 0.241 & 0.238 & 0.133 \\
+RT-DETR / RT-DETR & 2.52 [2.38, 2.67] & 0.106 & 0.110 & 0.044 \\
+YOLO / RT-DETR    & 1.99 [1.90, 2.08] & 0.141 & 0.148 & 0.074 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The RT-DETR-L ratio is the largest, but RT-DETR-L also misses less often
+(joint miss 0.106 against 0.241), so its smaller denominator inflates the
+ratio. The pairing with the most joint misses in absolute terms is the YOLO11m
+pair. Mixing detectors lowers the joint miss rate below the YOLO11m pair
+(0.141 against 0.241) without bringing the ratio near 1.
+
+\subsection{The calibration holds across held-out illumination}
+Table~\ref{tab:shift} holds out one illumination at a time (600 practice
+scenes, 300 exam scenes). The calibrated prediction stays within 0.025 of the
+observed joint miss rate in every case, and is closer than the naive
+prediction in all nine. The largest gaps are WetNoon (RT-DETR-L, 0.095
+observed against 0.115) and CloudySunset (YOLO11m, 0.255 against 0.232).
+An earlier 54-scene dry run failed this test: with ClearNoon held out, YOLO11m
+was predicted at 0.273 against 0.103 observed. At 900 scenes the practice
+ratios are stable across folds (1.78--1.83 for YOLO11m).
+
+\begin{table}[t]
+\centering
+\caption{Shift test: exam joint-miss rate with one illumination held out.
+Obs.\ = observed, Cal.\ = calibrated prediction, Naive = independence.}
+\label{tab:shift}
+\small
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Held out & Pairing & Obs. & Cal. & Naive \\
+\midrule
+ClearNoon    & YOLO / YOLO        & 0.237 & 0.241 & 0.135 \\
+             & RT-DETR / RT-DETR  & 0.117 & 0.104 & 0.043 \\
+             & YOLO / RT-DETR     & 0.146 & 0.143 & 0.075 \\
+CloudySunset & YOLO / YOLO        & 0.255 & 0.232 & 0.130 \\
+             & RT-DETR / RT-DETR  & 0.113 & 0.106 & 0.043 \\
+             & YOLO / RT-DETR     & 0.154 & 0.139 & 0.072 \\
+WetNoon      & YOLO / YOLO        & 0.228 & 0.246 & 0.134 \\
+             & RT-DETR / RT-DETR  & 0.095 & 0.115 & 0.045 \\
+             & YOLO / RT-DETR     & 0.133 & 0.150 & 0.075 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Decision cost of assuming independence}
+Table~\ref{tab:policy} gives the decision outcomes over all 2{,}700 tasks
+(5{,}400 decision rows, two per task).
+
+\begin{table}[t]
+\centering
+\caption{Decision outcomes over 2{,}700 tasks. False clearance: task closed
+with at least one co-visible object missed. Both rules used the independence
+estimator.}
+\label{tab:policy}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Rule & False clear. & Rate & Missed obj. & Verified \\
+\midrule
+Latest-report & 2{,}172 & 80.4\% & 6{,}084 & 0 \\
+Miss-risk v0  & 61      & 2.3\%  & 122     & 2{,}629 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Trusting the latest report cleared a task with a missed hazard in four of
+five cases. The miss-risk rule cut false clearances from 2{,}172 to 61 tasks
+and missed objects from 6{,}084 to 122. It did this by sending 2{,}629 of
+2{,}700 tasks (97.4\%) to verification. Of the 71 tasks it closed, 61 still
+had a missed object.
+
+The comparison shows what unconditional trust costs. It does not show that a
+dependence-aware policy beats a naive one, for the reasons in the next
+section.
+
+\subsection{Preliminary 54-scene study}
+An earlier study with one YOLO11m across 54 scenes and 448 co-visible objects
+gave $\ratio=1.671$ (95\% CI $[1.500,1.870]$). A permutation control that
+shuffled one agent's error flags, keeping both marginals fixed, returned
+0.999 when the two agents saw different scenes and 1.197 for the same scene
+but different objects. About 71\% of the excess attached to the two agents
+viewing the same individual object and about 29\% to scene-wide conditions.
+These figures come from a smaller corpus and a single detector.
