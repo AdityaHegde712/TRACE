@@ -66,8 +66,12 @@ def to_spike_scene_spec(entry: ScenarioManifestEntry) -> SceneSpec:
 
 
 def assert_loaded_town(loaded_map: str, planned_town: str) -> None:
-    """Reject a CARLA server that does not match the manifest's planned map."""
-    loaded_town = loaded_map.rsplit("/", maxsplit=1)[-1]
+    """Reject a CARLA server that does not match the manifest's planned map.
+
+    CARLA 0.9.16 reports the optimized layer variant (`Town10HD_Opt`) when it
+    loads `Town10HD`. Both are the same town, so the `_Opt` suffix is ignored.
+    """
+    loaded_town = loaded_map.rsplit("/", maxsplit=1)[-1].removesuffix("_Opt")
     if loaded_town != planned_town:
         raise ValueError(
             f"CARLA server loaded {loaded_town!r}, but manifest requires {planned_town!r}"

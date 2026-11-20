@@ -55,3 +55,18 @@ def test_adapter_preserves_the_manifest_town() -> None:
     entry = build_plan(ScenarioGenerationConfig(town="Town10HD")).entries[0]
 
     assert to_spike_scene_spec(entry).town == entry.town
+
+
+@pytest.mark.parametrize(
+    "loaded_map",
+    ["/Game/Carla/Maps/Town10HD_Opt", "Town10HD_Opt"],
+)
+def test_adapter_accepts_the_optimized_layer_variant_of_the_planned_town(
+    loaded_map: str,
+) -> None:
+    assert_loaded_town(loaded_map, "Town10HD")
+
+
+def test_adapter_still_rejects_a_different_optimized_town() -> None:
+    with pytest.raises(ValueError, match="Town10HD"):
+        assert_loaded_town("/Game/Carla/Maps/Town01_Opt", "Town10HD")
