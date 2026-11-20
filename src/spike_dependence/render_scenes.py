@@ -40,7 +40,8 @@ from spike_dependence.scene_matrix import (
 
 _SETTLE_TICKS = 12
 _OCCLUDER_FRACTION = 0.40
-_VIEWPOINT_ATTEMPTS = 12
+_VIEWPOINT_ATTEMPTS = 24
+_SPAWN_CANDIDATES = 20
 _SKY_PROBE_M = 60.0
 
 
@@ -223,15 +224,23 @@ def render_scene(
     world.set_weather(getattr(carla.WeatherParameters, scene.weather.value))
 
     points = world.get_map().get_spawn_points()
-    centre = points[scene.seed % len(points)].location
 
-    # Line of sight is checked before any traffic exists, so only static
-    # geometry can disqualify a viewpoint.
-    poses = _clear_viewpoint_pair(
-        carla, world, scene, centre,
-        radius_m=radius_m, height_m=camera_height_m,
-    )
-    if poses is None:
+    # The seed picks the primary centre, but static architecture can block every
+    # camera angle around it. Walk the following spawn points in a fixed order so
+    # the same seed always lands on the same centre. Line of sight is checked
+    # before any traffic exists, so only static geometry can disqualify one.
+    poses = None
+    centre = None
+    for offset in range(min(len(points), _SPAWN_CANDIDATES)):
+        candidate = points[(scene.seed + offset) % len(points)].location
+        poses = _clear_viewpoint_pair(
+            carla, world, scene, candidate,
+            radius_m=radius_m, height_m=camera_height_m,
+        )
+        if poses is not None:
+            centre = candidate
+            break
+    if poses is None or centre is None:
         return None
     pose_a, pose_b = poses
 
