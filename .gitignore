@@ -45,7 +45,11 @@ desktop.ini
 .agent-tasks/
 .claude/skills
 Submissions/
-artifacts/
+artifacts/*
+!artifacts/corpus_900_eval/
+artifacts/corpus_900_eval/*
+!artifacts/corpus_900_eval/results.csv
+!artifacts/corpus_900_eval/run.json
 docs/Capstone-TRACE*.md
 docs/**/*/archived/
 docs/personal/
@@ -53,6 +57,10 @@ docs/personal/
 # Detector weights, fetched on demand by ultralytics (yolo11m.pt is 40 MB).
 *.pt
 HANDOFF.md
+
+# Pipeline logs and PIDs
+production_900.log
+production_900.pid
 
 # Personal checklist
 PranavChecklist
