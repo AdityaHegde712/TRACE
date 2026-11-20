@@ -20,6 +20,9 @@ from trace_contracts.scenario import (
 )
 from trace_contracts.truth import TruthObject
 
+# One agent per camera view; Phase 2 maps a frame's source id back to its view.
+SOURCE_ID_BY_VIEW: dict[str, str] = {"a": "agent-a", "b": "agent-b"}
+
 _OVERLAP_BY_VIEWPOINT: dict[ViewpointDisparity, Overlap] = {
     ViewpointDisparity.NARROW: Overlap.HIGH,
     ViewpointDisparity.MEDIUM: Overlap.MEDIUM,
@@ -47,6 +50,7 @@ class RenderedScene:
     frame_id: str
     frame_paths: tuple[Path, Path]
     truth_paths: tuple[Path, Path]
+    camera_pose_path: Path
 
 
 def to_spike_scene_spec(entry: ScenarioManifestEntry) -> SceneSpec:
@@ -111,9 +115,13 @@ def render_entry(
         frame_paths = tuple(
             _copy_frame(
                 scene_dir / f"rgb_{view}.png",
-                layout.frame_path(entry.scene_id, frame_id, f"agent-{view}"),
+                layout.frame_path(entry.scene_id, frame_id, SOURCE_ID_BY_VIEW[view]),
             )
             for view in ("a", "b")
+        )
+        camera_pose_path = _copy_frame(
+            scene_dir / "camera_poses.json",
+            layout.camera_pose_path(entry.scene_id, frame_id),
         )
         truth_paths = tuple(
             _export_truth(
@@ -121,11 +129,13 @@ def render_entry(
                 layout,
                 entry.scene_id,
                 frame_id,
-                f"agent-{view}",
+                SOURCE_ID_BY_VIEW[view],
             )
             for view in ("a", "b")
         )
-    return RenderedScene(entry.scene_id, frame_id, frame_paths, truth_paths)
+    return RenderedScene(
+        entry.scene_id, frame_id, frame_paths, truth_paths, camera_pose_path
+    )
 
 
 def _copy_frame(source: Path, destination: Path) -> Path:

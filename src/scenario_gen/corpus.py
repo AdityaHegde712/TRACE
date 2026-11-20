@@ -46,8 +46,24 @@ class CorpusLayout:
         return self.root / "frames"
 
     @property
+    def camera_poses_root(self) -> Path:
+        return self.root / "camera_poses"
+
+    @property
     def detector_jobs_path(self) -> Path:
         return self.root / "detector_jobs.json"
+
+    def camera_pose_path(self, scene_id: str, frame_id: str) -> Path:
+        """Return the pose file shared by both views of one rendered frame."""
+        self._validate(scene_id, frame_id)
+        return self.camera_poses_root / f"{scene_id}--{frame_id}.json"
+
+    def detector_report_path(
+        self, detector: str, scene_id: str, frame_id: str, source_id: str
+    ) -> Path:
+        """Return one detector's report path, beside the other detectors' reports."""
+        self._validate(detector)
+        return self.reports_root / detector / self._record_name(scene_id, frame_id, source_id)
 
     def report_path(self, scene_id: str, frame_id: str, source_id: str) -> Path:
         return self.reports_root / self._record_name(scene_id, frame_id, source_id)
@@ -60,10 +76,14 @@ class CorpusLayout:
         return self.frames_root / Path(filename).with_suffix(".png")
 
     @staticmethod
-    def _record_name(scene_id: str, frame_id: str, source_id: str) -> str:
-        for value in (scene_id, frame_id, source_id):
+    def _validate(*identifiers: str) -> None:
+        for value in identifiers:
             if not _IDENTIFIER.fullmatch(value):
                 raise ValueError("record identifier contains unsafe characters")
+
+    @classmethod
+    def _record_name(cls, scene_id: str, frame_id: str, source_id: str) -> str:
+        cls._validate(scene_id, frame_id, source_id)
         return f"{scene_id}--{frame_id}--{source_id}.json"
 
 
