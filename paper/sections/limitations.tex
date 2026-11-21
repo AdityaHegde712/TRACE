@@ -2,14 +2,15 @@
 \label{sec:limits}
 
 \begin{enumerate}
-  \item \textbf{The policy comparison does not test dependence-aware
-        closing.} Both rules ran with the independence estimator. The 2.3\%
-        figure comes from the single-source test, which fired on nearly every
-        task. A run with the calibrated estimator, and a sweep of the
-        tolerance to draw false clearance against verification rate, is not
-        done. Until it is, we claim no advantage for dependence awareness at
-        equal verification cost. A rule that verifies every task also reaches
-        zero false clearance.
+  \item \textbf{The decision rule shows no advantage from dependence
+        awareness.} We ran the calibrated tolerance sweep. The single-source
+        test decides 97.4\% of tasks before the risk estimate is used, so the
+        tolerance moves the verification rate by only 2.6 points. At equal
+        verification cost the rule closes no fewer unsafe tasks than random
+        choice among the tasks it could close. The estimator is also fitted
+        per detector pairing, not per task. A finer estimator, for example
+        one keyed on illumination or object size, is untested. A rule that
+        verifies every task also reaches zero false clearance.
   \item \textbf{Scope.} One town (Town10HD), vehicle objects, one frame per
         scene, two cameras, simulation only.
   \item \textbf{Detectors overlap in training data.} Both are COCO-pretrained,

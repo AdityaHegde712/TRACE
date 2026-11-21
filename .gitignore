@@ -50,6 +50,10 @@ artifacts/*
 artifacts/corpus_900_eval/*
 !artifacts/corpus_900_eval/results.csv
 !artifacts/corpus_900_eval/run.json
+!artifacts/corpus_900_calibrated_sweep/
+artifacts/corpus_900_calibrated_sweep/*
+!artifacts/corpus_900_calibrated_sweep/results.csv
+!artifacts/corpus_900_calibrated_sweep/run.json
 docs/Capstone-TRACE*.md
 docs/**/*/archived/
 docs/personal/

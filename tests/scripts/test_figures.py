@@ -318,3 +318,56 @@ def test_double_fault_figure_is_written_as_pdf_and_png(tmp_path, monkeypatch) ->
 
     assert (tmp_path / "fig.pdf").stat().st_size > 0
     assert (tmp_path / "fig.png").stat().st_size > 0
+
+
+# --- plot_tradeoffs: calibrated tolerance sweep ----------------------------
+
+
+def test_tolerance_is_read_from_the_policy_version(monkeypatch) -> None:
+    tradeoffs = load(monkeypatch, "plot_tradeoffs")
+
+    assert tradeoffs.tolerance_of("miss-risk-calibrated-v0-tau0.05") == 0.05
+    assert tradeoffs.tolerance_of("miss-risk-calibrated-v0-tau1") == 1.0
+    assert tradeoffs.tolerance_of("miss-risk-v0") is None
+
+
+def test_sweep_summaries_are_split_from_baselines_and_sorted_by_tolerance(
+    monkeypatch,
+) -> None:
+    tradeoffs = load(monkeypatch, "plot_tradeoffs")
+
+    def make(name):
+        return tradeoffs.PolicySummary(name, 100, 0.5, 0.1, 0)
+
+    summaries = [
+        make("miss-risk-calibrated-v0-tau0.5"),
+        make("never-verify-v0"),
+        make("miss-risk-calibrated-v0-tau0.1"),
+        make("miss-risk-calibrated-v0-tau0.25"),
+    ]
+
+    baselines, sweep = tradeoffs.split_sweep(summaries)
+
+    assert [s.policy for s in baselines] == ["never-verify-v0"]
+    assert [tradeoffs.tolerance_of(s.policy) for s in sweep] == [0.1, 0.25, 0.5]
+
+
+def test_tradeoff_figure_with_a_tolerance_sweep_is_written(tmp_path, monkeypatch) -> None:
+    pytest.importorskip("matplotlib")
+    tradeoffs = load(monkeypatch, "plot_tradeoffs")
+    names = [f"{name}-v0" for name in tradeoffs.POLICY_ORDER]
+    names += [f"miss-risk-calibrated-v0-tau{tau}" for tau in (0.1, 0.2, 0.4)]
+    rows = [
+        row(name, f"s{i}", action, missed, false_clearance=missed > 0)
+        for name in names
+        for i, (action, missed) in enumerate([("verify", 0), ("close", 3)])
+    ]
+    path = write_results(tmp_path / "a.csv", rows)
+    baselines, sweep = tradeoffs.split_sweep(
+        tradeoffs.summarize(tradeoffs.load_policy_rows([path]))
+    )
+
+    tradeoffs.plot_tradeoffs(baselines, tmp_path / "fig", sweep=sweep)
+
+    assert (tmp_path / "fig.pdf").stat().st_size > 0
+    assert (tmp_path / "fig.png").stat().st_size > 0

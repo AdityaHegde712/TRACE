@@ -71,8 +71,10 @@ confirmed whatever the risk estimate says. With the independence estimator the
 risk is zero, so the rule reduces to the single-source test alone. The
 evaluation in Section~\ref{sec:results} ran in that mode, with
 $\tau = 0.05$. The same policy code becomes dependence-aware when it is handed
-the calibrated estimator. Evaluating that configuration is the open
-experiment in Section~\ref{sec:limits}.
+the calibrated estimator. Section~\ref{sec:results} reports that
+configuration, a sweep of $\tau$ from 0.01 to 0.50. It shows that $\tau$ has
+little effect, because the single-source test comes first
+(Section~\ref{sec:limits}).
 
 The policy handles two agents per task. With more, it reads the first two
 source identifiers.

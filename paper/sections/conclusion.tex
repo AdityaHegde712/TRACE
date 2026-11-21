@@ -6,8 +6,9 @@ pairing, and a calibration fitted on 450 scenes predicted the joint miss rate
 on held-out scenes and illuminations. A closing rule that trusted the latest
 report left a missed object in 80.4\% of tasks.
 
-The open step is the decision experiment. We will run the miss-risk rule with
-the calibrated estimator, sweep its tolerance, and compare it with the naive
-rule at equal verification rate, with paired bootstrap intervals on the
-difference. Until that run exists, the decision-level claim stops at the cost
-of unconditional trust.
+We swept the miss-risk tolerance with the calibrated estimator. It gave four
+operating points between 97.4\% and 100\% verification, with false clearance
+from 2.3\% to zero. At equal verification cost the rule closed no fewer unsafe
+tasks than random choice among the tasks it could close. The decision-level
+claim therefore stops at the cost of unconditional trust. A task-level
+estimator is the open step.

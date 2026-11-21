@@ -20,6 +20,7 @@ from baselines import (
 from evidence_resolution.association import CameraSetup, PoseProjectionAssociation
 from evidence_resolution.miss_risk_policy import MissRiskPolicy
 from evidence_resolution.reconciliation import WatermarkedReconciler
+from sweep.calibrated import fit_practice_estimator, tolerance_policy_version
 from sweep.corpus import load_tasks
 from sweep.scoring import score_decision
 from trace_contracts.estimation import IndependenceEstimator
@@ -75,6 +76,15 @@ def run(args: argparse.Namespace) -> int:
         raise ValueError("invalid camera dimensions or field of view")
     if not 0 <= args.miss_risk_tolerance <= 1:
         raise ValueError("miss-risk tolerance must lie in [0, 1]")
+    calibrated = args.estimator == "calibrated"
+    tolerances = args.miss_risk_tolerances
+    if tolerances is not None:
+        if not calibrated:
+            raise ValueError("--miss-risk-tolerances needs --estimator calibrated")
+        if not all(math.isfinite(t) and 0 <= t <= 1 for t in tolerances):
+            raise ValueError("miss-risk tolerances must lie in [0, 1]")
+        if len(set(tolerances)) != len(tolerances):
+            raise ValueError("duplicate miss-risk tolerance")
     if args.slack_seconds <= 0:
         raise ValueError("slack must be strictly positive")
     if args.camera_height_m <= 0 or args.match_distance_m <= 0:
@@ -89,7 +99,13 @@ def run(args: argparse.Namespace) -> int:
         args.width_px, args.height_px, args.fov_degrees, args.camera_height_m
     )
     association = PoseProjectionAssociation(setup, args.match_distance_m)
-    estimator = IndependenceEstimator()
+    if calibrated:
+        estimator = fit_practice_estimator(
+            tasks, seed=args.calibration_seed, iou_threshold=args.iou_threshold
+        )
+        sweep = tolerances if tolerances is not None else [args.miss_risk_tolerance]
+    else:
+        estimator = IndependenceEstimator()
     paths = [root / "manifest.json"]
     paths += sorted((root / "reports").rglob("*.json"))
     paths += sorted((root / "evaluator_truth").rglob("*.json"))
@@ -108,6 +124,13 @@ def run(args: argparse.Namespace) -> int:
             name: hashlib.sha256(data).hexdigest() for name, data in inputs.items()
         },
     }
+    if calibrated:
+        metadata.update(
+            estimator="calibrated",
+            estimator_version=estimator.version,
+            calibration_seed=args.calibration_seed,
+            miss_risk_tolerances=sweep,
+        )
     run_id = hashlib.sha256(_json_bytes(metadata)).hexdigest()
     rows, traces = [], {}
     for task in tasks:
@@ -124,13 +147,26 @@ def run(args: argparse.Namespace) -> int:
                 f"{[r.report_id for r in reconciler.late]}"
             )
         tracks = association.associate(reports)
+        policies = []
         for name in args.policies:
-            if name == "miss-risk":
-                policy = MissRiskPolicy(
-                    association, miss_risk_tolerance=args.miss_risk_tolerance
+            if name != "miss-risk":
+                policies.append(POLICIES[name](association))
+            elif calibrated:
+                policies.extend(
+                    MissRiskPolicy(
+                        association,
+                        miss_risk_tolerance=tau,
+                        version=tolerance_policy_version(tau),
+                    )
+                    for tau in sweep
                 )
             else:
-                policy = POLICIES[name](association)
+                policies.append(
+                    MissRiskPolicy(
+                        association, miss_risk_tolerance=args.miss_risk_tolerance
+                    )
+                )
+        for policy in policies:
             decision = policy.decide(scene, reports, estimator)
             result = score_decision(
                 decision,
@@ -189,6 +225,20 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--slack-seconds", type=float, default=1.0)
     parser.add_argument("--iou-threshold", type=float, default=0.5)
     parser.add_argument("--miss-risk-tolerance", type=float, default=0.05)
+    parser.add_argument(
+        "--estimator",
+        choices=["independence", "calibrated"],
+        default="independence",
+        help="calibrated fits on the practice half of a seeded scene split",
+    )
+    parser.add_argument("--calibration-seed", type=int, default=0)
+    parser.add_argument(
+        "--miss-risk-tolerances",
+        nargs="+",
+        type=float,
+        default=None,
+        help="sweep miss-risk over these tolerances (calibrated estimator only)",
+    )
     args = parser.parse_args(argv)
     try:
         return run(args)

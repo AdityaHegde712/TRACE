@@ -100,8 +100,11 @@ WetNoon      & YOLO / YOLO        & 0.228 & 0.246 & 0.134 \\
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/tradeoffs_pareto}
-\caption{Verification rate against risk for six rules over the same 2{,}700
-tasks. (a)~False clearance rate. (b)~Missed objects per task. Never-verify
+\caption{Verification rate against risk for six rules and the TRACE tolerance
+sweep over the same 2{,}700 tasks. (a)~False clearance rate. (b)~Missed objects
+per task. (c)~The sweep, enlarged: miss-risk with the calibrated estimator at 13
+tolerances $\tau$ from 0.01 to 0.50. The estimator is fitted on 450 practice
+scenes, so half of the tasks are in-sample. Never-verify
 closes on the merged tracks of both agents; first-report-wins and latest-report
 close on one agent's report; always-verify verifies every task. Majority-vote
 and miss-risk v0 give the same counts (61 false clearances, 122 missed objects):
@@ -139,9 +142,30 @@ and missed objects from 6{,}084 to 122. It did this by sending 2{,}629 of
 had a missed object.
 
 Figure~\ref{fig:tradeoffs} places four further rules on the same axes.
-The comparison shows what unconditional trust costs. It does not show that a
-dependence-aware policy beats a naive one, for the reasons in the next
-section.
+It also shows the tolerance sweep. We fitted the calibrated estimator on 450
+practice scenes (seed 0) and ran the miss-risk rule at 13 tolerances $\tau$
+from 0.01 to 0.50 over all 2{,}700 tasks.
+
+The tolerance has a narrow effect. The single-source test sends 97.4\% of
+tasks to verification whatever $\tau$ is. Only the other 71 tasks reach the
+risk test. For those tasks the joint miss risk is 0.238 (YOLO/YOLO), 0.110
+(RT-DETR/RT-DETR) and 0.148 (YOLO/RT-DETR), so $\tau$ changes a decision only
+when it crosses one of these three values. The sweep therefore gives four
+points and not a smooth curve (panel~c). At $\tau\le 0.10$ every task is
+verified. At $\tau=0.12$ the verification rate is 99.3\% and false clearance
+0.6\%. For $\tau$ from 0.15 to 0.20 the values are 98.6\% and 1.2\%. From
+$\tau=0.25$ they are 97.4\% and 2.3\%, the same as majority-vote. An operator
+can choose among these four settings. Together they span 2.6 points of
+verification rate. The 450 exam scenes alone give the same four steps (false
+clearance 0.5\%, 1.1\%, and 2.3\%).
+
+The sweep does not show that dependence awareness helps. At $\tau=0.12$ the
+rule closes 18 tasks, and 15 of them hold a missed object. Closing 18 tasks
+chosen at random from the 71 would leave 15.5 on average. At $\tau=0.15$ the
+rule closes 38 tasks, 32 unsafe, against 32.6 for random choice. The
+estimator ranks the three detector pairings. It does not rank tasks inside a
+pairing. We claim no advantage over naive closing at equal verification
+cost.
 
 \subsection{Preliminary 54-scene study}
 An earlier study with one YOLO11m across 54 scenes and 448 co-visible objects
