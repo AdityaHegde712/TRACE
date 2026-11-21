@@ -187,6 +187,7 @@ name = "evidence-resolution-prototype"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "matplotlib" },
     { name = "numpy" },
 ]
 
@@ -207,6 +208,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "carla", marker = "extra == 'spike'", specifier = "==0.9.16" },
+    { name = "matplotlib", specifier = ">=3.8.0" },
     { name = "numpy", specifier = ">=2.5.4" },
     { name = "torch", marker = "extra == 'spike'", specifier = ">=2.11.0", index = "https://download.pytorch.org/whl/cu128" },
     { name = "torchvision", marker = "extra == 'spike'", specifier = ">=0.26.0", index = "https://download.pytorch.org/whl/cu128" },
