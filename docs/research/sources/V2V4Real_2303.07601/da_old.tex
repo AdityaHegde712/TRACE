@@ -1,0 +1,19 @@
+\begin{table}[]
+\centering
+\begin{tabular}{l|l|c}
+\hline
+Method   & Domain Adaptation      & \multicolumn{1}{l}{AP@IoU=0.5} \\ \hline
+AttFuse  & \multicolumn{1}{c|}{x} & 15.2~($\downarrow$ 32.7)                            \\
+AttFuse  & \multicolumn{1}{c|}{\checkmark}                        & 21.4~($\downarrow$ 26.5)                           \\
+F-Cooper & \multicolumn{1}{c|}{x} & 19.9~($\downarrow$ 25.7)                           \\
+F-Cooper & \multicolumn{1}{c|}{\checkmark}                         & 26.4~($\downarrow$ 19.2)             \\
+V2VNet   & \multicolumn{1}{c|}{x} & 14.7~($\downarrow$ 27.3)                           \\
+V2VNet   &  \multicolumn{1}{c|}{\checkmark}                       & 19.7~($\downarrow$ 22.3)          \\
+V2X-ViT  &  \multicolumn{1}{c|}{x}                       & 23.7~($\downarrow$ 25.2)          \\
+V2X-ViT  & \multicolumn{1}{c|}{\checkmark}                        & 29.0~($\downarrow$ 19.9)         \\
+CoBEVT   & \multicolumn{1}{c|}{x} & 22.3~($\downarrow$ 28.8)                           \\
+CoBEVT   &  \multicolumn{1}{c|}{\checkmark}                       & 27.1~(($\downarrow$ 24)                              \\ \hline
+\end{tabular}
+\caption{Domain Adaptation benchmark. The number in the bracket indicates the precision drop compared to training on the V2V4Real dataset.}
+\label{tab:da_old}
+\end{table}

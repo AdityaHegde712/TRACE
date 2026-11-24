@@ -1,0 +1,113 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{9732063}
+A.~Caillot, S.~Ouerghi, P.~Vasseur, R.~Boutteau, and Y.~Dupuis, ``Survey on cooperative perception in an automotive context,'' \emph{IEEE Trans. Intell. Transp. Syst.}, vol.~23, no.~9, pp. 14\,204--14\,223, 2022.
+
+\bibitem{han2023collaborative}
+Y.~Han, H.~Zhang, H.~Li, Y.~Jin, C.~Lang, and Y.~Li, ``Collaborative perception in autonomous driving: Methods, datasets and challenges,'' \emph{arXiv preprint arXiv:2301.06262}, 2023.
+
+\bibitem{yu2022dair}
+H.~Yu, Y.~Luo, M.~Shu, Y.~Huo, Z.~Yang, Y.~Shi, Z.~Guo, H.~Li, X.~Hu, J.~Yuan, and Z.~Nie, ``{DAIR-V2X}: A large-scale dataset for vehicle-infrastructure cooperative {3D} object detection,'' in \emph{CVPR}, 2022, pp. 21\,361--21\,370.
+
+\bibitem{cbr}
+S.~Fan, Z.~Wang, X.~Huo, Y.~Wang, and J.~Liu, ``Calibration-free {BEV} representation for infrastructure perception,'' \emph{arXiv preprint arXiv:2303.03583}, 2023.
+
+\bibitem{bai2022survey}
+Z.~Bai, G.~Wu, M.~J. Barth, Y.~Liu, E.~A. Sisbot, K.~Oguchi, and Z.~Huang, ``A survey and framework of cooperative perception: From heterogeneous singleton to hierarchical cooperation,'' \emph{arXiv preprint arXiv:2208.10590}, 2022.
+
+\bibitem{9228884}
+E.~Arnold, M.~Dianati, R.~de~Temple, and S.~Fallah, ``Cooperative perception for {3D} object detection in driving scenarios using infrastructure sensors,'' \emph{IEEE Trans. Intell. Transp. Syst.}, vol.~23, no.~3, pp. 1852--1864, 2022.
+
+\bibitem{cooper}
+Q.~Chen, S.~Tang, Q.~Yang, and S.~Fu, ``{COOPER}: Cooperative perception for connected autonomous vehicles based on {3D} point clouds,'' in \emph{Proc. Int. Conf. Distrib. Comput. Syst.}, 2019, pp. 514--524.
+
+\bibitem{fcooper}
+Q.~Chen, X.~Ma, S.~Tang, J.~Guo, Q.~Yang, and S.~Fu, ``{F-COOPER}: Feature based cooperative perception for autonomous vehicle edge computing system using {3D} point clouds,'' in \emph{Proceedings of the 4th ACM/IEEE Symposium on Edge Computing}, 2019, pp. 88--100.
+
+\bibitem{cui2022coopernaut}
+J.~Cui, H.~Qiu, D.~Chen, P.~Stone, and Y.~Zhu, ``{COOPERNAUT}: end-to-end driving with cooperative perception for networked vehicles,'' in \emph{CVPR}, 2022, pp. 17\,252--17\,262.
+
+\bibitem{when2com}
+Y.-C. Liu, J.~Tian, N.~Glaser, and Z.~Kira, ``When2com: Multi-agent perception via communication graph grouping,'' in \emph{CVPR}, 2020, pp. 4106--4115.
+
+\bibitem{wang2020v2vnet}
+T.-H. Wang, S.~Manivasagam, M.~Liang, B.~Yang, W.~Zeng, and R.~Urtasun, ``{V2VNet}: Vehicle-to-vehicle communication for joint perception and prediction,'' in \emph{ECCV}, 2020, pp. 605--621.
+
+\bibitem{xu2022v2x}
+R.~Xu, H.~Xiang, Z.~Tu, X.~Xia, M.-H. Yang, and J.~Ma, ``{V2X-ViT}: Vehicle-to-everything cooperative perception with vision transformer,'' in \emph{ECCV}, 2022, pp. 107--124.
+
+\bibitem{wang2023vimi}
+Z.~Wang, S.~Fan, X.~Huo, T.~Xu, Y.~Wang, J.~Liu, Y.~Chen, and Y.-Q. Zhang, ``{VIMI}: Vehicle-infrastructure multi-view intermediate fusion for camera-based {3D} object detection,'' \emph{arXiv preprint arXiv:2303.10975}, 2023.
+
+\bibitem{coca3d}
+Y.~Hu, Y.~Lu, R.~Xu, W.~Xie, S.~Chen, and Y.~Wang, ``Collaboration helps camera overtake lidar in {3D} detection,'' in \emph{CVPR}, 2023, pp. 9243--9252.
+
+\bibitem{ffnet}
+H.~Yu, Y.~Tang, E.~Xie, J.~Mao, J.~Yuan, P.~Luo, and Z.~Nie, ``Vehicle-infrastructure cooperative 3d object detection via feature flow prediction,'' \emph{arXiv preprint arXiv:2303.10552}, 2023.
+
+\bibitem{where2comm}
+Y.~Hu, S.~Fang, Z.~Lei, Y.~Zhong, and S.~Chen, ``Where2comm: Communication-efficient collaborative perception via spatial confidence maps,'' \emph{arXiv preprint arXiv:2209.12836}, 2022.
+
+\bibitem{detr}
+N.~Carion, F.~Massa, G.~Synnaeve, N.~Usunier, A.~Kirillov, and S.~Zagoruyko, ``End-to-end object detection with transformers,'' in \emph{ECCV}, 2020, pp. 213--229.
+
+\bibitem{detr3d}
+Y.~Wang, V.~C. Guizilini, T.~Zhang, Y.~Wang, H.~Zhao, and J.~Solomon, ``{DETR3D}: {3D} object detection from multi-view images via {3D-to-2D} queries,'' in \emph{CoRL}, 2022, pp. 180--191.
+
+\bibitem{motr}
+F.~Zeng, B.~Dong, Y.~Zhang, T.~Wang, X.~Zhang, and Y.~Wei, ``{MOTR}: End-to-end multiple-object tracking with transformer,'' in \emph{ECCV}, 2022, pp. 659--675.
+
+\bibitem{petr}
+Y.~Liu, T.~Wang, X.~Zhang, and J.~Sun, ``{PETR}: Position embedding transformation for multi-view {3D} object detection,'' in \emph{ECCV}, 2022, pp. 531--548.
+
+\bibitem{bevformer}
+Z.~Li, W.~Wang, H.~Li, E.~Xie, C.~Sima, T.~Lu, Y.~Qiao, and J.~Dai, ``{BEVFormer}: Learning bird’s-eye-view representation from multi-camera images via spatiotemporal transformers,'' in \emph{ECCV}, 2022, pp. 1--18.
+
+\bibitem{bevformerv2}
+C.~Yang, Y.~Chen, H.~Tian, C.~Tao, X.~Zhu, Z.~Zhang, G.~Huang, H.~Li, Y.~Qiao, L.~Lu, J.~Zhou, and J.~Dai, ``{BEVFormer} v2: Adapting modern image backbones to bird's-eye-view recognition via perspective supervision,'' in \emph{CVPR}, 2023, pp. 17\,830--17\,839.
+
+\bibitem{trackformer}
+T.~Meinhardt, A.~Kirillov, L.~Leal-Taixe, and C.~Feichtenhofer, ``Trackformer: Multi-object tracking with transformers,'' in \emph{CVPR}, 2022, pp. 8844--8854.
+
+\bibitem{mutr}
+T.~Zhang, X.~Chen, Y.~Wang, Y.~Wang, and H.~Zhao, ``{MUTR3D}: A multi-camera tracking framework via {3D-to2D} queries,'' in \emph{CVPRW}, 2022, pp. 4537--4546.
+
+\bibitem{pftr}
+Z.~Pang, J.~Li, P.~Tokmakov, D.~Chen, S.~Zagoruyko, and Y.-X. Wang, ``Standing between past and future: Spatio-temporal modeling for multi-camera {3D} multi-object tracking,'' in \emph{CVPR}, 2023, pp. 17\,928--17\,938.
+
+\bibitem{dair-seq}
+H.~Yu, W.~Yang, H.~Ruan, Z.~Yang, Y.~Tang, X.~Gao, X.~Hao, Y.~Shi, Y.~Pan, N.~Sun, J.~Song, J.~Yuan, P.~Luo, and Z.~Nie, ``{V2X-Seq}: A large-scale sequential dataset for vehicle-infrastructure cooperative perception and forecasting,'' in \emph{CVPR}, 2023, pp. 5486--5495.
+
+\bibitem{lee2019energy}
+Y.~Lee, J.-W. Hwang, S.~Lee, Y.~Bae, and J.~Park, ``An energy and gpu-computation efficient backbone network for real-time object detection,'' in \emph{CVPRW}, 2019, pp. 0--0.
+
+\bibitem{loshchilov2017decoupled}
+I.~Loshchilov and F.~Hutter, ``Decoupled weight decay regularization,'' \emph{arXiv preprint arXiv:1711.05101}, 2017.
+
+\bibitem{adam}
+D.~P. Kingma and J.~Ba, ``Adam: A method for stochastic optimization,'' \emph{arXiv preprint arXiv:1412.6980}, 2014.
+
+\bibitem{loshchilov2016sgdr}
+I.~Loshchilov and F.~Hutter, ``{SGDR}: Stochastic gradient descent with warm restarts,'' \emph{arXiv preprint arXiv:1608.03983}, 2016.
+
+\bibitem{uniad}
+Y.~Hu, J.~Yang, L.~Chen, K.~Li, C.~Sima, X.~Zhu, S.~Chai, S.~Du, T.~Lin, W.~Wang, L.~Lu, X.~Jia, Q.~Liu, J.~Dai, Y.~Qiao, and H.~Li, ``Planning-oriented autonomous driving,'' in \emph{CVPR}, 2023, pp. 17\,853--17\,862.
+
+\end{thebibliography}

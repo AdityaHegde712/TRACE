@@ -1,0 +1,87 @@
+\vspace{-3mm}
+\section{Introduction}\label{intro}
+\vspace{-2mm}
+% When observing the world, each individual has a certain bias due to the limited field of view. The observation would be more holistic and robust when a group of individuals could collaborate and share information.  In the parable of the blind men and an elephant, each blind man only feels a part of the elephant's body and perceives the elephant based on their limited observation. If they can fully collaborate with each other, they might be able to come closer to the truth.  
+
+% With decades of efforts on machine learning and computer vision, single-agent perception has made remarkable success in 2D/3D object detection, tracking and segmentation; however, it still suffers from a number of inevitable limitations due to an individual perspective, such as occlusion and long-range issues.  Fortunately, with the fast development of communication technologies, 
+
+
+Collaborative perception enables multiple agents to share complementary perceptual information with each other, promoting more holistic perception. It provides a new direction to fundamentally overcome a number of inevitable limitations of single-agent perception, such as occlusion and long-range issues. Related methods and systems are desperately needed in a broad range of real-world applications, such as vehicle-to-everything-communication-aided autonomous driving~\cite{v2vnet,disconet,Chen20213DPC},  multi-robot warehouse automation system~\cite{li2020mechanism,zaccaria2021multi} and multi-UAVs (unmanned aerial vehicles) for search and rescue~\cite{scherer2015autonomous,alotaibi2019lsar,DVDET}. To realize collaborative perception, recent works have contributed high-quality datasets~\cite{V2XSim,OPV2V,dair} and effective collaboration methods~\cite{when2com,who2com,disconet,zhou2022multi,ArnoldDT:22,SyncNet,Li2022mrsc, CoBEVT,UQ4CP}.
+\vspace{-1mm}
+
+In this emerging field, the current biggest challenge is how to optimize the trade-off between perception performance and communication bandwidth. Communication systems in real-world scenarios are always constrained that they can hardly afford huge communication consumption in real-time, such as passing complete raw observations or a large volume of features. Therefore, we cannot solely promote the perception performance without evaluating the expense of every bit of precious communication bandwidth. To achieve a better performance and bandwidth trade-off, previous works put forth solutions from several perspectives. For example, When2com~\cite{when2com} considers a handshake mechanism which selects the most relevant collaborators; V2VNet~\cite{v2vnet} considers end-to-end-learning-based source coding; and DiscoNet~\cite{disconet} uses 1D convolution to compress message. However, all previous works make a plausible assumption: once two agents collaborate, they are obligated to share perceptual information of all spatial areas \textit{equally}. This unnecessary assumption can hugely waste the bandwidth as a large proportion of spatial areas may contain irrelevant information for perception task. Figure~\ref{fig:CoPerceptionScene} illustrates such a spatial heterogeneity of perceptual information.
+
+% \begin{figure}[!t]
+
+%   %################ UAV ################
+%   \centering
+%   \hspace{-3mm}
+%   \begin{subfigure}{0.20\linewidth}
+%     \includegraphics[width=\linewidth]{figures/Intro_WithLiDAR/Scene1.png}
+%     \caption{Scene in BEV}
+%     \label{scene}
+%   \end{subfigure}
+%     \hspace{-3mm}
+% %   \hfill
+%   \begin{subfigure}{0.17\linewidth}
+%     \includegraphics[width=\linewidth]{figures/Intro_WithLiDAR/Camera.png}
+%     \caption{Image view}
+%     \label{view}
+%   \end{subfigure}
+%   \begin{subfigure}{0.15\linewidth}
+%     \includegraphics[width=\linewidth]{figures/Intro_WithLiDAR/LiDar.png}
+%     \caption{LiDAR at syncrhonized view}
+%     \label{fig:opv2v_cam_result_v2vnet}
+%   \end{subfigure}
+%     % \hspace{-3.3mm}
+% %   \hfill
+%   \begin{subfigure}{0.15\linewidth}
+%     \includegraphics[width=\linewidth]{figures/Intro_WithLiDAR/ConfidenceMap.png}
+%     \caption{Confidence}
+%     \label{detection_boxes}
+%   \end{subfigure}
+%     \begin{subfigure}{0.07\linewidth}
+%     \includegraphics[width=\linewidth]{figures/Intro_WithLiDAR/Add.png}
+%     % \caption{Detection in BEV}
+%     \label{detection_boxes}
+%   \end{subfigure}
+%     \begin{subfigure}{0.15\linewidth}
+%     \includegraphics[width=\linewidth]{figures/Intro_WithLiDAR/Detection.png}
+%     \caption{Detection}
+%     \label{detection_boxes}
+%   \end{subfigure}
+% \vspace{-2mm}
+%   \caption{A safety-critical scenario of a car coming out of occlusion. Employing communication can help each agent to see the scene from other agents' viewpoints, and thus see through occluders. The perceptually critical regions in each agent's view is extremely sparse.}
+%   \label{fig:CoPerceptionScene}
+%   \vspace{-5mm}
+% \end{figure}
+
+\begin{figure}[!t]
+    \includegraphics[width=\linewidth]{figures/Intro_WithLiDAR/Intro.png}
+\vspace{-7mm}
+  \caption{Collaborative perception could contribute to safety-critical scenarios, where the white car and the red car may collide due to occlusion. This collision could be avoided when the blue car can share a message about the red car's position. Such a message is spatially sparse, yet perceptually critical. Considering the precious communication bandwidth, each agent needs to speak to the point!}
+  \label{fig:CoPerceptionScene}
+  \vspace{-5mm}
+\end{figure}
+
+
+
+% \begin{figure}
+%     \centering
+%     % \includegraphics[width=1.0\linewidth]{figures/Communication_graph.pdf}
+%     \includegraphics[width=1.0\linewidth]{figures/Communication_graph.pdf}
+%     \caption{\textit{Fully connected} versus \textit{agent-level partially connected} versus \textit{spatial-decouple partially connected} communication. \textit{Fully connected} communication results in a large amount of bandwidth usage, growing on the order of $O(N^2)$, where N is the number of agents in a network. \textit{Agent-level partially connected} communication prune irrelevant connections between agents while may erroneously sever the information connection. \textit{Spatial-decouple partially connected} communication could further flexibly prune irrelevant connections per-location and can substantially reduce the overall network complexity.}
+%     \label{fig:communication_graph}
+%     \vspace{-6mm}
+% \end{figure}
+
+
+
+
+To fill this gap, we consider a novel spatial-confidence-aware communication strategy. The core idea is to enable a spatial confidence map for each agent, where each element reflects the perceptually critical level of a corresponding spatial area. Based on this map, agents decide which spatial area (where) to communicate about. That is, each agent offers spatially sparse, yet critical features to support other agents, and meanwhile requests complementary information from others through multi-round communication to perform efficient and mutually beneficial collaboration.
+
+
+Following this strategy, we propose~\texttt{Where2comm}, a novel communication-efficient multi-agent collaborative perception framework with the guidance of spatial confidence maps; see Fig.~\ref{fig:system}.~\texttt{Where2comm} includes three key modules: i) a spatial confidence generator, which produces a spatial confidence map to indicate perceptually critical areas; ii) a spatial confidence-aware communication module, which leverages the spatial confidence map to decide \textit{where} to communicate via novel message packing, and \textit{who} to communicate via novel communication graph construction; and iii) a spatial confidence-aware message fusion module, which uses novel confidence-aware multi-head attention to fuse all messages received from other agents, upgrading the feature map for each agent.
+
+
+\texttt{Where2comm} has two distinct advantages. First, it promotes pragmatic compression at the feature level and uses less communication to achieve higher perception performance by focusing on perceptually critical areas. Second, it adapts to various communication bandwidths and communication rounds, while previous models only handle one predefined communication bandwidth and a fixed number of communication rounds. To evaluate~\texttt{Where2comm}, we consider the collaborative 3D object detection task on four datasets: DAIR-V2X~\cite{dair}, V2X-Sim~\cite{V2XSim}, OPV2V~\cite{OPV2V} and our original dataset CoPerception-UAVs. Our experiments cover both real-world and simulation scenarios, two types of agents (cars and drones) and sensors (LiDAR and cameras). Results show that i) the proposed~\texttt{Where2comm} consistently and significantly outperforms previous works in the performance-bandwidth trade-off across multiple datasets and modalities; and ii)~\texttt{Where2comm} achieves better trade-off when the communication round increases.

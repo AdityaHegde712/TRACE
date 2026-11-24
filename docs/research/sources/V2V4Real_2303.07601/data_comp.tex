@@ -1,0 +1,124 @@
+
+\begin{table*}[!t]
+\setlength{\tabcolsep}{5pt}
+\centering
+\begin{tabular}{l|l|c|c|c|c|c|c|c|c|c}
+\hline
+Dataset &
+  Year &
+  \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Real/\\ Sim\end{tabular}} &
+  V2X &
+  \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} Size\\ (km)\end{tabular}} &
+  \begin{tabular}[c]{@{}l@{}}RGB\\ images\end{tabular} &
+  \multicolumn{1}{c|}{LiDAR} &
+  Maps &
+  \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}3D\\ boxes\end{tabular}} &
+  \multicolumn{1}{c|}{Classes} &
+  Locations \\ \hline
+Kitti~\cite{geiger2012we} &
+  2012 &
+  Real &
+  No &
+  - &
+  15k &
+  15k &
+  No &
+  200k &
+  8 &
+  Karlsruhe \\
+nuScenes~\cite{caesar2020nuscenes} &
+  2019 &
+  Real &
+  No &
+  33 &
+  1.4M &
+  400k &
+  Yes &
+  1.4M &
+  23 &
+  Boston, SG \\
+Argo~\cite{chang2019argoverse} &
+  2019 &
+  Real &
+  No &
+  290 &
+  107k &
+  22k &
+  Yes &
+  993k &
+  15 &
+  \multicolumn{1}{c}{2x USA} \\
+Waymo Open~\cite{sun2020scalability} &
+  2019 &
+  Real &
+  No &
+  - &
+  1M &
+  200k &
+  Yes &
+  12M &
+  4 &
+  3x USA \\
+OPV2V~\cite{xu2022opv2v} &
+  2022 &
+  Sim &
+  V2V &
+  - &
+  44k &
+  11k &
+  Yes &
+  230k &
+  1 &
+  \begin{tabular}[c]{@{}c@{}}CARLA \end{tabular} \\
+V2X-Sim~\cite{li2022v2x} &
+  2022 &
+  Sim &
+  \begin{tabular}[c]{@{}l@{}}V2V\&I\ \end{tabular} &
+  - &
+  60K &
+  10k &
+  Yes &
+  26.6k &
+  1 &
+  \begin{tabular}[c]{@{}c@{}}CARLA\end{tabular} \\
+V2XSet~\cite{xu2022v2xvit} &
+  2022 &
+  Sim &
+  \begin{tabular}[c]{@{}l@{}} V2V\&I\end{tabular} &
+  - &
+  44K &
+  11k &
+  Yes &
+  230k &
+  1 &
+  \begin{tabular}[c]{@{}c@{}}CARLA\end{tabular} \\
+DAIR-V2X~\cite{yu2022dair} &
+  2022 &
+  Real &
+  V2I &
+  20 &
+  39K &
+  39K &
+  No &
+  464K &
+  10 &
+  Beijing, CN \\ \hline
+V2V4Real (ours) &
+  2022 &
+  Real &
+  V2V &
+  410 &
+  40K &
+  20K &
+  Yes &
+  240K &
+  5 &
+  \begin{tabular}[c]{@{}c@{}} Ohio, USA
+  \end{tabular}
+  \\\hline
+\end{tabular}
+\vspace{-2mm}
+\caption{\textbf{Comparison of the proposed dataset and existing representative autonomous driving datasets.}}
+\label{tab:datasets}
+\vspace{-3mm}
+\end{table*}

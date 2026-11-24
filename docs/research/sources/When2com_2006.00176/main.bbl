@@ -1,0 +1,248 @@
+\begin{thebibliography}{10}\itemsep=-1pt
+
+\bibitem{bahdanau2014neural}
+Dzmitry Bahdanau, KyungHyun Cho, and Yoshua Bengio.
+\newblock Neural machine translation by jointly learning to align and
+  translation.
+\newblock In {\em Proceedings of the International Conference on Learning
+  Representations (ICLR)}, 2015.
+
+\bibitem{battaglia2016interaction}
+Peter Battaglia, Razvan Pascanu, Matthew Lai, Danilo~Jimenez Rezende, et~al.
+\newblock Interaction networks for learning about objects, relations and
+  physics.
+\newblock In {\em Advances in Neural Information Processing Systems (NIPS)},
+  2016.
+
+\bibitem{chen2018encoder}
+Liang-Chieh Chen, Yukun Zhu, George Papandreou, Florian Schroff, and Hartwig
+  Adam.
+\newblock Encoder-decoder with atrous separable convolution for semantic image
+  segmentation.
+\newblock In {\em Proceedings of the European Conference on Computer Vision
+  (ECCV)}, pages 801--818, 2018.
+
+\bibitem{cheng2016long}
+Jianpeng Cheng, Li Dong, and Mirella Lapata.
+\newblock Long short-term memory-networks for machine reading.
+\newblock In {\em Conference on Empirical Methods in Natural Language
+  Processing (EMNLP)}, 2016.
+
+\bibitem{cordts2016cityscapes}
+Marius Cordts, Mohamed Omran, Sebastian Ramos, Timo Rehfeld, Markus Enzweiler,
+  Rodrigo Benenson, Uwe Franke, Stefan Roth, and Bernt Schiele.
+\newblock The cityscapes dataset for semantic urban scene understanding.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 3213--3223, 2016.
+
+\bibitem{das2019tarmac}
+Abhishek Das, Th{\'e}ophile Gervet, Joshua Romoff, Dhruv Batra, Devi Parikh,
+  Michael Rabbat, and Joelle Pineau.
+\newblock Tarmac: Targeted multi-agent communication.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning (ICML)}, 2019.
+
+\bibitem{foerster2016dial}
+Jakob Foerster, Ioannis~Alexandros Assael, Nando de Freitas, and Shimon
+  Whiteson.
+\newblock Learning to communicate with deep multi-agent reinforcement learning.
+\newblock In {\em Advances in Neural Information Processing Systems (NIPS)},
+  2016.
+
+\bibitem{foerster2016learning}
+Jakob Foerster, Yannis~M Assael, Nando de Freitas, and Shimon Whiteson.
+\newblock Learning to communicate with deep multi-agent reinforcement learning.
+\newblock In {\em Advances in Neural Information Processing Systems (NIPS)},
+  2016.
+
+\bibitem{geiger2013vision}
+Andreas Geiger, Philip Lenz, Christoph Stiller, and Raquel Urtasun.
+\newblock Vision meets robotics: The kitti dataset.
+\newblock {\em The International Journal of Robotics Research},
+  32(11):1231--1237, 2013.
+
+\bibitem{godard2017unsupervised}
+Cl{\'e}ment Godard, Oisin Mac~Aodha, and Gabriel~J Brostow.
+\newblock Unsupervised monocular depth estimation with left-right consistency.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, pages 270--279, 2017.
+
+\bibitem{godard2019digging}
+Cl{\'e}ment Godard, Oisin Mac~Aodha, Michael Firman, and Gabriel~J Brostow.
+\newblock Digging into self-supervised monocular depth estimation.
+\newblock In {\em Proceedings of the IEEE International Conference on Computer
+  Vision}, pages 3828--3838, 2019.
+
+\bibitem{He_2017_ICCV}
+Kaiming He, Georgia Gkioxari, Piotr Dollar, and Ross Girshick.
+\newblock Mask r-cnn.
+\newblock In {\em Proceedings of the IEEE International Conference on Computer
+  Vision (ICCV)}, Oct 2017.
+
+\bibitem{he2016deep}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, 2016.
+
+\bibitem{hecker2018end}
+Simon Hecker, Dengxin Dai, and Luc Van~Gool.
+\newblock End-to-end learning of driving models with surround-view cameras and
+  route planners.
+\newblock In {\em Proceedings of the European Conference on Computer Vision
+  (ECCV)}, pages 435--453, 2018.
+
+\bibitem{hoshen2017vain}
+Yedid Hoshen.
+\newblock Vain: Attentional multi-agent predictive modeling.
+\newblock In {\em Advances in Neural Information Processing Systems (NIPS)},
+  2017.
+
+\bibitem{jain2019two}
+Unnat Jain, Luca Weihs, Eric Kolve, Mohammad Rastegari, Svetlana Lazebnik, Ali
+  Farhadi, Alexander~G Schwing, and Aniruddha Kembhavi.
+\newblock Two body problem: Collaborative visual task completion.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, 2019.
+
+\bibitem{jiang2018graph}
+Jiechuan Jiang, Chen Dun, and Zongqing Lu.
+\newblock Graph convolutional reinforcement learning for multi-agent
+  cooperation.
+\newblock {\em arXiv preprint arXiv:1810.09202}, 2018.
+
+\bibitem{jiang2018learning}
+Jiechuan Jiang and Zongqing Lu.
+\newblock Learning attentional communication for multi-agent cooperation.
+\newblock In {\em Advances in Neural Information Processing Systems (NIPS)},
+  2018.
+
+\bibitem{kirillov2019panoptic}
+Alexander Kirillov, Kaiming He, Ross Girshick, Carsten Rother, and Piotr
+  Doll{\'a}r.
+\newblock Panoptic segmentation.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 9404--9413, 2019.
+
+\bibitem{kurose2005computer}
+James~F Kurose.
+\newblock {\em Computer networking: A top-down approach featuring the internet,
+  3/E}.
+\newblock Pearson Education India, 2005.
+
+\bibitem{li2010auction}
+Yiming Li, Bir Bhanu, and Wei Lin.
+\newblock Auction protocol for camera active control.
+\newblock In {\em Proceedings of the IEEE International Conference on Image
+  Processing (ICIP)}, pages 4325--4328. IEEE, 2010.
+
+\bibitem{Lin_2017_ICCV}
+Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and Piotr Dollar.
+\newblock Focal loss for dense object detection.
+\newblock In {\em Proceedings of the IEEE International Conference on Computer
+  Vision (ICCV)}, Oct 2017.
+
+\bibitem{liu2020who2com}
+Yen-Cheng Liu, Junjiao Tian, Chih-Yao Ma, Nathaniel Glaser, Chia-Wen Kuo, and
+  Zsolt Kira.
+\newblock Who2com: Collaborative perception via learnable handshake
+  communication.
+\newblock In {\em Proceedings of the IEEE International Conference on Robotics
+  and Automation (ICRA)}, 2020.
+
+\bibitem{lowe2017multi}
+Ryan Lowe, Yi Wu, Aviv Tamar, Jean Harb, OpenAI~Pieter Abbeel, and Igor
+  Mordatch.
+\newblock Multi-agent actor-critic for mixed cooperative-competitive
+  environments.
+\newblock In {\em Advances in Neural Information Processing Systems (NIPS)},
+  2017.
+
+\bibitem{luong2015effective}
+Minh-Thang Luong, Hieu Pham, and Christopher~D Manning.
+\newblock Effective approaches to attention-based neural machine translation.
+\newblock In {\em Conference on Empirical Methods in Natural Language
+  Processing (EMNLP)}, 2015.
+
+\bibitem{RobotCarDatasetIJRR}
+Will Maddern, Geoff Pascoe, Chris Linegar, and Paul Newman.
+\newblock {1 Year, 1000km: The Oxford RobotCar Dataset}.
+\newblock {\em The International Journal of Robotics Research (IJRR)},
+  36(1):3--15, 2017.
+
+\bibitem{melo2011querypomdp}
+Francisco~S Melo, Matthijs~TJ Spaan, and Stefan~J Witwicki.
+\newblock Querypomdp: Pomdp-based communication in multiagent systems.
+\newblock In {\em Proceedings of the 9th European conference on Multi-Agent
+  Systems}, 2011.
+
+\bibitem{peng2017multiagent}
+Peng Peng, Ying Wen, Yaodong Yang, Quan Yuan, Zhenkun Tang, Haitao Long, and
+  Jun Wang.
+\newblock Multiagent bidirectionally-coordinated nets: Emergence of human-level
+  coordination in learning to play starcraft combat games.
+\newblock {\em arXiv preprint arXiv:1703.10069}, 2017.
+
+\bibitem{qureshi2008smart}
+Faisal Qureshi and Demetri Terzopoulos.
+\newblock Smart camera networks in virtual reality.
+\newblock {\em Proceedings of the IEEE}, 96(10):1640--1656, 2008.
+
+\bibitem{redmon2016you}
+Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali Farhadi.
+\newblock You only look once: Unified, real-time object detection.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 779--788, 2016.
+
+\bibitem{Redmon_2017_CVPR}
+Joseph Redmon and Ali Farhadi.
+\newblock Yolo9000: Better, faster, stronger.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, July 2017.
+
+\bibitem{airsim2017fsr}
+Shital Shah, Debadeepta Dey, Chris Lovett, and Ashish Kapoor.
+\newblock Airsim: High-fidelity visual and physical simulation for autonomous
+  vehicles.
+\newblock In {\em Field and Service Robotics}, 2017.
+
+\bibitem{singh2018learning}
+Amanpreet Singh, Tushar Jain, and Sainbayar Sukhbaatar.
+\newblock Learning when to communicate at scale in multiagent cooperative and
+  competitive tasks.
+\newblock {\em arXiv preprint arXiv:1812.09755}, 2018.
+
+\bibitem{sukhbaatar2016learning}
+Sainbayar Sukhbaatar, Rob Fergus, et~al.
+\newblock Learning multiagent communication with backpropagation.
+\newblock In {\em Advances in Neural Information Processing Systems (NIPS)},
+  2016.
+
+\bibitem{tan1993multi}
+Ming Tan.
+\newblock Multi-agent reinforcement learning: Independent vs. cooperative
+  agents.
+\newblock In {\em Proceedings of the International Conference on Machine
+  Learning (ICML)}, 1993.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In {\em Advances in Neural Information Processing Systems (NIPS)},
+  2017.
+
+\bibitem{wu20153d}
+Zhirong Wu, Shuran Song, Aditya Khosla, Fisher Yu, Linguang Zhang, Xiaoou Tang,
+  and Jianxiong Xiao.
+\newblock 3d shapenets: A deep representation for volumetric shapes.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 1912--1920, 2015.
+
+\bibitem{Zhou_2017_CVPR}
+Tinghui Zhou, Matthew Brown, Noah Snavely, and David~G. Lowe.
+\newblock Unsupervised learning of depth and ego-motion from video.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, July 2017.
+
+\end{thebibliography}

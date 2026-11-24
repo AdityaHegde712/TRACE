@@ -1,0 +1,1377 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{nty/global/}
+    \entry{bahdanau2014neural}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=6d80adec79a13a33e73215c5f46f1605}{%
+           family={Bahdanau},
+           familyi={B\bibinitperiod},
+           given={Dzmitry},
+           giveni={D\bibinitperiod}}}%
+        {{hash=f8dfca934ead3a7cab6b2382a1baaaa1}{%
+           family={Cho},
+           familyi={C\bibinitperiod},
+           given={KyungHyun},
+           giveni={K\bibinitperiod}}}%
+        {{hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{46040dc329355c2380b0144ebe78dcf0}
+      \strng{fullhash}{46040dc329355c2380b0144ebe78dcf0}
+      \strng{authornamehash}{46040dc329355c2380b0144ebe78dcf0}
+      \strng{authorfullhash}{46040dc329355c2380b0144ebe78dcf0}
+      \field{sortinit}{B}
+      \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the International Conference on Learning Representations (ICLR)}
+      \field{title}{Neural machine translation by jointly learning to align and translation}
+      \field{year}{2015}
+    \endentry
+    \entry{battaglia2016interaction}{inproceedings}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{4}{}{%
+        {{hash=5a63429a6e1733e8f3f4dc71cbb6eec9}{%
+           family={Battaglia},
+           familyi={B\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=7045b009b04d57bd2e19b5dfa0864d4f}{%
+           family={Pascanu},
+           familyi={P\bibinitperiod},
+           given={Razvan},
+           giveni={R\bibinitperiod}}}%
+        {{hash=f311ac3fec4a3d3207fdec17a9887704}{%
+           family={Lai},
+           familyi={L\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+        {{hash=1cbae2618bca6e9640c2f6595a544a0b}{%
+           family={Rezende},
+           familyi={R\bibinitperiod},
+           given={Danilo\bibnamedelima Jimenez},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{69f2397b9d0aa37a928eadbe24671303}
+      \strng{fullhash}{16b409365bd022537153deee33f1e6c8}
+      \strng{authornamehash}{69f2397b9d0aa37a928eadbe24671303}
+      \strng{authorfullhash}{16b409365bd022537153deee33f1e6c8}
+      \field{sortinit}{B}
+      \field{sortinithash}{5f6fa000f686ee5b41be67ba6ff7962d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Interaction networks for learning about objects, relations and physics}
+      \field{year}{2016}
+    \endentry
+    \entry{chen2017rethinking}{article}{}
+      \name{author}{4}{}{%
+        {{hash=9dddfcfd529634a150ee38ee5c0203d7}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Liang-Chieh},
+           giveni={L\bibinithyphendelim C\bibinitperiod}}}%
+        {{hash=f0b33c7651e3d639b1e91032533984f9}{%
+           family={Papandreou},
+           familyi={P\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod}}}%
+        {{hash=c62e96f68033a3d3cd4639e35a2de4da}{%
+           family={Schroff},
+           familyi={S\bibinitperiod},
+           given={Florian},
+           giveni={F\bibinitperiod}}}%
+        {{hash=c707ec5b5997dc408a14a34a8380166c}{%
+           family={Adam},
+           familyi={A\bibinitperiod},
+           given={Hartwig},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{5b195b34f54d3e071b82ddb71e157be1}
+      \strng{fullhash}{19c2ee3db8f1e14eeb04ec0f3fffa9f5}
+      \strng{authornamehash}{5b195b34f54d3e071b82ddb71e157be1}
+      \strng{authorfullhash}{19c2ee3db8f1e14eeb04ec0f3fffa9f5}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1706.05587}
+      \field{title}{Rethinking atrous convolution for semantic image segmentation}
+      \field{year}{2017}
+    \endentry
+    \entry{Chen_2019_CVPR}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=0fd06fa71994c2700b4e9b1dbec8515a}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Po-Yi},
+           giveni={P\bibinithyphendelim Y\bibinitperiod}}}%
+        {{hash=34f378f8aa6a4df62dc711c9743d1cfd}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Alexander\bibnamedelima H.},
+           giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=8175bd5062ba0951a7ca3e08e967eea0}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Yen-Cheng},
+           giveni={Y\bibinithyphendelim C\bibinitperiod}}}%
+        {{hash=828509cbb0722172501855622ad356bf}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Yu-Chiang\bibnamedelima Frank},
+           giveni={Y\bibinithyphendelim C\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{da108cff1df25a71a4713888645a6659}
+      \strng{fullhash}{d5880dfd6710cebd0c9bbdd49feab625}
+      \strng{authornamehash}{da108cff1df25a71a4713888645a6659}
+      \strng{authorfullhash}{d5880dfd6710cebd0c9bbdd49feab625}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
+      \field{month}{6}
+      \field{title}{Towards Scene Understanding: Unsupervised Monocular Depth Estimation With Semantic-Aware Representation}
+      \field{year}{2019}
+    \endentry
+    \entry{cheng2019learning}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=f652c693cd7b4e3d6500eddb256a2008}{%
+           family={Cheng},
+           familyi={C\bibinitperiod},
+           given={Zhengxue},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=81926f66ad04d113de17ef67f1fb584f}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Heming},
+           giveni={H\bibinitperiod}}}%
+        {{hash=9113daa6d901501c686ba3747fa327d3}{%
+           family={Takeuchi},
+           familyi={T\bibinitperiod},
+           given={Masaru},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9759f7e1f21e24b9d16df8f37b991bb3}{%
+           family={Katto},
+           familyi={K\bibinitperiod},
+           given={Jiro},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{4b55abb5a5d40dcb98fa347782e40991}
+      \strng{fullhash}{63a80ece25caec125fd1194b7ca12355}
+      \strng{authornamehash}{4b55abb5a5d40dcb98fa347782e40991}
+      \strng{authorfullhash}{63a80ece25caec125fd1194b7ca12355}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
+      \field{title}{Learning Image and Video Compression through Spatial-Temporal Energy Compaction}
+      \field{year}{2019}
+      \field{pages}{10071\bibrangedash 10080}
+      \range{pages}{10}
+    \endentry
+    \entry{cunningham2010ddf}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=17686dff5bde98bb492a1c06e023ed5e}{%
+           family={Cunningham},
+           familyi={C\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d1976e858e503a89ab7e5fa48734c939}{%
+           family={Paluri},
+           familyi={P\bibinitperiod},
+           given={Manohar},
+           giveni={M\bibinitperiod}}}%
+        {{hash=44074d3cb57c174a8b15ccc9a576ac0d}{%
+           family={Dellaert},
+           familyi={D\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{ce19d7ad279b137e66427138828e4531}
+      \strng{fullhash}{ce19d7ad279b137e66427138828e4531}
+      \strng{authornamehash}{ce19d7ad279b137e66427138828e4531}
+      \strng{authorfullhash}{ce19d7ad279b137e66427138828e4531}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2010 IEEE/RSJ International Conference on Intelligent Robots and Systems}
+      \field{title}{DDF-SAM: Fully distributed SLAM using constrained factor graphs}
+      \field{year}{2010}
+      \field{pages}{3025\bibrangedash 3030}
+      \range{pages}{6}
+    \endentry
+    \entry{das2019tarmac}{inproceedings}{}
+      \name{author}{7}{}{%
+        {{hash=95fdc805087b8b7c1bb60f09d4ee2641}{%
+           family={Das},
+           familyi={D\bibinitperiod},
+           given={Abhishek},
+           giveni={A\bibinitperiod}}}%
+        {{hash=429eaf3778dc2c96b539e81af28b0e34}{%
+           family={Gervet},
+           familyi={G\bibinitperiod},
+           given={Th\'{e}ophile},
+           giveni={T\bibinitperiod}}}%
+        {{hash=d1ff652c6fcfdc31237cf919d2845207}{%
+           family={Romoff},
+           familyi={R\bibinitperiod},
+           given={Joshua},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d0a408119272ca1bd49b625e3b927d05}{%
+           family={Batra},
+           familyi={B\bibinitperiod},
+           given={Dhruv},
+           giveni={D\bibinitperiod}}}%
+        {{hash=d0ab7a4601951a0c59352f1dcb531afb}{%
+           family={Parikh},
+           familyi={P\bibinitperiod},
+           given={Devi},
+           giveni={D\bibinitperiod}}}%
+        {{hash=16922b89cdf492fe3becb64ab59c075a}{%
+           family={Rabbat},
+           familyi={R\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5b77dedc7f77ff84caad46064e6e3cbb}{%
+           family={Pineau},
+           familyi={P\bibinitperiod},
+           given={Joelle},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{5f94defeb842da5783d34a166677f56e}
+      \strng{fullhash}{ef119d8e9b9fca36ea534c11a2df7269}
+      \strng{authornamehash}{5f94defeb842da5783d34a166677f56e}
+      \strng{authorfullhash}{ef119d8e9b9fca36ea534c11a2df7269}
+      \field{sortinit}{D}
+      \field{sortinithash}{d10b5413de1f3d197b20897dd0d565bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the International Conference on Machine Learning (ICML)}
+      \field{title}{TarMAC: Targeted Multi-Agent Communication}
+      \field{year}{2019}
+    \endentry
+    \entry{dobbe2017fully}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=7375d6b5bf11f7ba6f17878cd398dbb6}{%
+           family={Dobbe},
+           familyi={D\bibinitperiod},
+           given={Roel},
+           giveni={R\bibinitperiod}}}%
+        {{hash=56ebe8db4552eeddec6e242a9f07620a}{%
+           family={Fridovich-Keil},
+           familyi={F\bibinithyphendelim K\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=709855948ec649409743a85b23989879}{%
+           family={Tomlin},
+           familyi={T\bibinitperiod},
+           given={Claire},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{bfd9d1d7829faa3a67dd9a9d4aa40549}
+      \strng{fullhash}{bfd9d1d7829faa3a67dd9a9d4aa40549}
+      \strng{authornamehash}{bfd9d1d7829faa3a67dd9a9d4aa40549}
+      \strng{authorfullhash}{bfd9d1d7829faa3a67dd9a9d4aa40549}
+      \field{sortinit}{D}
+      \field{sortinithash}{d10b5413de1f3d197b20897dd0d565bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Fully decentralized policies for multi-agent systems: An information theoretic approach}
+      \field{year}{2017}
+      \field{pages}{2941\bibrangedash 2950}
+      \range{pages}{10}
+    \endentry
+    \entry{foerster2018counterfactual}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=4b218c76a75ebf9a561f2bf98178f270}{%
+           family={Foerster},
+           familyi={F\bibinitperiod},
+           given={Jakob\bibnamedelima N},
+           giveni={J\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=de7fc27bb6e6105440cd3039a5c9b684}{%
+           family={Farquhar},
+           familyi={F\bibinitperiod},
+           given={Gregory},
+           giveni={G\bibinitperiod}}}%
+        {{hash=c15e1ba2ced206763fad02b814aa569e}{%
+           family={Afouras},
+           familyi={A\bibinitperiod},
+           given={Triantafyllos},
+           giveni={T\bibinitperiod}}}%
+        {{hash=a07891d2d6d3da5f1827c01269cc6da6}{%
+           family={Nardelli},
+           familyi={N\bibinitperiod},
+           given={Nantas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=0d05819cf2b4fe22ba972c9b2b5d8c9d}{%
+           family={Whiteson},
+           familyi={W\bibinitperiod},
+           given={Shimon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{af187ad68219c6c92df1188180540245}
+      \strng{fullhash}{cfe451798dceb17bed4d174e8ecc34fe}
+      \strng{authornamehash}{af187ad68219c6c92df1188180540245}
+      \strng{authorfullhash}{cfe451798dceb17bed4d174e8ecc34fe}
+      \field{sortinit}{F}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)}
+      \field{title}{Counterfactual multi-agent policy gradients}
+      \field{year}{2018}
+    \endentry
+    \entry{foerster2016dial}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=d62c75690ab7c754f6e7217a242a4318}{%
+           family={Foerster},
+           familyi={F\bibinitperiod},
+           given={Jakob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=6a1595d08572f993bddddf54f406726b}{%
+           family={Assael},
+           familyi={A\bibinitperiod},
+           given={Ioannis\bibnamedelima Alexandros},
+           giveni={I\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=cf269f9a5106a41ad53847a68a27db1c}{%
+           family={Freitas},
+           familyi={F\bibinitperiod},
+           given={Nando},
+           giveni={N\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=0d05819cf2b4fe22ba972c9b2b5d8c9d}{%
+           family={Whiteson},
+           familyi={W\bibinitperiod},
+           given={Shimon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{bacd311c6a08d138cde55b969b44b0f3}
+      \strng{fullhash}{343c3687aa3c4549761006d5faf88f29}
+      \strng{authornamehash}{bacd311c6a08d138cde55b969b44b0f3}
+      \strng{authorfullhash}{343c3687aa3c4549761006d5faf88f29}
+      \field{sortinit}{F}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Learning to communicate with deep multi-agent reinforcement learning}
+      \field{year}{2016}
+    \endentry
+    \entry{foerster2016learning}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=d62c75690ab7c754f6e7217a242a4318}{%
+           family={Foerster},
+           familyi={F\bibinitperiod},
+           given={Jakob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=02e28c10d2bb7d99679e29117641e8d8}{%
+           family={Assael},
+           familyi={A\bibinitperiod},
+           given={Yannis\bibnamedelima M},
+           giveni={Y\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=cf269f9a5106a41ad53847a68a27db1c}{%
+           family={Freitas},
+           familyi={F\bibinitperiod},
+           given={Nando},
+           giveni={N\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=0d05819cf2b4fe22ba972c9b2b5d8c9d}{%
+           family={Whiteson},
+           familyi={W\bibinitperiod},
+           given={Shimon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{bacd311c6a08d138cde55b969b44b0f3}
+      \strng{fullhash}{b873d546decfccad2b2e933e6d0a59ac}
+      \strng{authornamehash}{bacd311c6a08d138cde55b969b44b0f3}
+      \strng{authorfullhash}{b873d546decfccad2b2e933e6d0a59ac}
+      \field{sortinit}{F}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Learning to communicate with deep multi-agent reinforcement learning}
+      \field{year}{2016}
+    \endentry
+    \entry{godard2017unsupervised}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=f97b7e9ac216352a3670f5fc6fe0d0e9}{%
+           family={Godard},
+           familyi={G\bibinitperiod},
+           given={Cl\'{e}ment},
+           giveni={C\bibinitperiod}}}%
+        {{hash=125f0c3607e3c65827a052f75603bc75}{%
+           family={Mac\bibnamedelima Aodha},
+           familyi={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+           given={Oisin},
+           giveni={O\bibinitperiod}}}%
+        {{hash=a0c39cd036115f4086379df399c52db0}{%
+           family={Brostow},
+           familyi={B\bibinitperiod},
+           given={Gabriel\bibnamedelima J},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{c4349d3f260147b38fc0ba7ef85618ff}
+      \strng{fullhash}{c4349d3f260147b38fc0ba7ef85618ff}
+      \strng{authornamehash}{c4349d3f260147b38fc0ba7ef85618ff}
+      \strng{authorfullhash}{c4349d3f260147b38fc0ba7ef85618ff}
+      \field{sortinit}{G}
+      \field{sortinithash}{618d986594b7198ba52cf8b00d348f3f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition}
+      \field{title}{Unsupervised monocular depth estimation with left-right consistency}
+      \field{year}{2017}
+      \field{pages}{270\bibrangedash 279}
+      \range{pages}{10}
+    \endentry
+    \entry{he2016deep}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=6b4b60e909e78633945f3f9c9dc83e01}{%
+           family={He},
+           familyi={H\bibinitperiod},
+           given={Kaiming},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5e72bc22dbcf0984c6d113d280e36990}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Xiangyu},
+           giveni={X\bibinitperiod}}}%
+        {{hash=bb295293acacd54387339079ebbe4ead}{%
+           family={Ren},
+           familyi={R\bibinitperiod},
+           given={Shaoqing},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f85751488058842b5777c7b4074077b5}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Jian},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{6edb98fe38401d2fe4a026f5ce6e8451}
+      \strng{fullhash}{42c4b52dc3a62cebabbc11c73e1afb53}
+      \strng{authornamehash}{6edb98fe38401d2fe4a026f5ce6e8451}
+      \strng{authorfullhash}{42c4b52dc3a62cebabbc11c73e1afb53}
+      \field{sortinit}{H}
+      \field{sortinithash}{2f664b453ec75da1fe3804ca92633405}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
+      \field{title}{Deep residual learning for image recognition}
+      \field{year}{2016}
+    \endentry
+    \entry{hoshen2017vain}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=55efb0f1e8b5c54cf62b4ffea5bc8660}{%
+           family={Hoshen},
+           familyi={H\bibinitperiod},
+           given={Yedid},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{55efb0f1e8b5c54cf62b4ffea5bc8660}
+      \strng{fullhash}{55efb0f1e8b5c54cf62b4ffea5bc8660}
+      \strng{authornamehash}{55efb0f1e8b5c54cf62b4ffea5bc8660}
+      \strng{authorfullhash}{55efb0f1e8b5c54cf62b4ffea5bc8660}
+      \field{sortinit}{H}
+      \field{sortinithash}{2f664b453ec75da1fe3804ca92633405}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Vain: Attentional multi-agent predictive modeling}
+      \field{year}{2017}
+    \endentry
+    \entry{jain2019two}{inproceedings}{}
+      \name{author}{8}{}{%
+        {{hash=e798e0b9e4b749923fd064b29d68cf5f}{%
+           family={Jain},
+           familyi={J\bibinitperiod},
+           given={Unnat},
+           giveni={U\bibinitperiod}}}%
+        {{hash=54cf889969c7fd120788e1952a9b2c5f}{%
+           family={Weihs},
+           familyi={W\bibinitperiod},
+           given={Luca},
+           giveni={L\bibinitperiod}}}%
+        {{hash=9bfe220c99d5e3f19e82f842df626065}{%
+           family={Kolve},
+           familyi={K\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+        {{hash=6e8b3d38b127f6e4cb3d429818c0fac8}{%
+           family={Rastegari},
+           familyi={R\bibinitperiod},
+           given={Mohammad},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ed3e473df095b5791b5a5d837557bff7}{%
+           family={Lazebnik},
+           familyi={L\bibinitperiod},
+           given={Svetlana},
+           giveni={S\bibinitperiod}}}%
+        {{hash=396c6ddedb6f986906fc3e4994d19974}{%
+           family={Farhadi},
+           familyi={F\bibinitperiod},
+           given={Ali},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cfe67cfc62c08047e0c6c0242451d07d}{%
+           family={Schwing},
+           familyi={S\bibinitperiod},
+           given={Alexander\bibnamedelima G},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=d025c5904626f59c3130bcda8ef9f453}{%
+           family={Kembhavi},
+           familyi={K\bibinitperiod},
+           given={Aniruddha},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{5c8916075d4228049b39c3212d61f344}
+      \strng{fullhash}{56b5c3116f5874690d41f5ddc0a6a271}
+      \strng{authornamehash}{5c8916075d4228049b39c3212d61f344}
+      \strng{authorfullhash}{56b5c3116f5874690d41f5ddc0a6a271}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
+      \field{title}{Two Body Problem: Collaborative Visual Task Completion}
+      \field{year}{2019}
+    \endentry
+    \entry{jiang2018graph}{article}{}
+      \name{author}{3}{}{%
+        {{hash=ca4afb2311f97c9286e2422e92b3a478}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Jiechuan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b8722b5b76504918cb9ceaf2e0aa9720}{%
+           family={Dun},
+           familyi={D\bibinitperiod},
+           given={Chen},
+           giveni={C\bibinitperiod}}}%
+        {{hash=dea2c2578afbc5a7cccf4998878bbb94}{%
+           family={Lu},
+           familyi={L\bibinitperiod},
+           given={Zongqing},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{dbcffb6bd56a2c0e199dbc00f6bdffeb}
+      \strng{fullhash}{dbcffb6bd56a2c0e199dbc00f6bdffeb}
+      \strng{authornamehash}{dbcffb6bd56a2c0e199dbc00f6bdffeb}
+      \strng{authorfullhash}{dbcffb6bd56a2c0e199dbc00f6bdffeb}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1810.09202}
+      \field{title}{Graph Convolutional Reinforcement Learning for Multi-Agent Cooperation}
+      \field{year}{2018}
+    \endentry
+    \entry{jiang2018learning}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=ca4afb2311f97c9286e2422e92b3a478}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Jiechuan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=dea2c2578afbc5a7cccf4998878bbb94}{%
+           family={Lu},
+           familyi={L\bibinitperiod},
+           given={Zongqing},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{df29b86891b0c1ae327fabce28adc7ef}
+      \strng{fullhash}{df29b86891b0c1ae327fabce28adc7ef}
+      \strng{authornamehash}{df29b86891b0c1ae327fabce28adc7ef}
+      \strng{authorfullhash}{df29b86891b0c1ae327fabce28adc7ef}
+      \field{sortinit}{J}
+      \field{sortinithash}{c86bd6cced82a15683b396c2169909ef}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Learning attentional communication for multi-agent cooperation}
+      \field{year}{2018}
+    \endentry
+    \entry{kim2018learning}{inproceedings}{}
+      \name{author}{7}{}{%
+        {{hash=c5d10d6654f6d4e3918801e95ce96d1e}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Daewoo},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5c9e8b2f4ed0006d3070a1458deb12b2}{%
+           family={Moon},
+           familyi={M\bibinitperiod},
+           given={Sangwoo},
+           giveni={S\bibinitperiod}}}%
+        {{hash=0316709c7728d0d35355c332abf5d14a}{%
+           family={Hostallero},
+           familyi={H\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ed29e659db3634c534376648de2a9d1e}{%
+           family={Kang},
+           familyi={K\bibinitperiod},
+           given={Wan\bibnamedelima Ju},
+           giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=86bc5919d49028a59b2e0a8cf7ffc3c4}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Taeyoung},
+           giveni={T\bibinitperiod}}}%
+        {{hash=274e5a090eaaae1fe2d9e68862d8ae08}{%
+           family={Son},
+           familyi={S\bibinitperiod},
+           given={Kyunghwan},
+           giveni={K\bibinitperiod}}}%
+        {{hash=fbe58ae1e7fcb75335f6c5fc40e5bf2a}{%
+           family={Yi},
+           familyi={Y\bibinitperiod},
+           given={Yung},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{665f56cceb0ec9f0eda8cbbac52eb04b}
+      \strng{fullhash}{efb965a103c91046f8c090bb52e53ff4}
+      \strng{authornamehash}{665f56cceb0ec9f0eda8cbbac52eb04b}
+      \strng{authorfullhash}{efb965a103c91046f8c090bb52e53ff4}
+      \field{sortinit}{K}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the International Conference on Learning Representations (ICLR)}
+      \field{title}{Learning to Schedule Communication in Multi-agent Reinforcement Learning}
+      \field{year}{2019}
+    \endentry
+    \entry{kim2019message}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=a59474ed040187bbc4b9d5b89ddfe05f}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Woojun},
+           giveni={W\bibinitperiod}}}%
+        {{hash=f234d5b47034e8adfc0aba10342f7c7f}{%
+           family={Cho},
+           familyi={C\bibinitperiod},
+           given={Myungsik},
+           giveni={M\bibinitperiod}}}%
+        {{hash=187e16b625327d7b3b3479aabf95071b}{%
+           family={Sung},
+           familyi={S\bibinitperiod},
+           given={Youngchul},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{d21ac2d58678f567648d327ceceaa495}
+      \strng{fullhash}{d21ac2d58678f567648d327ceceaa495}
+      \strng{authornamehash}{d21ac2d58678f567648d327ceceaa495}
+      \strng{authorfullhash}{d21ac2d58678f567648d327ceceaa495}
+      \field{sortinit}{K}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)}
+      \field{title}{Message-Dropout: An Efficient Training Method for Multi-Agent Deep Reinforcement Learning}
+      \field{year}{2019}
+    \endentry
+    \entry{krause2007near}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=112eb0b147c4a7f674d015a86e5dea70}{%
+           family={Krause},
+           familyi={K\bibinitperiod},
+           given={Andreas},
+           giveni={A\bibinitperiod}}}%
+        {{hash=c9ab8ac486d7f85ac914b1a8e51e512b}{%
+           family={Guestrin},
+           familyi={G\bibinitperiod},
+           given={Carlos},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{2508ff956d93fc7e915cf4ab4f8c102e}
+      \strng{fullhash}{2508ff956d93fc7e915cf4ab4f8c102e}
+      \strng{authornamehash}{2508ff956d93fc7e915cf4ab4f8c102e}
+      \strng{authorfullhash}{2508ff956d93fc7e915cf4ab4f8c102e}
+      \field{sortinit}{K}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{AAAI}
+      \field{title}{Near-optimal observation selection using submodular functions}
+      \field{volume}{7}
+      \field{year}{2007}
+      \field{pages}{1650\bibrangedash 1654}
+      \range{pages}{5}
+    \endentry
+    \entry{kurose2005computer}{book}{}
+      \name{author}{1}{}{%
+        {{hash=366dfea52e724054c5ccfdbf4dc23892}{%
+           family={Kurose},
+           familyi={K\bibinitperiod},
+           given={James\bibnamedelima F},
+           giveni={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Pearson Education India}%
+      }
+      \strng{namehash}{366dfea52e724054c5ccfdbf4dc23892}
+      \strng{fullhash}{366dfea52e724054c5ccfdbf4dc23892}
+      \strng{authornamehash}{366dfea52e724054c5ccfdbf4dc23892}
+      \strng{authorfullhash}{366dfea52e724054c5ccfdbf4dc23892}
+      \field{sortinit}{K}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Computer networking: A top-down approach featuring the internet, 3/E}
+      \field{year}{2005}
+    \endentry
+    \entry{littman1994markov}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=0de61bfd9e24dafe5332cc1142d23097}{%
+           family={Littman},
+           familyi={L\bibinitperiod},
+           given={Michael\bibnamedelima L},
+           giveni={M\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{0de61bfd9e24dafe5332cc1142d23097}
+      \strng{fullhash}{0de61bfd9e24dafe5332cc1142d23097}
+      \strng{authornamehash}{0de61bfd9e24dafe5332cc1142d23097}
+      \strng{authorfullhash}{0de61bfd9e24dafe5332cc1142d23097}
+      \field{sortinit}{L}
+      \field{sortinithash}{7bba64db83423e3c29ad597f3b682cf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Machine learning proceedings 1994}
+      \field{title}{Markov games as a framework for multi-agent reinforcement learning}
+      \field{year}{1994}
+      \field{pages}{157\bibrangedash 163}
+      \range{pages}{7}
+    \endentry
+    \entry{long2015fully}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=17faae490b91366d25e0e2d774e7b6b1}{%
+           family={Long},
+           familyi={L\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=4ce499f8943cac7cba0a73388d289a2e}{%
+           family={Shelhamer},
+           familyi={S\bibinitperiod},
+           given={Evan},
+           giveni={E\bibinitperiod}}}%
+        {{hash=90180e1a30742e0d15328bfe637c2ef4}{%
+           family={Darrell},
+           familyi={D\bibinitperiod},
+           given={Trevor},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{4f969c1eddab717aa873b0a90831c45a}
+      \strng{fullhash}{4f969c1eddab717aa873b0a90831c45a}
+      \strng{authornamehash}{4f969c1eddab717aa873b0a90831c45a}
+      \strng{authorfullhash}{4f969c1eddab717aa873b0a90831c45a}
+      \field{sortinit}{L}
+      \field{sortinithash}{7bba64db83423e3c29ad597f3b682cf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
+      \field{title}{Fully convolutional networks for semantic segmentation}
+      \field{year}{2015}
+      \field{pages}{3431\bibrangedash 3440}
+      \range{pages}{10}
+    \endentry
+    \entry{lowe2017multi}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{hash=7be01fa6277ef22b804ff6cc54c87b72}{%
+           family={Lowe},
+           familyi={L\bibinitperiod},
+           given={Ryan},
+           giveni={R\bibinitperiod}}}%
+        {{hash=e2101a0f6a72a2fb022cd3e2d45461e1}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Yi},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=41ea42ab7e09607e91466632ce419d8c}{%
+           family={Tamar},
+           familyi={T\bibinitperiod},
+           given={Aviv},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5de1025172ba2cd90c9f04ae0ba17006}{%
+           family={Harb},
+           familyi={H\bibinitperiod},
+           given={Jean},
+           giveni={J\bibinitperiod}}}%
+        {{hash=4204b7f5c444758aadf99bca6813b256}{%
+           family={Abbeel},
+           familyi={A\bibinitperiod},
+           given={OpenAI\bibnamedelima Pieter},
+           giveni={O\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=7570e7c3fc2c13d59af4d7cdb9962a4d}{%
+           family={Mordatch},
+           familyi={M\bibinitperiod},
+           given={Igor},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{dde2b308cb02077d5b0dcf690cd4ea7e}
+      \strng{fullhash}{4a11c72bb364f84a15e10ab4453cefcf}
+      \strng{authornamehash}{dde2b308cb02077d5b0dcf690cd4ea7e}
+      \strng{authorfullhash}{4a11c72bb364f84a15e10ab4453cefcf}
+      \field{sortinit}{L}
+      \field{sortinithash}{7bba64db83423e3c29ad597f3b682cf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Multi-agent actor-critic for mixed cooperative-competitive environments}
+      \field{year}{2017}
+    \endentry
+    \entry{luong2015effective}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=5fc2dc715fc35ea0dd825a5d84ac0e60}{%
+           family={Luong},
+           familyi={L\bibinitperiod},
+           given={Minh-Thang},
+           giveni={M\bibinithyphendelim T\bibinitperiod}}}%
+        {{hash=c7225c8adf8195ef056d44ae3f589af2}{%
+           family={Pham},
+           familyi={P\bibinitperiod},
+           given={Hieu},
+           giveni={H\bibinitperiod}}}%
+        {{hash=1261894eaefc186bfeabf336e05e6294}{%
+           family={Manning},
+           familyi={M\bibinitperiod},
+           given={Christopher\bibnamedelima D},
+           giveni={C\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{ccdf92aa9c2e8e0491a7dc941803b12b}
+      \strng{fullhash}{ccdf92aa9c2e8e0491a7dc941803b12b}
+      \strng{authornamehash}{ccdf92aa9c2e8e0491a7dc941803b12b}
+      \strng{authorfullhash}{ccdf92aa9c2e8e0491a7dc941803b12b}
+      \field{sortinit}{L}
+      \field{sortinithash}{7bba64db83423e3c29ad597f3b682cf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Conference on Empirical Methods in Natural Language Processing (EMNLP)}
+      \field{title}{Effective approaches to attention-based neural machine translation}
+      \field{year}{2015}
+    \endentry
+    \entry{martins2016softmax}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=5545e7248fbadb25de1f672f6cd846dc}{%
+           family={Martins},
+           familyi={M\bibinitperiod},
+           given={Andre},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1623273efad3aca25e2c9cb374ad2e2a}{%
+           family={Astudillo},
+           familyi={A\bibinitperiod},
+           given={Ramon},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{53782675d4090c6bc8c9e121ad0ac9ea}
+      \strng{fullhash}{53782675d4090c6bc8c9e121ad0ac9ea}
+      \strng{authornamehash}{53782675d4090c6bc8c9e121ad0ac9ea}
+      \strng{authorfullhash}{53782675d4090c6bc8c9e121ad0ac9ea}
+      \field{sortinit}{M}
+      \field{sortinithash}{c26a05ef03e4429073ed5c825140fac3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the International Conference on Machine Learning (ICML)}
+      \field{title}{From softmax to sparsemax: A sparse model of attention and multi-label classification}
+      \field{year}{2016}
+      \field{pages}{1614\bibrangedash 1623}
+      \range{pages}{10}
+    \endentry
+    \entry{melo2011querypomdp}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=68bfdc59d0e8ac10d10b5e5c0c7eb2a4}{%
+           family={Melo},
+           familyi={M\bibinitperiod},
+           given={Francisco\bibnamedelima S},
+           giveni={F\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=98f61eed24d7e2f8e41d7e48af5f0412}{%
+           family={Spaan},
+           familyi={S\bibinitperiod},
+           given={Matthijs\bibnamedelima TJ},
+           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=be9718b508fbfe508fc68e2249c06803}{%
+           family={Witwicki},
+           familyi={W\bibinitperiod},
+           given={Stefan\bibnamedelima J},
+           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{9d29cdc43ca02f8d728d3f84b2a5043c}
+      \strng{fullhash}{9d29cdc43ca02f8d728d3f84b2a5043c}
+      \strng{authornamehash}{9d29cdc43ca02f8d728d3f84b2a5043c}
+      \strng{authorfullhash}{9d29cdc43ca02f8d728d3f84b2a5043c}
+      \field{sortinit}{M}
+      \field{sortinithash}{c26a05ef03e4429073ed5c825140fac3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 9th European conference on Multi-Agent Systems}
+      \field{title}{QueryPOMDP: POMDP-based communication in multiagent systems}
+      \field{year}{2011}
+    \endentry
+    \entry{panait2005cooperative}{article}{}
+      \name{author}{2}{}{%
+        {{hash=260f0debd711f664fa547f9317daf0f2}{%
+           family={Panait},
+           familyi={P\bibinitperiod},
+           given={Liviu},
+           giveni={L\bibinitperiod}}}%
+        {{hash=fc0da695d3774401949060e332fa8677}{%
+           family={Luke},
+           familyi={L\bibinitperiod},
+           given={Sean},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{e1dfd379a63cfdc53618891ce1cebd76}
+      \strng{fullhash}{e1dfd379a63cfdc53618891ce1cebd76}
+      \strng{authornamehash}{e1dfd379a63cfdc53618891ce1cebd76}
+      \strng{authorfullhash}{e1dfd379a63cfdc53618891ce1cebd76}
+      \field{sortinit}{P}
+      \field{sortinithash}{24100cef455d7974167575052c29146e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Autonomous agents and multi-agent systems}
+      \field{title}{Cooperative multi-agent learning: The state of the art}
+      \field{year}{2005}
+    \endentry
+    \entry{peng2017multiagent}{article}{}
+      \name{author}{7}{}{%
+        {{hash=ab4d92dce97829e84f262001682ada46}{%
+           family={Peng},
+           familyi={P\bibinitperiod},
+           given={Peng},
+           giveni={P\bibinitperiod}}}%
+        {{hash=740b017d0525d5dc06841e3a7001564f}{%
+           family={Wen},
+           familyi={W\bibinitperiod},
+           given={Ying},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=616d3b0b19e3536f5c65dfab2a48a659}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Yaodong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=54cf1a2509659f1451d09bdfaee4fdd6}{%
+           family={Yuan},
+           familyi={Y\bibinitperiod},
+           given={Quan},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=d520d7bb37dae5c56c9f75bbe68154c0}{%
+           family={Tang},
+           familyi={T\bibinitperiod},
+           given={Zhenkun},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=aaa53f797bcbcb0d7a2b58e91f64ca49}{%
+           family={Long},
+           familyi={L\bibinitperiod},
+           given={Haitao},
+           giveni={H\bibinitperiod}}}%
+        {{hash=2f3ea981fa5a715a69118b48e576a9f5}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Jun},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{5e819a25267f7093c55158aefdec55d1}
+      \strng{fullhash}{61cd05d2fcd47ff2c32c1d6c537117e7}
+      \strng{authornamehash}{5e819a25267f7093c55158aefdec55d1}
+      \strng{authorfullhash}{61cd05d2fcd47ff2c32c1d6c537117e7}
+      \field{sortinit}{P}
+      \field{sortinithash}{24100cef455d7974167575052c29146e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1703.10069}
+      \field{title}{Multiagent bidirectionally-coordinated nets: Emergence of human-level coordination in learning to play starcraft combat games}
+      \field{year}{2017}
+    \endentry
+    \entry{pesce2019improving}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=28fc2a4a19913a66b4e931ee635e7202}{%
+           family={Pesce},
+           familyi={P\bibinitperiod},
+           given={Emanuele},
+           giveni={E\bibinitperiod}}}%
+        {{hash=79ec95e553ea1b7ba7aeb83954688f02}{%
+           family={Montana},
+           familyi={M\bibinitperiod},
+           given={Giovanni},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{f3de4f0776dd4e5f7efea686903fb96f}
+      \strng{fullhash}{f3de4f0776dd4e5f7efea686903fb96f}
+      \strng{authornamehash}{f3de4f0776dd4e5f7efea686903fb96f}
+      \strng{authorfullhash}{f3de4f0776dd4e5f7efea686903fb96f}
+      \field{sortinit}{P}
+      \field{sortinithash}{24100cef455d7974167575052c29146e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Neural Information Processing Systems Workshops}
+      \field{title}{Improving Coordination in Multi-Agent Deep Reinforcement Learning through Memory-driven Communication}
+      \field{year}{2019}
+    \endentry
+    \entry{ronneberger2015u}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=8e46da9de9e53ea5d37089897d69cdd9}{%
+           family={Ronneberger},
+           familyi={R\bibinitperiod},
+           given={Olaf},
+           giveni={O\bibinitperiod}}}%
+        {{hash=168e84ce3582cbc6bac5e2ebc3ef8442}{%
+           family={Fischer},
+           familyi={F\bibinitperiod},
+           given={Philipp},
+           giveni={P\bibinitperiod}}}%
+        {{hash=b452a32296958371572717940f900884}{%
+           family={Brox},
+           familyi={B\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{f23ccc5160c62c7866172335b2c76e11}
+      \strng{fullhash}{f23ccc5160c62c7866172335b2c76e11}
+      \strng{authornamehash}{f23ccc5160c62c7866172335b2c76e11}
+      \strng{authorfullhash}{f23ccc5160c62c7866172335b2c76e11}
+      \field{sortinit}{R}
+      \field{sortinithash}{c15bc8eb6936bc6b3c8baa9e8575af53}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International Conference on Medical image computing and computer-assisted intervention}
+      \field{title}{U-net: Convolutional networks for biomedical image segmentation}
+      \field{year}{2015}
+      \field{pages}{234\bibrangedash 241}
+      \range{pages}{8}
+    \endentry
+    \entry{saeedi2016multiple}{article}{}
+      \name{author}{4}{}{%
+        {{hash=98d3e1b86d0de0848fd716b275b22c79}{%
+           family={Saeedi},
+           familyi={S\bibinitperiod},
+           given={Sajad},
+           giveni={S\bibinitperiod}}}%
+        {{hash=dc3e978b0fe562727b42876241f1b08a}{%
+           family={Trentini},
+           familyi={T\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=91115b7f6b48ac62937b02fd5b08751c}{%
+           family={Seto},
+           familyi={S\bibinitperiod},
+           given={Mae},
+           giveni={M\bibinitperiod}}}%
+        {{hash=c3acd1cf41e61918b4f4b496d7d1e37d}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Howard},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{6e89b9a47d5604a3204ef9590f3188e7}
+      \strng{fullhash}{e99f9eed2519a44a2ad6abcfdd678e02}
+      \strng{authornamehash}{6e89b9a47d5604a3204ef9590f3188e7}
+      \strng{authorfullhash}{e99f9eed2519a44a2ad6abcfdd678e02}
+      \field{sortinit}{S}
+      \field{sortinithash}{3c1547c63380458f8ca90e40ed14b83e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Field Robotics}
+      \field{number}{1}
+      \field{title}{Multiple-robot simultaneous localization and mapping: A review}
+      \field{volume}{33}
+      \field{year}{2016}
+      \field{pages}{3\bibrangedash 46}
+      \range{pages}{44}
+    \endentry
+    \entry{schmidhuber1996general}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=c3a004dc2b8b6fb4dd79c5b8c1469da7}{%
+           family={Schmidhuber},
+           familyi={S\bibinitperiod},
+           given={Jurgen},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{c3a004dc2b8b6fb4dd79c5b8c1469da7}
+      \strng{fullhash}{c3a004dc2b8b6fb4dd79c5b8c1469da7}
+      \strng{authornamehash}{c3a004dc2b8b6fb4dd79c5b8c1469da7}
+      \strng{authorfullhash}{c3a004dc2b8b6fb4dd79c5b8c1469da7}
+      \field{sortinit}{S}
+      \field{sortinithash}{3c1547c63380458f8ca90e40ed14b83e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)}
+      \field{title}{A general method for multi-agent reinforcement learning in unrestricted environments}
+      \field{year}{1996}
+    \endentry
+    \entry{airsim2017fsr}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=2983594a6c7c1e934b9553c1032b4683}{%
+           family={Shah},
+           familyi={S\bibinitperiod},
+           given={Shital},
+           giveni={S\bibinitperiod}}}%
+        {{hash=14a631e77effc1b5f2774d9255ed6ebc}{%
+           family={Dey},
+           familyi={D\bibinitperiod},
+           given={Debadeepta},
+           giveni={D\bibinitperiod}}}%
+        {{hash=c53bde0c4dd2fc8e5da6c77ef94b56b4}{%
+           family={Lovett},
+           familyi={L\bibinitperiod},
+           given={Chris},
+           giveni={C\bibinitperiod}}}%
+        {{hash=976735c002ce6a93b243cfa6779822c4}{%
+           family={Kapoor},
+           familyi={K\bibinitperiod},
+           given={Ashish},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{850e69515a77f6fc9b28ada64dd280eb}
+      \strng{fullhash}{315fc397365c6d59db1134e705e6aa7f}
+      \strng{authornamehash}{850e69515a77f6fc9b28ada64dd280eb}
+      \strng{authorfullhash}{315fc397365c6d59db1134e705e6aa7f}
+      \field{sortinit}{S}
+      \field{sortinithash}{3c1547c63380458f8ca90e40ed14b83e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Field and Service Robotics}
+      \field{title}{AirSim: High-Fidelity Visual and Physical Simulation for Autonomous Vehicles}
+      \field{year}{2017}
+    \endentry
+    \entry{singh2018learning}{article}{}
+      \name{author}{3}{}{%
+        {{hash=521e70c5902413a086400bdd5e4fe60c}{%
+           family={Singh},
+           familyi={S\bibinitperiod},
+           given={Amanpreet},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5ea3f417fe7ac97b7b122a6d0fa3b4d4}{%
+           family={Jain},
+           familyi={J\bibinitperiod},
+           given={Tushar},
+           giveni={T\bibinitperiod}}}%
+        {{hash=72c54cfe76db45d84a3413df9e903ff4}{%
+           family={Sukhbaatar},
+           familyi={S\bibinitperiod},
+           given={Sainbayar},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{3e80229d48225f87c0ec68188c5e664a}
+      \strng{fullhash}{3e80229d48225f87c0ec68188c5e664a}
+      \strng{authornamehash}{3e80229d48225f87c0ec68188c5e664a}
+      \strng{authorfullhash}{3e80229d48225f87c0ec68188c5e664a}
+      \field{sortinit}{S}
+      \field{sortinithash}{3c1547c63380458f8ca90e40ed14b83e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1812.09755}
+      \field{title}{Learning when to Communicate at Scale in Multiagent Cooperative and Competitive Tasks}
+      \field{year}{2018}
+    \endentry
+    \entry{sukhbaatar2016learning}{inproceedings}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{hash=72c54cfe76db45d84a3413df9e903ff4}{%
+           family={Sukhbaatar},
+           familyi={S\bibinitperiod},
+           given={Sainbayar},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a6784304d1cc890b2cb6c6c7f2f3fd76}{%
+           family={Fergus},
+           familyi={F\bibinitperiod},
+           given={Rob},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{140eda2c6b05153d13195f7f9b9bcfed}
+      \strng{fullhash}{5e625195cc5c766b694050caf72549d9}
+      \strng{authornamehash}{140eda2c6b05153d13195f7f9b9bcfed}
+      \strng{authorfullhash}{5e625195cc5c766b694050caf72549d9}
+      \field{sortinit}{S}
+      \field{sortinithash}{3c1547c63380458f8ca90e40ed14b83e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Learning multiagent communication with backpropagation}
+      \field{year}{2016}
+    \endentry
+    \entry{tan1993multi}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=e01ff24d810592e205fc167ec967907b}{%
+           family={Tan},
+           familyi={T\bibinitperiod},
+           given={Ming},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{e01ff24d810592e205fc167ec967907b}
+      \strng{fullhash}{e01ff24d810592e205fc167ec967907b}
+      \strng{authornamehash}{e01ff24d810592e205fc167ec967907b}
+      \strng{authorfullhash}{e01ff24d810592e205fc167ec967907b}
+      \field{sortinit}{T}
+      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the International Conference on Machine Learning (ICML)}
+      \field{title}{Multi-Agent Reinforcement Learning: Independent vs. Cooperative Agents}
+      \field{year}{1993}
+    \endentry
+    \entry{vaswani2017attention}{inproceedings}{}
+      \name{author}{8}{}{%
+        {{hash=7f28e84700536646dd6620a0db07ad09}{%
+           family={Vaswani},
+           familyi={V\bibinitperiod},
+           given={Ashish},
+           giveni={A\bibinitperiod}}}%
+        {{hash=62efade83d70f0323fe248755e6c90c5}{%
+           family={Shazeer},
+           familyi={S\bibinitperiod},
+           given={Noam},
+           giveni={N\bibinitperiod}}}%
+        {{hash=06649ebab1ea5cac0250746a19764975}{%
+           family={Parmar},
+           familyi={P\bibinitperiod},
+           given={Niki},
+           giveni={N\bibinitperiod}}}%
+        {{hash=831027ee0ebf22375e2a86afc1881909}{%
+           family={Uszkoreit},
+           familyi={U\bibinitperiod},
+           given={Jakob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2fd2982e30ebcec93ec1cf76e0d797fd}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Llion},
+           giveni={L\bibinitperiod}}}%
+        {{hash=7bbdae5621c6f09903617b173df234c7}{%
+           family={Gomez},
+           familyi={G\bibinitperiod},
+           given={Aidan\bibnamedelima N},
+           giveni={A\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=fe885d4eafb1b8fb62400df55731788c}{%
+           family={Kaiser},
+           familyi={K\bibinitperiod},
+           given={{\L{}}ukasz},
+           giveni={\L{}\bibinitperiod}}}%
+        {{hash=95595a0fefb86187cbc36e551017d332}{%
+           family={Polosukhin},
+           familyi={P\bibinitperiod},
+           given={Illia},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{fullhash}{2d86e10c105bd5f3481ab22960e448cf}
+      \strng{authornamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{authorfullhash}{2d86e10c105bd5f3481ab22960e448cf}
+      \field{sortinit}{V}
+      \field{sortinithash}{555737dafdcf1396ebfeae5822e5bde2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems (NIPS)}
+      \field{title}{Attention is all you need}
+      \field{year}{2017}
+    \endentry
+    \entry{zhang2013coordinating}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=a3b71b4be9777fc9cbf6b4b3c1fbd5ae}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Chongjie},
+           giveni={C\bibinitperiod}}}%
+        {{hash=2caa71fda3ffe8cb0b01e0e46460b1f8}{%
+           family={Lesser},
+           familyi={L\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{6f0f6798c63cbf4575c44d11c3fbca15}
+      \strng{fullhash}{6f0f6798c63cbf4575c44d11c3fbca15}
+      \strng{authornamehash}{6f0f6798c63cbf4575c44d11c3fbca15}
+      \strng{authorfullhash}{6f0f6798c63cbf4575c44d11c3fbca15}
+      \field{sortinit}{Z}
+      \field{sortinithash}{35589aa085e881766b72503e53fd4c97}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of International Conference on Autonomous agents and Multi-agent Systems (AAMAS)}
+      \field{title}{Coordinating multi-agent reinforcement learning with limited communication}
+      \field{year}{2013}
+    \endentry
+    \entry{Zhao_2017_CVPR}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=b2c00b2ccbbe98f22709d2cb8ccc0bba}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Hengshuang},
+           giveni={H\bibinitperiod}}}%
+        {{hash=3797f666351febe439e04520ec708726}{%
+           family={Shi},
+           familyi={S\bibinitperiod},
+           given={Jianping},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b21d751b50214e5e719eb624ac756bc0}{%
+           family={Qi},
+           familyi={Q\bibinitperiod},
+           given={Xiaojuan},
+           giveni={X\bibinitperiod}}}%
+        {{hash=e88500bd6ca50746707a22554761b61a}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Xiaogang},
+           giveni={X\bibinitperiod}}}%
+        {{hash=c919379669a576a7dc662e44abbbcd6c}{%
+           family={Jia},
+           familyi={J\bibinitperiod},
+           given={Jiaya},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{b06e7056808e2daf34cacd840d8b4ea1}
+      \strng{fullhash}{87ea04d339c63c32f36152b13384134e}
+      \strng{authornamehash}{b06e7056808e2daf34cacd840d8b4ea1}
+      \strng{authorfullhash}{87ea04d339c63c32f36152b13384134e}
+      \field{sortinit}{Z}
+      \field{sortinithash}{35589aa085e881766b72503e53fd4c97}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
+      \field{month}{7}
+      \field{title}{Pyramid Scene Parsing Network}
+      \field{year}{2017}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

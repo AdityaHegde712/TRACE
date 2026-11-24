@@ -1,0 +1,84 @@
+\section{Introduction}
+% Motivation of VIC3D object detection
+Autonomous driving (AD) is arguably one of the hottest topics currently occupying public attention and imagination. 
+The success of deep neural networks brings the promise of solving AD's core requirement to perceive the surrounding environment from point cloud~\cite{lang2019pointpillars, Yang2020ssd,shi2019pointrcnn}, images~\cite{rukhovich2021imvoxelnet,reading2021categorical} or multi-modality data~\cite{Vora2020Point,Sindagi2019MVX}.
+\begin{figure}[htbp]
+	% 		\vspace{-0.2cm}  %
+	% 		\setlength{\abovecaptionskip}{-0.0cm}   %
+	% 		\setlength{\belowcaptionskip}{-0.5cm}
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/dataset-classification.png}
+	\caption{Datasets available for 3D Object Detection in autonomous driving.
+DAIR-V2X is the first real-world V2X dataset for VICAD.}
+	\label{fig:positive_effect_vic3d}
+\end{figure}
+Despite its great progress recently, autonomous driving still faces great safety challenges for a lack of global perspective and the limitation of long-range perception capability. It has been widely agreed that vehicle-infrastructure cooperation is required to achieve Level 5 autonomy. Utilizing both vehicle and infrastructure sensors brings a number of significant advantages, including providing a global perspective far beyond the current horizon and covering blind spots.
+Advances in communications like V2X (vehicle to everything) have made it possible to utilize data from infrastructure sensors~\cite{chen2017vehicle,storck20195g}.
+However, there is still NO dataset from real scenarios available for researchers to work on vehicle-infrastructure cooperation-related problems.
+
+To accelerate computer vision research and innovation for Vehicle-Infrastructure Cooperative Autonomous Driving (VICAD), we release DAIR-V2X Dataset, which is the first large-scale, multi-modality, multi-view dataset for VICAD.
+It contains 71254 LiDAR frames and 71254 Camera frames captured in intersection scenes where a well-equipped vehicle passes through intersections with infrastructure sensors deployed. 40\% of the frames are captured from infrastructure sensors and 60\% of the frames are captured from vehicle sensors. All of them are precisely labeled by expert annotators. 
+The dataset covers 10 km of city roads, 10 km of highway, 28 intersections, and 38 km$^2$ of driving regions with diverse weather and lighting variations. More details could be found in Tab.~\ref{tab: dataset comparison}.
+
+% The properties of VIC3D object detection
+In this paper, the Vehicle-Infrastructure Cooperative 3D Object Detection (VIC3D) task is introduced, formulating the problem of cooperatively locating and identifying 3D objects using sensory inputs from both vehicle and infrastructure. In addition to solving traditional 3D object detection problems, the solution of VIC3D needs to consider the temporal asynchrony problem and data transmission cost between vehicle and infrastructure sensors. 
+
+% DAIR-V2X
+\begin{table*}[ht]
+\caption{A detailed comparison between autonomous driving-related datasets.  - indicates that specific information is not provided. In particular, DAIR-V2X is composed of DAIR-V2X-C, DAIR-V2X-V and DAIR-V2X-I, where DAIR-V2X-C is captured by both vehicle and infrastructure sensors, DAIR-V2X-V is captured by vehicle sensors, and DAIR-V2X-I is captured by infrastructure sensors.}
+\label{tab: dataset comparison}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccc}
+\hline
+\hline
+\textbf{Dataset} & \textbf{Year} & \textbf{Real/Simulated} & \textbf{View} & \textbf{Image} & \textbf{Pointcloud} & \textbf{3D boxes} & \textbf{Classes} \\
+\hline
+KITTI\cite{Geiger2012KITTI}  & 2012 & real   & single vehicle                       & 15k & 15k & 200k & 8  \\
+\hline
+nuScenes\cite{Caesar2020NuScenes}      & 2019 & real      & single vehicle                       & 1.4M & 400k & 1.4M & 23 \\
+\hline
+Waymo Open\cite{sun2020scalability}  & 2019 & real      & single vehicle                       & 1M & 200k & 12M  & 4  \\
+\hline
+ApolloScape\cite{huang2019apolloscape}   & 2018 & real & single vehicle & 144k & 0 & 70k & 8-35 \\
+\hline
+BBD100K\cite{yu2020bdd100k}       & 2020 & real      & single vehicle                       & 100M & 0 & 0  & 10 \\
+\hline
+ONCE\cite{mao2021one} & 2021 & real      & single vehicle                       & 7M & 1M & 417k  & 5 \\
+\hline
+SYNTHIA\cite{ros2016synthia}       & 2016 & simulated  & single vehicle                       & 213k & 0 & - & 13  \\
+\hline
+V2X-Sim\cite{li2021learning}       & 2021 & simulated & multi-vehicle                        & 0 & 10k & 26.6k & 2  \\
+\hline
+highD\cite{krajewski2018highd}         & 2018 & real      & infrastructure (UAV)                                  & 1.53M & 0 & 0   & 1  \\
+\hline
+\hline
+\textbf{DAIR-V2X (Our)}      & 2021 & real      & vehicle-infrastructure cooperative & 71k & 71k & 1.2M & 10   \\
+\hline
+ - \textbf{ DAIR-V2X-C}    & 2021 & real      & vehicle-infrastructure cooperative & 39k & 39k & 464k & 10 \\
+\hline
+ - \textbf{ DAIR-V2X-V}    & 2021 & real      & single vehicle                       & 22k & 22k & 239k & 10  \\
+\hline
+ - \textbf{ DAIR-V2X-I}    & 2021 & real      & infrastructure               & 10k & 10k & 493k & 10   \\
+\hline
+\hline
+\end{tabular}%
+}
+\end{table*}
+
+ 
+
+% 3D Detection Benchmark
+To resolve the VIC3D object detection task and facilitate future research, we also introduce our VIC3D object detection benchmark in this paper.
+For data with less temporal asynchrony problems, we implement both early fusion and late fusion approaches. Results show that the average precision of fusion methods is 10 to 20 points higher than detectors that only use information from a single view. 
+Results also show that early fusion can achieve better performance than late fusion but requires more data transmission. With the DAIR-V2X dataset, we expect more future research to achieve a performance-bandwidth trade-off.
+For data with severe temporal asynchrony, we propose a Time Compensation Late Fusion framework, which can effectively alleviate the temporal asynchrony problem.
+
+% Contributions
+The key contributions of our work are as follows:
+\begin{itemize}
+    \item We release the DAIR-V2X dataset, which is the first large-scale dataset for vehicle-infrastructure cooperative autonomous driving. All frames are captured from real scenarios with 3D annotations.
+    \item We formulate the problem of cooperatively locating and identifying 3D objects using sensory inputs from both vehicle and infrastructure as VIC3D.
+    \item We introduce benchmarks for VIC3D object detection and single-view 3D object detection tasks.
+    The results show the effectiveness of vehicle-infrastructure cooperation in VIC3D object detection.
+    Especially, we propose the Time Compensation Late Fusion framework to alleviate the temporal asynchrony problem. 
+\end{itemize}

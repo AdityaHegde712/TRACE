@@ -1,0 +1,21 @@
+\begin{table}
+\caption{\textbf{Evaluation on testing set of case6 with SegNet.} }
+\label{tab:seg_case6}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ccccccc}
+\toprule
+& & Overall Acc & Mean Acc & FreqW Acc & Mean IoU & Total (in Kbytpes per frame) \\\midrule
+Upper bound & Single Normal image & 78.74 & 47.36 & 65.69 & 39.02 & \\\midrule
+\multirow{3}{*}{ Fully Centralized } & Concatenates all features & 65.69 & 37.23 & 49.26 & 28.64 & 256 \\
+& Our model w/ msg (Weighted Sum) & 75.98$\pm$0.11 & 45.99$\pm$0.34 & 61.93$\pm$0.18 & 37.29$\pm$0.32 & 256.28 \\
+& Our model w/o msg (Weighted Sum) & 66.31$\pm$0.22 & 35.29$\pm$0.47 & 50.0$\pm$0.18 & 27.89$\pm$0.56 & 256.03 \\\midrule
+\multirow{5}{*}{ Distributed }& Random Selection & 62.4 & 36.07 & 46.27 & 27.43 & 64 \\
+& Our model w/o msg (Argmax Test)  & 61.41$\pm$0.32 & 33.05$\pm$0.29 & 45.56$\pm$0.18 & 25.21$\pm$0.39 & 64.03 \\
+& Our model w/o msg (2-head decoder) & 64.0$\pm$0.21 & 33.45$\pm$1.22 & 47.65$\pm$0.37 & 26.02$\pm$1.08 & 64.03 \\
+
+& Our model (Argmax Test) & 75.89$\pm$0.24 & 46.08$\pm$0.29 & 61.86$\pm$0.33 & 37.29$\pm$0.36 & 64.28 \\
+& Our model (2-head decoder)& 75.36$\pm$0.25 & 44.39$\pm$0.06 & 61.08$\pm$0.55 & 36.14$\pm$0.07 & 64.28 \\\midrule
+Lower bound & Single Degraded image & 63.42 & 34.57 & 46.14 & 26.83 & \\\bottomrule
+\end{tabular}}
+\end{table}

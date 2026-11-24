@@ -1,0 +1,223 @@
+\section{Benchmark}
+In this section, we provide a VIC3D object detection benchmark and a Single-View (SV) 3D object detection benchmark on our DAIR-V2X dataset, analyze their characteristics and suggest avenues for future research.
+
+\begin{table*}[htpb!]
+\centering
+\small
+\caption{VIC3D object detection Benchmark on DAIR-V2X-C.}
+\label{tab: VIC3D object detection results}
+ \scalebox{0.80}{
+\begin{tabular}{cccc|ccccccccc}
+\hline
+\hline
+%% Table Head
+\multirow{2}{*}{Modality} & 
+\multirow{2}{*}{Fusion} & 
+\multirow{2}{*}{Model} & 
+\multirow{2}{*}{Dataset} & 
+\multicolumn{4}{c}{$AP_{3D(IoU=0.5)}$} & 
+\multicolumn{4}{c}{$AP_{BEV(IoU=0.5)}$} & 
+$AB$ \\ \cline{5-8} \cline{9-12}
+& &   &  & 
+Overall & 0-30m & 30-50m & 50-100m & 
+Overall & 0-30m & 30-50m & 50-100m &  ($Byte$) \\
+\hline\hline
+%% Table Content
+\multirow{3}{*}{Image} & 
+  Veh.-Only & ImvoxelNet~\cite{rukhovich2021imvoxelnet} & VIC-Sync &
+  12.03 & 16.25 & 7.25 & 2.28 & 13.62 & 17.66 & 8.58 & 2.82 & 0 \\
+  & Inf.-Only & ImvoxelNet~\cite{rukhovich2021imvoxelnet} & VIC-Sync &
+  19.93 & 27.34 & 17.61 & 14.43 & 25.31 & 32.02 & 23.28 & 20.38 & 102.32 \\
+  & Late Fusion & ImvoxelNet~\cite{rukhovich2021imvoxelnet} & VIC-Sync &
+  26.56 & 34.20 & 17.20 & 9.81 & 31.40 & 37.75 & 21.21 & 12.99 & 102.32 \\
+\hline\hline
+
+\multirow{4}{*}{Pointcloud} & 
+  Veh.-Only & PointPillars~\cite{lang2019pointpillars} & VIC-Sync &
+  31.33 & 27.48 & 25.58 & 12.63 & 35.06 & 30.55 & 28.65 & 14.16 & 0 \\
+  & Inf.-Only & PointPillars~\cite{lang2019pointpillars} & VIC-Sync &
+  17.62 & 16.54 & 10.98 & 9.17 & 24.40 & 21.47 & 16.00 & 13.07 & 336.16 \\
+  & Late Fusion & PointPillars~\cite{lang2019pointpillars} & VIC-Sync &
+  41.90 & 37.65 & 32.72 & 18.84 & 47.96 & 42.40 & 37.65 & 22.08 & 336.16 \\
+  & Early Fusion & PointPillars~\cite{lang2019pointpillars} & VIC-Sync & 50.03 & 53.07 & 60.38 & 33.05 & 53.73 & 55.80 & 64.08 & 36.17  & 1382275.75 \\
+\hline\hline
+
+\multirow{3}{*}{Pointcloud} & 
+  Late Fusion & PointPillars~\cite{lang2019pointpillars} & VIC-Async-$1$ &
+  40.21 & 34.17 & 29.40 & 15.50 & 46.41 & 38.05 & 34.10 & 19.20 & 341.08 \\
+  & Late Fusion & PointPillars~\cite{lang2019pointpillars} & VIC-Async-$2$ &
+  35.29 & 32.16 & 28.07 & 13.44 & 40.65 & 35.62 & 32.35 & 15.88 & 306.79 \\
+  & Early Fusion & PointPillars~\cite{lang2019pointpillars} & VIC-Async-$1$ & 47.47 & 48.88 & 58.86 & 30.89 & 51.67 & 52.70 & 63.09 & 34.72 & 1362216.0 \\
+\hline\hline
+
+\multirow{2}{*}{Pointcloud} &
+TCLF & PointPillars~\cite{lang2019pointpillars} & VIC-Async-$1$ &
+  40.79 & 34.67 & 29.69 & 15.76 & 46.80 & 38.24 & 34.27 & 19.40 & 539.60 \\
+  & TCLF & PointPillars~\cite{lang2019pointpillars} & VIC-Async-$2$ &
+  36.72 & 33.91 & 29.41 & 14.52 & 41.67 & 36.78 & 33.36 & 17.18 & 506.70 \\
+\hline\hline
+
+\hline
+\end{tabular}
+}
+\end{table*}
+
+\subsection{Benchmark for VIC3D object detection}
+We provide a benchmark for VIC3D object detection on the VIC-Sync dataset extracted from DAIR-V2X-C, which is illustrated in Section~\ref{sec:DataAcquisition}. The dataset is composed of 9311 pairs of infrastructure and vehicle frames as well as their cooperative annotations as ground truth. 
+Besides, we take the temporal asynchrony between the infrastructure frame and the vehicle frame into consideration in the benchmark, which is mainly caused by the difference in the sampling rate and transmission delay.
+To simulate the temporal asynchrony phenomenon, we replace each infrastructure frame in the VIC-Sync dataset with the infrastructure frame which is $k$-th frame previous to the original infrastructure frame to construct the VIC-Async-$k$ dataset for the benchmark. In our experiments, we set $k=1, 2$.
+We split VIC-Sync and VIC-Async-$k$ datasets to train/valid/test part as 5:2:3 respectively.
+We use cooperative annotations to evaluate the detection results under the vehicle-egocentric view.
+The experiment results are presented in Table~\ref{tab: VIC3D object detection results}.
+% Then, we propose a Time Compensation Late Fusion (TCLF) framework to solve VIC3D object detection on the VIC-Async dataset.
+% More experiments like early fusion, single-view and late fusion without the time compensation module are implemented on VIC-Async and VIC-Sync dataset.
+% Experiment results show that:
+% \begin{itemize}
+% \item Fusion methods perform much better than only using single-view information. 
+% \item Early fusion achieves better detection performance but requires much more transmission cost than late fusion.
+% This encourage us to explore intermediate fusion or other methods to achieve better trade-off between performance and transmission cost. 
+% \item Time-compensation module can effectively alleviate the performance drop caused by temporal asynchrony.
+% \end{itemize}
+
+\subsubsection{Baselines}\label{sec: vic3d baselines}
+Here we present several baselines with different modalities and fusion methods for VIC3D object detection.
+
+\paragraph{LiDAR detection baseline with Late Fusion.}
+To demonstrate the performance improvement by utilizing both infrastructure and vehicle data, we implement a late fusion framework with an infrastructure detector and a vehicle detector.
+Firstly, we choose PointPillars~\cite{lang2019pointpillars} as the 3D detector and train the two detectors with  infrastructure-view and vehicle-view data in VIC-Sync separately.
+Then, we convert the infrastructure predictions into the vehicle LiDAR coordinate system and merge the prediction results with a matcher based on the Euclidian distance measurement and the Hungarian method\cite{Kuhn2010TheHM} to generate fusion results. 
+
+To illustrate the temporal asynchrony problem, we also implement the LiDAR detection late fusion baseline on the VIC-Async-$k$ dataset.
+In addition, based on tracking and state estimation we propose the Time Compensation Late Fusion (TCLF) framework.
+The TCLF is mainly composed of the following three parts: 
+1) Estimating the velocity of the objects with two adjacent infrastructure frames. 
+2) Estimating the state of the infrastructure objects at $t_{v}$.
+3) Fusing the estimated infrastructure predictions and vehicle predictions following the way of LiDAR late fusion baseline.
+The details of the TCLF framework could be seen in Fig. \ref{fig:late fusion framework}. 
+
+Note that we also report the evaluation results only with the infrastructure data and only with the vehicle data, which are named as Veh.-Only and Inf.-Only respectively.
+The evaluation results are presented in Tab.~\ref{tab: VIC3D object detection results}. 
+
+\paragraph{Image detection baseline with Late Fusion.}
+To examine image-only VIC3D object detection, we also implement the late fusion framework only with infrastructure images and vehicle images. 
+We choose ImvoxelNet~\cite{rukhovich2021imvoxelnet} as the 3D detector and train infrastructure detector and vehicle detector with the corresponding part of VIC-Sync training data separately.
+We implement the image detection late fusion following the LiDAR detection late fusion.
+
+\paragraph{LiDAR detection baseline with Early Fusion.}
+To explore the fusion effect at the raw data level, we implement the early fusion with PointPillars~\cite{lang2019pointpillars} as the 3D detector on the VIC-Sync dataset.
+We first convert the infrastructure point cloud in the VIC-Sync dataset into the vehicle LiDAR coordinate system, then fuse the infrastructure point cloud and vehicle point cloud.
+We directly train and evaluate the detector with the fused point cloud.
+Further to illustrate the temporal asynchrony problem, we also implement the early fusion with PointPillars~\cite{lang2019pointpillars} on the VIC-Async-$k$ dataset.
+
+\begin{figure*}[htpb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/fusionmodel.png}
+    \caption{Time Compensation Late Fusion (TCLF) Framework. $\Delta t$ denotes the sampling interval of infrastructure sensors. We predict and match the boxes between two infrastructure frames. For matched vehicles, we compute their velocities directly. For unmatched vehicles, we feed the position and motion information of the current scene into an MLP to predict their velocities. Finally, we can approximate the positions of vehicles at $t_{v}$ by linear interpolation, and fuse the results of the vehicle frame.}
+    \label{fig:late fusion framework}
+\end{figure*}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fusion_visualize.png}
+    \caption{Prediction results of the vehicle frame (orange) and infrastructure frame (blue). We observe that infrastructure data (thick blue boxes) supplements the blind spot and extends the perception field for the vehicle.}
+    \label{fig: fusion vis}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/time_comp_visualize.png}
+    \caption{Prediction results with and without time compensation. The results of TCLF (blue) have a larger overlap with ground truth (black) than the results without time compensation (orange).}
+    \label{fig: time comp vis}
+\end{figure}
+
+
+\subsubsection{Analysis}
+Here we analyze the properties of the methods for the VIC3D object detection benchmark in Section~\ref{sec: vic3d baselines}.
+
+\paragraph{Cooperative-view vs. Single-view.} 
+We compare the performance of the methods whether using both infrastructure data and vehicle data. 
+In Tab.~\ref{tab: VIC3D object detection results}, the detection performance of late fusion is much better than the performance of Veh.-Only or Inf.-Only, whether it is Image-based or LiDAR-based or it is based on VIC-Sync dataset or VIC-Async-$k$ dataset.
+For example, the LiDAR detection with Late Fusion achieves overall 41.90 AP points for 3D detection and overall 47.96 AP points for BEV detection on the VIC-Sync dataset.
+However, the LiDAR detection only with vehicle data just achieves overall 31.33\%  AP for 3D detection and overall 35.06\%  AP for BEV detection, and the LiDAR detection only with infrastructure data just achieves overall 17.62\% AP for 3D detection and overall 24.40\% AP for BEV detection.
+The experiment results demonstrate that fusing the infrastructure information can effectively improve the perception performance of the vehicle. 
+This is mainly because infrastructure data provides supplementary information that makes up for the vehicle's perception field.
+A visualization example is shown in Fig. \ref{fig: fusion vis}.
+
+\paragraph{Temporal Asynchrony vs Time Compensation.} 
+Temporal asynchrony brings challenges to fusing the infrastructure data. 
+Compared with the results on the VIC-Sync dataset, the performance of LiDAR detection with fusion drops significantly on VIC-Async-$k$ (2 points on VIC-Async-$1$ and 6 points on VIC-Async-$2$). 
+The decline is mainly due to the state changes of moving objects, resulting in matching difficulties and fusion errors.
+However, our TCLF can effectively improve the performance of late fusion up to 0.5\% AP and 1.5\% AP on VIC-Async-$1$ and VIC-Async-$2$ respectively, which demonstrates that time compensation can effectively alleviate the temporal asynchrony problems especially when the time delay is larger.
+A visualization example is provided in Fig.~\ref{fig: time comp vis}.
+
+\paragraph{Early Fusion vs. Late Fusion.} 
+Compared with late fusion, early fusion achieves up to 8\% AP higher under both BEV and 3D benchmarks, whether it is based on the VIC-Sync dataset or the VIC-Async-$1$ dataset.
+However, early fusion should transmit the whole point cloud and suffers an extremely high transmission cost, which is about 4000 times more than late fusion. 
+For more practical applications, we encourage future research on achieving better performance while consuming less transmission bandwidth.
+We will also release the feature fusion for the benchmark in the future.
+
+\begin{table*}[htpb!]
+\centering
+\caption{SV3D Detection Benchmark on DAIR-V2X-V}
+\label{tab: SS3D-V}
+\small
+\begin{tabular}{cc|ccccccccc}
+\hline\hline
+\multirow{2}{*}{Modality} & 
+\multirow{2}{*}{Model} & 
+\multicolumn{3}{c}{Vehicle$_{3D(IoU=0.5)}$} & 
+\multicolumn{3}{c}{Pedestrian$_{3D(IoU=0.25)}$} & 
+\multicolumn{3}{c}{Cyclist$_{3D(IoU=0.25)}$} \\ \cline{3-11} &  
+& Easy & \multicolumn{1}{c}{Middle} & \multicolumn{1}{c}{Hard} 
+& Easy & \multicolumn{1}{c}{Middle} & \multicolumn{1}{c}{Hard} 
+& Easy & \multicolumn{1}{c}{Middle} & \multicolumn{1}{c}{Hard} \\
+\hline\hline
+Image & ImvoxelNet~\cite{rukhovich2021imvoxelnet} & 38.37 & 24.28 & 21.54 & 4.54 & 4.54 & 4.54 & 10.38 & 9.09 & 9.09 \\
+PointCloud & PointPillars~\cite{lang2019pointpillars} & 61.76 & 49.02 & 43.45 & 33.40 & 24.68 & 22.39 & 38.24 & 33.80 & 32.35 \\
+PointCloud & SECOND~\cite{yan2018second} & 69.44 & 59.63 & 57.63 & 43.45 & 39.06 & 38.78 & 44.21 & 39.49 & 37.74 \\
+Image+PointCloud & MVXNet~\cite{Sindagi2019MVX} & 69.86 & 60.74 & 59.31 & 47.73 & 43.37 & 42.49 & 45.68 & 41.84 & 40.55 \\
+
+\hline\hline
+\end{tabular}
+\end{table*}
+
+\begin{table*}[htpb!]
+\centering
+\caption{SV3D Detection Benchmark on DAIR-V2X-I}
+\label{tab: SS3D-I}
+\small
+\begin{tabular}{cc|ccccccccc}
+\hline\hline
+\multirow{2}{*}{Modality} & 
+\multirow{2}{*}{Model} & 
+\multicolumn{3}{c}{Vehicle$_{3D(IoU=0.5)}$} & 
+\multicolumn{3}{c}{Pedestrian$_{3D(IoU=0.25)}$} & 
+\multicolumn{3}{c}{Cyclist$_{3D(IoU=0.25)}$} \\ \cline{3-11} &  
+& Easy & \multicolumn{1}{c}{Middle} & \multicolumn{1}{c}{Hard} 
+& Easy & \multicolumn{1}{c}{Middle} & \multicolumn{1}{c}{Hard} 
+& Easy & \multicolumn{1}{c}{Middle} & \multicolumn{1}{c}{Hard} \\
+\hline\hline
+Image & ImvoxelNet~\cite{rukhovich2021imvoxelnet} & 44.78 & 37.58 & 37.55 & 6.81 & 6.746 & 6.73 & 21.06 & 13.57 & 13.17 \\
+PointCloud & PointPillars~\cite{lang2019pointpillars} & 63.07 & 54.00 & 54.01 & 38.53 & 37.20 & 37.28 & 38.46 & 22.60 & 22.49 \\
+PointCloud & SECOND~\cite{yan2018second} & 71.47 & 53.99 & 54.00 & 55.16 & 52.49 & 52.52 & 54.68 & 31.05 & 31.19 \\
+Image+PointCloud & MVXNet~\cite{Sindagi2019MVX} & 71.04 & 53.71 & 53.76 & 55.83 & 54.45 & 54.40 & 54.05 & 30.79 & 31.06 \\
+
+\hline\hline
+\end{tabular}
+\end{table*}
+
+\subsection{Benchmark for SV3D Detection}
+We present an extensive 3D detection benchmark for those who are interested in Single-View (SV) 3D detection tasks based on DAIR-V2X-V and DAIR-V2X-I datasets. 
+Compared with the single-side data in DAIR-V2X-C, the two datasets are more diverse and could be more challenging to implement 3D object detection.
+Hence, we encourage researchers who just aim at improving the performance of vehicle 3D object detection or infrastructure 3D object on DAIR-V2X-V and DAIR-V2X-I.
+
+We split DAIR-V2X-V and DAIR-V2X-I datasets to train/valid/test part as 5:2:3 respectively.
+We present a number of baselines with methods based on different modalities on the two datasets respectively:
+ImvoxelNet~\cite{rukhovich2021imvoxelnet}, PointPillars~\cite{lang2019pointpillars}, SECOND~\cite{yan2018second} and MVXNet~\cite{Sindagi2019MVX}.
+We evaluate 3D object detection performance using the PASCAL criteria as KITTI~\cite{Geiger2012KITTI}, that distant objects are filtered out based on their bounding box height in the image plane. Three types of modes are used for evaluation, including Easy, Moderate, and Hard modes.
+We implement these baselines with MMDetection3D Framework~\cite{mmdet3d2020}.
+Evaluation results are shown in Tab.~\ref{tab: SS3D-V} and Tab.~\ref{tab: SS3D-I}. 
+
+% Our experiments in Tab.~\ref{tab: SS3D-V}  and Tab.~\ref{tab: SS3D-I} show that pointcloud-based detectors perform much better than image-based detectors on the two datasets.
+% This result is obvious because the point cloud contains 3D information, which is more compatible for 3D detection task. Experiment results also demonstrate that infrastructure detectors performs better than vehicle detectors in each method especially in hard mode, making up to 10\% performance improvement.
+% This is because infrastructure sensors have a better perspective, and integrating infrastructure information facilitates the perception ability of autonomous driving.

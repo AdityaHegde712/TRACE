@@ -1,0 +1,32 @@
+\vspace{-3mm}
+\section{Related Works}\label{related_works}
+\vspace{-3mm}
+
+\textbf{Multi-agent communication.}
+The communication strategy in multi-agent systems has been widely studied~\cite{singh2018learning}. Early works~\cite{tan1993multi,qureshi2008smart,li2010auction} often use predefined protocols or heuristics to decide how agents communicate with each other. However, it is difficult to generalize those methods to complex tasks. Recent works, thus, explore learning-based methods for complex scenarios. For example, CommNet~\cite{sukhbaatar2016learning} learns continuous communication in the multi-agent system. Vain~\cite{hoshen2017vain} adopts the attention mechanism to help agents selectively fuse the information from others. Most of these previous works consider decision-making tasks and adopt reinforcement learning due to the lack of explicit supervision. In this work, we focus on the perception task. Based on direct perception supervision, we apply supervised learning to optimize the communication strategy in both trade-off perception ability and communication cost. 
+
+\begin{table}[!t]
+\centering
+\caption{Major components comparisons of collaborative perception systems.}
+\setlength\tabcolsep{3pt}
+\begin{scriptsize}
+\begin{tabular}{lllll}
+\hline
+Method & Venue &  Message packing & Communication graph construction   & Message fusion \\ \hline
+When2com~\cite{when2com}  & CVPR 2020 & Full feature map  &  Handshake-based sparse graph  & Attention per-agent\\
+V2VNet~\cite{v2vnet}  & ECCV 2020 & Full feature map & Fully connected graph    & Average per-agent              \\
+DiscoNet~\cite{disconet} & NeurIPS 2021 & Full feature map  & Fully connected graph & MLP-based attention per-location  \\
+V2X-ViT~\cite{xu2022v2x}  & ECCV 2022 & Full feature map  & Fully connected graph & Self-attention per-location  \\
+\hline
+\multirow{2}{*}{Where2comm} & \multirow{2}{*}{NeurIPS~2022} &  \emph{Confidence}-aware sparse &\emph{Confidence}-aware~sparse~graph  & \emph{Confidence}-aware multi-head \\ 
+&  & feature map  + request map  & & attention per-location
+\\ \hline
+\end{tabular}
+\end{scriptsize}
+\label{tab:comparison}
+\vspace{-5mm}
+\end{table}
+
+\textbf{Collaborative perception.}
+As a recent application of multi-agent communication systems to perception tasks, collaborative perception is still immature. To support this area of research, there is a surge of high-quality datasets (e.g., V2X-Sim~\cite{V2XSim}, OpenV2V~\cite{OPV2V}, Comap\cite{comap} and DAIR-V2X\cite{dair}), as well as collaboration methods aimed for better performance-bandwidth trade-off (see comparisons in Table~\ref{tab:comparison}). When2com~\cite{when2com} proposes a handshake communication mechanism to decide \textit{when} to communicate and create sparse communication graph. V2VNet~\cite{v2vnet} proposes multi-round message passing based on graph neural networks to achieve better perception and prediction performance. DiscoNet~\cite{disconet} adopts knowledge distillation to take the advantage of both early and intermediate collaboration. OPV2V~\cite{OPV2V} proposes a graph-based attentive intermediate fusion to improve perception performances. V2X-ViT~\cite{xu2022v2x} introduces a novel heterogeneous multi-agent attention module to fuse information across heterogeneous agents. In this work, we leverage the proposed spatial confidence map to promote more compact messages, more sparse communication graphs, and more comprehensive fusion, resulting in efficient and effective collaboration. 
+% SyncNet~\cite{SyncNet} proposes a latency-aware collaboration system to tackle the communication latency.

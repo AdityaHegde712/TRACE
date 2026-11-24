@@ -1,0 +1,66 @@
+
+
+\begin{table}[t!]
+\caption{\textbf{Experimental results on Hidden Target View case.} Comparing \textit{Ours w/o msg} with \textit{Ours w/ msg} demonstrates the importance of the message $\bm{\mu}_{j}$ for this case. }
+\label{tab:res_case6}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{cccccc}
+\toprule
+& & Overall Acc  & BW (kbpf) & BIS \\\midrule
+Upper bound & Single Normal & 88.14$\pm$0.02   & & \\\midrule
+\multirow{3}{*}{Centralized }
+& CatAll & 72.58$\pm$0.14 & 4096 & 0.049\\
+
+& Attention & 69.08$\pm$0.76  &  4096.03 & 0.004\\
+& Compression & 70.44 &  1024 & 0.085\\
+
+% & Ours w/ msg (Softmax) & 84.72$\pm$0.49 & 57.36$\pm$0.56 & 73.79$\pm$0.77 & 49.37$\pm$0.53 & 4100.03 & 3.98\\
+\midrule
+\multirow{3}{*}{ Distributed }
+& Random Selection & 69.16$\pm$0.19  & 1024 & 0.019\\
+& \textbf{Ours w/o msg}  & 65.31$\pm$0.22  & 1024.03 & -0.179\\
+& \textbf{Ours w/ msg}  & \textbf{84.57$\pm$0.62}  &  1028.03 & \textbf{0.812}\\
+\midrule
+Lower bound & Single Degraded & 68.79$\pm$0.59  &   & \\
+\bottomrule
+
+
+
+\end{tabular}}
+\end{table}
+
+
+
+
+% \begin{table}[t!]
+% \caption{\textbf{Experimental results on Hidden Target View case.} Our method with message achieves better performance and BIS compared to the centralized methods. Comparing \textit{Ours w/o msg} with \textit{Ours w/ msg} demonstrates the importance of the message $\bm{\mu}_{j}$ in the case of shuffled degraded agent. }
+% \label{tab:res_case6}
+% \centering
+% \resizebox{\linewidth}{!}{%
+% \begin{tabular}{cccccc}
+% \toprule
+% & & Overall Acc  & Mean IoU & BW (kbpf) & BIS \\\midrule
+% Upper bound & Single Normal & 88.14$\pm$0.02  & 53.74$\pm$0.08 & & \\\midrule
+% \multirow{3}{*}{Centralized }
+% & CatAll & 72.58$\pm$0.14 & 38.0$\pm$0.05 & 4096 & 0.049\\
+% % & CatAll(16-16-128) & 70.20$\pm$0.90 & 44.05$\pm$0.50 & 54.61$\pm$0.70 & 35.87$\pm$0.51 & 1028.03 & \textcolor{red}{1.01}\\
+% % & CatAll(8-8-512) & 70.44$\pm$0.67 & 44.26$\pm$0.57 & 54.69$\pm$0.87 & 35.81$\pm$0.52 & 1028.03 & \textcolor{red}{0.95}\\
+
+% & Attention & 69.08$\pm$0.76  & 35.25$\pm$0.53 & 4096.03 & 0.004\\
+% & \textcolor{red}{Compression} & 70.44 &  35.81 & 1024 & 0.085\\
+
+% % & Ours w/ msg (Softmax) & 84.72$\pm$0.49 & 57.36$\pm$0.56 & 73.79$\pm$0.77 & 49.37$\pm$0.53 & 4100.03 & 3.98\\
+% \midrule
+% \multirow{3}{*}{ Distributed }
+% & Random Selection & 69.16$\pm$0.19  & 35.22$\pm$0.05 & 1024 & 0.019\\
+% & \textbf{Ours w/o msg}  & 65.31$\pm$0.22  & 32.36$\pm$0.38 & 1024.03 & -0.179\\
+% & \textbf{Ours w/ msg}  & \textbf{84.57$\pm$0.62}  & \textbf{49.15$\pm$0.68} & 1028.03 & \textbf{0.812}\\
+% \midrule
+% Lower bound & Single Degraded & 68.79$\pm$0.59  & 34.86$\pm$0.26 &  & \\
+% \bottomrule
+
+
+
+% \end{tabular}}
+% \end{table}

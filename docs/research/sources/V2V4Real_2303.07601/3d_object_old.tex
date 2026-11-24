@@ -1,0 +1,26 @@
+
+
+
+\begin{table*}[!t]
+\centering
+\begin{tabular}{l|cccc|cccc|c}
+\cline{2-5}
+\hline
+
+\multirow{2}{*}{\textbf{Method}} & \multicolumn{4}{c|}{\textbf{Sync} (AP@IoU=0.5)} & \multicolumn{4}{c|}{\textbf{Async} (AP@IoU=0.5)} &  \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\textbf{AM}\\ (MB)\end{tabular}}\\
+                        & Overall  & 0-30m & 30-50m & 50-100m & Overall  &0-30m & 30-50m & 50-100m  & \\ \hline
+No Fusion               & 28.7\color{gray}{(-11.1)}         & 50.0      &  22.9       &   4.9       &    28.7\color{gray}{(-11.1)}      &   50.0    &      22.9   &     4.9 & 0    \\\arrayrulecolor{lightgray}\hline
+Late Fusion             & 43.0\color{gray}{(-12.0)}       &  55.1     &    34.4     &   31.9      &  40.9\color{gray}{(-9.3)}         &      54.6 &    33.5     &   30.9 & 0.003     \\\arrayrulecolor{lightgray}\hline
+Early Fusion            & 48.2\color{gray}{(-11.5)}       &  64.3     &    33.2     &   34.0       & 41.0 \color{gray}{(-11.1)}         &  62.5     &  27.3      &   18.1 & 0.96      \\\arrayrulecolor{lightgray}\hline
+F-Cooper~\cite{chen2019f}                & 45.6\color{gray}{(-15.1)}       &  65.3     &    35.3     &    25.9      & 37.6\color{gray}{(-16.0)}            &   62.1    &    28.6     &   13.4 & 0.20        \\
+V2VNet~\cite{wang2020v2vnet}                  & 49.0\color{gray}{(-15.5)}       &  69.2     &   35.0      &    30.6      & 41.5\color{gray}{(-14.9)}         &  65.5     &    32.4     &   13.7 & 0.20        \\
+AttFuse~\cite{xu2022opv2v}                 & 47.9\color{gray}{(-16.8)}     &  67.9    &   34.6     &  26.8     & 40.8\color{gray}{(-16.9)}    & 65.8     &    28.6    &     13.9  & 0.20    \\
+V2X-ViT~\cite{xu2022v2xvit}                 & 48.9\color{gray}{(-16.0)}    &  66.0   &    38.1    &   30.0      &  41.6\color{gray}{(-14.3)}    &  62.8     &    32.9    &    17.5  & 0.20      \\
+CoBEVT~\cite{xu2022cobevt}                  & 51.1\color{gray}{(-15.4)}    &  69.3     &   40.0     &   32.4  & 44.9 \color{gray}{(-13.7)}      & 65.2
+&    35.6     &   19.8 & 0.20  
+\\\arrayrulecolor{black}\hline
+\end{tabular}
+\vspace{-2mm}
+\caption{Cooperative 3D object detection benchmark \textbf{without data augmentation} . The numbers in the bracket indicate the performance drop compared to the same model with data augmentation.}
+\label{tab:augmentation}
+\end{table*}

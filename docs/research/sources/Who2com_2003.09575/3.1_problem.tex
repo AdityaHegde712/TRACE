@@ -1,0 +1,6 @@
+\subsection{Problem Definition and Motivation}
+\cyma{Need an opening here for the following paragraph. Perhaps the opening can be even before Sec. 3.1. Right now, it's not clear what is our environment.}
+In our proposed \textit{collaborative perception} task, an environment consists of $N$ agents with their own observations $\bm{X} = \{\bm{x}_i\}_{i=1,...,N}$, while the observation of the target agent $\tilde{\bm{x}}_j, j\in\{1,...,N\}$ is degraded. The goal of the target agent is to integrate information received from other agents to derive the prediction for its own local observation. 
+Realistically, communication mechanisms often have bandwidth limitations, preventing the transmission of a large quantity of information during communication.\cyma{missing citation.}
+Thus, our goal is to derive a distributed and information-fusing framework which is able to (1) maximize the prediction accuracy of the downstream perception tasks for the target agent and (2) minimize the bandwidth used during transmission, as illustrated in Figure~\ref{fig:overview}. 
+We propose a communication framework that can be generalized to many perception tasks, and in this paper we consider semantic segmentation as one instantiation to evaluate the framework.

@@ -1,0 +1,225 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{draco}
+Draco 3d data compression. \url{https://github.com/google/draco} (2019)
+
+\bibitem{balle2018variational}
+Ball{\'e}, J., Minnen, D., Singh, S., Hwang, S.J., Johnston, N.: Variational
+  image compression with a scale hyperprior. In: International Conference on
+  Learning Representations (2018)
+
+\bibitem{casas2019spatially}
+Casas, S., Gulino, C., Liao, R., Urtasun, R.: Spatially-aware graph neural
+  networks for relational behavior forecasting from sensor data. arXiv  (2019)
+
+\bibitem{ilvm}
+Casas, S., Gulino, C., Suo, S., Luo, K., Liao, R., Urtasun, R.: Implicit latent
+  variable model for scene-consistent motion forecasting. In: ECCV (2020)
+
+\bibitem{casas2018intentnet}
+Casas, S., Luo, W., Urtasun, R.: Intentnet: Learning to predict intention from
+  raw sensor data. In: Conference on Robot Learning (2018)
+
+\bibitem{chai2019multipath}
+Chai, Y., Sapp, B., Bansal, M., Anguelov, D.: Multipath: Multiple probabilistic
+  anchor trajectory hypotheses for behavior prediction. arXiv  (2019)
+
+\bibitem{chen2015dsrc}
+Chen, Q., Roth, T., Yuan, T., Breu, J., Kuhnt, F., Z{\"o}llner, M., Bogdanovic,
+  M., Weiss, C., Hillenbrand, J., Gern, A.: Dsrc and radar object matching for
+  cooperative driver assistance systems. In: 2015 IEEE Intelligent Vehicles
+  Symposium (IV) (2015)
+
+\bibitem{chen2019cooper}
+Chen, Q., Tang, S., Yang, Q., Fu, S.: Cooper: Cooperative perception for
+  connected autonomous vehicles based on 3d point clouds. arXiv  (2019)
+
+\bibitem{chen2011active}
+Chen, S., Li, Y., Kwok, N.M.: Active vision in robotic systems: A survey of
+  recent developments. The International Journal of Robotics Research  (2011)
+
+\bibitem{chen2017multi}
+Chen, X., Ma, H., Wan, J., Li, B., Xia, T.: Multi-view 3d object detection
+  network for autonomous driving. In: CVPR (2017)
+
+\bibitem{choi2018high}
+Choi, H., Bajic, I.V.: High efficiency compression for object detection. In:
+  2018 IEEE International Conference on Acoustics, Speech and Signal Processing
+  (ICASSP) (2018)
+
+\bibitem{cui2019deep}
+Cui, H., Nguyen, T., Chou, F.C., Lin, T.H., Schneider, J., Bradley, D., Djuric,
+  N.: Deep kinematic models for physically realistic prediction of vehicle
+  trajectories. arXiv  (2019)
+
+\bibitem{davison2002simultaneous}
+Davison, A.J., Murray, D.W.: Simultaneous localization and map-building using
+  active vision. PAMI  (2002)
+
+\bibitem{davison1999mobile}
+Davison, A.J.: Mobile robot navigation using active vision. Advances in
+  Scientific Philosophy Essays in Honour of  (1999)
+
+\bibitem{duvenaud2015convolutional}
+Duvenaud, D.K., Maclaurin, D., Iparraguirre, J., Bombarell, R., Hirzel, T.,
+  Aspuru-Guzik, A., Adams, R.P.: Convolutional networks on graphs for learning
+  molecular fingerprints. In: NIPS (2015)
+
+\bibitem{geiger2012we}
+Geiger, A., Lenz, P., Urtasun, R.: Are we ready for autonomous driving? the
+  kitti vision benchmark suite. In: CVPR (2012)
+
+\bibitem{gilmer2017neural}
+Gilmer, J., Schoenholz, S.S., Riley, P.F., Vinyals, O., Dahl, G.E.: Neural
+  message passing for quantum chemistry. In: Proceedings of the 34th
+  International Conference on Machine Learning-Volume 70 (2017)
+
+\bibitem{hamilton2017inductive}
+Hamilton, W., Ying, Z., Leskovec, J.: Inductive representation learning on
+  large graphs. In: NIPS (2017)
+
+\bibitem{jain2019discrete}
+Jain, A., Casas, S., Liao, R., Xiong, Y., Feng, S., Segal, S., Urtasun, R.:
+  Discrete residual flow for probabilistic pedestrian behavior prediction.
+  arXiv  (2019)
+
+\bibitem{jayaraman2016look}
+Jayaraman, D., Grauman, K.: Look-ahead before you leap: end-to-end active
+  recognition by forecasting the effect of motion. In: ECCV (2016)
+
+\bibitem{kenney2011dsrc}
+Kenney, J.B.: Dedicated short-range communications (dsrc) standards in the
+  united states. Proceedings of the IEEE  (2011)
+
+\bibitem{kim2015active}
+Kim, A., Eustice, R.M.: Active visual slam for robotic area coverage: Theory
+  and experiment. The International Journal of Robotics Research  (2015)
+
+\bibitem{kim2014multivehicle}
+Kim, S.W., Qin, B., Chong, Z.J., Shen, X., Liu, W., Ang, M.H., Frazzoli, E.,
+  Rus, D.: Multivehicle cooperative driving using cooperative perception:
+  Design and experimental validation. IEEE Transactions on Intelligent
+  Transportation Systems  (2014)
+
+\bibitem{adam}
+Kingma, D.P., Ba, J.: Adam: {A} method for stochastic optimization. In: 3rd
+  International Conference on Learning Representations, {ICLR} 2015, San Diego,
+  CA, USA, May 7-9, 2015, Conference Track Proceedings (2015)
+
+\bibitem{li2020end}
+Li, L., Yang, B., Liang, M., Zeng, W., Ren, M., Segal, S., Urtasun, R.:
+  End-to-end contextual perception and prediction with interaction transformer.
+  In: IROS (2020)
+
+\bibitem{li2017situation}
+Li, R., Tapaswi, M., Liao, R., Jia, J., Urtasun, R., Fidler, S.: Situation
+  recognition with graph neural networks. In: ICCV (2017)
+
+\bibitem{li2015gated}
+Li, Y., Tarlow, D., Brockschmidt, M., Zemel, R.S.: Gated graph sequence neural
+  networks. In: 4th International Conference on Learning Representations,
+  {ICLR} 2016, San Juan, Puerto Rico, May 2-4, 2016, Conference Track
+  Proceedings (2016)
+
+\bibitem{liang2019multi}
+Liang, M., Yang, B., Chen, Y., Hu, R., Urtasun, R.: Multi-task multi-sensor
+  fusion for 3d object detection. In: CVPR (2019)
+
+\bibitem{liang2018deep}
+Liang, M., Yang, B., Wang, S., Urtasun, R.: Deep continuous fusion for
+  multi-sensor 3d object detection. In: ECCV (2018)
+
+\bibitem{pnpnet}
+Liang, M., Yang, B., Zeng, W., Chen, Y., Hu, R., Casas, S., Urtasun, R.:
+  Pnpnet: Learning temporal instance representations for joint perception and
+  motion forecasting. CVPR  (2020)
+
+\bibitem{luo2018fast}
+Luo, W., Yang, B., Urtasun, R.: Fast and furious: Real time end-to-end 3d
+  detection, tracking and motion forecasting with a single convolutional net.
+  In: CVPR (2018)
+
+\bibitem{maalej2017vanets}
+Maalej, Y., Sorour, S., Abdel-Rahim, A., Guizani, M.: Vanets meet autonomous
+  vehicles: A multimodal 3d environment learning approach. In: GLOBECOM
+  2017-2017 IEEE Global Communications Conference (2017)
+
+\bibitem{siva2019lidarsim}
+Manivasagam, S., Wang, S., Wong, K., Zeng, W., Sazanovich, M., Tan, S., Yang,
+  B., Ma, W.C., Urtasun, R.: Lidarsim: Realistic lidar simulation by leveraging
+  the real world. CVPR  (2020)
+
+\bibitem{rauch2012car2x}
+Rauch, A., Klanner, F., Rasshofer, R., Dietmayer, K.: Car2x-based perception in
+  a high-level fusion architecture for cooperative perception systems. In: 2012
+  IEEE Intelligent Vehicles Symposium (2012)
+
+\bibitem{rawashdeh2018collaborative}
+Rawashdeh, Z.Y., Wang, Z.: Collaborative automated driving: A machine
+  learning-based method to enhance the accuracy of shared information. In: 2018
+  21st International Conference on Intelligent Transportation Systems (ITSC)
+  (2018)
+
+\bibitem{rhinehart2018r2p2}
+Rhinehart, N., Kitani, K.M., Vernaza, P.: R2p2: A reparameterized pushforward
+  policy for diverse, precise generative path forecasting. In: ECCV (2018)
+
+\bibitem{rhinehart2019precog}
+Rhinehart, N., McAllister, R., Kitani, K., Levine, S.: Precog: Prediction
+  conditioned on goals in visual multi-agent settings. arXiv  (2019)
+
+\bibitem{rockl2008v2v}
+Rockl, M., Strang, T., Kranz, M.: V2v communications in automotive multi-sensor
+  multi-target tracking. In: 2008 IEEE 68th Vehicular Technology Conference
+  (2008)
+
+\bibitem{schlichtkrull2018modeling}
+Schlichtkrull, M., Kipf, T.N., Bloem, P., Van Den~Berg, R., Titov, I., Welling,
+  M.: Modeling relational data with graph convolutional networks. In: European
+  Semantic Web Conference (2018)
+
+\bibitem{su2015multi}
+Su, H., Maji, S., Kalogerakis, E., Learned-Miller, E.: Multi-view convolutional
+  neural networks for 3d shape recognition. In: ICCV (2015)
+
+\bibitem{sykora2020multiagent}
+Sykora, Q., Ren, M., Urtasun, R.: Multi-agent routing value iteration network.
+  In: ICML 2020 (2020)
+
+\bibitem{szegedy2015going}
+Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., Erhan, D.,
+  Vanhoucke, V., Rabinovich, A.: Going deeper with convolutions. In: CVPR
+  (2015)
+
+\bibitem{Wei_2019_CVPR}
+Wei, X., Barsan, I.A., Wang, S., Martinez, J., Urtasun, R.: Learning to
+  localize through compressed binary maps. In: CVPR (2019)
+
+\bibitem{xiao2018multimedia}
+Xiao, Z., Mo, Z., Jiang, K., Yang, D.: Multimedia fusion at semantic level in
+  vehicle cooperactive perception. In: 2018 IEEE International Conference on
+  Multimedia \& Expo Workshops (ICMEW) (2018)
+
+\bibitem{yang2018pixor}
+Yang, B., Luo, W., Urtasun, R.: Pixor: Real-time 3d object detection from point
+  clouds. In: CVPR (2018)
+
+\bibitem{yu2017spatio}
+Yu, B., Yin, H., Zhu, Z.: Spatio-temporal graph convolutional networks: A deep
+  learning framework for traffic forecasting. arXiv  (2017)
+
+\bibitem{yuan2017object}
+Yuan, T., Krishnan, K., Chen, Q., Breu, J., Roth, T.B., Duraisamy, B., Weiss,
+  C., Maile, M., Gern, A.: Object matching for inter-vehicle communication
+  systems—an imm-based track association approach with sequential multiple
+  hypothesis test. IEEE Transactions on Intelligent Transportation Systems
+  (2017)
+
+\bibitem{yun2017action}
+Yun, S., Choi, J., Yoo, Y., Yun, K., Young~Choi, J.: Action-decision networks
+  for visual tracking with deep reinforcement learning. In: CVPR (2017)
+
+\end{thebibliography}

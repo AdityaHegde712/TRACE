@@ -1,0 +1,40 @@
+\subsection{Communication via Three-Stage Handshake}
+Rather than broadcasting all information within the entire network in a brute-force manner, an efficient way of minimizing the bandwidth usage while  maintaining performance is to select which agent to communicates with. Toward this end, inspired by related work in communication networks~\cite{kurose2005computer}, we introduce a three-stage handshake communication mechanism 
+shown in Figure~\ref{fig:concept}. Such a selection is motivated by works on rate distortion theory~\cite{dobbe2017fully} and sub-modularity of multiple observations~\cite{krause2007near}. Our empirical experimental results also show that this approach yields a better trade-off between bandwidth usage and performance, compared to uniform compression of all information from the agents.\cyma{add co-reference to the experiment section.}
+
+
+Our communication mechanism consists of three major steps: \textbf{request}, \textbf{match}, and \textbf{connect}. Specifically, the degraded agent first broadcasts its request message, $\bm{\mu}_j \in\mathbb{R}^m$, to the neighboring normal agents, and the normal agents compute a matching score, $s_{ji}$, between their keys, $\bm{\kappa}_i \in\mathbb{R}^k$, and the request message. 
+Once the normal agents return their matching scores back to the degraded agent, the degraded agent further selects the best $n$ agents to connect with (\textit{i.e.,} receive information from) according to these matching scores\footnote{Note that in this paper we select the top $n=1$, but the method can be generalized to top-$n$ selection.}. 
+The complete communication steps are illustrated in Figure~\ref{fig:arch}.
+In each step, information can be compressed by each agent $i$ through a key generator $G^i_k$, a message generator  $G^i_m$, an image encoder $E^i$, and an task decoder $D^i$. \cyma{Image decoder is specific for semantic segmentation. Let us see if we can sell it in a way that is more generalizable and immediately say that for the sake of using semantic segmentation, we will need an image decoder.}\zk{changed to task decoder?}
+Note that this approach effectively decouples the various stages, allowing for different compression rates for the message, keys, and values. This significantly benefits the trade-off between bandwidth and accuracy. We now detail the steps: 
+
+\textit{\textbf{Request}} - 
+The degraded agent $j$ first compresses its observation $\tilde{\bm{x}}_j$ to a low-dimensional message $\bm{\mu}_j$:
+\begin{equation}
+     \bm{\mu}_j = G^j_m(\tilde{\bm{x}}_j; \theta_m)\in\mathbb{R}^m,
+\end{equation}
+where $G^j_m$ is a message generator parameterized by $\theta_m$. The propagated message $\bm{\mu}_j$ compresses important information from the local observation of the degraded agent $j$.
+
+\textit{\textbf{Match}} - 
+In the match step, each of other agents derives the matching score $s_{ji}$ between the received request message $\bm{\mu}_j$ from the degraded agent and the key $\bm{\kappa}_i$ generated from its own observations,
+\begin{equation}
+     s_{ji} = \Phi(\bm{\mu}_j, \bm{\kappa}_i), \quad \bm{\kappa}_i = G^i_k(\bm{x}_i;\theta_k)\in\mathbb{R}^k,
+\end{equation}
+where $\Phi(\cdot, \cdot)$ represents the matching function of two vectors and $G^i_k$ denotes a key generator parameterized by $\theta_k$. 
+We use the \textit{general} attention mechanism~\cite{luong2015effective} as our matching function:
+\begin{align}\label{eq:attention}
+    \text{General:}\ \Phi &= \bm{\mu}_j^T \bm{W}_a \bm{\kappa}_i,
+\end{align}
+where $\bm{W}_a$ is a learnable parameter. 
+We also compare it with two other attention mechanisms: $\text{Scale Dot-Product}\ \Phi = \bm{\mu}_j^T\bm{\kappa}_i/\sqrt{d_n}$~\cite{vaswani2017attention} and $\text{Additive}\ \Phi = \bm{W}_a^T \text{tanh}(\bm{W}_k\kappa_i + \bm{W}_m \bm{\mu}_j)$~\cite{bahdanau2014neural},
+where $\bm{W}_k, \bm{W}_m$ denote parameters to be learned and $d_n$ denotes the dimension of the message and keys. Note that only the general and additive functions allow for different key and message sizes. The scale dot-product function requires identical message-key size.
+Empirically, we find that \textit{general} attention achieve the best performance in our experiments and hence use it unless otherwise specified. Note that we assume equal cost links between agents, though our models can further support per-link costs (unlike the baseline methods). We leave this for future work.
+
+\textit{\textbf{Connect}} - 
+In the connect step, the selected $\hat{i}$-th agent transmits the requested information (\textit{e.g.,} a feature map for semantic segmentation) $\bm{f}_{\hat{i}}$ to the degraded agent. 
+With the integrated information, the target degraded agent makes a final prediction  $\tilde{y}_j$ as follows:
+\begin{equation}\label{eq:inference}
+\bm{\tilde{y}}_j=D^j([\tilde{\bm{f}}_j; \bm{f}_{\hat{i}} ];\theta_d),
+\end{equation}
+where $\bm{f}_{\hat{i}} = E^i(\bm{x}_{\hat{i}};\theta_e)\in\mathbb{R}^{d_f \times d_f \times d_c}$ is the feature map from the local observation of normal agent $\hat{i}$, $d_f, d_c$ are the spatial dimension and number of channels of the feature maps respectively, $\tilde{\bm{f}}_j = E^j(\bm{\tilde{x}}_j;\theta_e)$ is the feature map from the noisy observation of the degraded agent, and $[\cdot\; ; \; \cdot]$ is the concatenation operator along the channel dimension. $\theta_e$ and $\theta_d$ are the parameters in the task encoder and decoder.

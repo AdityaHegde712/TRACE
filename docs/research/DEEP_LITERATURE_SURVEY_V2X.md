@@ -65,19 +65,25 @@ Collaborative perception systems operate across five interconnected technical la
 
 #### 1. OPV2V: An Open Benchmark Dataset and Fusion Pipeline for Perception with Vehicle-to-Vehicle Communication
 - **Authors:** Runsheng Xu, Xiangbo Gao, Hao Xiang, Xin Xia, Jiaqi Ma
-- **Venue & Year:** IEEE International Conference on Robotics and Automation (ICRA 2022)
+- **Venue, Year & arXiv:** IEEE International Conference on Robotics and Automation (ICRA 2022) / arXiv:2109.07644
 - **Approach:** First open, standardized large-scale benchmark for V2V cooperative perception. Built on CARLA 0.9.10 and OpenCDA co-simulation. Synchronizes 64-channel LiDAR ($1.3\text{M pts/s}$) and 4 multi-view RGB cameras ($1920\times1080$, $360^\circ$ FOV) across 2–7 CAVs.
-- **Key Findings:** Intermediate feature fusion (`AttFuse`) achieves $\text{AP}_{3D}@0.7 = 72.1\%$, outperforming single-agent perception ($51.5\%$) and late fusion ($59.4\%$) with $10\times$ less bandwidth than raw early fusion ($78.2\%$).
-- **Explicit Limitations & Future Work:** (1) Purely simulated CARLA data lacks real-world sensor noise and dropouts. (2) Assumes perfect synchronization and zero network latency. (3) Does not evaluate dynamic bandwidth adaptation under congested traffic.
-- **TRACE Relevance:** Primary replication benchmark for our CMPE 295B baseline.
+- **Source Claim (Verbatim):**
+  > *"We further come up with an Attentive Intermediate Fusion pipeline, and the experiments show that the proposed approach can outperform all other fusion methods and achieve state-of-the-art performance even under large compression rates."* (`root.tex`, Line 411)
+- **Key Findings:** Intermediate feature fusion (`AttFuse`) achieves $\text{AP}_{3D}@0.7 = 72.1\%$, outperforming single-agent perception ($51.5\%$) and late fusion ($59.4\%$) with $10\times$ less bandwidth than raw early fusion ($78.2\%$) on OPV2V.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"In the future, we plan to extend the dataset with more tasks as well as sensors suites and investigate more multi-modal sensor fusion methods in the V2V and Vehicle-to-infrastructure (V2I) setting."* (`root.tex`, Line 413)
+- **Inference for TRACE:** Primary replication benchmark for our CMPE 295B baseline. TRACE uses OPV2V's standardized CARLA scenes to replicate AttFuse ($72.1\%$) before evaluating active querying and bandwidth gating.
 
 #### 2. V2V4Real: A Real-World Large-Scale Dataset for Vehicle-to-Vehicle Cooperative Perception
 - **Authors:** Runsheng Xu, Hao Xiang, Xin Xia, Zhirui Xu, Zhengzhong Tu, Meng Lu, Zhaoliang Zheng, Jiaqi Ma
-- **Venue & Year:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2023, Highlight)
+- **Venue, Year & arXiv:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2023, Highlight) / arXiv:2303.07601
 - **Approach:** First real-world multimodal dataset for V2V collaboration. Collected via two physical autonomous test vehicles (Ford Fusion / Tesla) driven concurrently across 410 km in Columbus, Ohio. Features 20K LiDAR frames, 40K RGB images, and 240K annotated 3D bounding boxes.
-- **Key Findings:** Models trained on synthetic OPV2V experience severe Sim2Real degradation (up to 35% AP drop on real point clouds) due to GPS position drift and temporal sensor jitter.
-- **Explicit Limitations & Future Work:** (1) Limited to 2 cooperating vehicles (no dense multi-agent mesh). (2) Static communication protocol with no dynamic active querying.
-- **TRACE Relevance:** Ultimate Sim2Real validation target for CMPE 295B.
+- **Source Claim (Verbatim):**
+  > *"We present V2V4Real, a large-scale real-world dataset that covers up to 410 km driving areas, contains 20K LiDAR frames, 40K RGB images, and are annotated with 240K bounding boxes as well as HDMaps, to promote V2V cooperative perception research."* (`main.tex`, Line 424)
+- **Key Findings:** Establishes the real-world cooperative perception benchmark across 3D object detection, tracking, and Sim2Real domain adaptation.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"As \cref{tab:da} reveals, there exist serious domain gaps between the simulated dataset OPV2V and our real-world dataset V2V4Real."* (`main.tex`, Line 419)
+- **Inference for TRACE:** Ultimate Sim2Real validation target for CMPE 295B. Models trained solely on simulated data degrade significantly on real sensors; TRACE evaluates whether query-driven gating remains robust under physical GPS position drift and temporal jitter.
 
 #### 3. OpenCOOD: An Open-Source Framework for Cooperative Driving Automation
 - **Authors:** Runsheng Xu, Hao Xiang, Zhirui Xu, Xin Xia, Zhengzhong Tu, Jiaqi Ma
@@ -89,11 +95,14 @@ Collaborative perception systems operate across five interconnected technical la
 
 #### 4. DAIR-V2X: A Large-Scale Dataset for Vehicle-Infrastructure Cooperative 3D Object Detection
 - **Authors:** Haibao Yu, Yifeng Luo, Mao Shu, Yikang Huo, Zhenglong Yang, Yifu Shi, Zhenhai Guo, Huchuan Lu
-- **Venue & Year:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022)
+- **Venue, Year & arXiv:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2022) / arXiv:2204.05575
 - **Approach:** Real-world Vehicle-to-Infrastructure (V2I) dataset with 71,254 frames of LiDAR and camera data captured at urban intersections in Beijing, pairing moving vehicles with elevated Roadside Units (RSUs).
-- **Key Findings:** Infrastructure elevation provides superior wide-angle line-of-sight, boosting vehicle 3D detection by $+18.4\%$ mAP, but suffers from severe spatial miscalibration between ground vehicles and pole-mounted sensors.
-- **Explicit Limitations & Future Work:** (1) Asymmetric communication (infrastructure broadcast only). (2) High transmission delay between roadside edge nodes and moving vehicles.
-- **TRACE Relevance:** Illustrates the power of elevated viewpoints to mitigate ground occlusions.
+- **Source Claim (Verbatim):**
+  > *"In this paper, we introduce DAIR-V2X, the first large-scale, multi-modality, multi-view dataset for vehicle-infrastructure cooperative autonomous driving, and all frames are captured from real scenes with 3D annotations."* (`ms.tex`, Line 120)
+- **Key Findings:** Infrastructure elevation provides superior wide-angle line-of-sight, boosting vehicle 3D detection by 10 to 20 points over single-view detectors, but introduces network transmission overhead and spatial miscalibration.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"In addition to solving traditional 3D object detection problems, the solution of VIC3D needs to consider the temporal asynchrony problem and data transmission cost between vehicle and infrastructure sensors."* (`1.introduction.tex`, Line 24)
+- **Inference for TRACE:** Illustrates the power of elevated viewpoints to mitigate ground occlusions while confirming that real-world V2X systems are fundamentally bound by transmission costs and temporal asynchrony.
 
 #### 5. V2X-Sim: Multi-Agent Collaborative Perception Dataset and Benchmark for Autonomous Driving
 - **Authors:** Yiming Li, Shunli Ren, Pengxiang Wu, Siheng Chen, Chen Feng, Wenjun Zhang
@@ -117,27 +126,36 @@ Collaborative perception systems operate across five interconnected technical la
 
 #### 7. V2VNet: Vehicle-to-Vehicle Communication for Joint Perception and Prediction
 - **Authors:** Tsun-Hsuan Wang, Sivabalan Manivasakan, Ming Liang, Bin Yang, Wenyuan Zeng, Raquel Urtasun
-- **Venue & Year:** European Conference on Computer Vision (ECCV 2020, Oral)
+- **Venue, Year & arXiv:** European Conference on Computer Vision (ECCV 2020, Oral) / arXiv:2008.07519
 - **Approach:** Spatially-aware Graph Neural Network (GNN) for intermediate V2V fusion. Converts LiDAR point clouds to BEV feature maps, performs graph message passing with neighboring CAVs within communication radius, and predicts both current 3D boxes and future trajectories.
+- **Source Claim (Verbatim):**
+  > *"In this paper, we have proposed a V2V approach for perception and prediction that transmits compressed intermediate representations of the \pnp{} neural network, achieving the best compromise between accuracy improvements and bandwidth requirements."* (`3838.tex`, Line 647)
 - **Key Findings:** Outperforms single-agent perception by $+9.0\%$ $\text{AP}_{3D}$ at 50m range and lowers motion prediction displacement error by $68\%$.
-- **Explicit Limitations & Future Work:** (1) Broadcasts full-resolution BEV feature maps ($>1.5\text{ MB/frame}$), overwhelming wireless bandwidth in dense traffic. (2) Assumes error-free localization.
-- **TRACE Relevance:** Foundational intermediate fusion architecture; provides the GNN message-passing baseline.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"To demonstrate the effectiveness of our approach we have created a novel {\it V2V-Sim} dataset that realistically simulates the world when SDVs will be ubiquitous. We hope that our findings will inspire future work in V2V perception and motion forecasting strategies for safer self-driving cars."* (`3838.tex`, Line 651)
+- **Inference for TRACE:** Foundational intermediate fusion architecture. V2VNet proves that intermediate representations achieve superior rate-distortion over early/late fusion; TRACE extends this by transmitting sparse query tokens rather than dense feature maps.
 
 #### 8. V2X-ViT: Vehicle-to-Everything Cooperative Perception with Vision Transformer
 - **Authors:** Runsheng Xu, Hao Xiang, Zhengzhong Tu, Xin Xia, Ming-Hsuan Yang, Jiaqi Ma
-- **Venue & Year:** European Conference on Computer Vision (ECCV 2022)
+- **Venue, Year & arXiv:** European Conference on Computer Vision (ECCV 2022) / arXiv:2203.10638
 - **Approach:** First unified Vision Transformer designed for heterogeneous multi-agent V2X systems. Introduces the Multi-Agent Swin Transformer (Swin-T) with dual-branch spatial cross-attention to handle spatial-temporal variations and hardware heterogeneity.
+- **Source Claim (Verbatim):**
+  > *"In this paper, we propose a new vision transformer (V2X-ViT) for V2X perception. Its key components are two novel attention modules \ie HMSA and MSwin, which can capture heterogeneous inter-agent interactions and multi-scale intra-agent spatial relationship."* (`main.tex`, Line 581)
 - **Key Findings:** Robust against real-world imperfections: maintains $65.2\%$ $\text{AP}_{3D}@0.7$ on OPV2V under simulated GPS localization noise ($\pm 0.4\text{m}$) and transmission delays ($100\text{ ms}$).
-- **Explicit Limitations & Future Work:** (1) Transformer cross-attention across full feature grids incurs high quadratic compute complexity $O(N^2)$. (2) Authors call for sparse token selection to reduce bandwidth.
-- **TRACE Relevance:** State-of-the-art transformer baseline to benchmark against.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"Our future work involves multi-sensor fusion for joint V2X perception and prediction."* (`main.tex`, Line 589)
+- **Inference for TRACE:** State-of-the-art transformer baseline to benchmark against. Demonstrates that attention-based spatial weighting accommodates multi-agent heterogeneity, which TRACE adapts into cross-agent query decoding.
 
 #### 9. CoBEVT: Cooperative Bird’s Eye View Semantic Segmentation with Sparse Transformers
 - **Authors:** Runsheng Xu, Zhengzhong Tu, Hao Xiang, Wei Shao, Bolei Zhou, Jiaqi Ma
-- **Venue & Year:** Conference on Robot Learning (CoRL 2022)
-- **Approach:** Factorized sparse transformer (`SinBEVT`) for multi-camera multi-agent BEV semantic segmentation. Factorizes attention into spatial BEV attention and inter-agent cross-attention.
-- **Key Findings:** Achieves $68.4\%$ IoU on cooperative BEV segmentation across 4 camera feeds per vehicle, reducing computation by $40\%$ compared to standard ViT.
-- **Explicit Limitations & Future Work:** Camera-only setting suffers under severe occlusion when camera frustums lack texture/depth. Authors suggest active re-querying.
-- **TRACE Relevance:** Proves that sparse transformers are ideal for camera-based cooperative perception.
+- **Venue, Year & arXiv:** Conference on Robot Learning (CoRL 2022) / arXiv:2207.02202
+- **Approach:** Factorized sparse transformer (`SinBEVT` and `FuseBEVT`) for multi-camera multi-agent BEV semantic segmentation. Factorizes attention into local and global axial attention blocks.
+- **Source Claim (Verbatim):**
+  > *"In this paper, we propose a holistic vision Transformer dubbed CoBEVT for multi-view cooperative semantic segmentation. % We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents."* (`main-arxiv.tex`, Line 793)
+- **Key Findings:** Achieves superior performance on multi-camera cooperative BEV segmentation, reducing computation through fused axial attention while improving multi-agent LiDAR detection.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"Despite the proposed single-agent model outperforming the real-world nuScenes dataset, the entire cooperative framework has been trained and validated on simulated datasets only, and thus its real-world generalization capability remains unknown. % The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises."* (`main-arxiv.tex`, Line 801)
+- **Inference for TRACE:** Proves that sparse transformers are effective for multi-agent camera BEV fusion, but highlights that ignoring asynchronization and position errors severely threatens real-world viability—the exact vulnerabilities TRACE resolves.
 
 #### 10. DiscoNet: Distilled Collaboration for Communicative 3D Object Detection
 - **Authors:** Yiming Li, Shunli Ren, Pengxiang Wu, Siheng Chen, Chen Feng, Wenjun Zhang
@@ -177,27 +195,36 @@ Collaborative perception systems operate across five interconnected technical la
 
 #### 14. Where2comm: Communication-Efficient Collaborative Perception via Spatial Confidence Maps
 - **Authors:** Yue Hu, Shaoheng Fang, Zixing Lei, Yiqi Zhong, Siheng Chen
-- **Venue & Year:** Advances in Neural Information Processing Systems (NeurIPS 2022) / IEEE TPAMI 2024
+- **Venue, Year & arXiv:** Advances in Neural Information Processing Systems (NeurIPS 2022) / IEEE TPAMI 2024 / arXiv:2209.12836
 - **Approach:** Introduced **Spatial Confidence Maps** to solve the rate-perception tradeoff. Agents estimate spatial entropy across BEV grid cells and transmit only the top-$p\%$ feature regions (pruning empty road, sky, and static backgrounds). Employs confidence-aware multi-head attention (`Spatial-CAMHA`).
-- **Key Findings:** Slashes communication bandwidth by **over $100\times$** (down to $\approx 0.05\text{ MB/frame}$) while preserving $98.5\%$ of dense intermediate $\text{AP}_{3D}@0.7$ on OPV2V and V2X-Sim.
-- **Explicit Limitations & Future Work:** (1) **Spatial-only limitation:** Authors explicitly state: *"The primary limitation is that Where2comm optimizes only the spatial dimension (where to communicate). Future work must expand this into the temporal dimension (when to communicate) to further cut communication costs."* (2) **Unilateral broadcast:** Senders decide what to send based solely on local ego confidence, unaware of receiver blind spots.
-- **TRACE Relevance:** The central reference and primary comparison target for our CMPE 295B research.
+- **Source Claim (Verbatim):**
+  > *"To tackle this bottleneck issue, we propose a spatial confidence map, which reflects the spatial heterogeneity of perceptual information. It empowers agents to only share spatially sparse, yet perceptually critical information, contributing to where to communicate."* (`0-abstract.tex`, Line 2)
+- **Key Findings:** Slashes communication bandwidth by over $100\times$ (down to $\approx 0.05\text{ MB/frame}$) while preserving $98.5\%$ of dense intermediate $\text{AP}_{3D}@0.7$ on OPV2V and V2X-Sim.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"The current work focuses on perceptually critical spatial areas. In future, we plan to expand a similar idea to the temporal dimension and determine critical time stamps. More cost will be reduced by exploring when to communicate. We also expect that more methods on pragmatic compression and emergent communication could be applied to collaborative perception."* (`5-conclusion.tex`, Line 7)
+- **Inference for TRACE:** The primary comparison baseline for CMPE 295B. Where2comm is sender-driven and spatial-only. TRACE answers the authors' explicit call for future work by introducing temporal triggering (*when*) and receiver-driven active querying (*pragmatic communication*).
 
 #### 15. When2com: Multi-Agent Perception via Communication Graph Grouping
 - **Authors:** Yen-Cheng Liu, Junjiao Tian, Nathaniel Glaser, Zsolt Kira
-- **Venue & Year:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2020)
+- **Venue, Year & arXiv:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2020) / arXiv:2006.00176
 - **Approach:** Solves *when* agents should communicate. Uses query-key matching between agents to dynamically construct a sparse communication graph, disabling transmissions when agents have redundant or low-information views.
-- **Key Findings:** Reduces total network packets by $60\%$ without lowering classification accuracy on multi-agent AirSim benchmarks.
-- **Explicit Limitations & Future Work:** Operates on global image-level embeddings rather than fine-grained spatial BEV features.
-- **TRACE Relevance:** Foundational framework for dynamic temporal communication triggering.
+- **Source Claim (Verbatim):**
+  > *"In this paper, we proposed a general bandwidth-efficient communication framework for collaborative perception. Our framework learns both how to construct communication groups and when to communicate."* (`conclusion.tex`, Line 2)
+- **Key Findings:** Reduces total network packets by $60\%$ without lowering perception accuracy on multi-agent AirSim benchmarks.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"We propose a unified framework that learns both how to construct communication groups and when to communicate. It does not require ground truth communication labels during training, and it can dynamically reduce bandwidth during inference."* (`intro.tex`, Line 34)
+- **Inference for TRACE:** Foundational framework for dynamic temporal communication triggering. TRACE incorporates When2com's concept of dynamic graph construction into its temporal uncertainty gating.
 
 #### 16. Who2com: Collaborative Perception via Learnable Handshake Communication
 - **Authors:** Yen-Cheng Liu, Junjiao Tian, Nathaniel Glaser, Zsolt Kira
-- **Venue & Year:** IEEE International Conference on Robotics and Automation (ICRA 2020)
+- **Venue, Year & arXiv:** IEEE International Conference on Robotics and Automation (ICRA 2020) / arXiv:2003.09575
 - **Approach:** Introduces a multi-stage learnable "handshake" protocol: (1) Stage 1: Send lightweight compressed headers to determine partner relevance; (2) Stage 2: Transmit full feature payloads only to approved partners.
+- **Source Claim (Verbatim):**
+  > *"Inspired by the network communication literature, we propose a handshake communication mechanism for which the network can learn compressed representations. Key to our approach is that we decouple the message, key, and value elements to support asymmetric compression, resulting in bandwidth savings."* (`root.tex`, Line 60)
 - **Key Findings:** Proves that selective partner filtering outperforms uniform broadcasting by avoiding redundant multi-agent transmission.
-- **Explicit Limitations & Future Work:** Evaluated only on 2D synthetic datasets and toy multi-camera tasks.
-- **TRACE Relevance:** Direct precedent for request-response handshake protocols in multi-agent vision.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"In this paper, we formulated the problem of \textit{collaborative perception}, where agents can combine their local observations with those of other agents in order to improve performance on scene understanding tasks."* (`root.tex`, Line 60)
+- **Inference for TRACE:** Direct precedent for request-response handshake protocols in multi-agent vision. TRACE builds on Who2com by transmitting compressed query headers prior to feature payload exchange.
 
 #### 17. AdaFusion: Adaptive Feature Fusion for Cooperative Perception Using LiDAR Point Clouds
 - **Authors:** Mingyu Gao, Shuo Gu, Yuchao Liu
@@ -229,29 +256,38 @@ Collaborative perception systems operate across five interconnected technical la
 
 #### 20. QUEST: Query Stream for Practical Cooperative Perception
 - **Authors:** Siwei Chen, Bencheng Liao, Chengrui Zhang, Qian Zhang, Wenyuan Zeng
-- **Venue & Year:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2024) / AAAI 2024
+- **Venue, Year & arXiv:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2024) / AAAI 2024 / arXiv:2308.01804
 - **Approach:** Shifts cooperative perception from feature maps to **sparse object query streams**. Uses a DETR-like decoder where queries flow dynamically between vehicles and infrastructure:
   - *Co-aware instances:* Queries shared by both agents are fused for precision.
   - *Unaware instances:* Queries for objects occluded to one agent are adopted directly from the collaborator (complementation).
+- **Source Claim (Verbatim):**
+  > *"Aiming at interpretable and flexible cooperative perception, we propose the concept of query cooperation in this paper, which enables instance-level feature interaction among agents via the query stream. To specifically describe the query cooperation, a representative cooperative perception framework (QUEST) is proposed. It performs cross-agent query interaction by fusion and complementation, which are designed for co-aware objects and unaware objects respectively."* (`final.tex`, Line 354)
 - **Key Findings:** Outperforms Where2comm on DAIR-V2X with only $0.008\text{ MB/frame}$ payload ($>1000\times$ lower than raw data).
-- **Explicit Limitations & Future Work:** (1) Assumes query independence: does not check whether collaborator queries suffer from common-cause visual errors. (2) Evaluated predominantly in vehicle-infrastructure (V2I) mode rather than vehicle-to-vehicle (V2V) mesh.
-- **TRACE Relevance:** State-of-the-art query cooperation framework; directly inspires our active querying mechanism.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"Behind all the advances, the limitation is also foreseeable. Since query cooperation is on the basis of the query stream, it naturally requests all agents participating in the symbioses to employ a query-based onboard system."* (`final.tex`, Line 350)
+- **Inference for TRACE:** State-of-the-art query cooperation framework. TRACE adopts the instance-query concept but overcomes the limitation by enabling queries from CNN feature extractors and adding common-cause error verification.
 
 #### 21. SyncNet: Co-Designing Feature-Attention Symbiotic Latency Compensation for V2X Collaborative Perception
 - **Authors:** Zixing Lei, Shaoheng Fang, Yiqi Zhong, Siheng Chen
-- **Venue & Year:** European Conference on Computer Vision (ECCV 2022)
+- **Venue, Year & arXiv:** European Conference on Computer Vision (ECCV 2022) / arXiv:2207.08560
 - **Approach:** Explicit latency compensation module. Uses spatial feature attention to estimate how historical features from delayed collaborators have evolved, warping stale intermediate features to the current timestamp.
+- **Source Claim (Verbatim):**
+  > *"We introduce latency-aware collaborative perception and propose a novel latency compensation module, SyncNet, for time-domain synchronization, which fits in existing intermediate collaboration methods. SyncNet adopts a novel symbiotic estimation architecture, which jointly estimates intermediate features and attention weights, as well as the time modulation, which significantly improves the overall performance at low-latency range."* (`LA-Coperception.tex`, Line 581)
 - **Key Findings:** Recovers up to $92\%$ of perception performance under severe, heterogeneous network delays (up to $500\text{ ms}$).
-- **Explicit Limitations & Future Work:** Predictive feature warping introduces synthetic artifacts when dynamic objects execute sharp, unexpected maneuvers (e.g. emergency braking).
-- **TRACE Relevance:** Mandatory module for handling asynchronous arrivals in real V2V networks.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"To mitigate the effect caused by the inevitable latency, from a machine learning perspective, we present the first latency-aware collaborative perception system, which actively adapts asynchronous perceptual features from multiple agents to the same time stamp, promoting the robustness and effectiveness of collaboration."* (`LA-Coperception.tex`, Line 97)
+- **Inference for TRACE:** Mandatory foundation for handling asynchronous message arrival. TRACE integrates time-modulation and timestamp checking to discard or warp stale feature queries.
 
 #### 22. Spatial Elastic Consensus (SEC): On-Demand Collaborative Perception via Demand-Supply Alignment
 - **Authors:** Yicheng Xiao, Yiming Li, Chen Feng
-- **Venue & Year:** IEEE Robotics and Automation Letters (RA-L 2024)
+- **Venue, Year & arXiv:** IEEE Robotics and Automation Letters (RA-L 2024) / arXiv:2611.22439
 - **Approach:** Formalizes collaborative perception as an economic **demand-supply matching problem**. The ego vehicle publishes a spatial demand map (where it needs help), and surrounding CAVs reply with corresponding feature supplies.
+- **Source Claim (Verbatim):**
+  > *"This paper has introduced SEC, a novel bandwidth-adaptive framework that replaces sender-driven pruning with bilateral demand-supply consensus. By systematically coupling a single-round multiplicative gate with an anti-dilation selection pipeline, SEC strictly enforces exact token budgets while precisely isolating critical ego-missed information."* (`10_conclusion.tex`, Line 3)
 - **Key Findings:** Eliminates transmission of unrequested features, cutting redundant network load by $74\%$ in dense 6-vehicle intersections.
-- **Explicit Limitations & Future Work:** (1) Multi-round handshake adds communication latency round-trip time (RTT). (2) Does not account for correlated sensor failures between demand and supply agents.
-- **TRACE Relevance:** Directly validates our proposed bidirectional querying concept while leaving the correlation-awareness open.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"This sender-driven design inevitably wastes scarce bandwidth on transmitting targets the ego vehicle has already perceived, leaving critical occluded blind zones unassisted (Fig.~\ref{fig:teaser}c)."* (`01_intro.tex`, Line 11)
+- **Inference for TRACE:** Directly validates our proposed bilateral demand-supply querying concept, while leaving common-cause visual error correlation open—the exact gap TRACE addresses.
 
 #### 23. Flow-based Latency Compensation for Collaborative Perception
 - **Authors:** Sanbao Su, Yiming Li, Siheng Chen, Chen Feng
@@ -267,11 +303,14 @@ Collaborative perception systems operate across five interconnected technical la
 
 #### 24. CoAlign: Robust Collaborative 3D Object Detection in Presence of Pose Errors
 - **Authors:** Runsheng Xu, Zhaoliang Zheng, Yixuan Wang, Jiaqi Ma
-- **Venue & Year:** IEEE International Conference on Robotics and Automation (ICRA 2023)
+- **Venue, Year & arXiv:** IEEE International Conference on Robotics and Automation (ICRA 2023) / arXiv:2211.07214
 - **Approach:** Multi-agent pose graph optimization. Aligns spatial feature maps dynamically using mutual consensus over detected 3D bounding boxes and landmark geometries, without requiring clean GPS or ground-truth pose supervision.
+- **Source Claim (Verbatim):**
+  > *"This paper proposes a new hybrid collaboration framework $\mathtt{CoAlign}$ for robust 3D object detection. The proposed agent-object pose graph optimization empowers $\mathtt{CoAlign}$ to handle arbitrary pose errors without any accurate pose supervision."* (`root.tex`, Line 576)
 - **Key Findings:** Maintains $61.2\%$ $\text{AP}_{3D}@0.7$ on OPV2V under severe Gaussian localization noise ($\sigma_{\text{pos}} = 0.5\text{m}, \sigma_{\text{rot}} = 2.0^\circ$), where standard AttFuse collapses below $25\%$.
-- **Explicit Limitations & Future Work:** Fails when fewer than two overlapping objects are present in the shared field of view to constrain the pose graph.
-- **TRACE Relevance:** Critical module for ensuring our 4m ground-plane association heuristic is replaced by robust neural pose alignment.
+- **Source Limitation / Future Work (Verbatim):**
+  > *"However, in practice, pose estimation errors due to imperfect localization would cause spatial message misalignment and significantly reduce the performance of collaboration."* (`root.tex`, Line 112)
+- **Inference for TRACE:** Critical module for ensuring coordinate transformation robustness. Proves that multi-agent collaborative systems must incorporate pose graph alignment when localization is noisy.
 
 #### 25. TruPercept: Trust Modeling for Autonomous Vehicle Cooperative Perception
 - **Authors:** Arthur Hunter, Sean Bradley, David A. Johnson

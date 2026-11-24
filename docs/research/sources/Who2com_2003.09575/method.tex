@@ -1,0 +1,31 @@
+\section{Proposed Method}
+
+\input{3.1_problem.tex}
+
+
+\input{3.2_arch.tex}
+
+
+% where the degraded agent and normal agents first exchange the compressed description of their own perceptual information and then build a connection to transmit high-dimensional feature maps as shown in Figure~\ref{fig:concept}. 
+
+% We frame the distributed communication and fusion of information task as an agent selection process where a degraded agent selects \textit{which} agent to receive information from.
+
+\input{3.3_learning.tex}
+
+% \input{3.4_theory.tex}
+	
+% \begin{itemize}
+%     \item Motivation: Distributed communication and fusion of information in bandwidth-sensitive manner
+%     \item We frame it as an agent selection process where a degraded agent selects \textit{which} agent to receive information from.
+%     \item To pass the message across agents in bandwidth-saving way, we propose a three-way message passing method to propagate the information across agents.  
+%     \item Without using explicit supervision for communication, we learn to communicate across agents in weakly and indirectly supervised manner.
+%     \item We show that:
+%       \begin{itemize}
+%           \item Transferring compressed messages for choosing the best agent to communicate from gives the best trade-off between bandwidth and accuracy (?)
+%           \item Difference between sending messages pair-wise, which can be done across agents or through receiving agents, takes more bandwidth (but can achieve better results?)
+%           \item Transferring just messages once for fusion to receiving agents has to have large bandwidth for the features (?)
+%           \item Shared encoders for transmitting agents but not receiving is necessary
+%       \end{itemize}
+%     \item We show that we can meet or exceed segmentation from a non-degraded using this method, with very little bandwidth usage
+%     \item we also collect a dataset for multi-view semantic segmentation... 
+% \end{itemize}

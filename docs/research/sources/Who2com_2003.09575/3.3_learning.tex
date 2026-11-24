@@ -1,0 +1,24 @@
+\subsection{Learning to Communicate with Weak Supervision}
+\label{sec: centralized-training}
+\textbf{Centralized training with decentralized execution.}
+Our learning strategy is inspired by the concept of centralized training with decentralized execution~\cite{lowe2017multi}. During training our target agent can access the observations of all other agents. 
+On the other hand, during inference the target agent is required to perform in a bandwidth-limited manner by only accessing information from the selected agent(s). 
+
+Specifically, during training, the task decoder uses the sum of observations from all normal agents weighted by their corresponding matching scores and further computes the final prediction akin to Eq.~\ref{eq:inference} during inference:
+\begin{align}\label{eq:softmax}
+        \bm{\tilde{y}}_j=D^j([\tilde{\bm{f}}_j; \bm{f}_{sum}];\theta_d), \quad
+        \bm{f}_{sum} = \sum_{i=1}^N \alpha_{j,i}\bm{f}_i, \quad
+\end{align}
+where $\alpha_{j,i}$ is $i$th element of $ \alpha_j = \rho( \left[ s_{j1};...;s_{jN}\right] ) \in\mathbb{R}^{N}$ and $\rho$ is a softmax operation.
+The most straightforward decentralized execution method is simply adopting \textit{argmax} selection, \textit{i.e.,} 
+connecting only to the agent with the highest computed matching score:
+\begin{equation}\label{eq:argmax}
+     \hat{i} = \underset{i}{\mathrm{argmax}} \ s_{ji}.
+\end{equation}
+However, \textit{argmax} selection is non-differential during training. 
+We address this issue by simply applying the \textit{softmax} operator in the training stage and \textit{argmax} operator in the inference stage. 
+Empirically, we find that this simple method achieves similar results compared to other more complex schemes, \textit{e.g.,} \textit{sparsemax}~\cite{martins2016softmax}. \zk{Add this comparison if room?} Note also that this can be generalized to top-\textit{n} selection as well. 
+
+\textbf{Training objective.} Learning our model does not require supervision of ground truth labels indicating the best agent to communicate with.
+Therefore, the only supervision for our model comes from the ground truth annotation at the target view (\textit{e.g.,} segmentation masks). The objective function of our model, which is trained end-to-end, can thus be defined as $\mathcal{L} = \mathcal{H}(\bm{y}_j, \bm{\tilde{y}}_j),$
+where $\mathcal{H}$ is the cross-entropy loss, and $\bm{y}_j$ denotes the ground truth labels of the target agent's view. 

@@ -1,0 +1,15 @@
+\begin{table}
+\caption{\textbf{A comparison of different attention mechanisms.} Note that 8-1024 represents the model with the message size of $8$ and the key size of $1024$. The general attention mechanism achieves the best performance under the same bandwidth condition. }
+\label{tab:ablation}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{cccccc}
+\toprule
+& Scale-Dot (8-8) & Additive(8-1024) & General (8-8)& General (8-1024) & w/o message 
+\\ \midrule
+Selection Accuracy($\%$) & 59.02 & 37.7 & 59.48 & \textbf{95.9} & 25.52\\
+Mean IoU($\%$) & 38.39 & 33.79 & 38.88 & \textbf{49.59} & 32.25\\
+\bottomrule
+%\label{tab:ablation}
+\end{tabular}}
+\end{table}

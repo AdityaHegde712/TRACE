@@ -1,0 +1,26 @@
+
+
+\begin{table*}
+\caption{\textbf{Experimental results on case 2.} Our method achieve competitive performance and significant better IBS compared to the centralized methods in the case of no geometric warping of the views.} 
+\label{tab:res_case5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{cccccccc}
+\toprule
+& & Overall Acc & Mean Acc & FreqW Acc & Mean IoU & Bandwidth (in kbpf) & IBS\\
+\midrule
+Upper bound & Single Normal & 89.55$\pm$0.07 & 61.69$\pm$0.12 & 82.04$\pm$0.11 & 52.39$\pm$0.08 & & \\
+\midrule
+\multirow{2}{*}{Centralized} & CatAll & 83.29$\pm$0.12 & 46.22$\pm$0.07 & 72.73$\pm$0.1 & 39.38$\pm$0.12 & 4096& 1.66\\
+& Weight sum & 89.46$\pm$0.07 & 60.28$\pm$0.1 & 81.81$\pm$0.1 & 51.8$\pm$0.22 & 4096.03 & 3.20\\
+% & Ours w/ msg (Softmax) & 89.39$\pm$0.11 & 60.21$\pm$0.03 & 81.75$\pm$0.11 & 51.31$\pm$0.13 & 4100.03& 3.17 \\
+\midrule
+\multirow{3}{*}{ Distributed } 
+& Random Selection & 77.58$\pm$0.77 & 42.76$\pm$0.38 & 65.31$\pm$0.96 & 34.6$\pm$0.67 & 1024 & 0.92\\
+& Ours w/o msg  & 89.43$\pm$0.08 & 60.28$\pm$0.09 & 81.78$\pm$0.11 & 51.74$\pm$0.25 & 1024.03 & \textbf{12.77}\\
+& Ours w/ msg & 89.37$\pm$0.13 & 60.2$\pm$0.04 & 81.73$\pm$0.15 & 51.3$\pm$0.14 & 1028.03 & 12.66\\
+\midrule
+Lower bound & Single Degraded & 76.66$\pm$0.2 & 41.72$\pm$0.44 & 64.28$\pm$0.13 & 33.63$\pm$0.22 & & \\
+\bottomrule
+\end{tabular}}
+\end{table*}

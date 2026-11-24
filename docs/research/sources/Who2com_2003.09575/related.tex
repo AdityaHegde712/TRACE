@@ -1,0 +1,57 @@
+\section{Related Work}
+\label{sec:related_work}
+
+% \textbf{Learning to communicate.}
+Communication in multi-agent environments is a foundation of both collaborative perception and decision-making. 
+This topic has been studied extensively in the regime of Multi-Agent Reinforcement Learning (MARL)~\cite{littman1994markov,schmidhuber1996general,panait2005cooperative}. Early attempts utilized a pre-defined communication protocol to propagate the information across agents~\cite{tan1993multi,zhang2013coordinating,melo2011querypomdp}, while dynamics of environments and a varied number of agents gave rise to the development of learnable mulit-agent communication~\cite{sukhbaatar2016learning,foerster2016learning,battaglia2016interaction,hoshen2017vain,foerster2016dial,peng2017multiagent,jiang2018learning,singh2018learning,kim2018learning,das2019tarmac,pesce2019improving,foerster2018counterfactual,jain2019two,kim2019message}. 
+% \yencheng{(comment this if we do not have space)For example, with the assumption of full cooperation across agents, each agent in CommNet~\cite{sukhbaatar2016learning} broadcasts its hidden state to a shared channel so that other agents are able to decide their actions based on the integrated information. Such learnable communication is also proposed by Foerster~\etal~\cite{foerster2016learning}, which learned a communication protocol where the agents communicate in a discrete manner. To further explicitly model the interactions between agents~\cite{battaglia2016interaction}, Hoshen~\cite{hoshen2017vain} integrated a kernel function into CommNet. Several works have also addressed the communication problem by leveraging the recurrent neural network (RNN). For example, DIAL~\cite{foerster2016dial} uses an RNN to derive the individual Q-value of each agent based on its own observation and the messages from other agents. BiCNet~\cite{peng2017multiagent} connected all agents with Bi-directional LSTM to integrate the information, and ATOC~\cite{jiang2018learning} additionally applied an attention unit to determine what to broadcast to the shared channel.} 
+Existing works on MARL demonstrated the effectiveness of communication for various tasks, applying the models on simplistic 2D grid environments where the  observation of each agent is low-dimensional. 
+As noted in Jain~\textit{et al.}~\cite{jain2019two}, studying collaboration in simplistic environments does not permit study of the interplay between perception and communication. 
+Thus, in this work, we examine our framework in a more complicated and photorealistic environment. 
+% with high-resolution observation for each agent.  
+\input{figure/figure3.tex}
+
+Among existing works on learning to communicate, the most relevant framework to our work is TarMac~\cite{das2019tarmac}, where the targeted communication is defined as the transmitted message determined by both the sender and receiver agents. 
+However, during the communication, both message and data are broadcast to all of the other agents, hence not taking bandwidth usage into account. 
+% Another issue in recent communication works is that
+On the other hand, other recent work proposed to construct the communication group based on 
+% the communication group is constructed according to 
+either pre-defined rules~\cite{jiang2018learning,jiang2018graph} or a unified communication network~\cite{singh2018learning,sukhbaatar2016learning,hoshen2017vain,peng2017multiagent,singh2018learning,das2019tarmac}. 
+In this way, the bandwidth usage during communication increases as the number of agents scales up. In contrast, our framework aims to minimize the bandwidth consumption yet maintain performance for the perception task by selecting which agent(s) to communicate with.
+
+
+
+
+
+
+%\textcolor{red}{(By contrast, our framework aims to minimize bandwidth consumption yet maintain high performance of the perception task by following a three-way communication procedure and requesting data from a single selected agent)}
+
+% Although the receiver agent of 
+% The most relevant works are TarMac~\cite{das2019tarmac}.
+% TarMac~\cite{das2019tarmac} use attention mechanism to generate a key, which the receiver agents will use the key to mask the value, while the value is required to be transmitted to the transmitter. This still consumes bandwidth usage. 
+% While these methods introduced various communication models in multi-agent environments, they all assumed unlimited bandwidth usage during transmission. Different from these models, we thus aim to  our communication framework 
+% they construct the communication 
+% This is the reason why we tackle the communication problem in a bandwidth-limited manner. 
+
+
+
+% temporailiy  remove this 
+% \textbf{Attention mechanisms.} 
+% Attention mechanisms have been increasingly popular in deep learning.
+% In a nutshell, the attention mechanism 
+% can be viewed as a soft fusion scheme to weight different values based on the query and keys. 
+% A few noticeable and widely used attention mechanisms are \textit{additive}~\cite{bahdanau2014neural}, \textit{scale dot-product}~\cite{vaswani2017attention}, and \textit{general}~\cite{luong2015effective}.
+% Importantly, the \textit{general} mechanism allows us to use different query and key sizes in a space-efficient manner, which makes it especially suitable for taks with bandwidth considerations.
+% This is because we can utilize \textit{asymmetric} sizes where the message size (which is used to communicate with other normal agents) is smaller and the key (which is only used locally to determine matching scores) is larger. 
+% This results in bandwidth savings.
+
+
+
+
+
+% Bahdanau~\textit{et al}.~\cite{bahdanau2014neural} introduced an \textit{additive} attention mechanism which uses a feed-forward network with a single hidden layer; Vaswani~\textit{et al}.~\cite{vaswani2017attention} proposed a faster and more space-efficient \textit{scale dot-product} attention where a similarity score is computed by a dot product of the query-key pair weighted by the dimension of the vectors; Luong~\textit{et al}.~\cite{luong2015effective} used a more \textit{general} attention mechanism with a weight matrix in between the two vectors. 
+% We empirically compared and found that 
+% the aforementioned attention mechanisms perform differently for our task and that 
+% and empirically achieve better performances in our experiments.
+% The \textit{general} attention mechanism is 
+

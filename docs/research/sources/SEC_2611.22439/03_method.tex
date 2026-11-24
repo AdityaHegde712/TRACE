@@ -1,0 +1,137 @@
+\section{Method}
+\label{sec:method}
+\subsection{Overview}
+\label{subsec:overview}
+\noindent\textbf{Problem Formulation.}
+Consider $N$ agents: one ego and $N{-}1$ collaborators. Each agent $j$ encodes its local LiDAR point cloud $\mathcal{P}^{(j)}$ into a BEV feature map via a weight-shared PointPillars backbone~\cite{pointpillars},
+\begin{equation}
+  F_j = \Phi_{\text{enc}}(\mathcal{P}^{(j)}) \in \mathbb{R}^{C\times H\times W},
+\end{equation}
+and transmits a message $\mathbf{X}_j$ under a per-frame budget of $B{=}k$ tokens. The per-collaborator budget is
+\begin{equation}
+  k = \min\!\left(\left\lfloor \frac{2^{V_{\text{comm}}}}{4C}\right\rfloor, HW\right),
+  \label{eq:budget}
+\end{equation}
+where $V_{\text{comm}}$ is the bandwidth exponent and $k$ is the per-collaborator feature-token budget. The corresponding total cost for $N_c=N-1$ collaborators is
+\begin{equation}
+\begin{aligned}
+  B_{\text{total}} &= B_{\text{feat}} + B_{\text{idx}} + B_{\text{meta}},\\
+  B_{\text{feat}} &= 4 k N_c C,\qquad B_{\text{idx}}=4 k N_c,
+\end{aligned}
+\label{eq:overhead}
+\end{equation}
+where $4$ is the float32 byte width and $B_{\text{idx}}$ uses two 2-byte coordinates per token; a packed $\lceil\log_2(HW)\rceil$-bit index is smaller. For $k{=}64$, $C{=}256$, and $N_c{=}4$, the feature payload is 64~KiB per collaborator; indices add $0.39\%$, and $k{=}1024$ is the unconstrained broadcast. Hence $k$ is a direct bandwidth knob: each token costs about 1~KiB, and 64 tokens sit $16\times$ below the broadcast, with $<0.5\%$ overhead.
+
+Let $\mathcal{C}$ be the communication policy and $\Psi$ the fusion-and-detection network. We optimize
+\begin{equation}
+  \max_{\mathcal{C}} \; \mathbb{E}\big[\mathrm{AP}\big(\Psi(\{\mathbf{X}_j\}_{j=0}^{N-1})\big)\big]
+  \quad \text{s.t.} \quad \|\mathbf{X}_j\|_0 \le k,\;\;\forall j,
+  \label{eq:problem}
+\end{equation}
+where $\mathrm{AP}$ is the detection AP and $j{=}0$ is the ego. The challenge is to learn $\mathcal{C}$ end-to-end while keeping the payload exactly $k$ tokens.
+
+\noindent\textbf{Framework Overview.}
+Our pipeline comprises four engines, illustrated in Fig.~\ref{fig:framework}. (1) Engine A, BEV encoding: It encodes each agent's LiDAR into a BEV feature $F_j$ with a weight-shared backbone and regroups the shared features into a multi-agent tensor together with an agent-validity mask. (2) Engine B, SEC: It identifies critical information via supply--demand interaction and packages it for low-bandwidth transmission. (3) Engine C, lightweight deformable aggregation: It aggregates the retained tokens with an ego-conditioned deformable sampler. (4) Engine D, detection and optimization: It decodes 3D boxes.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{figures/antidilation_principle.png}
+\caption{Anti-dilation principle. Refine-before-mask keeps exactly $k$ active cells; mask-before-refine dilates each token to its neighbors and inflates the payload.}
+\label{fig:antidilation-principle}
+\end{figure}
+\noindent\textbf{Design Rationale.}
+The two bottlenecks are coupled: a sender-side selector does not know what the ego already observes, and post-mask convolution destroys the sparsity that makes token transmission affordable. SEC therefore treats selection as a joint demand-supply decision and refines features before masking, so the support stays at exactly $k$ cells: the budget is a structural property, and each kept token marks evidence the ego lacks.
+\subsection{Bilateral Consensus and Anti-Dilation Selection}
+\label{subsec:consensus}
+
+\noindent\textbf{Notation.}
+We write $*$ for convolution, $\odot$ for the Hadamard product, $\sigma$ for the sigmoid, $\delta$ for ReLU, BN for batch normalization, $\mathbb{I}(\cdot)$ for the indicator function, $\mathrm{Top}\text{-}k(\cdot)$ for the $k$ largest entries, $\mathrm{detach}(\cdot)$ for the stop-gradient operator, and $\|\cdot\|_0$ for the number of non-zeros; $M$ is the number of attention heads and $P$ the number of sampling points.
+
+The role of Engine B is to decide, for every collaborator, which cells are worth transmitting under the budget. Our SEC selects what to transmit by a bilateral demand-supply agreement: the ego's demand and the collaborator's supply are combined by a Hadamard product, so a token is promoted only when both sides respond.
+
+\noindent\textbf{Ego Demand.}
+A prediction head produces an ego-side saliency map
+\begin{equation}
+\begin{split}
+  M_{\text{demand}} = \sigma\Big(&\mathbf{W}_d^{(2)} * \delta\big(\mathrm{BN}(\mathbf{W}_d^{(1)} * F_{\text{ego}})\big)\Big)\\
+  &\in (0,1)^{H\times W},
+\end{split}
+\label{eq:demand}
+\end{equation}
+The map scores each BEV location by the ego's own uncertainty and provides a content-aware prior for gating the collaborator supply. The head is shallow, so the prior is computed online without side information.
+
+\noindent\textbf{Anti-Dilation Supply.}
+A critical flaw of sparse pipelines is that a $3{\times}3$ convolution applied after masking dilates each transmitted token to its neighbours, inflating the payload by up to $9\times$. We therefore refine before selection:
+\begin{equation}
+  \widetilde{F}_{\text{collab}}^{(i)} = \mathrm{LeakyReLU}_{0.1}\!\big(\mathrm{BN}(\mathbf{W}_r * F_{\text{collab}}^{(i)})\big),
+\end{equation}
+and evaluate the collaborator supply map
+\begin{equation}
+\begin{split}
+  M_{\text{supply}}^{(i)} = \sigma\Big(&\mathbf{W}_s^{(2)} * \delta\big(\mathrm{BN}(\mathbf{W}_s^{(1)} * \widetilde{F}_{\text{collab}}^{(i)})\big)\Big),
+\end{split}
+\label{eq:supply}
+\end{equation}
+which measures the complementary evidence available at each BEV cell. The supply head follows the same $3{\times}3$--$1{\times}1$ design as the demand head, but operates on the refined collaborator feature. Reversing the order lets the $3{\times}3$ field dilate each seed (Fig.~\ref{fig:antidilation-principle}).
+
+\noindent\textbf{Consensus Gating.}
+Transmission priority is the element-wise Hadamard product of the two maps:
+\begin{equation}
+  G^{(i)} = M_{\text{demand}} \odot M_{\text{supply}}^{(i)} \in (0,1)^{H\times W}.
+  \label{eq:gating}
+\end{equation}
+
+
+The two maps need not agree: high supply with low demand means a collaborator sees what the ego already sees clearly, whereas high demand with low supply means the ego is uncertain but no collaborator holds evidence. Sender-side ranking cannot separate these two cases, because it scores cells by collaborator salience alone.
+
+Since $G^{(i)}$ vanishes whenever either map does, a cell survives only if both sides respond; this single-round agreement is what we call consensus. The product has no learned mixing weight, and either side can remove a cell as unimportant. Because $G^{(i)}$ is computed independently per collaborator, the selector is permutation-invariant, its cost grows linearly with $N_c$, and no joint optimization across collaborators is required.
+
+\noindent\textbf{Differentiable Elastic Selection.}
+With the flattened gain $\mathbf{g}^{(i)}$, we define the hard top-$k$ mask as
+\begin{equation}
+\begin{split}
+  \theta_k^{(i)} &= \min(\mathrm{Top}\text{-}k(\mathbf{g}^{(i)})),\\
+  \mathcal{M}_{\text{hard}}^{(i)} &= \mathbb{I}(G^{(i)} \ge \theta_k^{(i)}).
+\end{split}
+\label{eq:hardmask}
+\end{equation}
+Because $\mathbb{I}(\cdot)$ is non-differentiable, we use a straight-through estimator:
+\begin{equation}
+  \mathcal{M}_{\text{comm}}^{(i)} = \mathcal{M}_{\text{hard}}^{(i)} + G^{(i)} - \mathrm{detach}(G^{(i)}),
+  \label{eq:ste}
+\end{equation}
+so the forward pass transmits exactly $k$ vectors while gradients flow into both heads. The transmitted feature is $\widehat{F}_{\text{collab}}^{(i)} = \widetilde{F}_{\text{collab}}^{(i)} \odot \mathcal{M}_{\text{comm}}^{(i)}$.
+
+\noindent\textbf{Budget-Exact Transmission.}
+The forward mask $\mathcal{M}_{\text{comm}}^{(i)}$ has exactly $k$ non-zero entries, so the collaborator sends $k$ feature vectors and their coordinates; no dense map crosses the channel and refinement precedes masking, so the count cannot grow. At the receiver, selected features are regrouped with their indices and passed to Engine C, which makes the budget an architectural invariant. The bound applies to \emph{transmitted} support; the receiver may apply convolutions after transmission without increasing the number of transmitted bytes. Methods that send $k$ indices but reconstruct a dense map therefore have a different communication cost. The demand and supply heads comprise two $3{\times}3$ and two $1{\times}1$ convolutions, and the gate and mask are element-wise. At $HW{=}8448$ and $C{=}256$, the consensus engine has 0.74M parameters and takes 0.6~ms, about $7\%$ of the 9.1~ms total, while top-$k$ costs $\mathcal{O}(HW\log k)$. Selection therefore scales linearly with the number of BEV cells and introduces no pairwise interaction tensor.
+\subsection{Lightweight Deformable Aggregation}
+\label{subsec:fusion}
+
+
+
+
+
+
+
+
+We aggregate the retained sparse tokens across agents with an 8-point deformable sampler adapted from Deformable DETR. Dense grid attention is $\mathcal{O}((HW)^2)$ and rigid grids do not absorb rotations and misalignments. Conditioned on the ego feature, we predict $P{=}8$ sampling offsets $\{\Delta\mathbf{p}_{m,s}(\mathbf{p})\}_{s=1}^{P}$ and softmax weights $\{A_{m,s}(\mathbf{p})\}_{s=1}^{P}$ per head, with $\|\Delta\mathbf{p}_{m,s}\|$ bounded by $\gamma_{\text{scale}}{=}0.1$ for local context. With value projection $\mathbf{W}_v$ (no bias, to avoid activations from padded tokens), the collaborator aggregate is
+\begin{equation}
+\resizebox{0.94\columnwidth}{!}{$
+  F_{\text{agg}}(\mathbf{p}) = \sum_{i=1}^{N-1} v^{(i)} \sum_{m=1}^{M} \mathbf{W}_v \sum_{s=1}^{P} A_{m,s}(\mathbf{p})\, \mathcal{B}\!\left(V_m^{(i)}, \mathbf{p}+\Delta\mathbf{p}_{m,s}(\mathbf{p})\right)
+$}
+\label{eq:aggregation}
+\end{equation}
+where $V_m^{(i)}$ is the $m$-th head of $\mathbf{W}_v\widetilde{F}_{\text{collab}}^{(i)}$, $v^{(i)}$ a sample-level validity mask, and $\mathcal{B}$ bilinear grid sampling. Predicted from the ego query, the offsets target informative ego locations; the bound on $\Delta\mathbf{p}$ rules out long-range matches, and the validity mask removes empty collaborators before residual fusion. Residual fusion gives $F_{\text{fused}} = \Phi_{\text{out}}(F_{\text{ego}} + F_{\text{agg}})$, with $\Phi_{\text{out}}$ a $3{\times}3$ conv $+$ BN $+$ ReLU. Across heads the eight points specialize on different local correspondences instead of collapsing to one offset, so the sampler represents several plausible alignments at once. Reading only $P$ locations per head, its memory cost is $\mathcal{O}(HWMP)$ rather than the $\mathcal{O}((HW)^2)$ of dense cross-attention, allowing full-resolution BEV operation.
+
+\subsection{Detection and Optimization Dynamics}
+\label{subsec:dynamics}
+The role of Engine D is to decode detections and stabilize the discrete selector during training. $F_{\text{fused}}$ feeds dual heads for classification and 7-DoF box regression, trained with focal/regression detection loss $\mathcal{L}_{\text{det}}$. Because the consensus heads are randomly initialized, they require supervision: we boot-strap them with an auxiliary foreground loss that supervises supply maps with ground-truth heatmaps,
+\begin{equation}
+\begin{split}
+  \mathcal{L}_{\text{total}} &= \mathcal{L}_{\text{det}} + \lambda_{\text{aux}}(\tau)\,\mathcal{L}_{\text{aux}}, \\
+  \lambda_{\text{aux}}(\tau) &= \max\!\big(0,\ \lambda_0 (1 - \tau/\tau_{\text{trans}})\big),
+\end{split}
+\end{equation}
+where the linear decay stabilizes early training. Detection and gate-supervision losses are optimized jointly until $\tau_{\text{trans}}$; afterwards the auxiliary term is dropped and the selector is trained only through the straight-through path. This warm-up stabilizes the randomly initialized gate before the detection heads produce meaningful foreground evidence, and leaves the inference graph unchanged.
+
+

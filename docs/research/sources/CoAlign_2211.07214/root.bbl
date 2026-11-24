@@ -1,0 +1,212 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
+  \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{lang2019pointpillars}
+A.~H. Lang, S.~Vora, H.~Caesar, L.~Zhou, J.~Yang, and O.~Beijbom,
+  ``Pointpillars: Fast encoders for object detection from point clouds,'' in
+  \emph{Proceedings of the IEEE/CVF conference on computer vision and pattern
+  recognition}, 2019, pp. 12\,697--12\,705.
+
+\bibitem{chen20203d}
+S.~Chen, B.~Liu, C.~Feng, C.~Vallespi-Gonzalez, and C.~Wellington, ``3d point
+  cloud processing and learning for autonomous driving: Impacting map creation,
+  localization, and perception,'' \emph{IEEE Signal Processing Magazine},
+  vol.~38, no.~1, pp. 68--86, 2020.
+
+\bibitem{10044977}
+Y.~Hu, S.~Fang, W.~Xie, and S.~Chen, ``Aerial monocular 3d object detection,''
+  \emph{IEEE Robotics and Automation Letters}, vol.~8, no.~4, pp. 1959--1966,
+  2023.
+
+\bibitem{Li_2021_RAL}
+Y.~Li, D.~Ma, Z.~An, Z.~Wang, Y.~Zhong, S.~Chen, and C.~Feng, ``V2x-sim:
+  Multi-agent collaborative perception dataset and benchmark for autonomous
+  driving,'' \emph{IEEE Robotics and Automation Letters}, vol.~7, no.~4, pp.
+  10\,914--10\,921, 2022.
+
+\bibitem{xu2022opv2v}
+R.~Xu, H.~Xiang, X.~Xia, X.~Han, J.~Li, and J.~Ma, ``Opv2v: An open benchmark
+  dataset and fusion pipeline for perception with vehicle-to-vehicle
+  communication,'' in \emph{2022 International Conference on Robotics and
+  Automation (ICRA)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2022, pp.
+  2583--2589.
+
+\bibitem{yu2022dairv2x}
+H.~Yu, Y.~Luo, M.~Shu, Y.~Huo, Z.~Yang, Y.~Shi, Z.~Guo, H.~Li, X.~Hu, J.~Yuan,
+  and Z.~Nie, ``Dair-v2x: A large-scale dataset for vehicle-infrastructure
+  cooperative 3d object detection,'' in \emph{IEEE/CVF Conf.~on Computer Vision
+  and Pattern Recognition (CVPR)}, June 2022.
+
+\bibitem{arnold2021data}
+E.~Arnold, O.~Y. Al-Jarrah, M.~Dianati, S.~Fallah, D.~Oxtoby, and
+  A.~Mouzakitis, ``Data for cooperative object classification for driving
+  applications,'' 2021.
+
+\bibitem{chen2019f}
+Q.~Chen, X.~Ma, S.~Tang, J.~Guo, Q.~Yang, and S.~Fu, ``F-cooper: Feature based
+  cooperative perception for autonomous vehicle edge computing system using 3d
+  point clouds,'' in \emph{Proceedings of the 4th ACM/IEEE Symposium on Edge
+  Computing}, 2019, pp. 88--100.
+
+\bibitem{DBLP:conf/eccv/WangMLYZU20}
+T.~Wang, S.~Manivasagam, M.~Liang, B.~Yang, W.~Zeng, and R.~Urtasun, ``V2vnet:
+  Vehicle-to-vehicle communication for joint perception and prediction,'' in
+  \emph{{ECCV} {(2)}}, ser. Lecture Notes in Computer Science, vol.
+  12347.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2020, pp. 605--621.
+
+\bibitem{Li_2021_NeurIPS}
+Y.~Li, S.~Ren, P.~Wu, S.~Chen, C.~Feng, and W.~Zhang, ``Learning distilled
+  collaboration graph for multi-agent perception,'' in \emph{Thirty-fifth
+  Conference on Neural Information Processing Systems (NeurIPS 2021)}, 2021.
+
+\bibitem{arnold2020cooperative}
+E.~Arnold, M.~Dianati, R.~de~Temple, and S.~Fallah, ``Cooperative perception
+  for 3d object detection in driving scenarios using infrastructure sensors,''
+  \emph{IEEE Transactions on Intelligent Transportation Systems}, 2020.
+
+\bibitem{Where2comm:22}
+H.~Yue, F.~Shaoheng, L.~Zixing, Z.~Yiqi, and C.~Siheng, ``Where2comm:
+  Communication-efficient collaborative perception via spatial confidence
+  maps,'' in \emph{Thirty-sixth Conference on Neural Information Processing
+  Systems (Neurips)}, November 2022.
+
+\bibitem{lei2022latency}
+Z.~Lei, S.~Ren, Y.~Hu, W.~Zhang, and S.~Chen, ``Latency-aware collaborative
+  perception,'' in \emph{Computer Vision--ECCV 2022: 17th European Conference,
+  Tel Aviv, Israel, October 23--27, 2022, Proceedings, Part XXXII}.\hskip 1em
+  plus 0.5em minus 0.4em\relax Springer, 2022, pp. 316--332.
+
+\bibitem{tu2021adversarial}
+J.~Tu, T.~Wang, J.~Wang, S.~Manivasagam, M.~Ren, and R.~Urtasun, ``Adversarial
+  attacks on multi-agent communication,'' in \emph{Proceedings of the IEEE/CVF
+  International Conference on Computer Vision}, 2021, pp. 7768--7777.
+
+\bibitem{glaser2021overcoming}
+N.~Glaser, Y.-C. Liu, J.~Tian, and Z.~Kira, ``Overcoming obstructions via
+  bandwidth-limited multi-agent spatial handshaking,'' in \emph{2021 IEEE/RSJ
+  International Conference on Intelligent Robots and Systems (IROS)}.\hskip 1em
+  plus 0.5em minus 0.4em\relax IEEE, 2021, pp. 2406--2413.
+
+\bibitem{xu2022v2xvit}
+R.~Xu, H.~Xiang, Z.~Tu, X.~Xia, M.-H. Yang, and J.~Ma, ``V2x-vit:
+  Vehicle-to-everything cooperative perception with vision transformer,'' in
+  \emph{Proceedings of the European Conference on Computer Vision (ECCV)},
+  2022.
+
+\bibitem{pmlr-v155-vadivelu21a}
+N.~Vadivelu, M.~Ren, J.~Tu, J.~Wang, and R.~Urtasun, ``Learning to communicate
+  and correct pose errors,'' in \emph{Proceedings of the 2020 Conference on
+  Robot Learning}, ser. Proceedings of Machine Learning Research, J.~Kober,
+  F.~Ramos, and C.~Tomlin, Eds., vol. 155.\hskip 1em plus 0.5em minus
+  0.4em\relax PMLR, 16--18 Nov 2021, pp. 1195--1210.
+
+\bibitem{9682601}
+Y.~Yuan, H.~Cheng, and M.~Sester, ``Keypoints-based deep feature fusion for
+  cooperative vehicle detection of autonomous driving,'' \emph{IEEE Robotics
+  and Automation Letters}, vol.~7, no.~2, pp. 3054--3061, 2022.
+
+\bibitem{xu2022cobevt}
+R.~Xu, Z.~Tu, H.~Xiang, W.~Shao, B.~Zhou, and J.~Ma, ``Cobevt: Cooperative
+  bird's eye view semantic segmentation with sparse transformers,'' \emph{arXiv
+  preprint arXiv:2207.02202}, 2022.
+
+\bibitem{comap}
+\BIBentryALTinterwordspacing
+M.~S. Yunshuang~Yuan, ``{COMAP}: A synthetic dataset for collective multi-agent
+  perception of autonomous driving,'' pp. 255--263, 2021. [Online]. Available:
+  \url{https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLIII-B2-2021/255/2021/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{yuan2022leveraging}
+Y.~Yuan and M.~Sester, ``Leveraging dynamic objects for relative localization
+  correction in a connected autonomous vehicle network,'' \emph{arXiv preprint
+  arXiv:2205.09418}, 2022.
+
+\bibitem{taketomi2017visual}
+T.~Taketomi, H.~Uchiyama, and S.~Ikeda, ``Visual slam algorithms: A survey from
+  2010 to 2016,'' \emph{IPSJ Transactions on Computer Vision and Applications},
+  vol.~9, no.~1, pp. 1--11, 2017.
+
+\bibitem{aulinas2008slam}
+J.~Aulinas, Y.~Petillot, J.~Salvi, and X.~Llad{\'o}, ``The slam problem: a
+  survey,'' \emph{Artificial Intelligence Research and Development}, pp.
+  363--371, 2008.
+
+\bibitem{saputra2018visual}
+M.~R.~U. Saputra, A.~Markham, and N.~Trigoni, ``Visual slam and structure from
+  motion in dynamic environments: A survey,'' \emph{ACM Computing Surveys
+  (CSUR)}, vol.~51, no.~2, pp. 1--36, 2018.
+
+\bibitem{zou2019collaborative}
+D.~Zou, P.~Tan, and W.~Yu, ``Collaborative visual slam for multiple agents: A
+  brief survey,'' \emph{Virtual Reality \& Intelligent Hardware}, vol.~1,
+  no.~5, pp. 461--482, 2019.
+
+\bibitem{lu1997globally}
+F.~Lu and E.~Milios, ``Globally consistent range scan alignment for environment
+  mapping,'' \emph{Autonomous robots}, vol.~4, no.~4, pp. 333--349, 1997.
+
+\bibitem{grisetti2010tutorial}
+G.~Grisetti, R.~K{\"u}mmerle, C.~Stachniss, and W.~Burgard, ``A tutorial on
+  graph-based slam,'' \emph{IEEE Intelligent Transportation Systems Magazine},
+  vol.~2, no.~4, pp. 31--43, 2010.
+
+\bibitem{zhong2020uncertainty}
+Y.~Zhong, M.~Zhu, and H.~Peng, ``Uncertainty-aware voxel based 3d object
+  detection and tracking with von-mises loss,'' \emph{arXiv preprint
+  arXiv:2011.02553}, 2020.
+
+\bibitem{clevert2015fast}
+D.-A. Clevert, T.~Unterthiner, and S.~Hochreiter, ``Fast and accurate deep
+  network learning by exponential linear units (elus),'' \emph{arXiv preprint
+  arXiv:1511.07289}, 2015.
+
+\bibitem{levenberg1944method}
+K.~Levenberg, ``A method for the solution of certain non-linear problems in
+  least squares,'' \emph{Quarterly of applied mathematics}, vol.~2, no.~2, pp.
+  164--168, 1944.
+
+\bibitem{grisetti2011g2o}
+G.~Grisetti, R.~K{\"u}mmerle, H.~Strasdat, and K.~Konolige, ``g2o: A general
+  framework for (hyper) graph optimization,'' in \emph{Proceedings of the IEEE
+  international conference on robotics and automation (ICRA), Shanghai, China},
+  2011, pp. 9--13.
+
+\bibitem{krajzewicz2012recent}
+D.~Krajzewicz, J.~Erdmann, M.~Behrisch, and L.~Bieker, ``Recent development and
+  applications of sumo-simulation of urban mobility,'' \emph{International
+  journal on advances in systems and measurements}, vol.~5, no. 3\&4, 2012.
+
+\bibitem{dosovitskiy2017carla}
+A.~Dosovitskiy, G.~Ros, F.~Codevilla, A.~Lopez, and V.~Koltun, ``Carla: An open
+  urban driving simulator,'' in \emph{Conference on robot learning}.\hskip 1em
+  plus 0.5em minus 0.4em\relax PMLR, 2017, pp. 1--16.
+
+\bibitem{xu2021opencda}
+R.~Xu, Y.~Guo, X.~Han, X.~Xia, H.~Xiang, and J.~Ma, ``Opencda: an open
+  cooperative driving automation framework integrated with co-simulation,'' in
+  \emph{2021 IEEE International Intelligent Transportation Systems Conference
+  (ITSC)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2021, pp. 1155--1162.
+
+\bibitem{kingma2014adam}
+D.~P. Kingma and J.~Ba, ``Adam: A method for stochastic optimization,''
+  \emph{arXiv preprint arXiv:1412.6980}, 2014.
+
+\end{thebibliography}

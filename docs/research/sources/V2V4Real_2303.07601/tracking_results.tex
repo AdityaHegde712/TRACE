@@ -1,0 +1,21 @@
+\begin{table*}[!tb]
+\centering
+\setlength{\tabcolsep}{10pt}
+\begin{tabular}{l|c|c|c|c|c|c}
+\hline
+Method       & AMOTA($\uparrow$) & AMOTP($\uparrow$) & sAMOTA($\uparrow$) & MOTA($\uparrow$)  & MT($\uparrow$)    & ML($\downarrow$)    \\ \hline
+No Fusion    & 16.08    & 41.60  & 53.84     & 43.46     &  29.41     &    60.18   \\\arrayrulecolor{lightgray}\hline
+Late Fusion  & 29.28 & 51.08 & 71.05  & 59.89 & 45.25 & 31.22    \\\arrayrulecolor{lightgray}\hline
+Early Fusion & 26.19 & 48.15 & 67.34  & 60.87  & 40.95 & 32.13 \\\arrayrulecolor{lightgray}\hline
+F-Cooper~\cite{chen2019f}    &   23.29 &  43.11   & 65.63    &  58.34     &    35.75  &  38.91        \\
+AttFuse~\cite{xu2022opv2v}      & 28.64 & 50.48 & 73.21 &  63.03 & 46.38 & 28.05 \\
+V2VNet~\cite{wang2020v2vnet}       & 30.48 & 54.28 & 75.53  & \textbf{64.85}  & \textbf{48.19} & 27.83 \\
+V2X-ViT~\cite{xu2022v2xvit}      &  30.85 & 54.32 & 74.01  & 64.82  & 45.93 & \textbf{26.47} \\
+CoBEVT~\cite{xu2022cobevt}       & \textbf{32.12}  & \textbf{55.61} & \textbf{77.65}  & 63.75 & 47.29 & 30.32
+\\ \arrayrulecolor{black}\hline
+\end{tabular}
+\vspace{-2mm}
+\caption{\textbf{Cooperative Tracking benchmark}. All numbers represent percentages.}
+\label{tab:track}
+\vspace{-2mm}
+\end{table*}

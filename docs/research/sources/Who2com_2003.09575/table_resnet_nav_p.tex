@@ -1,0 +1,50 @@
+% \begin{table}
+% \caption{\textbf{Experimental results on Multi-agent Navigation (accurate pose).}}
+% \label{tab:res_nav_p}
+% \centering
+% \resizebox{\linewidth}{!}{%
+% \begin{tabular}{cccccc}
+% \toprule
+% & & Overall Acc & Mean IoU & BW (kbpf) & BIS \\
+% \midrule
+% Upper bound & Single Normal & 88.13  & 53.76 & &\\
+% \midrule
+% \multirow{2}{*}{Centralized } & CatAll & 80.05  & 40.54 & 4096 & 0.17\\
+% & Attention & 84.38  & 46.48 & 4096.03 & 0.212\\
+% % & Ours w/ msg (Softmax) & 82.86$\pm$0.05 & 42.66$\pm$0.41 & 70.86$\pm$0.06 & 35.62$\pm$0.12 & 4100.03 & 4.00 \\
+% \midrule
+% \multirow{3}{*}{ Distributed }
+% & Random Selection & 64.94  & 27.22 & 1024 & 0.082\\
+% & Ours w/o msg & 78.10  & 40.52 & 1024.03 & 0.602\\
+% & Ours w/ msg & 80.42  & 41.37 & 1028.03 & \textbf{0.691}\\
+% \midrule
+% Lower bound & Single Degraded & 62.88 & 25.42 & & \\
+% \bottomrule
+% \end{tabular}}
+% \end{table}
+
+
+\begin{table}
+\caption{\textbf{Experimental results on Multi-agent Navigation (accurate pose).}}
+\label{tab:res_nav_p}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{cccccc}
+\toprule
+& & Overall Acc & BW (kbpf) & BIS \\
+\midrule
+Upper bound & Single Normal & 88.13  &  &\\
+\midrule
+\multirow{3}{*}{Centralized } & CatAll & 80.05  & 4096 & 0.17\\
+& Attention & 84.38  & 4096.03 & 0.212\\
+& Compression & 76.2  & 1024 & 0.527\\
+\midrule
+\multirow{3}{*}{ Distributed }
+& Random Selection & 64.94  & 1024 & 0.082\\
+& Ours w/o msg & 78.10  & 1024.03 & 0.602\\
+& Ours w/ msg & 80.42  & 1028.03 & \textbf{0.691}\\
+\midrule
+Lower bound & Single Degraded & 62.88 &  & \\
+\bottomrule
+\end{tabular}}
+\end{table}

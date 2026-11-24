@@ -1,0 +1,205 @@
+\begin{thebibliography}{10}\itemsep=-1pt
+
+\bibitem{mmdet3d2020}
+{MMDetection3D: OpenMMLab} next-generation platform for general {3D} object
+  detection, 2020.
+
+\bibitem{Caesar2020NuScenes}
+Holger Caesar, Varun Bankiti, Alex~H. Lang, Sourabh Vora, Venice~Erin Liong,
+  Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom.
+\newblock nuscenes: A multimodal dataset for autonomous driving.
+\newblock In {\em 2020 IEEE Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 11618--11628, 2020.
+
+\bibitem{chen2017vehicle}
+Shanzhi Chen, Jinling Hu, Yan Shi, Ying Peng, Jiayi Fang, Rui Zhao, and Li
+  Zhao.
+\newblock Vehicle-to-everything (v2x) services supported by lte-based systems
+  and 5g.
+\newblock {\em IEEE Communications Standards Magazine}, 1(2):70--76, 2017.
+
+\bibitem{Chen2017Multi}
+Xiaozhi Chen, Huimin Ma, Ji Wan, Bo Li, and Tian Xia.
+\newblock Multi-view 3d object detection network for autonomous driving.
+\newblock In {\em 2017 IEEE Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 6526--6534, 2017.
+
+\bibitem{cordts2016cityscapes}
+Marius Cordts, Mohamed Omran, Sebastian Ramos, Timo Rehfeld, Markus Enzweiler,
+  Rodrigo Benenson, Uwe Franke, Stefan Roth, and Bernt Schiele.
+\newblock The cityscapes dataset for semantic urban scene understanding.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 3213--3223, 2016.
+
+\bibitem{Cui2019Automatic}
+Yuepeng Cui, Hao Xu, Jianqing Wu, Yuan Sun, and Junxuan Zhao.
+\newblock Automatic vehicle tracking with roadside lidar data for the
+  connected-vehicles system.
+\newblock {\em IEEE Intelligent Systems}, 34(3):44--51, 2019.
+
+\bibitem{rukhovich2021imvoxelnet}
+Anton~Konushin Danila~Rukhovich, Anna~Vorontsova.
+\newblock Imvoxelnet: Image to voxels projection for monocular and multi-view
+  general-purpose 3d object detection.
+\newblock {\em arXiv preprint arXiv:2106.01178}, 2021.
+
+\bibitem{everingham2010pascal}
+Mark Everingham, Luc Van~Gool, Christopher~KI Williams, John Winn, and Andrew
+  Zisserman.
+\newblock The pascal visual object classes (voc) challenge.
+\newblock {\em International journal of computer vision}, 88(2):303--338, 2010.
+
+\bibitem{gao2018early}
+Hongbo Gao, Bo Cheng, Jianqiang Wang, Keqiang Li, Jianhui Zhao, and Deyi Li.
+\newblock Object classification using cnn-based fusion of vision and lidar in
+  autonomous vehicle environment.
+\newblock {\em IEEE Transactions on Industrial Informatics}, 14(9):4224--4231,
+  2018.
+
+\bibitem{Geiger2012KITTI}
+Andreas Geiger, Philip Lenz, and Raquel Urtasun.
+\newblock Are we ready for autonomous driving? the kitti vision benchmark
+  suite.
+\newblock In {\em 2012 IEEE Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 3354--3361, 2012.
+
+\bibitem{hag2018late}
+Mohammad-Hashem Haghbayan, Fahimeh Farahnakian, Jonne Poikonen, Markus
+  Laurinen, Paavo Nevalainen, Juha Plosila, and Jukka Heikkonen.
+\newblock An efficient multi-sensor fusion approach for object detection in
+  maritime environments.
+\newblock In {\em 2018 21st International Conference on Intelligent
+  Transportation Systems (ITSC)}, pages 2163--2170, 2018.
+
+\bibitem{huang2019apolloscape}
+Xinyu Huang, Peng Wang, Xinjing Cheng, Dingfu Zhou, Qichuan Geng, and Ruigang
+  Yang.
+\newblock The apolloscape open dataset for autonomous driving and its
+  application.
+\newblock {\em IEEE transactions on pattern analysis and machine intelligence},
+  42(10):2702--2719, 2019.
+
+\bibitem{krajewski2018highd}
+Robert Krajewski, Julian Bock, Laurent Kloeker, and Lutz Eckstein.
+\newblock The highd dataset: A drone dataset of naturalistic vehicle
+  trajectories on german highways for validation of highly automated driving
+  systems.
+\newblock In {\em 2018 21st International Conference on Intelligent
+  Transportation Systems (ITSC)}, pages 2118--2125. IEEE, 2018.
+
+\bibitem{Kuhn2010TheHM}
+Harold~W. Kuhn.
+\newblock The hungarian method for the assignment problem.
+\newblock In {\em 50 Years of Integer Programming}, 2010.
+
+\bibitem{lang2019pointpillars}
+Alex~H. Lang, Sourabh Vora, Holger Caesar, Lubing Zhou, Jiong Yang, and Oscar
+  Beijbom.
+\newblock Pointpillars: Fast encoders for object detection from point clouds.
+\newblock {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, 2019.
+
+\bibitem{li2021learning}
+Yiming Li, Shunli Ren, Pengxiang Wu, Siheng Chen, Chen Feng, and Wenjun Zhang.
+\newblock Learning distilled collaboration graph for multi-agent perception.
+\newblock {\em arXiv preprint arXiv:2111.00643}, 2021.
+
+\bibitem{mao2021one}
+Jiageng Mao, Minzhe Niu, Chenhan Jiang, Hanxue Liang, Jingheng Chen, Xiaodan
+  Liang, Yamin Li, Chaoqiang Ye, Wei Zhang, Zhenguo Li, et~al.
+\newblock One million scenes for autonomous driving: Once dataset.
+\newblock {\em arXiv preprint arXiv:2106.11037}, 2021.
+
+\bibitem{reading2021categorical}
+Cody Reading, Ali Harakeh, Julia Chae, and Steven~L Waslander.
+\newblock Categorical depth distribution network for monocular 3d object
+  detection.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 8555--8564, 2021.
+
+\bibitem{ros2016synthia}
+German Ros, Laura Sellart, Joanna Materzynska, David Vazquez, and Antonio~M
+  Lopez.
+\newblock The synthia dataset: A large collection of synthetic images for
+  semantic segmentation of urban scenes.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 3234--3243, 2016.
+
+\bibitem{shi2019pointrcnn}
+Shaoshuai Shi, Xiaogang Wang, and Hongsheng Li.
+\newblock Pointrcnn: 3d object proposal generation and detection from point
+  cloud.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition}, pages 770--779, 2019.
+
+\bibitem{Sindagi2019MVX}
+Vishwanath~A. Sindagi, Yin Zhou, and Oncel Tuzel.
+\newblock Mvx-net: Multimodal voxelnet for 3d object detection.
+\newblock In {\em 2019 International Conference on Robotics and Automation
+  (ICRA)}, pages 7276--7282, 2019.
+
+\bibitem{storck20195g}
+Carlos~Renato Storck and F{\'a}tima Duarte-Figueiredo.
+\newblock A 5g v2x ecosystem providing internet of vehicles.
+\newblock {\em Sensors}, 19(3):550, 2019.
+
+\bibitem{sun2020scalability}
+Pei Sun, Henrik Kretzschmar, Xerxes Dotiwalla, Aurelien Chouard, Vijaysai
+  Patnaik, Paul Tsui, James Guo, Yin Zhou, Yuning Chai, Benjamin Caine, et~al.
+\newblock Scalability in perception for autonomous driving: Waymo open dataset.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 2446--2454, 2020.
+
+\bibitem{Vora2020Point}
+Sourabh Vora, Alex~H. Lang, Bassam Helou, and Oscar Beijbom.
+\newblock Pointpainting: Sequential fusion for 3d object detection.
+\newblock In {\em 2020 IEEE Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 4603--4611, 2020.
+
+\bibitem{Wang2020V2VNetVC}
+Tsun-Hsuan Wang, Sivabalan Manivasagam, Ming Liang, Binh Yang, Wenyuan Zeng,
+  James Tu, and Raquel Urtasun.
+\newblock V2vnet: Vehicle-to-vehicle communication for joint perception and
+  prediction.
+\newblock In {\em ECCV}, 2020.
+
+\bibitem{Wang2020Multi}
+Zhangjing Wang, Yu Wu, and Qingqing Niu.
+\newblock Multi-sensor fusion in automated driving: A survey.
+\newblock {\em IEEE Access}, 8:2847--2868, 2020.
+
+\bibitem{yan2018second}
+Yan Yan, Yuxing Mao, and Bo Li.
+\newblock Second: Sparsely embedded convolutional detection.
+\newblock {\em Sensors}, 2018.
+
+\bibitem{Yang2020ssd}
+Zetong Yang, Yanan Sun, Shu Liu, and Jiaya Jia.
+\newblock 3dssd: Point-based 3d single stage object detector.
+\newblock {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, 2020.
+
+\bibitem{ye2022rope3d}
+Xiaoqing Ye, Mao Shu, Hanyu Li, Yifeng Shi, Yingying Li, Guangjie Wang, Xiao
+  Tan, and Errui Ding.
+\newblock Rope3d: The roadside perception dataset for autonomous driving and
+  monocular 3d object detection.
+\newblock In {\em IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, June 2022.
+
+\bibitem{yu2020bdd100k}
+Fisher Yu, Haofeng Chen, Xin Wang, Wenqi Xian, Yingying Chen, Fangchen Liu,
+  Vashisht Madhavan, and Trevor Darrell.
+\newblock Bdd100k: A diverse driving dataset for heterogeneous multitask
+  learning.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition}, pages 2636--2645, 2020.
+
+\bibitem{ZHAO2019Detection}
+Junxuan Zhao, Hao Xu, Hongchao Liu, Jianqing Wu, Yichen Zheng, and Dayong Wu.
+\newblock Detection and tracking of pedestrians and vehicles using roadside
+  lidar sensors.
+\newblock {\em Transportation Research Part C: Emerging Technologies},
+  100:68--87, 2019.
+
+\end{thebibliography}

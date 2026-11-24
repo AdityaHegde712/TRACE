@@ -1,0 +1,411 @@
+\begin{thebibliography}{60}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ng et~al.(2020)Ng, Radia, Chen, Wang, Gog, and Gonzalez]{ng2020bev}
+M.~H. Ng, K.~Radia, J.~Chen, D.~Wang, I.~Gog, and J.~E. Gonzalez.
+\newblock {BEV-Seg}: Bird's eye view semantic segmentation using geometry and
+  semantic point cloud.
+\newblock \emph{arXiv preprint arXiv:2006.11436}, 2020.
+
+\bibitem[Zhou and Kr{\"a}henb{\"u}hl(2022)]{zhou2022cross}
+B.~Zhou and P.~Kr{\"a}henb{\"u}hl.
+\newblock Cross-view transformers for real-time map-view semantic segmentation.
+\newblock \emph{arXiv preprint arXiv:2205.02833}, 2022.
+
+\bibitem[Hu et~al.(2021)Hu, Murez, Mohan, Dudas, Hawke, Badrinarayanan,
+  Cipolla, and Kendall]{hu2021fiery}
+A.~Hu, Z.~Murez, N.~Mohan, S.~Dudas, J.~Hawke, V.~Badrinarayanan, R.~Cipolla,
+  and A.~Kendall.
+\newblock Fiery: Future instance prediction in bird's-eye view from surround
+  monocular cameras.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pages 15273--15282, 2021.
+
+\bibitem[Philion and Fidler(2020)]{philion2020lift}
+J.~Philion and S.~Fidler.
+\newblock Lift, splat, shoot: Encoding images from arbitrary camera rigs by
+  implicitly unprojecting to 3d.
+\newblock In \emph{European Conference on Computer Vision}, pages 194--210.
+  Springer, 2020.
+
+\bibitem[Ammar~Abbas and Zisserman(2019)]{ammar2019geometric}
+S.~Ammar~Abbas and A.~Zisserman.
+\newblock A geometric approach to obtain a bird's eye view from an image.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision Workshops}, pages 0--0, 2019.
+
+\bibitem[Kim and Kum(2019)]{kim2019deep}
+Y.~Kim and D.~Kum.
+\newblock Deep learning based vehicle position and orientation estimation via
+  inverse perspective mapping image.
+\newblock In \emph{2019 IEEE Intelligent Vehicles Symposium}, pages 317--323,
+  2019.
+
+\bibitem[Li et~al.(2022)Li, Wang, Li, Xie, Sima, Lu, Yu, and
+  Dai]{li2022bevformer}
+Z.~Li, W.~Wang, H.~Li, E.~Xie, C.~Sima, T.~Lu, Q.~Yu, and J.~Dai.
+\newblock Bevformer: Learning bird's-eye-view representation from multi-camera
+  images via spatiotemporal transformers.
+\newblock \emph{arXiv preprint arXiv:2203.17270}, 2022.
+
+\bibitem[Yang et~al.(2021)Yang, Li, Liu, Yu, Ma, He, and
+  Pan]{yang2021projecting}
+W.~Yang, Q.~Li, W.~Liu, Y.~Yu, Y.~Ma, S.~He, and J.~Pan.
+\newblock Projecting your view attentively: Monocular road scene layout
+  estimation via cross-view transformation.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}, pages 15536--15545, 2021.
+
+\bibitem[Saha et~al.(2021)Saha, Maldonado, Russell, and
+  Bowden]{saha2021translating}
+A.~Saha, O.~M. Maldonado, C.~Russell, and R.~Bowden.
+\newblock Translating images into maps.
+\newblock \emph{arXiv preprint arXiv:2110.00966}, 2021.
+
+\bibitem[Xu et~al.(2021)Xu, Xiang, Xia, Han, Liu, and Ma]{xu2021opv2v}
+R.~Xu, H.~Xiang, X.~Xia, X.~Han, J.~Liu, and J.~Ma.
+\newblock Opv2v: An open benchmark dataset and fusion pipeline for perception
+  with vehicle-to-vehicle communication.
+\newblock \emph{arXiv preprint arXiv:2109.07644}, 2021.
+
+\bibitem[Xu et~al.(2022)Xu, Xiang, Tu, Xia, Yang, and Ma]{xu2022v2x}
+R.~Xu, H.~Xiang, Z.~Tu, X.~Xia, M.-H. Yang, and J.~Ma.
+\newblock V2x-vit: Vehicle-to-everything cooperative perception with vision
+  transformer.
+\newblock \emph{arXiv preprint arXiv:2203.10638}, 2022.
+
+\bibitem[Li et~al.(2021)Li, Ren, Wu, Chen, Feng, and Zhang]{li2021learning}
+Y.~Li, S.~Ren, P.~Wu, S.~Chen, C.~Feng, and W.~Zhang.
+\newblock Learning distilled collaboration graph for multi-agent perception.
+\newblock \emph{Advances in Neural Information Processing Systems}, 34, 2021.
+
+\bibitem[Yuan et~al.(2022)Yuan, Cheng, and Sester]{yuan2022keypoints}
+Y.~Yuan, H.~Cheng, and M.~Sester.
+\newblock Keypoints-based deep feature fusion for cooperative vehicle detection
+  of autonomous driving.
+\newblock \emph{IEEE Robotics and Automation Letters}, 2022.
+
+\bibitem[Caesar et~al.(2020)Caesar, Bankiti, Lang, Vora, Liong, Xu, Krishnan,
+  Pan, Baldan, and Beijbom]{caesar2020nuscenes}
+H.~Caesar, V.~Bankiti, A.~H. Lang, S.~Vora, V.~E. Liong, Q.~Xu, A.~Krishnan,
+  Y.~Pan, G.~Baldan, and O.~Beijbom.
+\newblock nuscenes: A multimodal dataset for autonomous driving.
+\newblock In \emph{Proceedings of the IEEE/CVF conference on computer vision
+  and pattern recognition}, pages 11621--11631, 2020.
+
+\bibitem[Chen et~al.(2019)Chen, Tang, Yang, and Fu]{chen2019cooper}
+Q.~Chen, S.~Tang, Q.~Yang, and S.~Fu.
+\newblock Cooper: Cooperative perception for connected autonomous vehicles
+  based on 3d point clouds.
+\newblock In \emph{2019 IEEE 39th International Conference on Distributed
+  Computing Systems (ICDCS)}, pages 514--524. OPTorganization, 2019.
+
+\bibitem[Rawashdeh and Wang(2018)]{rawashdeh2018collaborative}
+Z.~Y. Rawashdeh and Z.~Wang.
+\newblock Collaborative automated driving: A machine learning-based method to
+  enhance the accuracy of shared information.
+\newblock In \emph{2018 21st International Conference on Intelligent
+  Transportation Systems (ITSC)}, pages 3961--3966. OPTorganization, 2018.
+
+\bibitem[Wang et~al.(2020)Wang, Manivasagam, Liang, Yang, Zeng, and
+  Urtasun]{wang2020v2vnet}
+T.-H. Wang, S.~Manivasagam, M.~Liang, B.~Yang, W.~Zeng, and R.~Urtasun.
+\newblock V2vnet: Vehicle-to-vehicle communication for joint perception and
+  prediction.
+\newblock In \emph{European Conference on Computer Vision}, pages 605--621.
+  Springer, 2020.
+
+\bibitem[Chen et~al.(2019)Chen, Ma, Tang, Guo, Yang, and Fu]{chen2019f}
+Q.~Chen, X.~Ma, S.~Tang, J.~Guo, Q.~Yang, and S.~Fu.
+\newblock F-cooper: Feature based cooperative perception for autonomous vehicle
+  edge computing system using 3d point clouds.
+\newblock In \emph{Proceedings of the 4th ACM/IEEE Symposium on Edge
+  Computing}, pages 88--100, 2019.
+
+\bibitem[Mallot et~al.(1991)Mallot, B{\"u}lthoff, Little, and
+  Bohrer]{mallot1991inverse}
+H.~A. Mallot, H.~H. B{\"u}lthoff, J.~Little, and S.~Bohrer.
+\newblock Inverse perspective mapping simplifies optical flow computation and
+  obstacle detection.
+\newblock \emph{Biological cybernetics}, 64\penalty0 (3):\penalty0 177--185,
+  1991.
+
+\bibitem[Reiher et~al.(2020)Reiher, Lampe, and Eckstein]{reiher2020sim2real}
+L.~Reiher, B.~Lampe, and L.~Eckstein.
+\newblock A sim2real deep learning approach for the transformation of images
+  from multiple vehicle-mounted cameras to a semantically segmented image in
+  bird’s eye view.
+\newblock In \emph{2020 IEEE 23rd International Conference on Intelligent
+  Transportation Systems (ITSC)}, pages 1--7. IEEE, 2020.
+
+\bibitem[Bruls et~al.(2019)Bruls, Porav, Kunze, and Newman]{bruls2019right}
+T.~Bruls, H.~Porav, L.~Kunze, and P.~Newman.
+\newblock The right (angled) perspective: Improving the understanding of road
+  scenes using boosted inverse perspective mapping.
+\newblock In \emph{2019 IEEE Intelligent Vehicles Symposium (IV)}, pages
+  302--309. IEEE, 2019.
+
+\bibitem[Zhu et~al.(2021)Zhu, Zhang, Zhong, Lu, Peng, and
+  Lenneman]{zhu2021monocular}
+M.~Zhu, S.~Zhang, Y.~Zhong, P.~Lu, H.~Peng, and J.~Lenneman.
+\newblock Monocular 3d vehicle detection using uncalibrated traffic cameras
+  through homography.
+\newblock In \emph{2021 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems (IROS)}, pages 3814--3821. IEEE, 2021.
+
+\bibitem[Pan et~al.(2020)Pan, Sun, Leung, Andonian, and Zhou]{pan2020cross}
+B.~Pan, J.~Sun, H.~Y.~T. Leung, A.~Andonian, and B.~Zhou.
+\newblock Cross-view semantic segmentation for sensing surroundings.
+\newblock \emph{IEEE Robotics and Automation Letters}, 5\penalty0 (3):\penalty0
+  4867--4873, 2020.
+
+\bibitem[Zhu et~al.(2020)Zhu, Su, Lu, Li, Wang, and Dai]{zhu2020deformable}
+X.~Zhu, W.~Su, L.~Lu, B.~Li, X.~Wang, and J.~Dai.
+\newblock Deformable detr: Deformable transformers for end-to-end object
+  detection.
+\newblock \emph{arXiv preprint arXiv:2010.04159}, 2020.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
+  {\L}.~Kaiser, and I.~Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in neural information processing systems}, pages
+  5998--6008, 2017.
+
+\bibitem[Dosovitskiy et~al.(2020)Dosovitskiy, Beyer, Kolesnikov, Weissenborn,
+  Zhai, Unterthiner, Dehghani, Minderer, Heigold, Gelly,
+  et~al.]{dosovitskiy2020image}
+A.~Dosovitskiy, L.~Beyer, A.~Kolesnikov, D.~Weissenborn, X.~Zhai,
+  T.~Unterthiner, M.~Dehghani, M.~Minderer, G.~Heigold, S.~Gelly, et~al.
+\newblock An image is worth 16x16 words: Transformers for image recognition at
+  scale.
+\newblock \emph{arXiv preprint arXiv:2010.11929}, 2020.
+
+\bibitem[Liu et~al.(2021{\natexlab{a}})Liu, Lin, Cao, Hu, Wei, Zhang, Lin, and
+  Guo]{liu2021swin}
+Z.~Liu, Y.~Lin, Y.~Cao, H.~Hu, Y.~Wei, Z.~Zhang, S.~Lin, and B.~Guo.
+\newblock Swin transformer: Hierarchical vision transformer using shifted
+  windows.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pages 10012--10022, 2021{\natexlab{a}}.
+
+\bibitem[Liu et~al.(2021{\natexlab{b}})Liu, Ning, Cao, Wei, Zhang, Lin, and
+  Hu]{liu2021video}
+Z.~Liu, J.~Ning, Y.~Cao, Y.~Wei, Z.~Zhang, S.~Lin, and H.~Hu.
+\newblock Video swin transformer.
+\newblock \emph{arXiv preprint arXiv:2106.13230}, 2021{\natexlab{b}}.
+
+\bibitem[Dong et~al.(2021)Dong, Bao, Chen, Zhang, Yu, Yuan, Chen, and
+  Guo]{dong2021cswin}
+X.~Dong, J.~Bao, D.~Chen, W.~Zhang, N.~Yu, L.~Yuan, D.~Chen, and B.~Guo.
+\newblock Cswin transformer: A general vision transformer backbone with
+  cross-shaped windows.
+\newblock \emph{arXiv preprint arXiv:2107.00652}, 2021.
+
+\bibitem[Yang et~al.(2021)Yang, Li, Zhang, Dai, Xiao, Yuan, and
+  Gao]{yang2021focal}
+J.~Yang, C.~Li, P.~Zhang, X.~Dai, B.~Xiao, L.~Yuan, and J.~Gao.
+\newblock Focal self-attention for local-global interactions in vision
+  transformers.
+\newblock \emph{arXiv preprint arXiv:2107.00641}, 2021.
+
+\bibitem[Rao et~al.(2021)Rao, Zhao, Liu, Lu, Zhou, and
+  Hsieh]{rao2021dynamicvit}
+Y.~Rao, W.~Zhao, B.~Liu, J.~Lu, J.~Zhou, and C.-J. Hsieh.
+\newblock Dynamicvit: Efficient vision transformers with dynamic token
+  sparsification.
+\newblock \emph{Advances in neural information processing systems}, 34, 2021.
+
+\bibitem[Wang et~al.(2020)Wang, Zhu, Green, Adam, Yuille, and
+  Chen]{wang2020axial}
+H.~Wang, Y.~Zhu, B.~Green, H.~Adam, A.~Yuille, and L.-C. Chen.
+\newblock Axial-deeplab: Stand-alone axial-attention for panoptic segmentation.
+\newblock In \emph{European Conference on Computer Vision}, pages 108--126.
+  Springer, 2020.
+
+\bibitem[Arnab et~al.(2021)Arnab, Dehghani, Heigold, Sun, Lu{\v{c}}i{\'c}, and
+  Schmid]{arnab2021vivit}
+A.~Arnab, M.~Dehghani, G.~Heigold, C.~Sun, M.~Lu{\v{c}}i{\'c}, and C.~Schmid.
+\newblock Vivit: A video vision transformer.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pages 6836--6846, 2021.
+
+\bibitem[Tu et~al.(2022)Tu, Talebi, Zhang, Yang, Milanfar, Bovik, and
+  Li]{tu2022maxim}
+Z.~Tu, H.~Talebi, H.~Zhang, F.~Yang, P.~Milanfar, A.~Bovik, and Y.~Li.
+\newblock Maxim: Multi-axis mlp for image processing.
+\newblock \emph{arXiv preprint arXiv:2201.02973}, 2022.
+
+\bibitem[Li et~al.(2021)Li, Wu, Fan, Mangalam, Xiong, Malik, and
+  Feichtenhofer]{li2021improved}
+Y.~Li, C.-Y. Wu, H.~Fan, K.~Mangalam, B.~Xiong, J.~Malik, and C.~Feichtenhofer.
+\newblock Improved multiscale vision transformers for classification and
+  detection.
+\newblock \emph{arXiv preprint arXiv:2112.01526}, 2021.
+
+\bibitem[Min et~al.(2022)Min, Zhao, Luo, and Cho]{min2022peripheral}
+J.~Min, Y.~Zhao, C.~Luo, and M.~Cho.
+\newblock Peripheral vision transformer.
+\newblock \emph{arXiv preprint arXiv:2206.06801}, 2022.
+
+\bibitem[Hatamizadeh et~al.(2022)Hatamizadeh, Yin, Kautz, and
+  Molchanov]{hatamizadeh2022global}
+A.~Hatamizadeh, H.~Yin, J.~Kautz, and P.~Molchanov.
+\newblock Global context vision transformers.
+\newblock \emph{arXiv preprint arXiv:2206.09959}, 2022.
+
+\bibitem[Wang et~al.(2021)Wang, Xie, Li, Fan, Song, Liang, Lu, Luo, and
+  Shao]{wang2021pyramid}
+W.~Wang, E.~Xie, X.~Li, D.-P. Fan, K.~Song, D.~Liang, T.~Lu, P.~Luo, and
+  L.~Shao.
+\newblock Pyramid vision transformer: A versatile backbone for dense prediction
+  without convolutions.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pages 568--578, 2021.
+
+\bibitem[Fan et~al.(2021)Fan, Xiong, Mangalam, Li, Yan, Malik, and
+  Feichtenhofer]{fan2021multiscale}
+H.~Fan, B.~Xiong, K.~Mangalam, Y.~Li, Z.~Yan, J.~Malik, and C.~Feichtenhofer.
+\newblock Multiscale vision transformers.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pages 6824--6835, 2021.
+
+\bibitem[Xu et~al.(2021)Xu, Zhang, Zhang, and Tao]{xu2021vitae}
+Y.~Xu, Q.~Zhang, J.~Zhang, and D.~Tao.
+\newblock Vitae: Vision transformer advanced by exploring intrinsic inductive
+  bias.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  34:\penalty0 28522--28535, 2021.
+
+\bibitem[Ali et~al.(2021)Ali, Touvron, Caron, Bojanowski, Douze, Joulin,
+  Laptev, Neverova, Synnaeve, Verbeek, et~al.]{ali2021xcit}
+A.~Ali, H.~Touvron, M.~Caron, P.~Bojanowski, M.~Douze, A.~Joulin, I.~Laptev,
+  N.~Neverova, G.~Synnaeve, J.~Verbeek, et~al.
+\newblock Xcit: Cross-covariance image transformers.
+\newblock \emph{Advances in neural information processing systems}, 34, 2021.
+
+\bibitem[Liu et~al.(2021)Liu, Dai, So, and Le]{liu2021pay}
+H.~Liu, Z.~Dai, D.~So, and Q.~Le.
+\newblock Pay attention to mlps.
+\newblock \emph{Advances in Neural Information Processing Systems}, 34, 2021.
+
+\bibitem[Lee-Thorp et~al.(2021)Lee-Thorp, Ainslie, Eckstein, and
+  Ontanon]{lee2021fnet}
+J.~Lee-Thorp, J.~Ainslie, I.~Eckstein, and S.~Ontanon.
+\newblock Fnet: Mixing tokens with fourier transforms.
+\newblock \emph{arXiv preprint arXiv:2105.03824}, 2021.
+
+\bibitem[Huang et~al.(2021)Huang, Ben, Luo, Cheng, Yu, and
+  Fu]{huang2021shuffle}
+Z.~Huang, Y.~Ben, G.~Luo, P.~Cheng, G.~Yu, and B.~Fu.
+\newblock Shuffle transformer: Rethinking spatial shuffle for vision
+  transformer.
+\newblock \emph{arXiv preprint arXiv:2106.03650}, 2021.
+
+\bibitem[Tu et~al.(2022)Tu, Talebi, Zhang, Yang, Milanfar, Bovik, and
+  Li]{tu2022maxvit}
+Z.~Tu, H.~Talebi, H.~Zhang, F.~Yang, P.~Milanfar, A.~Bovik, and Y.~Li.
+\newblock Maxvit: Multi-axis vision transformer.
+\newblock \emph{arXiv preprint arXiv:2204.01697}, 2022.
+
+\bibitem[Ba et~al.(2016)Ba, Kiros, and Hinton]{ba2016layer}
+J.~L. Ba, J.~R. Kiros, and G.~E. Hinton.
+\newblock Layer normalization.
+\newblock \emph{arXiv preprint arXiv:1607.06450}, 2016.
+
+\bibitem[Masci et~al.(2011)Masci, Meier, Cire{\c{s}}an, and
+  Schmidhuber]{masci2011stacked}
+J.~Masci, U.~Meier, D.~Cire{\c{s}}an, and J.~Schmidhuber.
+\newblock Stacked convolutional auto-encoders for hierarchical feature
+  extraction.
+\newblock In \emph{International conference on artificial neural networks},
+  pages 52--59. Springer, 2011.
+
+\bibitem[Jaderberg et~al.(2015)Jaderberg, Simonyan, Zisserman,
+  et~al.]{jaderberg2015spatial}
+M.~Jaderberg, K.~Simonyan, A.~Zisserman, et~al.
+\newblock Spatial transformer networks.
+\newblock \emph{Advances in neural information processing systems},
+  28:\penalty0 2017--2025, 2015.
+
+\bibitem[Dosovitskiy et~al.(2017)Dosovitskiy, Ros, Codevilla, Lopez, and
+  Koltun]{Dosovitskiy17}
+A.~Dosovitskiy, G.~Ros, F.~Codevilla, A.~Lopez, and V.~Koltun.
+\newblock {CARLA}: {An} open urban driving simulator.
+\newblock In \emph{Proceedings of the 1st Annual Conference on Robot Learning},
+  pages 1--16, 2017.
+
+\bibitem[Xu et~al.(2021)Xu, Guo, Han, Xia, Xiang, and Ma]{xu2021opencda}
+R.~Xu, Y.~Guo, X.~Han, X.~Xia, H.~Xiang, and J.~Ma.
+\newblock Opencda: an open cooperative driving automation framework integrated
+  with co-simulation.
+\newblock In \emph{2021 IEEE International Intelligent Transportation Systems
+  Conference (ITSC)}, pages 1155--1162. OPTorganization, 2021.
+
+\bibitem[Chen et~al.(2022)Chen, Xu, Xiang, Liu, and Ma]{chen2022model}
+W.~Chen, R.~Xu, H.~Xiang, L.~Liu, and J.~Ma.
+\newblock Model-agnostic multi-agent perception framework.
+\newblock \emph{arXiv preprint arXiv:2203.13168}, 2022.
+
+\bibitem[He et~al.(2016)He, Zhang, Ren, and Sun]{he2016deep}
+K.~He, X.~Zhang, S.~Ren, and J.~Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In \emph{Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 770--778, 2016.
+
+\bibitem[Loshchilov and Hutter(2017)]{loshchilov2017decoupled}
+I.~Loshchilov and F.~Hutter.
+\newblock Decoupled weight decay regularization.
+\newblock \emph{arXiv preprint arXiv:1711.05101}, 2017.
+
+\bibitem[Loshchilov and Hutter(2016)]{loshchilov2016sgdr}
+I.~Loshchilov and F.~Hutter.
+\newblock Sgdr: Stochastic gradient descent with warm restarts.
+\newblock \emph{arXiv preprint arXiv:1608.03983}, 2016.
+
+\bibitem[Roddick et~al.(2018)Roddick, Kendall, and
+  Cipolla]{roddick2018orthographic}
+T.~Roddick, A.~Kendall, and R.~Cipolla.
+\newblock Orthographic feature transform for monocular 3d object detection.
+\newblock \emph{arXiv preprint arXiv:1811.08188}, 2018.
+
+\bibitem[Tan and Le(2019)]{tan2019efficientnet}
+M.~Tan and Q.~Le.
+\newblock Efficientnet: Rethinking model scaling for convolutional neural
+  networks.
+\newblock In \emph{International conference on machine learning}, pages
+  6105--6114. PMLR, 2019.
+
+\bibitem[Lang et~al.(2019)Lang, Vora, Caesar, Zhou, Yang, and
+  Beijbom]{lang2019pointpillars}
+A.~H. Lang, S.~Vora, H.~Caesar, L.~Zhou, J.~Yang, and O.~Beijbom.
+\newblock Pointpillars: Fast encoders for object detection from point clouds.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}, pages 12697--12705, 2019.
+
+\bibitem[Mani et~al.(2020)Mani, Daga, Garg, Narasimhan, Krishna, and
+  Jatavallabhula]{mani2020monolayout}
+K.~Mani, S.~Daga, S.~Garg, S.~S. Narasimhan, M.~Krishna, and K.~M.
+  Jatavallabhula.
+\newblock Monolayout: Amodal scene layout from a single image.
+\newblock In \emph{Proceedings of the IEEE/CVF Winter Conference on
+  Applications of Computer Vision}, pages 1689--1697, 2020.
+
+\bibitem[He et~al.(2016)He, Zhang, Ren, and Sun]{he2016identity}
+K.~He, X.~Zhang, S.~Ren, and J.~Sun.
+\newblock Identity mappings in deep residual networks.
+\newblock In \emph{European conference on computer vision}, pages 630--645.
+  Springer, 2016.
+
+\bibitem[Tan and Le(2021)]{tan2021efficientnetv2}
+M.~Tan and Q.~Le.
+\newblock Efficientnetv2: Smaller models and faster training.
+\newblock In \emph{International Conference on Machine Learning}, pages
+  10096--10106. PMLR, 2021.
+
+\end{thebibliography}

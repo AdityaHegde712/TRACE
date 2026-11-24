@@ -1,0 +1,30 @@
+\section{Introduction}
+\label{sec:intro}
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/1.png}
+    \caption{Concept of SEC. Top: pre-communication scene and available information. Bottom: ego demand and collaborator supply jointly select specific regions for transmission, with all other areas untransmitted.}
+    \label{fig:teaser}
+\end{figure}
+Accurate 3D perception is a cornerstone of autonomous driving. While recent LiDAR and BEV detectors have substantially advanced single-agent 3D perception~\cite{voxelnet,pointrcnn,second,pvrcnn,centerpoint,bevdet,bevfusion}, ego-only sensing remains constrained by physical limitations such as severe occlusions and limited sensor ranges. These limitations create extensive blind spots that hide safety-critical objects, as illustrated in Fig.~\ref{fig:teaser}(a--b). Collaborative perception (CP)~\cite{proc_survey,v2xsim,fcooper} addresses this bottleneck by allowing connected agents to share intermediate bird's-eye-view (BEV) features over vehicle-to-everything (V2X) networks~\cite{opv2v,v2vnet,v2xvit,coalesce}. However, broadcasting high-dimensional BEV tensors incurs prohibitive wireless bandwidth overhead. A critical challenge for real-world CP is achieving high performance under strict per-agent communication budgets of only tens of kilobytes, which demands highly precise token selection. Unlike fixed-rate compression, token selection must decide which spatial cells carry the evidence the ego lacks; a small error in this decision wastes the entire budget. At 64~KiB per collaborator, only $0.76\%$ of the $8{,}448$ BEV cells fit in the budget.
+
+To reduce payloads, feature compression methods encode BEV maps into compact representations~\cite{v2vnet,codefilling}, but static encoders struggle with dynamic traffic and fluctuating channel capacities. Alternatively, spatial selection methods transmit only salient spatial tokens~\cite{where2comm,select2col,who2com,when2com}. While offering greater flexibility, existing sparse selection pipelines suffer from two coupled structural limitations. First, most selectors evaluate feature confidence unilaterally~\cite{where2comm} or via decoupled scores. This sender-driven design inevitably wastes scarce bandwidth on transmitting targets the ego vehicle has already perceived, leaving critical occluded blind zones unassisted (Fig.~\ref{fig:teaser}c). Second, a pervasive architectural flaw undermines strict budget control: applying spatial convolutions after discrete token masking dilates isolated tokens into neighboring cells. This ``mask-before-refine'' process silently inflates the transmitted payload and corrupts downstream fusion, severely limiting the efficacy of ultra-low bandwidth transmission.
+
+Reducing the payload alone does not resolve these issues: supply--demand-aware fusion~\cite{cosdh}, multi-scale deformable communication~\cite{yang2023how2comm}, and channel-wise selection~\cite{whispernet} still rely on largely sender-driven or separately computed spatial selection, and none enforces an exact $k$-token support after feature refinement. To overcome these structural limitations, effective low-bandwidth collaboration requires two coupled mechanisms: a bilateral supply--demand consensus that precisely isolates ego-missed targets, and a refine-before-mask pipeline that prevents budget inflation. Controlled diagnostics support both choices: a multiplicative demand prior shifts tokens toward ego-missed targets, and refine-before-mask keeps the support at exactly $k$ cells under identical weights.
+
+We propose Spatial Elastic Consensus (SEC), a communication-efficient and budget-exact collaborative perception framework. As illustrated in Fig.~\ref{fig:framework}, SEC relies on two core designs: (1) Bilateral Consensus and Anti-Dilation Selection (Engine B). The ego agent constructs a content-aware demand map while each collaborator purifies its local features. Their single-step Hadamard product (Fig.~\ref{fig:teaser}d) isolates complementary regions and enforces exact token sparsity via a straight-through estimator with zero dilation leakage. (2) Stable Sparse Training and Aggregation (Engines C \& D). We introduce foreground warm-up and gate supervision during training to stabilize discrete selection, and employ a lightweight 8-point deformable sampler to aggregate the retained sparse tokens, effectively mitigating inter-agent pose drift.\\
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/jiagoutu.png}
+\caption{Overall framework. Engine A extracts BEV features; Engine B selects exactly $k$ tokens ($k$: per-collaborator token budget) via bilateral consensus and refine-before-mask; Engine C aggregates them with a deformable sampler; Engine D decodes 3D boxes.}
+\label{fig:framework}
+\end{figure*}
+Our main contributions are:
+\vspace{-1mm}
+\begin{itemize}
+    \setlength{\itemsep}{1.5pt}
+    \setlength{\parsep}{0pt}
+    \item We propose SEC, a novel bandwidth-adaptive framework that introduces a single-round bilateral supply-demand consensus mechanism. It effectively suppresses ego-visible redundancy and prioritizes occluded blind spots without transmitting dense demand or supply maps.
+    \item We design an anti-dilation refine-before-mask pipeline that strictly locks the transmitted payload to target token counts, eliminating post-mask receptive-field leakage and ensuring exact budget compliance at inference.
+    \item Extensive experiments demonstrate that SEC achieves superior accuracy under stringent communication constraints. Notably, at a 64~KiB operating knee, SEC retains near-saturated unconstrained accuracy with only a tiny fraction of the payload.
+\end{itemize}

@@ -1,0 +1,15 @@
+\begin{figure*}[t!]
+\vspace{2mm}
+
+\centering
+\includegraphics[width=1\linewidth]{./figure/3way1.pdf}
+\caption{
+    \textbf{The concept of three-stage handshake communication.} Our model consists of three major steps to establish the connection with the selected agent. 
+    \textbf{Request}: the degraded agent first broadcasts the compressed request message to other agents.
+    \textbf{Match}: the normal agents compute matching scores based on the individual observations and the received request message.
+    \textbf{Connect}: after returning all scores back to the target degraded agent, it connects to one of the normal agents with the highest matching score and  obtains  high-bandwidth data (\textit{i.e.,} feature maps for the semantic segmentation task) from it. 
+    %\zk{Can you change left-most part of the figure to say ``Who to communicate with?"?}
+}
+\label{fig:concept}
+\vspace{-4mm}
+\end{figure*}

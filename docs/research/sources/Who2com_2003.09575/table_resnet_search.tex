@@ -1,0 +1,51 @@
+% \begin{table}
+% \caption{\textbf{Experimental results on Multi-agent Visual Search.} Our method achieve competitive accuracy and significant better BIS compared to the centralized methods in the case of partial overlapping field of views.}
+% \label{tab:res_search}
+% \centering
+% \resizebox{\linewidth}{!}{%
+% \begin{tabular}{cccccc}
+% \toprule
+% & & Overall Acc & Mean IoU & BW (kbpf) & BIS \\
+% \midrule
+% Upper bound & Single Normal &  89.16 & 50.51 & &\\
+% \midrule
+% \multirow{3}{*}{Centralized } & CatAll & 78.74  & 31.09 & 4096 & 0.133 \\
+% & Attention &  81.07 & 34.20 & 4096.03 & 0.159 \\
+% & Compression &  76.18 & 27.39 & 1024 & 0.418\\
+% % & Ours w/ msg (Softmax) & 82.86$\pm$0.05 & 42.66$\pm$0.41 & 70.86$\pm$0.06 & 35.62$\pm$0.12 & 4100.03 & 4.00 \\
+% \midrule
+% \multirow{3}{*}{ Distributed }
+% & Random Selection & 69.58  & 20.87 & 1024 & 0.123 \\
+% & Ours w/o msg &  80.69 & 33.53 & 1024.03 & 0.621\\
+% & \textbf{Ours w/ msg} & 80.97  & 33.91 & 1028.03 & \textbf{0.631}\\
+% \midrule
+% Lower bound & Single Degraded & 66.84 & 19.86 & & \\
+% \bottomrule
+% \end{tabular}}
+% \end{table}
+
+
+\begin{table}
+\caption{\textbf{Experimental results on Multi-agent Visual Search.} Our method achieve competitive accuracy and significantly better BIS compared to the centralized methods.}
+\label{tab:res_search}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{ccccc}
+\toprule
+& & Overall Acc & BW (kbpf) & BIS \\
+\midrule
+Upper bound & Single Normal &  89.16 & -  & - \\
+\midrule
+\multirow{3}{*}{Centralized } & CatAll & 78.74  & 4096 & 0.133 \\
+& Attention &  81.07 & 4096.03 & 0.159 \\
+& Compression &  73.05 & 1024 & 0.277\\
+\midrule
+\multirow{3}{*}{ Distributed }
+& Random Selection & 69.58  & 1024 & 0.123 \\
+& Ours w/o msg &  80.69 & 1024.03 & 0.621\\
+& \textbf{Ours w/ msg} & \textbf{80.97}  & 1028.03 & \textbf{0.631}\\
+\midrule
+Lower bound & Single Degraded & 66.84 & - & - \\
+\bottomrule
+\end{tabular}}
+\end{table}

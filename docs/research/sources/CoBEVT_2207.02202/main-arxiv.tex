@@ -1,0 +1,1242 @@
+\documentclass{article}
+
+%\usepackage{corl_2022} % Use this for the initial submission.
+%\usepackage[final]{corl_2022} % Uncomment for the camera-ready ``final'' version.
+\usepackage[preprint]{corl_2022} % Uncomment for pre-prints (e.g., arxiv); This is like ``final'', but will remove the CORL footnote.
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{color}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{dcolumn}
+\usepackage{amssymb}
+% \usepackage{hyperref}
+% \usepackage{xcolor}
+% \usepackage{tikz}
+% \usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{wrapfig}
+\usepackage{makecell}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{xcolor}
+\newcommand{\cmark}{\ding{51}}%
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\colorlet{lightgray}{gray!20}
+% \colorlet{lightgray}{gray!20}
+\newcommand{\bz}[1]{\textcolor{red}{[Bolei: #1]}}
+\def\vs{\emph{vs}\onedot}
+
+% %===========
+% \usepackage{xcolor}
+% \definecolor{darkgreen}{rgb}{0, 0.5, 0}
+% \definecolor{myblue}{RGB}{47, 114, 193}
+% \definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
+% \definecolor{brandeisblue}{rgb}{0.0, 0.44, 1.0}
+% \definecolor{blueish}{rgb}{0.0, 0.3, .6}
+% \definecolor{pink}{rgb}{1, 0, 1}
+% \usepackage[pagebackref=true,breaklinks=true,colorlinks,citecolor=blueish,linkcolor=brickred,bookmarks=false]{hyperref}
+% %===========
+
+\usepackage{hyperref}
+
+\usepackage{gensymb}
+\def\im_shift{0.01\textwidth}
+\usepackage{xspace}
+\usepackage{tabularx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{verbatim}
+\usepackage{listings}
+
+\definecolor{codeblue}{rgb}{0.25,0.5,0.5}
+\definecolor{codekw}{rgb}{0.85, 0.18, 0.50}
+\lstset{
+  backgroundcolor=\color{white},
+  basicstyle=\fontsize{8pt}{8pt}\ttfamily\selectfont,
+  columns=fullflexible,
+  numbers=none,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\fontsize{8pt}{8pt}\color{codeblue},
+  keywordstyle=\fontsize{8pt}{8pt}\color{codekw},
+  showstringspaces=false,
+}
+
+
+\title{CoBEVT: Cooperative Bird's Eye View Semantic Segmentation with Sparse Transformers}
+
+% The \author macro works with any number of authors. There are two
+% commands used to separate the names and addresses of multiple
+% authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to
+% break the lines. Using \AND forces a line break at that point. So,
+% if LaTeX puts 3 of 4 authors names on the first line, and the last
+% on the second line, try using \AND instead of \And before the third
+% author name.
+
+% NOTE: authors will be visible only in the camera-ready and preprint versions (i.e., when using the option 'final' or 'preprint'). 
+% 	For the initial submission the authors will be anonymized.
+
+% \author{
+%   Jane E.~Doe\\
+%   Department of Electrical Engineering and Computer Sciences\\
+%   University of California Berkeley 
+%   United States\\
+%   \texttt{janedoe@berkeley.edu} \\
+%   %% examples of more authors
+%   %% \And
+%   %% Coauthor \\
+%   %% Affiliation \\
+%   %% Address \\
+%   %% \texttt{email} \\
+%   %% \AND
+%   %% Coauthor \\
+%   %% Affiliation \\
+%   %% Address \\
+%   %% \texttt{email} \\
+%   %% \And
+%   %% Coauthor \\
+%   %% Affiliation \\
+%   %% Address \\
+%   %% \texttt{email} \\
+%   %% \And
+%   %% Coauthor \\
+%   %% Affiliation \\
+%   %% Address \\
+%   %% \texttt{email} \\
+% }
+\author{Runsheng Xu$^1$\thanks{Equal contribution. $^\dagger$Corresponding author: \texttt{jiaqima@ucla.edu}.},~
+Zhengzhong Tu$^{2*}$,~
+Hao Xiang$^{1}$,~
+Wei Shao$^{3}$,~
+Bolei Zhou$^{1}$,~
+Jiaqi Ma$^{1\dagger}$ \\
+$^1$ University of California, Los Angeles,
+$^2$ University of Texas at Austin \\
+$^3$ University of California, Davis
+% $^4$ University of California, Merced
+}
+
+\begin{document}
+\maketitle
+%===============================================================================
+
+\begin{abstract}
+    Bird’s eye view~(BEV) semantic segmentation plays a crucial role in spatial sensing for autonomous driving.
+    %
+    Although recent literature has made significant progress on BEV map understanding, they are all based on single-agent camera-based systems.
+    %
+    These solutions sometimes have difficulty handling occlusions or detecting distant objects in complex traffic scenes.
+    %
+   Vehicle-to-Vehicle~(V2V) communication technologies have enabled autonomous vehicles to share sensing information, dramatically improving the perception performance and range compared to single-agent systems.
+    %
+    In this paper, we propose CoBEVT, the first generic multi-agent multi-camera perception framework that can cooperatively generate BEV map predictions. % using sparse axial Transformers.
+    %
+    To efficiently fuse camera features from multi-view and multi-agent data in an underlying Transformer architecture, we design a fused axial attention module (FAX), which captures sparsely local and global spatial interactions across views and agents.
+    %
+    % The major ingredient of our transformer, called Fused Axial Attention or FAX, is a generalized module that efficiently reasons both local and global relationships between different agents or cameras via axis swapping and multi-axis attention.
+    %
+    The extensive experiments on the V2V perception dataset, OPV2V, demonstrate that CoBEVT achieves state-of-the-art performance for cooperative BEV semantic segmentation.
+    %
+    Moreover, CoBEVT is shown to be generalizable to other tasks, including 1) BEV segmentation with single-agent multi-camera and 2) 3D object detection with multi-agent LiDAR systems, achieving state-of-the-art performance with real-time inference speed.
+    %
+    Code is available at \url{https://github.com/DerrickXuNu/CoBEVT}.
+\end{abstract}
+
+% Two or three meaningful keywords should be added here
+\keywords{Autonomous driving, BEV map understanding, Vehicle-to-Vehicle (V2V) application} 
+
+%===============================================================================
+
+
+\section{Introduction}
+Autonomous vehicles~(AVs) need the accurate surrounding perception and robust online mapping capabilities for robust and safe autonomy.
+%
+AVs are normally located on the ground plane, so it is natural to represent semantic and geometric information of surroundings in the bird's eye view~(BEV) maps.
+%
+Projecting multi-camera views onto the holistic BEV space brings clear strengths in preserving the location and scale of road elements both spatially and temporally, which is critical for various autonomous driving tasks, including scene understanding and planning~\cite{ng2020bev, zhou2022cross}.
+%
+It also presents a scalable vision-based solution for real-world deployment without relying on costly LiDAR sensors.
+%  avoid computations on the vertical dimension, which introduces the BEV semantic segmentation task. With the segmented BEV maps, AVs can conveniently avoid the hazards and plan the safest path.
+
+Map-view (or BEV) semantic segmentation is a fundamental task that aims to predict road segments from single- or multi-calibrated camera inputs.
+%
+Significant efforts have been made toward precise camera-based BEV semantic segmentation.
+%
+One of the most popular techniques is to leverage depth information to infer the correspondences between camera views and the canonical maps~\cite{hu2021fiery, philion2020lift,ammar2019geometric,kim2019deep}.
+%
+Another family of works directly learns the camera-to-BEV space transformation, either implicitly or explicitly, using attention-based models~\cite{zhou2022cross,li2022bevformer,yang2021projecting, saha2021translating}.
+% They infer the correspondences between camera images and the canonical  maps either by leveraging depth information~\cite{hu2021fiery, philion2020lift,ammar2019geometric,kim2019deep} or directly learning the transformation from camera to BEV space, either implicitly or explicitly, using Transformers~\cite{zhou2022cross,li2022bevformer,yang2021projecting, saha2021translating}.
+Despite the promising results, vision-based perception systems have intrinsic limitations -- camera sensors are known to be sensitive to object occlusions and limited depth-of-field, which can lead to inferior performance in areas that are heavily occluded or far from the camera lens~\cite{zhou2022cross}.
+
+% , and it is difficult to sorely depend on algorithms to handle the challenges on those regions due to the sparse sensor measurements. 
+
+\begin{figure*}[!t]
+\centering
+\footnotesize
+% \setlength{\tabcolsep}{1pt}
+\includegraphics[width=0.95\textwidth]{figures/CorpBEVT_Overview.pdf}
+\caption{The overall framework of CoBEVT. White boxes in prediction maps indicate car segmentation results.}
+\label{fig:framework}
+\vspace{-4mm}
+\end{figure*}
+
+Recent advancements in Vehicle-to-Vehicle~(V2V) communication technologies have made it possible to overcome the limitations of single-agent line-of-sight sensing. That is, multiple connected AVs can share their sensory information with each other through broadcasting, thereby providing multiple viewpoints of the same scene.
+%
+Several prior works have demonstrated the efficacy of cooperative perception utilizing LiDAR sensors~\cite{xu2021opv2v, xu2022v2x, li2021learning, yuan2022keypoints}.
+%
+Nevertheless, whether, when, and how this V2V cooperation can benefit camera-based perception systems has not been explored yet.
+
+In this paper, we present CoBEVT, the first-of-its-kind framework that employs multi-agent multi-camera sensors to generate BEV segmented maps via sparse vision transformers cooperatively.
+%
+Fig.~\ref{fig:framework} illustrates the proposed framework.
+%
+Each AV computes its own BEV representation from its camera rigs with the SinBEVT Transformer and then transmits it to others after compression.
+%
+The receiver~(i.e. other AVs) transforms the received BEV features onto its coordinate system, and employs the proposed FuseBEVT for BEV-level aggregation.
+%
+The core ingredient of these two transformers is a novel fused axial attention~(FAX) module, which can search over the whole BEV or camera image space across all agents or camera views via local and global spatial sparsity.
+% To efficiently fuse visual features from multi-agent multi-view  sensors, we design a novel fused axial (FAX) attention module that searches over the whole BEV space across all agents via local and global spatial sparsity.
+%
+FAX contains global attention to model long-distance dependencies, and local attention to aggregate regional detailed features, with low computational complexity.
+% The major ingredient of the transformer, named Fused Axial Attention or FAX, is designed to search over the whole BEV space across all agents to find the best candidate for each sub-region through global-to-global reasoning and meanwhile aggregate detailed information in the same sub-region via local-to-local attention. Through axis swapping and xxx, FAX has linear complexity and can achieve real-time performance.
+%
+Our extensive experiments on the V2V perception dataset~\cite{xu2021opv2v} show that CoBEVT achieves performance gains of 22.7\% and 6.9\% over single-agent baseline and leading multi-agent fusion models, respectively.
+
+Furthermore, we demonstrate the generalizability of the proposed framework in two additional tasks. First, we evaluate SinBEVT alone for single-agent multi-view BEV segmentation. Second, we validate the attention fusion on a different sensor modality -- multi-agent LiDAR fusion. Our experiments on the nuScenes dataset~\cite{caesar2020nuscenes} and the LiDAR-track of OPV2V~\cite{xu2021opv2v} show that CoBEVT exhibits outstanding performance and capably generalize to many other tasks.
+%
+Our contributions are:
+\begin{itemize}
+    
+    \item We present the generic Transformer framework~(CoBEVT) for cooperative camera-based BEV semantic segmentation. CoBEVT delivers superior performance and flexibility, achieving state-of-the-art results on multi-agent camera-based, single-vehicle multi-view BEV semantic segmentation, and multi-agent LiDAR-based 3D detection.
+    \vspace{-1mm}
+   \item We propose a novel sparse attention module called fused axial (FAX) attention, which can efficiently capture both local and global relationships between different agents or cameras. We build two instantiations -- self-attention (FAX-SA) and cross-attention (FAX-CA) to accommodate different application scenarios.%, demonstrating effectiveness on these tasks.
+   \vspace{-1mm}
+    \item We construct a large-scale benchmark study on the cooperative BEV map segmentation task with a total of eight strong baseline models. Extensive experimental results and ablation studies show the strong performance and efficiency of the proposed model. All code, baselines, and pre-trained models will be released.
+\end{itemize}
+
+
+%===============================================================================
+
+\section{Related Work}
+\label{sec:related}
+\subsection{V2V Perception}
+% Perceiving the environment accurately is critical for the safety of autonomous driving.Towards this goal,
+V2V perception leverages communication technologies to enable AVs to share their sensing information to enhance their perception.
+%
+Previous works mainly focus on cooperative 3D object detection with LiDAR.
+%
+A straightforward sharing strategy is to transmit raw point cloud~(i.e. early fusion)~\cite{chen2019cooper} or detection outputs~(i.e. late fusion)~\cite{rawashdeh2018collaborative}. 
+%
+However, they either require a large bandwidth or ignore the context information.
+%
+Recently, V2VNet~\cite{wang2020v2vnet} proposes to circulate the intermediate features extracted from 3D backbones~(i.e., intermediate fusion), then utilize a spatial-aware graph neural network for multi-agent feature aggregation.
+%
+Following a similar transmission paradigm, OPV2V~\cite{xu2021opv2v} employs a simple agent-wise single-head attention to fuse all features.
+%
+F-Cooper~\cite{chen2019f} uses a simple \texttt{maxout} operation to fuse features.
+%
+DiscoNet~\cite{li2021learning} explores knowledge distillation by constraining intermediate feature maps to match the correspondences in the early-fusion teacher model.
+%
+% FPV-RCNN~\cite{yuan2022keypoints} selects to deliver the point-wise features from the key LiDAR points by using a two-stage LiDAR detector PC-RCNN~\cite{shi2020pv}.
+%
+
+Compared to the previous multi-agent algorithms, our CoBEVT is the first to employ sparse transformers to explore the correlations between vehicles efficiently and exhaustively. Furthermore, previous approaches mainly focus on cooperative perception with LiDAR, while we aim to propose a low-cost camera-based cooperative perception solution free of LiDAR devices.
+
+
+\subsection{BEV Semantic Segmentation}
+
+BEV semantic segmentation aims to take camera views as input and predict a rasterized map with surrounding semantics under the BEV view.
+%
+A common approach for this task is to use inverse perspective mapping~(IPM)~\cite{mallot1991inverse} to learn the homography matrix for view transformation~\cite{reiher2020sim2real, bruls2019right,zhu2021monocular}.
+%
+As camera images lack explicit 3D information, another family of models includes depth estimation to inject auxiliary 3D information~\cite{hu2021fiery,philion2020lift,ng2020bev}.
+%
+% Although such fashion is well motivated, it is sensitive to the accuracy of the depth estimation. 
+Recently, researchers start to directly model the image-to-map correspondence using transformers or MLPs.
+%
+VPN~\cite{pan2020cross} learns map-view transformation in a spatial MLP module on flattened camera-view image features.
+%
+CVT~\cite{zhou2022cross} develops positional embedding for each individual camera depending on their intrinsic and extrinsic calibrations.  
+% The camera-view based features with positional embedding will interact the learnable BEV query that contains world coordinates information through vanilla cross-view transformers, achieving real-time performance.
+%
+BEVFormer~\cite{li2022bevformer} exploits the camera intrinsic and extrinsic explicitly to compute the spatial features in the regions of interest of the BEV grid across camera views using deformable transformer~\cite{zhu2020deformable}.
+%
+Our CoBEVT builds upon CVT but further improves on CVT with our proposed 3D FAX attention, which is more efficient and thus supports a larger BEV embedding size to retrieve better accuracy. Furthermore, we developed a hierarchical architecture that can aggregate multi-scale camera features to preserve finer image details with only a low computational cost.
+
+\subsection{Transformers in Vision}
+
+Transformers are originally proposed for natural language processing~\cite{vaswani2017attention}.
+%
+ViT~\cite{dosovitskiy2020image} has demonstrated for the first time that, a pure Transformer that simply regards image patches as visual words, is sufficient for vision tasks by large-scale pre-training.
+%
+Swin Transformer~\cite{liu2021swin} further improves the generality and flexibility of pure Transformers via restricting attention fields in local (shifted) windows.
+%
+For high dimensional data, video Swin Transformer~\cite{liu2021video} extends the Swin approach onto shifted 3D space-time windows, achieving high performance with low complexity.
+%
+% Axial Transformers~\cite{ho2019axial,wang2020axial} apply attention along each axis separately in multi-dimensional data to reduce complexity.
+%
+Recent works have been focused on improving the architectures of attention models, including sparse attention~\cite{dong2021cswin,yang2021focal,rao2021dynamicvit,wang2020axial, arnab2021vivit,tu2022maxim,li2021improved}, enlarged receptive fields~\cite{min2022peripheral,hatamizadeh2022global}, pyramidal designs~\cite{wang2021pyramid,fan2021multiscale,xu2021vitae},
+efficient alternatives~\cite{ali2021xcit,liu2021pay,lee2021fnet}, etc.
+% We refer readers to dedicated surveys~\cite{khan2021transformers,khan2021transformers} for a comprehensive review.
+%
+Our work belongs to efficient model designs of 3D Transformers for high dimensional data. While we have only validated the efficacy of the proposed FAX attention for multi-view and multi-agent autonomous perception, we expect its broad applications to other vision tasks such as video and multi-modality.
+
+%==============================================================================
+\section{Methodology}
+We consider a V2V communication system where all AVs can exchange sensing information with others.
+%
+Assuming the poses of all the agents are accurate and transmitted messages are synchronized, we propose a robust cooperative framework that can exploit the shared information across multiple agents to obtain a holistic BEV segmentation map.
+%
+The overall architecture of CoBEVT is illustrated in Fig.~\ref{fig:framework}, which consists of: SinBEVT for BEV feature computation (Sec.~\ref{ssec:sinbevt}), feature compression and sharing (Sec.~\ref{ssec:fusebevt}), and FuseBEVT for multi-agent BEV fusion (Sec.~\ref{ssec:fusebevt}).
+%
+% The core component of 2) and 3) is  an efficient 3D attention mechanism called fused axial attention (FAX) that can aggregate features across agents and views.
+We propose a novel 3D attention mechanism called fused axial attention (FAX, Sec.~\ref{ssec:fax}) as the core component of SinBEVT and FuseBEVT that can efficiently aggregate features across agents or camera views both locally and globally.
+%
+We will later show that this FAX attention has great generality, showing efficacy on different modalities for multiple perception tasks, including cooperative/single-agent BEV segmentation based on multi-view cameras and cooperative 3D LiDAR object detection.
+%
+
+\subsection{Fused Axial Attention (FAX)}
+\label{ssec:fax}
+
+\begin{figure*}[!t]
+\centering
+\footnotesize
+\def\xheight{0.18}
+% \def\xwidth{0.33}
+% \def\im_shift{-0.2\textwidth}
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{cc}
+\includegraphics[height=\xheight\textwidth]{figures/Fused_axial_attention_multiagent.pdf}
+& \includegraphics[height=\xheight\textwidth]{figures/Fused_axial_attention_multiview.pdf} \\
+(a) 3D FAX attention for multi-agent BEV fusion.& (b) 3D FAX attention for multi-view fusion. \\ 
+\end{tabular}
+\caption{\textbf{Illustrated examples of fused axial attention (FAX) in two use cases -- (a) multi-agent BEV fusion and (b) multi-view camera fusion}. FAX attends to 3D local windows (red) and sparse global tokens (blue) to attain location-wise and contextual-aware aggregation. In (b), for example, the white van is torn apart in three views (front-right, back, and back-left), our sparse global attention can capture long-distance relationships across parts in different views to attain global contextual understanding.}
+% (a) The local attention can fuse multi-agent estimates at the same location, and (b) the global attention is capable of capturing object parts via sparse sampling. Applying two sparse forms of attention in sequential can cover the entire 3D feature space with low computational cost.
+
+\vspace{-2mm}
+\label{fig:fax-example}
+\end{figure*}
+
+%
+% The attention mechanisms introduced in Transformers~\cite{vaswani2017attention,dosovitskiy2020image} offers advantages of global interactions along the entire (flattened) space, while also empowered by dynamic weights, compared to local, static Convolution layers.
+%
+% However, the quadratic complexity of vanilla attention models~\cite{vaswani2017attention,dosovitskiy2020image} has made it non-trivial to be applied on the rather high-dimensional multi-agent perception problem.
+%
+Fusing BEV features from multiple agents requires both local and global interactions across all agents' spatial positions.
+% the spatial and agent dimensions.
+%
+On the one hand, neighboring AVs often have different occlusion levels on the same object; hence, local attention, which cares more about details, can help construct pixel-to-pixel correspondence on that object.
+%
+Take the scene in Fig.~\ref{fig:fax-example}(a) as an example. The ego vehicle should aggregate all the BEV features per location from nearby AVs to obtain reliable estimates.
+%
+% On the other hand, each region in the BEV space has different distances to the AVs, and global attention can find out whose BEV features are more robust for every sub-area and thus assign it more weights.
+On the other hand, long-term global contextual awareness can also assist in understanding the road topological semantics or traffic states -- the road topology and traffic density ahead of the vehicle are often highly correlated with the one behind. %
+%
+This global reasoning is also beneficial for multi-camera views understanding.
+%
+In Fig.~\ref{fig:fax-example}(b), for instance, the same vehicle is torn apart into multi-views, and global attention is highly capable of connecting them for semantic reasoning. 
+
+% However, the quadratic complexity of vanilla attention models~\cite{vaswani2017attention,dosovitskiy2020image} makes it non-trivial to be applied on the rather high-dimensional multi-agent perception problem.
+%
+To attain such local-global properties efficiently, we propose a sparse 3D attention model called fused axial attention (FAX), which performs both local window-based attention and sparse global interactions, inspired by~\cite{liu2021video,huang2021shuffle,tu2022maxvit}.
+%
+Formally, let $X\in \mathbb{R}^{N\times H\times W\times C}$ be the stacked BEV features with spatial dimension $H\times W$ from $N$ agents.
+%
+In the local branch, we partition the feature map into 3D non-overlapping windows, each of size $N\times P\times P$.
+%
+The partitioned tensor of shape ($\frac{H}{P}\times\frac{W}{P},\underline{N\times P^2},C$) is then fed into the self-attention model, representing mixing information along the \underline{second axis} i.e., within local 3D windows~\cite{liu2021video}.
+%
+Likewise, in the global branch, feature $X$ is divided using a uniform 3D grid $N\times G\times G$ into the shape $(\underline{N\times G^2},\frac{H}{G}\times\frac{W}{G},C)$.
+%
+Employing attention on the \underline{first axis} of this tensor representing attending to sparsely sampled tokens~\cite{huang2021shuffle,tu2022maxvit}.
+%
+Fig.~\ref{fig:fax-example} illustrates the attended regions using red and blue colored boxes for local and global branches, respectively.
+%
+
+
+
+% \begin{wrapfigure}{R}{0.33\textwidth}
+% \vspace{-5mm}
+% \footnotesize
+% \begin{center}
+% \includegraphics[width=0.33\textwidth]{figures/FAX_attetion_block.pdf}
+% \end{center}
+% \vspace{-2mm}
+% \caption{Proposed FAX-SA and \color{gray}{FAX-CA} \color{black}{building block.} }
+% \label{fig:fax-block}
+% \vspace{-15mm}
+% \end{wrapfigure}
+
+Combining this 3D local and global attention with typical designs of Transformers~\cite{dosovitskiy2020image,liu2021swin,liu2021video}, including Layer Normalization (LN)~\cite{ba2016layer}, MLPs~\cite{dosovitskiy2020image}, and skip-connections, forms our proposed FAX attention block, as shown in Fig.~\ref{fig:sin_fuse_arch}b.
+%
+Our 3D FAX attention only requires $\mathcal{O}(2(NP)^2HWC)$ complexity assuming $P\sim G$ (typically $N<=5$, $P,G\in\{8,16\}$), significantly cheaper than the full attention $\mathcal{O}((NHW)^2C)$. 
+Still, it enjoys non-local 3D interactions by seeing through all the agents, which is more expressive than local attention approaches~\cite{liu2021swin,liu2021video}.
+%
+The 3D FAX self-attention (FAX-SA) block can be expressed as:
+\begin{align}
+&\hat{\mathbf{z}}^\ell=\text{3DL-Attn}(\text{LN}(\mathbf{z}^{\ell-1}))+\mathbf{z}^{\ell-1},
+&{\mathbf{z}}^\ell=\text{MLP}(\text{LN}(\hat{\mathbf{z}}^\ell))+\hat{\mathbf{z}}^\ell, \label{eq:fax-block-2}\\
+&\hat{\mathbf{z}}^{\ell+1}=\text{3DG-Attn}(\text{LN}(\mathbf{z}^{\ell}))+\mathbf{z}^{\ell},
+&{\mathbf{z}}^{\ell+1}=\text{MLP}(\text{LN}(\hat{\mathbf{z}}^\ell))+\hat{\mathbf{z}}^\ell, \label{eq:fax-block-4}
+\end{align}
+where $\hat{\mathbf{z}}^\ell$ and ${\mathbf{z}}^\ell$ denote the output features of the 3DL(G)-Attn module and MLP module for block $\ell$. The 3DL-Attn and 3DG-Attn represent the above-defined 3D local and global attention, respectively.
+%
+
+% This FAX attention approach will later be shown to be effective for different modalities in several vehicle perception tasks including cooperative camera/LiDAR and single-agent multi-view map-view segmentation.
+%
+\begin{figure*}[!t]
+\centering
+\footnotesize
+% \setlength{\tabcolsep}{1pt}
+\includegraphics[width=0.8\textwidth]{figures/Transformer_arch.pdf}
+\caption{Architectures of (a) SinBEVT and FuseBEVT, and (b) the FAX-SA and FAX-CA block.}
+\label{fig:sin_fuse_arch}
+\vspace{-5mm}
+\end{figure*}
+
+\subsection{SinBEVT for Single-agent BEV Feature Computation}
+\label{ssec:sinbevt}
+%
+Given monocular views from $m$ cameras on the $i$-th agent $(I_k^i, K_k^i, R_k^i, t_k^i)_{k=1}^m$ denoting input images $I_k \in  \mathbb{R}^{h \times w \times 3} $, camera intrinsic $K_k \in  \mathbb{R}^{3 \times 3}$, rotation extrinsic  $R_k \in  \mathbb{R}^{3 \times 3}$, and translation $t_k \in  \mathbb{R}^{3} $, every agent needs to compute a BEV feature representation $\mathbf{F}_i\in \mathbb{R}^{H \times W \times C}$ (height $H$, width $W$, and channels $C$) before any cross-agent collaboration.
+%.
+% Each pixel in this BEV feature map represent certain meters in the real world.
+%
+$\mathbf{F}_i$ can be either fed into a decoder to perform single-agent predictions or shared to the ego vehicle for multi-agent feature fusion.
+
+We take a BEV processing architecture similar to CVT~\cite{zhou2022cross}, wherein a learnable BEV embedding is initialized as the query to interact with encoded multi-view camera features, as shown in Fig.~\ref{fig:sin_fuse_arch}a. 
+%
+We have observed that CVT uses a low-resolution BEV query that fully cross-attends to image features, which leads to degraded performance on small objects, despite being efficient.
+%
+Thus, CoBEVT learns a high-resolution BEV embedding instead, then uses a hierarchical structure to refine the BEV features with reduced resolution.
+%
+To efficiently query features from camera encoders at high resolution, the FAX-SA module is further extended to build a FAX cross-attention (FAX-CA) module~(Fig.~\ref{fig:sin_fuse_arch}b), in which the query vector is obtained using the BEV embedding, whereas the key/value vectors are projected by multi-view camera features.
+%
+Before applying cross-attention, we add a camera-aware positional encoding derived from camera intrinsics and extrinsic, to learn implicit geometric reasoning from individual camera views to a canonical map-view representation, following CVT.
+%
+This rather simple, implicit approach demonstrates a good balance of performance and efficiency, and our FAX attention allows for global interactions in a hierarchical network, showing better accuracy against low-resolution isotropic approaches such as CVT.
+
+% \begin{figure*}[!t]
+% \centering
+% \footnotesize
+% \def\xheight{0.4}
+% \def\xwidth{0.52}
+% \def\im_shift{-0.2\textwidth}
+% \setlength{\tabcolsep}{8pt}
+% \begin{tabular}{cc}
+% \multirow[t]{3}{*}[\im_shift]{\includegraphics[height=\xheight\textwidth]{figures/FAX_attetion_block.pdf}}  &
+% {\includegraphics[width=\xwidth\textwidth]{figures/Fused_axial_attention_multiagent.pdf}} \\
+% & (b) 3D FAX attention for multi-agent BEV fusion. \\ \\
+% & {\includegraphics[width=\xwidth\textwidth]{figures/Fused_axial_attention_multiview.pdf}} \\
+% (a) The FAX-SA and \color{gray}{FAX-CA} \color{black}{block.} & (c) 3D FAX attention for multi-view camera fusion. \\ 
+% \end{tabular}
+% \caption{Fused axial attention}
+% \label{fig:framework}
+% \end{figure*}
+
+\subsection{FuseBEVT for Multi-agent BEV Feature Fusion}
+\label{ssec:fusebevt}
+\noindent\textbf{Feature Compression and Sharing.}
+Transmission data size is critical to V2V applications, as large bandwidth requirements will likely cause severe communication delays.
+%
+Therefore, it is necessary to compress the BEV features before broadcasting.
+%
+Similar to~\cite{xu2022v2x, li2021learning}, we apply a simple 1x1 convolutional auto-encoder~\cite{masci2011stacked} to compress and decompress the BEV features.
+%
+Once receiving the broadcasted messages that contain intermediate BEV representations, and the pose of the sender, the ego vehicle applies a differentiable spatial transformation operator $\mathbf{\Gamma_{\xi}}$, to geometrically warp the received features~\cite{jaderberg2015spatial} onto the ego's coordinate system: $\mathbf{H}_i=\mathbf{\Gamma_{\xi}}\left(\mathbf{F}_i\right)\in \mathbb{R}^{H \times W \times C}$.
+
+\textbf{Feature Fusion.} We design a customized 3D vision Transformer called FuseBEVT that can attentively fuse information of the received BEV features from multiple agents.  
+%
+The ego vehicle first stacks the received and projected BEV features $\mathbf{H}_i,\ i=1,...,N$ into a high dimensional tensor $\mathbf{h}\in \mathbb{R}^{N\times H\times W\times C}$, then feeds them into the FuseBEVT encoder which consists of multiple layers of FAX-SA blocks (Fig.~\ref{fig:sin_fuse_arch}a). Benefiting from the linear complexity of FAX attention (Sec.~\ref{ssec:fax}), this agent-wise fusion Transformer is also efficient.
+%
+Each FAX-SA block conducts a 3D global and local BEV feature transformation via Eqs.~\ref{eq:fax-block-2}-\ref{eq:fax-block-4}.
+%
+As exemplified in Fig.~\ref{fig:fax-example}(a), the 3D FAX-SA can attend to the same region of estimations (red boxes) drawn from multiple agents to derive the final aggregated representations.
+%
+Moreover, the sparsely sampled tokens (blue boxes) can interact globally to attain a contextual understanding of the map semantics such as road, traffic, etc.
+
+\textbf{Decoder.} We apply a series of lightweight convolutional layers and bi-linear upsampling operations on the aggregated BEV representation and generate the final segmentation output.
+
+
+
+\section{Experiments}
+We evaluate the effectiveness of the proposed CoBEVT on the camera track of the V2V perception dataset OPV2V~\cite{xu2021opv2v}. To show the flexibility and generality of our CoBEVT, we also conduct experiments on the LiDAR track of OPV2V and the autonomous driving dataset nuScenes~\cite{caesar2020nuscenes}. 
+
+\label{sec:result}
+\subsection{Datasets and Evaluations}
+\noindent\textbf{OPV2V} is a large-scale V2V perception dataset that is collected in CARLA~\cite{Dosovitskiy17} and the cooperative driving automation tool OpenCDA~\cite{xu2021opencda}. 
+%
+It contains 73 diverse scenarios, which have an average of 25 seconds duration.
+%
+In each scenario, various numbers~(2 to 7) of AVs show up simultaneously, and each one is equipped with one LiDAR sensor and 4 cameras in different  directions to cover 360° horizontal field-of-view.
+%
+% With the detailed meta information in the dataset and the provided log-replay tool\footnote{The authors provide the tool in https://github.com/DerrickXuNu/OpenCOOD/tree/feature/log_replay}, we are able to generate the occupancy mask for vehicles, road layout and lanes under BEV.
+%
+Our main experiment only utilizes the camera rigs of the dataset, and we use Intersection over Union~(IoU) between map prediction and ground truth map-view labels as the performance metric. 
+%
+Since OPV2V has multiple AVs in the same scene, we select a fixed one as the ego vehicle during testing and evaluate the 100m×100m area around it with a 39cm map resolution.
+
+To demonstrate its generality, we also evaluated our proposed CoBEVT on the OPV2V LiDAR-track 3D detection task.
+%
+We use the same evaluation range in ~\cite{xu2021opv2v, chen2022model}, and the detection performance is measured by Average Precisions (AP) at {an IoU threshold of 0.7.
+%
+For both camera and LiDAR track,  there are 6764/1981/2719 frames for train/validation/test set, respectively.
+
+\noindent\textbf{The nuScenes dataset} contains 1000 diverse scenes, each of around 20 seconds long. 
+%
+In total, there are 40K sampled frames in this dataset, and the dumped data captures a 360$^{\circ}$ view of surroundings using 6 cameras.
+%
+We use the groundtruth in \cite{zhou2022cross}.
+%
+The evaluation ranges are [-50{m}, 50{m}] for the X and Y axis, and the resolution of the BEV grid is 0.5m.
+
+\subsection{Experiments Setup}
+
+\noindent\textbf{Implementation details.} We assume all the AVs have a 70m communication range following \cite{wang2020v2vnet}, and all the vehicles out of this broadcasting radius of ego vehicle will not have any collaboration. For the OPV2V camera-track,we choose ResNet34~\cite{he2016deep} as the image feature extractor in SinBEVT. The transmitted BEV intermediate representation has a resolution of $32\times32\times128$.
+%
+For the multi-agent fusion, our FuseBEVT component has 3 encoded layers and a window size of 8 for both local and global attention.
+%
+We train the whole model end-to-end with Adam~\cite{loshchilov2017decoupled} optimizer and cosine annealing learning rate scheduler~\cite{loshchilov2016sgdr}.
+%
+We use weighted cross entropy loss and train all models with 60 epochs, with a batch size of 1 per GPU. Please refer to the supplementary materials for more details, as well as the configurations on nuScenes and OPV2V LiDAR-track.
+
+% The BEV query has a initial resolution of $256x256x128$, and after each interaction downsampling will be applied, which results in a final resolution of  $32x32x128$ for broadcasting~(before compression). For the interaction between camera image features and BEV query, we set the window/grid size of image feature as 8 and that of the BEV query as 16. For the multi-agent fusion component, our FAX has 3 encoded layer and a window size of 8. We use 
+
+
+\noindent\textbf{Compared methods.} For multi-agent perception task, we consider single-agent perception system \textit{No Fusion} as the baseline.
+We compare with the state-of-the-art multi-agent perception algorithms: F-Cooper~\cite{chen2019f}, AttFuse~\cite{xu2021opv2v}, V2VNet~\cite{wang2020v2vnet}, and DiscoNet~\cite{li2021learning}.  We also implement a straightforward fusion strategy \textit{Map Fusion}, which transmits the segmentation map instead of BEV features and fuses all maps by selecting the closest agent's prediction for each pixel.
+%
+%
+% F-Cooper simply selects the highest feature value at the same spatial location across all agents, and AttFuse applies a single-head self attention module~\cite{vaswani2017attention} to fuse all features. V2VNet proposes to use multiple rounds of message passing on a spatial-aware graph neural network to aggregate features, and DiscoNet leverage matrix-edge valued weight to capture agent interactions and employs knowledge distillation to further enhance feature representations.
+%
+
+%
+For the nuScenes dataset, we compare against state-of-the-art models including CVT~\cite{zhou2022cross}, FIERY~\cite{hu2021fiery}, View Parsing Network~(VPN)~\cite{pan2020cross}, Orthographic Feature Transform (OFT)~\cite{roddick2018orthographic}, and Lift-Splat-Shoot~\cite{philion2020lift}.
+%
+All models only utilize single-step timestamp data for fair comparisons.
+%
+We intentionally use the same image feature extractor Efficient-B4~\cite{tan2019efficientnet} and decoder as CVT and FIERY.
+
+
+\begin{table*}[!t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}ccc@{}}
+
+\begin{minipage}[t]{0.34\textwidth}
+% \vspace{-5mm}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\caption{\textbf{Map-view segmentation on OPV2V camera-track.} We report IoU for all classes. All fusion methods employs CVT~\cite{zhou2022cross} backbone, except for CoBEVT which uses SinBEVT backbone.}
+\label{tab:opv2vcamera}
+\begin{tabular}{l|ccc}
+% \hline
+% \rowcolor[gray]{0.95}
+\cellcolor{lightgray} Method & \cellcolor{lightgray}Veh. & \cellcolor{lightgray}Dr.Area & \cellcolor{lightgray}Lane\\
+\toprule
+No Fusion & 37.7 &57.8 & 43.7 \\\hline
+ Map Fusion & 45.1 & 60.0 & 44.1 \\
+ F-Cooper~\cite{chen2019f} & 52.5 & 60.4 & 46.5 \\
+ AttFuse~\cite{xu2021opv2v} & 51.9 & 60.5 & 46.2 \\
+  
+ V2VNet~\cite{wang2020v2vnet} & 53.5 &60.2 & 47.5 \\  
+ DiscoNet~\cite{li2021learning} & 52.9 & 60.7 & 45.8\\ \hline
+ FuseBEVT & \textbf{59.0} &\textbf{62.1} & \textbf{49.2}\\
+ CoBEVT & \textbf{60.4} & \textbf{63.0} & \textbf{53.0}\\
+% \bottomrule
+\end{tabular}
+\end{minipage}
+&
+\begin{minipage}[t]{0.31\textwidth}
+\centering
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.}
+\caption{\textbf{3D detection results on the OPV2V LiDAR-track}. All methods employ the PointPillars~\cite{lang2019pointpillars} backbone. (C) denotes using $64\times$ feature compression.}
+\label{tab:lidar}
+\begin{tabular}{l|ccc}
+% \hline
+% \rowcolor[gray]{0.95}
+\cellcolor{lightgray}Method & \cellcolor{lightgray}AP0.7 & \cellcolor{lightgray}AP0.7(C) \\
+\toprule
+No Fusion        & 60.2   & 60.2           \\ \hline
+Late Fusion & 78.1 & 78.1 \\
+Early Fusion & 80.0 & - \\
+F-Cooper        & 79.0    & 78.8           \\
+AttFuse      & 81.5   & 81.0       \\
+V2VNet & 82.2    & 81.4          \\
+DiscoNet    & 83.6   & 83.1           \\  \hline
+FuseBEVT       & \textbf{85.2}    & \textbf{84.9}         \\ 
+% \bottomrule
+\end{tabular}
+\end{minipage}
+&
+
+\begin{minipage}[t]{0.29\textwidth}
+\centering
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.1}
+\caption{\textbf{Vehicle map-view segmentation on nuScenes.} All models use only a single time-stamp. $*$ denotes our reproduced result with the EfficientNet-b4 backbone.}
+\label{tab:nuscene}
+\begin{tabular}{l|ccc}
+% \hline
+% \rowcolor[gray]{0.95}
+\cellcolor{lightgray}Method & \cellcolor{lightgray}Veh. & \cellcolor{lightgray}Par(M) & \cellcolor{lightgray}FPS \\
+\toprule
+VPN*~\cite{pan2020cross}        & 29.3  & 4.           & 31   \\
+OFT~\cite{roddick2018orthographic}       & 30.1    & -            & -   \\
+Lift-Splat & 32.1    & 14           & 25  \\
+FIERY~\cite{hu2021fiery}      & 35.8    & 7            & 8   \\
+CVT~\cite{zhou2022cross}        & 36.0    & 1.2            & 35  \\ \hline
+SinBEVT & \textbf{37.1}    & 1.6           & 35  \\ 
+% \bottomrule
+\end{tabular}
+\end{minipage}
+\end{tabular}
+% \vspace{-3mm}
+\end{table*}
+
+
+
+
+\begin{figure*}[!t]
+\centering
+    \begin{subfigure}[c]{0.19\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/example1_cav1.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example4_cav1.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example3_cav1.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example2_cav1.png}}
+        \caption{ego}
+        \label{fig:output-a}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.19\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/example1_cav2.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example4_cav2.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example3_cav2.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example2_cav2.png}}
+        \caption{av1}
+        \label{fig:output-b}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.19\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/example1_cav3.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example4_cav3.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example3_cav3.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example2_cav3.png}}
+        \caption{av2}
+        \label{fig:output-c}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.19\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/example1_gt.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example4_gt.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example3_gt.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example2_gt.png}}
+        \caption{groundtruth}
+        \label{fig:output-d}
+    \end{subfigure}
+        \begin{subfigure}[c]{0.19\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/example1_pred.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example4_pred.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example3_pred.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/example2_pred.png}}
+        \caption{prediction}
+        \label{fig:output-e}
+    \end{subfigure}
+    \vspace{-2mm}
+    \caption{\textbf{Qualitative results of CoBEVT.} From left to right: the front camera image of (a) ego, (b) av1, (c) av2, (d) groundtruth and (e) prediction. The green bounding boxes represent ego vehicles, while the white boxes denote the segmented vehicles. CoBEVT demonstrates robust performance under various traffic situations and road types. It is also capable of detecting occluded or distant vehicles (white circled) benefiting from the collaboration.}
+    \label{fig:qualitive}
+    \vspace{-2mm}
+\end{figure*}
+
+\subsection{Quantitative Evaluation}
+\noindent\textbf{OPV2V camera-track results.} To make a fair comparison, we first employ CVT~\cite{zhou2022cross} to extract the BEV feature from camera rigs for all methods and only use the fusion component~(i.e. FuseBEVT) of CoBEVT to compare with other fusion models. Then we compare it with our complete CoBEVT to show the effectiveness of SinBEVT as well. As shown in  Tab.~\ref{tab:opv2vcamera}, all cooperative methods perform better than \textit{No Fusion}, which proves the benefits from multi-agent perception system. Among all fusion models, our FuseBEVT achieves the best IoU for all classes, outperforming the second-best method by 5.5\%, 1.4\%, and 3.4\% on vehicle, drivable area, and lane, respectively. More importantly, by replacing the CVT with our SinBEVT for feature extraction, our CoBEVT can further increase the accuracy by 1.4\%, 0.9\%, and 3.8\% on the three classes compared to using FuseBEVT only. 
+
+
+\noindent\textbf{OPV2V LiDAR-track results.} As Tab.~\ref{tab:lidar} reveals, our FuseBEVT also has the best performance on the LiDAR-track task, which improves the single-agent system by 25.0\% and outperforms the leading algorithm DiscoNet by 1.7\%. Furthermore, our method exhibits great robustness against LiDAR feature compression, with only a 0.3\% drop with the $64\times$ compression rate.
+
+\begin{wraptable}{R}{0.28\textwidth}
+\vspace{-5mm}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.8}
+\caption{\textbf{Compression effect on OPV2V Camera.}}
+\vspace{-1mm}
+\label{tab:compression}
+\begin{tabular}{ccc}
+% \toprule
+% \multicolumn{4}{c}{\textbf{V2X-ViT Components}} &
+%   \multicolumn{1}{c}{AP} \\\toprule
+% \rot{MSA} &
+\cellcolor{lightgray}  {CPR-rate} &
+ \cellcolor{lightgray} {Size~(KB)} &
+ \cellcolor{lightgray} {IoU}\\ \toprule
+ 0x & 524  &   60.4\\
+ 8x & 66  & 60.1 \\
+ 16x & 33 & 58.9   \\
+ 32x & 16 & 56.2 \\ 
+ 64x  & 8 & 54.8 \\  \bottomrule
+\end{tabular}
+\vspace{-5mm}
+\end{wraptable}
+
+\noindent\textbf{nuScenes vehicle map-view segmentation.} Our SinBEVT can run 35 FPS on RTX2080 with 37.1 IoU score and 1.6~M parameters, achieving the best accuracy with real-time performance. Compared to the state-of-the-art method CVT, we are 1.1\% higher with similar parameters and latency.
+
+
+
+\noindent\textbf{Effect of compression rate.} Data transmission size is a critical factor in V2V applications.
+%
+Here we study the effect of different compression rates on our CoBEVT by adjusting the $1\times1$ convolution. Tab.~\ref{tab:compression} shows that CoBEVT is insensitive to compression, and it can still beat other fusion methods even with a large compression rate of 64.
+
+
+%===============================================================================
+
+
+\subsection{Qualitative Analysis}
+Fig.~\ref{fig:qualitive} shows the qualitative results of CoBEVT on scenes containing 3 AVs.
+%
+In each row, we draw the front camera image of each AV along with the ground truth and prediction pairs.
+%
+Our framework can overcome most of the occlusions and perceive distant objects accurately, benefiting from our Transformer design that learns from all agents and views.
+%
+However, one limitation we have observed is the ``merging'' predictions of multiple nearby vehicles, which may be attributed to the combined effects of low-resolution BEV embedding and the complicated ground truth in dense traffic.
+
+
+% \begin{table*}[!t]
+% \centering
+% \small
+% \setlength{\tabcolsep}{4pt}
+% \begin{tabular}{@{}cc@{}}
+
+
+\begin{wraptable}{R}{0.33\textwidth}
+\vspace{-4mm}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.}
+\caption{\textbf{Component ablation.}}
+\vspace{-1mm}
+\label{tab:ablation_grid_window}
+\begin{tabular}{ccc}
+% \toprule
+% \multicolumn{4}{c}{\textbf{V2X-ViT Components}} &
+%   \multicolumn{1}{c}{AP} \\\toprule
+% \rot{MSA} &
+\cellcolor{lightgray}  {Local} &
+ \cellcolor{lightgray} {Global} &
+ \cellcolor{lightgray} {Veh./Dr.Area/Lane}\\ \toprule
+  &  &   52.6/57.9/42.0\\
+\cmark  &  &  57.8/61.5/49.2 \\
+ & \cmark & 57.9/60.8/48.6   \\
+ \cmark & \cmark & \textbf{60.4}/ \textbf{63.0} /\textbf{53.0} \\ \bottomrule
+\end{tabular}
+\vspace{-4mm}
+\end{wraptable}
+
+
+% \begin{minipage}[t]{0.25\textwidth}
+% \centering
+% \setlength{\tabcolsep}{4pt}
+% \renewcommand{\arraystretch}{0.9}
+% \caption{\textbf{Vehicle map-view segmentation on nuScene.} All methods only use single-timestamp for fair comparison.}
+% \label{tab:nuscene}
+% \begin{tabular}{l|ccc}
+% % \hline
+% % \rowcolor[gray]{0.95}
+% Method & Vehicle & Params(M) & FPS \\
+% \toprule
+% PON       & -    & 38           & 30  \\
+% VPN~\cite{pan2020cross}        & 23.5   & 18           & -   \\
+% OFT~\cite{roddick2018orthographic}       & 30.1    & -            & -   \\
+% Lift-Splat~\cite{philion2020lift} & 32.1    & 14           & 25  \\
+% FIERY~\cite{hu2021fiery}      & 35.8    & 7            & 8   \\
+% CVT~\cite{zhou2022cross}        & 36.0    & 5            & 35  \\ \hline
+% SinBEVT & \textbf{37.1}    & 6.4            & 33  \\ 
+% % \bottomrule
+% \end{tabular}
+% \end{minipage}
+% \end{tabular}
+% \end{table*}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/ablation.pdf} 
+% (a) aaaaaa & (b)  & (c) \\
+% \end{tabular}
+% \includegraphics[width=0.90\textwidth]{figures/ablation.pdf}
+\vspace{-2mm}
+\caption{\textbf{Ablation studies.} (a) IoU \emph{vs.} number of dropped cameras (b) IoU \emph{vs.} number of agents. (c) FPS \emph{vs.} number of agents. The channel dimension of BEV feature map is fixed as 128 for (c).}
+\label{fig:ablation}
+\vspace{-5mm}
+\end{figure*}
+
+\subsection{Ablation Study}
+\textbf{Component analysis.} Tab.~\ref{tab:ablation_grid_window} shows the importance of local and global attention in the multi-agent fusion model FuseBEVT, while other components are retained in CoBEVT. Both attention blocks significantly contribute to the final performance. 
+
+
+\noindent\textbf{Robustness to camera dropout.} Sensor failure during driving can lead to fatal accidents. Therefore, here we investigate how well our CoBEVT handles it. We random drop $n\in[1,4]$ cameras of the ego vehicle, and demonstrate the performance decrease for both SinBEVT~(no collaboration) and CoBEVT in Fig.~\ref{fig:ablation}a. It can be seen that by introducing sensing cooperation, driving safety can be significantly improved, as even if all ego cameras break down, CoBEVT can still reach an IoU score of 44.3.
+
+\textbf{Number of agents.} Here we study the influence brought by the number of collaborators on CoBEVT. As Fig.~\ref{fig:ablation}b describes, increasing the collaborators can generally bring performance improvement, whereas such gain will be marginal when the agent number is greater than 4.
+
+\textbf{Inference speed of FuseBEVT.} Real-time multi-agent feature fusion is critical for real-world deployment. Here we examine the inference speed of FuseBEVT with different BEV feature map spatial resolution~(from 16 to 64) and the number of agents on RTX3090. Fig.~\ref{fig:ablation}c shows that our fusion algorithm can achieve real-time performance under distinct collaboration scenarios.
+
+
+
+\section{Conclusion and Limitations}
+\label{sec:conclusion}
+In this paper, we propose a holistic vision Transformer dubbed CoBEVT for multi-view cooperative semantic segmentation.
+%
+We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents.
+%
+Extensive experiments on both simulated and real-world datasets show that CoBEVT achieves superior performance on multi-camera cooperative BEV segmentation. It can also be adapted to other tasks and substantially improve multi-agent LiDAR detection and single-agent map-view segmentation.
+
+\textbf{Limitations.}
+%
+Despite the proposed single-agent model outperforming the real-world nuScenes dataset, the entire cooperative framework has been trained and validated on simulated datasets only, and thus its real-world generalization capability remains unknown. 
+%
+The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises.
+%
+The perception robustness against different domains such as severe weather or lighting conditions needs further examination.
+%
+Addressing these limitations needs future research on real-world, realistic, and diverse cooperative datasets and benchmarks.
+
+%===============================================================================
+
+% \clearpage
+% The acknowledgments are automatically included only in the final and preprint versions of the paper.
+\acknowledgments{This material is supported in part by the Federal Highway
+Administration Exploratory Advanced Research (EAR) Program, and by the
+US National Science Foundation through Grants CMMI \# 1901998. We thank
+Xiaoyu Dong for her insightful discussions.}
+
+
+%=================================tzzz referece==================
+
+
+%===============================================================================
+
+% no \bibliographystyle is required, since the corl style is automatically used.
+\bibliography{example}  % .bib
+
+\clearpage
+
+\appendix
+\section*{Appendix}
+
+In this supplementary material, we will first provide more details about the camera track of the OPV2V dataset (Sec.~\ref{sec:opv2v-cam}). Afterwards, {{the model details of the proposed FAX attention, and} } implementation details of our CoBEVT models on different datasets will be illustrated in Sec.~\ref{sec:model} and Sec.~\ref{sec:imp}. Finally, we show more qualitative results for all three tasks tested in the main paper in Sec.~\ref{sec:more-qual}.
+
+\section{The Camera Track of OPV2V dataset}
+\label{sec:opv2v-cam}
+\noindent\textbf{Sensor Configuration.} In OPV2V, every AV is equipped with 4 cameras toward different directions to cover $360\degree$ surroundings as Fig.~\ref{fig:sup_camera_example} shows. Each camera has an $800\times600$ spatial resolution and $110\degree$ FOV, which introduces a $10\degree$ view overlap between any neighboring pair. 
+
+\noindent\textbf{Groundtruth.} The BEV semantic segmentation groundtruth mask has a pixel resolution of $256\times256$ and covers a $100\times100~m$ area around the ego vehicle, which represents a map sampling resolution of $0.39 ~m/pixel$. The authors also provide corresponding visible masks, where all dynamic objects that can be seen by any AV's camera rigs are marked as visible, and vice versa for the invisible. Similar to previous works~\cite{zhou2022cross, hu2021fiery}, we only consider objects that are visible during both training and testing.
+
+
+\begin{figure*}[!h]
+\centering
+    \begin{subfigure}[c]{0.24\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/av1_front.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av2_front.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av3_front.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av4_front.png}}
+        \caption{front}
+        \label{fig:output-a}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.24\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/av1_right.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av2_right.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av3_right.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av4_right.png}}
+        \caption{right}
+        \label{fig:output-c}
+    \end{subfigure}
+        \begin{subfigure}[c]{0.24\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/av1_left.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av2_left.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av3_left.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av4_left.png}}
+        \caption{left}
+        \label{fig:output-b}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.24\linewidth}
+        \centering{\includegraphics[width=1\linewidth]{figures/av1_back.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av2_back.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av3_back.png}}
+        \centering{\includegraphics[width=1\linewidth]{figures/av4_back.png}}
+        \caption{back}
+        \label{fig:output-d}
+    \end{subfigure}
+    \vspace{-2mm}
+    \caption{\textbf{An example of the four cameras of different AVs in the same intersection.} Each row represents the full views of an AV. From left to right: (a) front camera, (b) right camera, (c) left camera, (d) back camera.}
+    \label{fig:sup_camera_example}
+    \vspace{-2mm}
+\end{figure*}
+
+
+% {\color{blue}{\section{Model Details}}
+\section{Model Details}
+\label{sec:model}
+
+We give more details about the proposed 3D fused axial attention (FAX) below.
+
+\textbf{3D Relative Attention.}
+The vanilla attention mechanism defined in~\cite{vaswani2017attention} is a global mixing operator based on the weighted sum of all the spatial locations, whereas the weights are calculated by normalized pairwise similarity.
+Formally, the attention operator can be defined as
+\begin{equation}
+\label{eq:att}
+\text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V})=\text{softmax}(\frac{\mathbf{Q}\mathbf{K}^{T}}{\sqrt{d_k}})\mathbf{V}
+\end{equation}
+where the $\mathbf{Q},\mathbf{K},\mathbf{V}$ are the query, key, and value matrices projected from the input tensor. Multi-head attention is an extension of \eqref{eq:att} in which we split the channels into multiple ``heads'', in parallel, and run attention on each head separately. Here for simplicity, we only use a single-head equation, but we always use multi-head variants in the actual implementations.
+
+
+The 3D relative attention we adopt in CoBEVT is an improved attention with the relative positional encoding added in the 3D space. Given a 3D input tensor $\mathbf{z}\in \mathbb{R}^{(N\times H\times W)\times C}$, the 3D relative attention can be expressed as:
+\begin{equation}
+\label{eq:3d-rel-att}
+\text{3D-Rel-Attention}(\mathbf{Q},\mathbf{K},\mathbf{V})=\text{softmax}(\frac{\mathbf{Q}\mathbf{K}^{T}}{\sqrt{d_k}}+\mathbf{B})\mathbf{V},
+\end{equation}
+where $\mathbf{B}$ is the relative position bias, whose values are taken from $\hat{\mathbf{B}}\in \mathbb{R}^{(2N-1)\times(2H-1)\times (2W-1)}$ with learnable parameters~\cite{liu2021swin,liu2021video}.
+
+
+
+\textbf{3D FAX Attention.}
+We assume that the above defined 3D-Rel-Attention in Eq. \eqref{eq:3d-rel-att} follows the convention of 1D input sequence, \textit{i.e.}, always regard the second last dimension of an input as the ``spatial axis''. The proposed FAX attention can be implemented without modifications to the attention operator.
+We first define the $\mathsf{Fused\text{-}Block}(\cdot)$ operator with parameter $P$ as partitioning the input 3D feature $\mathbf{x}\in\mathbb{R}^{N\times H\times W\times C}$ into non-overlapping 3D windows each having window size $N\times P\times P$. Note that after window partitioning, we gather all the spatial dimensions in the so-called ``spatial axis'':
+\begin{equation}
+\label{eq:block-operator}
+\mathsf{Fused\text{-}Block}: (N,H,W,C)\rightarrow(N,\frac{H}{P}\times P,\frac{W}{P}\times P,C)\rightarrow (\frac{HW}{P^2},\underbrace{{N\times P^2}}_{\text{``spatial axis''}},C).
+\end{equation}
+
+
+
+We then denote the $\mathsf{Fused\text{-}Unblock}(\cdot)$ operation as the reverse of the above 3D window partition procedure.
+Likewise, for the global attention branch, we define another 3D grid partitioning operator as $\mathsf{Fused\text{-}Grid}$ with the grid parameter $G$, representing dividing the input feature using a uniform 3D grid of size $N\times G\times G$. Note that unlike Eq. \eqref{eq:block-operator}, we need to apply an extra $\mathsf{Transpose}$ to place the grid dimension in the assumed ``spatial axis'':
+\begin{equation}
+\label{eq:grid-operator}
+\mathsf{Fused\text{-}Grid}:(N,H,W,C)\!\rightarrow\!(N,G\times \frac{H}{G},G\times\frac{W}{G},C)\!\rightarrow\! \underbrace{(N\!\times\! G^2,\frac{HW}{G^2},C)\rightarrow
+(\frac{HW}{G^2},N\!\times\! G^2,\!C)}_{\text{swapaxes(axis1=-2,axis2=-3)}}
+\end{equation}
+with its inverse operator $\mathsf{Fused\text{-}Ungrid}$ that reverses the 3D-gridded input back to the original tensor shape.
+
+
+
+Now we are ready to present the whole 3D FAX attention module.
+The 3D local block attention can be expressed as:
+\begin{align}
+\begin{split}
+\label{eq:multi-axis-attention}
+\mathbf{x}&\leftarrow \mathbf{x} + \mathsf{Fused\text{-}Unblock}(\text{3D-Rel-Attention}(\mathsf{Fused\text{-}Block}(\text{LN}(\mathbf{x})))) \\ 
+\mathbf{x}&\leftarrow\mathbf{x}+\text{MLP}(\text{LN}(\mathbf{x})) \\
+\end{split}
+\end{align}
+while the sparse global 3D Attention can be expressed as:
+\begin{align}
+\begin{split}
+\mathbf{x}&\leftarrow \mathbf{x} + \mathsf{Fused\text{-}Ungrid}(\text{3D-Rel-Attention}(\mathsf{Fused\text{-}Grid}(\text{LN}(\mathbf{x})))) \\ 
+\mathbf{x}&\leftarrow\mathbf{x}+\text{MLP}(\text{LN}(\mathbf{x})) \\
+\end{split}
+\end{align}
+where the $\mathbf{QKV}$ matrices in Eq.~\eqref{eq:3d-rel-att} are linearly projected from input $\mathbf{x}$ and are omitted for simplicity. $\text{LN}$ denotes the Layer Normalization~\cite{ba2016layer}, where $\text{MLP}$ is a standard MLP network~\cite{dosovitskiy2020image,liu2021swin} consisting of two linear layers applied on the channel: $\mathbf{x}\leftarrow W_2\text{GELU}(W_1\mathbf{x})$.
+
+% We demonstrate in Algo.~\ref{alg:code} an \texttt{einops}-style~\cite{rogozhnikov2021einops} pseudocode of the fused axial attention (FAX) block used in FuseBEVT, where we have omitted the MLP, LN, and skip-connections for simplicity.
+% 
+
+% \begin{figure}[!ht]
+% % \vspace{-10mm}
+% \begin{minipage}{1.\textwidth}
+% \floatname{algorithm}{Algo.}
+% \begin{algorithm}[H]
+% \small
+% \caption{\small Pseudocode of the proposed FAX attention block.}
+% \label{alg:code}
+% \begin{lstlisting}[language=python]
+% # input: features (b, n, h, w, c). Assume h==w; x/output: features (b, n, h, w, c).
+% # p: window size. g: grid size. p/g should be divided by h/w.
+% # n: number of agents in the aggregated BEV features.
+
+% # A self-attn placeholder function applied on the second last axis with 3D rel-bias
+% def 3DRelAttn(x): return attn(x) 
+
+% # 3D window partition function with parameter p
+% from einops import rearrange
+% def fused_block(x,p):
+%   return rearrange(x,"b n (hy) (wx) c->b (hw) (nyx) c",h=x.shape[2]//p,w=x.shape[3]//p,y=p,x=p)
+    
+% def fused_unblock(x,n,g,p):  # reverse of the above function
+%   return rearrange(x,"b (hw) (nyx) c->b n (hy) (wx) c",h=g,w=g,y=p,x=p,n=n) 
+
+% _,n,h,w,_ = x.shape # get shapes
+% x = fused_block(x,p) # 3D window partition
+% x = 3DRelAttn(x) # Apply 3D attention to achieve local attention
+% x = fused_unblock(x,n,h//p,p) # reverse partition
+
+% x = fused_block(x,h//g) # 3D grid partition
+% x = swapaxes(x,-2,-3) # move grid-axis to -2 (spatial size)
+% x = 3DRelAttn(x) # Apply 3D attention to achieve global attention
+% x = swapaxes(x,-2,-3) # reverse swapaxes
+% output = fused_unblock(x,g,h//g) # reverse partition
+% \end{lstlisting}
+% \end{algorithm}
+% \end{minipage}
+% % \vspace{-11mm}
+% \end{figure}
+
+
+\section{Implementation Details}
+\label{sec:imp}
+% The configurations of CoBEVT are different for the three experiments. 
+In the following, we show the detailed architectures for the three experiments, respectively.
+
+
+\subsection{OPV2V Camera Track}
+We illustrate the architectural specifications of CoBEVT in Table~\ref{tab:opv2vcamera-spec}.
+Further illustrations are presented below.
+
+\begin{table}[!ht]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{10.5pt}
+\renewcommand\thetable{A2}
+\caption{{Detailed architectural specifications of CoBEVT for OPV2V camera track. $M$ represents the number of cameras and $N$ is the number of agents.}}
+\label{tab:opv2vcamera-spec}
+\begin{tabular}{c|c|c}
+% \toprule
+ \cellcolor{lightgray} &  \cellcolor{lightgray} Output size &  \cellcolor{lightgray} CoBEVT framework  \\
+ \toprule
+\multirow{3}{*}{\begin{tabular}{c}ResNet34\\ Encoder\\
+\end{tabular}} & $N\times M\times 64\times 64\times 128$ & 
+\begin{tabular}{c}
+$\left[ \begin{array}{c} \text{ResNet34-layer1}\end{array}\right]$ \\
+\end{tabular}
+\\ \cline{2-3}
+
+&  $N\times  M\times 32\times 32\times 256$ & 
+\begin{tabular}{c}
+$\left[ \begin{array}{c} \text{ResNet34-layer2}\end{array}\right]$ \\
+\end{tabular}
+\\ \cline{2-3}
+
+&  $N\times M\times 16\times 16\times 512$ & 
+\begin{tabular}{c}
+$\left[ \begin{array}{c} \text{ResNet34-layer3}\end{array}\right]$ \\
+\end{tabular}
+% \\ \cline{2-3}
+
+
+\\ \hline
+% \begin{tabular}{c}Delay-aware\\ Pos. Encoding\\
+% \end{tabular} 
+% &  $M\times 176\times 48\times 256$ & 
+% \begin{tabular}{c}
+% $\left[ \begin{array}{c} \text{sin-cos pos. encoding}\end{array}\right]$  \\
+% $\left[ \begin{array}{c} 
+% \text{Linear, 256}
+% \end{array}\right] \times 1$
+% \end{tabular}
+% \\ \hline
+% Compress & $L\times 176\times 48\times8$ &
+% \begin{tabular}{c}
+% $\left[ \begin{array}{c} 
+% \text{Conv1x1, 8, stride 1, BN, ReLU}\end{array}\right] \times 1$  \\
+% \end{tabular}
+% \\ \hline
+% Decompress & $L\times 176\times 48\times8$ &
+% \begin{tabular}{c}
+% $\left[ \begin{array}{c} 
+% \text{Conv1x1, 8, stride 1, BN, ReLU}\end{array}\right] \times 1$  \\
+% \end{tabular}
+% \\ \hline
+\multirow{12}{*}{\begin{tabular}{c}SinBEVT\\ Backbone\\
+\end{tabular} }& $N\times 128\times 128\times 128$ & 
+$\left[ \begin{array}{c} 
+\text{FAX-CA, dim 128, head 4,} \\
+\text{bev win. sz.}\{16\times 16\} \\
+\text{feat win. sz.}\{8\times 8\} \\
+\text{MLP, dim 256} \\
+\text{Res-Bottleneck-block $\times 2$}
+\end{array}\right] \times 1$
+\\ \cline{2-3}
+
+& $N\times 64\times 64\times 128$ & 
+$\left[ \begin{array}{c} 
+\text{FAX-CA, dim 128, head 4,} \\
+\text{bev win. sz.}\{16\times 16\} \\
+\text{feat win. sz.}\{8\times 8\} \\
+\text{MLP, dim 256} \\
+\text{Res-Bottleneck-block $\times 2$}
+\end{array}\right] \times 1$
+\\ \cline{2-3}
+
+
+& $N\times 32\times 32\times 128$ & 
+$\left[ \begin{array}{c} 
+\text{FAX-CA, dim 128, head 4,} \\
+\text{bev win. sz.}\{32\times 32\} \\
+\text{feat win. sz.}\{16\times 16\} \\
+\text{MLP, dim 256} \\
+\text{Res-Bottleneck-block $\times 2$}
+\end{array}\right] \times 1$
+\\ \hline
+
+
+\begin{tabular}{c}FuseBEVT\\ Backbone\\
+\end{tabular}
+
+& $N\times 32\times 32\times 128$ & 
+$\left[ \begin{array}{c} 
+\text{FAX-SA, dim 128, head 4,} \\
+\text{win. sz.}\{8\times 8\} \\
+\text{MLP, dim 256} \\
+\end{array}\right] \times 3$
+\\ \hline
+
+\multirow{5}{*}{\begin{tabular}{c}Decoder\\
+\end{tabular} }
+& $64\times 64\times 128$ &
+\begin{tabular}{c}
+$\left[ \begin{array}{c} \text{Bilinear-upsample, Conv3x3, BN}\end{array}\right]$ \\
+\end{tabular}
+\\ \cline{2-3}
+
+& $128\times 128\times 64$ &
+\begin{tabular}{c}
+$\left[ \begin{array}{c} \text{Bilinear-upsample, Conv3x3, BN}\end{array}\right]$ \\
+\end{tabular}
+\\ \cline{2-3}
+
+& $256\times 256\times 32$ &
+\begin{tabular}{c}
+$\left[ \begin{array}{c} \text{Bilinear-upsample, Conv3x3, BN}\end{array}\right]$ \\
+\end{tabular}
+\\ \cline{2-3}
+
+
+&  $256\times 256\times k$& \begin{tabular}{c}
+Dyna. Obj. head: $\left[ \begin{array}{c}
+\text{Conv1x1, 2, stride 1}
+\end{array}\right]$ \\
+Stat. Obj. head: $\left[ \begin{array}{c}
+\text{Conv1x1, 3, stride 1}
+\end{array}\right]$
+\end{tabular}
+\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent \textbf{Model Separation.} Same as \cite{zhou2022cross, hu2021fiery, mani2020monolayout, yang2021projecting}, we have separate models for dynamic objects and static layout BEV semantic segmentation. Both models have the same configurations except for the last layer in the network.
+
+\noindent \textbf{Image Encoder.} We first resize the input images to $512\times512$ and utilize ResNet34~\cite{he2016identity} to extract image features. We then take the outputs $I_0\in\mathbb{R}^{4 \times 64\times 64 \times 128}$, $I_1\in\mathbb{R}^{4 \times 32\times 32 \times 256}$, and $I_2\in\mathbb{R}^{4 \times 16\times 16 \times 512}$ from the \textit{layer1}, \textit{layer2}, and \textit{layer3} to interact with the BEV query, where $4$ is the number of cameras..
+
+\noindent \textbf{SinBEVT.} The BEV query $Q_0 \in \mathbb{R}^{H\times W\times C}$ is a learnable embedding, where $H,W,C=128$. $Q_0$ is fed into our FAX-CA block as query whereas $I_0$ is regarded as key and value to project image features into the BEV space. We set the window/grid size of $I_0$ as (8, 8) and that of the $B_0$ as (16, 16). Afterwards, $Q_0$ is downsampled and refined by two standard residual blocks to obtain $Q_1  \in \mathbb{R}^{64\times 64\times 128}$. The BEV query will perform the same operations with $I_1$ and $I_2$ sequentially to obtain the final BEV feature $Q_2$ in $\mathbb{R}^{32\times 32\times 128}$.
+
+\noindent \textbf{FuseBEVT.} The BEV features from $N$ agents will be stacked together as $h \in \mathbb{R}^{N\times32\times32\times128}$ and fed into three sequential FAX-SA blocks to gain the fused feature $H \in \mathbb{R}^{32\times32\times128}$. The window/grid size is set as 8 for all FAX-SA blocks. 
+
+\noindent \textbf{Decoder.} $H$ will be upsampled by $ 3 \times$ [bilinear~interpolation, conv{3x3},  BN] to retrieve the final segmentation mask $M \in \mathbb{R}^{256 \times 256 \times k}$, where $k=2$ for dynamic objects and $k=3$ for static layout. 
+
+\subsection{nuScenes}
+To make a fair comparison, we strictly follow the same experiment setting as CVT~\cite{zhou2022cross}}
+\noindent \textbf{Image Encoder.} We follow CVT~\cite{zhou2022cross} and Fiery~\cite{hu2021fiery} to use EfficientNet B-4~\cite{tan2021efficientnetv2} as image feature extractor. We compute features at three scales - (56, 120), (28, 60), and (14, 30).
+
+\noindent \textbf{SinBEVT.} The BEV query starts with a size of $100\times100\times32$ and ends with a size of $25\times 25 \times 128$. We set the window/grid size of image features and BEV query for the three FAX-CA blocks as (6, 12), (6, 12), (14, 30) and (10, 10), (10, 10), (25, 25) respectively. Main architecture is the same to the SinBEVT specifications shown in Table~\ref{tab:opv2vcamera-spec}.
+
+{
+\noindent \textbf{Decoder} The decoder structure is the same as CVT. The decoder consists of three~(bilinear upsample + conv) layers to upsample the BEV feature to the final output size~($200\times200$).
+
+\noindent \textbf{Training.}  We train our models with focal loss and a batch size of 4 per GPU for 30 epochs. We employ  AdamW optimizer with the one-cycle learning rate scheduler. The whole training process is around 8 hours on 4 RTX3090 gpus.
+
+\noindent \textbf{Evaluation.} We evaluate the 100m×100m area around the vehicle with a 50cm sampling resolution. We use the Intersection-over-Union (IoU) score between the model predictions and the ground-truth segmentation mask.
+}
+\subsection{OPV2V LiDAR Track}
+All the comparison methods have the same configurations except for the fusion component.
+
+\noindent \textbf{Point Cloud Encoder.} We select PointPillar~\cite{lang2019pointpillars} as the point cloud feature extractor and set the voxel resolution as (0.4, 0.4, 4) on the x, y, and z-axis. The architecture settings are the same as ~\cite{lang2019pointpillars}. The extracted feature has a final resolution of $176 \times 48 \times 256$.
+
+\noindent \textbf{FuseBEVT.} The configurations of FuseBEVT are the same as the ones in OPV2V camera track.
+
+\noindent \textbf{Detection Head and Training.} We simply apply two $3\times3$ convolution layers for classification and regression, respectively. We train the models using Adaw~\cite{loshchilov2017decoupled} optimizer with a multi-step learning rate scheduler. The learning rate starts with $0.001$ and decays 10 times for every 10 epochs.
+
+\section{More Qualitative Results}
+\label{sec:more-qual}
+
+
+\textbf{OPV2V camera track.}
+Fig. \ref{fig:opv2vcamera-results} and Fig. \ref{fig:opv2vcamera-results2} show the visual comparisons between our CoBEVT and others on OPV2V camera track. Our method significantly outperforms others both on dynamic object prediction and road topology segmentation in most of the scenarios. 
+
+\textbf{OPV2V LiDAR track.}
+We demonstrate detection visualization results in OPV2V LiDAR track in 4 different busy intersections in Fig. \ref{fig:opv2vlidar-results} and Fig. \ref{fig:opv2vlidar-results2}. Compare to other state-of-the-art fusion methods in including AttFuse~\cite{xu2021opv2v}, F-Cooper~\cite{chen2019f}, V2VNet~\cite{wang2020v2vnet}, and DiscoNet~\cite{li2021learning}, our CoBEVT achieves more
+robust performance in general. We carefully examined the detection visualization comparisons between our method and the previous SOTA method DiscoNet. As shown in Fig. \ref{fig:opv2vlidar-results} and Fig. \ref{fig:opv2vlidar-results2}, we use red circles to highlight the objects that have obviously different detection results among these two methods. It is obvious that our results have fewer undetected objects and fewer displacements.
+
+\textbf{nuScenes.}
+Fig. \ref{fig:nuscenes-results} depicts the qualitative results of our SinBEVT on nuScenes under different road typologies, traffic situations, and light conditions. Our method can recognize most objects and robustly estimate the complicated road layout, demonstrating the strong generalization ability of the proposed FAX attention for various autonomous driving tasks. 
+
+\begin{figure*}[!ht]
+\centering
+\footnotesize
+% \setlength{\tabcolsep}{1pt}
+\includegraphics[width=\textwidth]{figures/copbevt-sup.pdf}
+\caption{\textbf{More qualitative results for OPV2V camera track}. We show the four cameras of the ego vehicle in the first row and all comparison methods along with groundtruth in the second row for each group.}
+\label{fig:opv2vcamera-results}
+% \vspace{-4mm}
+\end{figure*}
+
+
+\begin{figure*}[!ht]
+\centering
+\footnotesize
+% \setlength{\tabcolsep}{1pt}
+\includegraphics[width=\textwidth]{figures/copbevt-sup1.pdf}
+\caption{\textbf{More qualitative results for OPV2V camera track}. We show the four cameras of ego vehicle in the first row and all comparison methods along with groundtruth in the second row for each group. }
+\label{fig:opv2vcamera-results2}
+% \vspace{-4mm}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\centering
+\footnotesize
+% \setlength{\tabcolsep}{1pt}
+\includegraphics[width=\textwidth]{figures/corpbevt-lidar.pdf}
+\caption{\textbf{Qualitative results for OPV2V LiDAR track}. We compared our predictions against other state-of-the-art methods on 2 challenging scenes. {The red circles highlight major prediction differences between our model and the previous SoTA method DiscoNet~(better viewed in zoom-in mode). It is obvious that our model's prediction is more accurate and has fewer undetected objects compared to DiscoNet.}}
+\label{fig:opv2vlidar-results}
+% \vspace{-4mm}
+\end{figure*}
+
+
+\begin{figure*}[!ht]
+\centering
+\footnotesize
+% \setlength{\tabcolsep}{1pt}
+\includegraphics[width=\textwidth]{figures/corpbevt-lidar1.pdf}
+\caption{\textbf{More qualitative results for OPV2V LiDAR track}. We compared our predictions against other state-of-the-art methods on 2 more scenes. {The red circles highlight major prediction differences between our model and the previous SoTA method DiscoNet~(better viewed in zoom-in mode). It is obvious that our model's prediction is more accurate and has fewer undetected objects compared to DiscoNet.}}
+\label{fig:opv2vlidar-results2}
+% \vspace{-4mm}
+\end{figure*}
+
+
+
+\begin{figure*}[!ht]
+\centering
+\footnotesize
+% \setlength{\tabcolsep}{1pt}
+\includegraphics[width=\textwidth]{figures/nuscene_visualization.pdf}
+\caption{\textbf{Qualitative results on the nuScenes dataset for various occlusions and light conditions}. We show the (a) six camera-view images on the left group of pictures, and the (b) ground truth segmentation reference, (c) our SinBEVT predictions on the most right. The ego-vehicle is located at the center of the segmentation map. }
+\label{fig:nuscenes-results}
+% \vspace{-4mm}
+\end{figure*}
+\clearpage
+
+%=================================tzzz referece==================
+
+
+%===============================================================================
+
+% no \bibliographystyle is required, since the corl style is automatically used.
+% \bibliography{example}  % .bib
+
+\end{document}
+

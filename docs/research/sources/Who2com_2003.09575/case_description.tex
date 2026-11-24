@@ -1,0 +1,34 @@
+
+
+
+\begin{table*}
+\caption{
+\textbf{Comparison of our experimental cases.} 
+Additional details and qualitative examples are in the Appendix.
+}
+\label{tab:case}
+\centering
+% \small
+% \scriptsize
+% \footnotesize
+% \tiny
+\scriptsize{
+\begin{tabular}{cccc}
+\toprule
+& Case 1 & Case 2 & Case 3 (Sanity check) \\
+\midrule
+Geometric warping & Yes & No & No \\
+Target agent & Fixed & Fixed & Random \\
+Normal agents & Fixed & Fixed & Shuffled \\
+Overlapping FOVs & Partial & Complete & Complete \\
+% Training samples &  9,515&  9,490&  9,490\\
+% Validation samples & 2,735 & 2,980 &  2,980\\
+% Testing samples & 4,080 & 4,270 & 4,270 \\
+\midrule
+% Challenge & Partial overlap FOVs& Non-warped observations & Random target \\
+\multirow{2}{*}{ Challenge(s) } & \multirow{2}{*}{ Partially overlapping FOVs  } & \multirow{2}{*}{ Non-warped confusers } & Non-warped images \\
+& & & Random target \\
+
+\bottomrule
+\end{tabular}}
+\end{table*}

@@ -1,0 +1,35 @@
+\section{Introduction}
+A great deal of progress has been made in single-agent scene understanding using deep neural networks~\cite{Zhao_2017_CVPR,godard2017unsupervised,Chen_2019_CVPR}. 
+However, as these methods become ubiquitous and larger numbers of robots are deployed in the world, it becomes beneficial for them to share knowledge via communication. For example, knowledge sharing across a fleet of self-driving cars could alleviate a number of challenges such as occlusion and sensor degradations or failures.
+
+In this paper, we propose the problem of \textit{collaborative perception}, where robots can combine their local observations with those of neighboring agents to improve accuracy in a perception task, such as semantic segmentation~\cite{long2015fully,chen2017rethinking}. 
+This can result in significant improvements, for example when the receiving agent's sensors are occluded or degraded (see Figure~\ref{fig:overview}). We therefore formulate a problem where a degraded agent can communicate with other agents to improve its perceptual abilities. 
+Unlike past methods that focus on multi-robot localization and mapping~\cite{cunningham2010ddf, saeedi2016multiple}, we develop agents that \textit{learn what to communicate} in a manner that is amenable to end-to-end deep learning, which dominates scene understanding.
+In addition, different from multi-agent reinforcement learning~\cite{sukhbaatar2016learning,battaglia2016interaction,foerster2016dial,peng2017multiagent,jiang2018learning,pesce2019improving,foerster2018counterfactual}, we seek to do so under bandwidth constraints. We therefore propose to learn \textit{who to communicate with} in order to reduce bandwidth requirements while improving accuracy. Such a method is effective for standard observation problems which have the sub-modularity property, \textit{i.e.,} that adding more observation agents achieves diminishing returns~\cite{krause2007near}. Similar advantages have also been shown using rate distortion theory~\cite{dobbe2017fully}. 
+
+\input{figure/figure1.tex}
+
+In order to investigate the inherent trade-off between accuracy and bandwidth, especially in a manner that scales in a bounded way with respect to the number of agents, we propose a three-stage communication mechanism inspired by three-way handshaking in the regime of communication networking~\cite{kurose2005computer}. 
+\input{figure/figure2.tex}
+The three steps of our method are: 1) \textbf{request}: the degraded agent broadcasts a compressed request conditioned on its visual observation, 2) \textbf{match}: the other agents compute a learned matching score between their own visual observations and the received request, and 3) \textbf{connect}: the degraded agent selects one of the agents to communicate with and further improve its own prediction accuracy in downstream perception tasks.
+The entire mechanism is trained in an end-to-end manner, using only supervision for the down-stream task (\textit{e.g.,} semantic segmentation). We show that this communication mechanism effectively decouples the request, score, and actual transmitted value to allow different (\textit{i.e.,} asymmetric) sizes during this communication. Our experiments demonstrate that this results in significant bandwidth savings when compared to centralized baselines and accuracy gains over uniform compression across agents.
+
+In order to investigate the properties of the resulting method, we develop the AirSim-CP dataset and metrics using the AirSim simulator~\cite{airsim2017fsr}, where a group of aerial robots fly over a map with diverse landscapes, such as roads, grasslands, buildings, lakes, \textit{etc}.
+We vary a number of elements across the scenarios, including their trajectories, partial or complete overlap between the fields of view of the target and other agents, and with noisy or accurate pose information available for cross-view geometric warping. 
+We quantitatively show that our proposed method is able to significantly improve accuracy by approximately 20\% over decentralized baselines, and is comparable to centralized ones using a quarter of the bandwidth. 
+
+
+We highlight the contributions of this paper as follows:
+
+\begin{itemize}
+
+% tackle a new important problem
+\item We propose a new problem in the intersection of multi-agent systems, perception, communication, and learning. Compared with prior works on learning to communicate, we are the first to tackle the problem of learning to communicate with bandwidth constraints to the best of our knowledge. 
+
+% A new dataset
+\item  Different from other multi-agent systems~\cite{hoshen2017vain,jiang2018learning}, our collected dataset, AirSim-CP, provides high-resolution and photo-realistic images for better evaluating multi-agent perception tasks with communication.
+
+% Weakly-supervised learning of our model
+\item We propose an end-to-end communication framework trained without supervision indicating the ground-truth agent for communication, and shows superior accuracy to decentralized baselines and comparably to strong centralized ones with a fraction of the bandwidth.
+
+\end{itemize}

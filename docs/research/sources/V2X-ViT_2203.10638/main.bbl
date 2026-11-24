@@ -1,0 +1,300 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{RT3000}
+Rt3000. \url{https://www.oxts.com/products/rt3000-v3}, accessed: 2021-11-11
+
+\bibitem{DAIR-V2X2021}
+Institue~for AI~Industry Research~(AIR), T.U.: Vehicle-infrastructure
+  cooperative autonomous driving: Dair-v2x dataset (2021)
+
+\bibitem{arena2019overview}
+Arena, F., Pau, G.: An overview of vehicular communications. Future Internet
+  \textbf{11}(2), ~27 (2019)
+
+\bibitem{ba2016layer}
+Ba, J.L., Kiros, J.R., Hinton, G.E.: Layer normalization. arXiv preprint
+  arXiv:1607.06450  (2016)
+
+\bibitem{chen2019f}
+Chen, Q., Ma, X., Tang, S., Guo, J., Yang, Q., Fu, S.: F-cooper: Feature based
+  cooperative perception for autonomous vehicle edge computing system using 3d
+  point clouds. In: Proceedings of the 4th ACM/IEEE Symposium on Edge
+  Computing. pp. 88--100 (2019)
+
+\bibitem{chen2019cooper}
+Chen, Q., Tang, S., Yang, Q., Fu, S.: Cooper: Cooperative perception for
+  connected autonomous vehicles based on 3d point clouds. In: 2019 IEEE 39th
+  International Conference on Distributed Computing Systems (ICDCS). pp.
+  514--524. OPTorganization (2019)
+
+\bibitem{chu2021twins}
+Chu, X., Tian, Z., Wang, Y., Zhang, B., Ren, H., Wei, X., Xia, H., Shen, C.:
+  Twins: Revisiting the design of spatial attention in vision transformers.
+  arXiv preprint arXiv:2104.13840  \textbf{1}(2), ~3 (2021)
+
+\bibitem{dong2021cswin}
+Dong, X., Bao, J., Chen, D., Zhang, W., Yu, N., Yuan, L., Chen, D., Guo, B.:
+  Cswin transformer: A general vision transformer backbone with cross-shaped
+  windows. arXiv preprint arXiv:2107.00652  (2021)
+
+\bibitem{dosovitskiy2020image}
+Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn, D., Zhai, X.,
+  Unterthiner, T., Dehghani, M., Minderer, M., Heigold, G., Gelly, S., et~al.:
+  An image is worth 16x16 words: Transformers for image recognition at scale.
+  arXiv preprint arXiv:2010.11929  (2020)
+
+\bibitem{Dosovitskiy17}
+Dosovitskiy, A., Ros, G., Codevilla, F., Lopez, A., Koltun, V.: {CARLA}: {An}
+  open urban driving simulator. In: Proceedings of the 1st Annual Conference on
+  Robot Learning. pp. 1--16 (2017)
+
+\bibitem{el2019rgb}
+El~Madawi, K., Rashed, H., El~Sallab, A., Nasr, O., Kamel, H., Yogamani, S.:
+  Rgb and lidar fusion based 3d semantic segmentation for autonomous driving.
+  In: 2019 IEEE Intelligent Transportation Systems Conference (ITSC). pp.
+  7--12. OPTorganization (2019)
+
+\bibitem{9826399}
+Fan, X., Zhou, Z., Shi, P., Xin, Y., Zhou, X.: Rafm: Recurrent atrous feature
+  modulation for accurate monocular depth estimating. IEEE Signal Processing
+  Letters pp.~1--5 (2022). \doi{10.1109/LSP.2022.3189597}
+
+\bibitem{fan2022svt}
+Fan, Z., Song, Z., Liu, H., Lu, Z., He, J., Du, X.: Svt-net: Super light-weight
+  sparse voxel transformer for large scale place recognition. AAAI (2022)
+
+\bibitem{fan2021deep}
+Fan, Z., Zhu, Y., He, Y., Sun, Q., Liu, H., He, J.: Deep learning on monocular
+  object pose detection and tracking: A comprehensive overview. ACM Computing
+  Surveys (CSUR)  (2021)
+
+\bibitem{goodfellow2013maxout}
+Goodfellow, I., Warde-Farley, D., Mirza, M., Courville, A., Bengio, Y.: Maxout
+  networks. In: International Conference on Machine Learning. pp. 1319--1327.
+  PMLR (2013)
+
+\bibitem{guo2020evaluating}
+Guo, Y., Ma, J., Leslie, E., Huang, Z.: Evaluating the effectiveness of
+  integrated connected automated vehicle applications applied to freeway
+  managed lanes. IEEE Transactions on Intelligent Transportation Systems
+  (2020)
+
+\bibitem{hu2019local}
+Hu, H., Zhang, Z., Xie, Z., Lin, S.: Local relation networks for image
+  recognition. In: ICCV. pp. 3464--3473 (2019)
+
+\bibitem{hu2020heterogeneous}
+Hu, Z., Dong, Y., Wang, K., Sun, Y.: Heterogeneous graph transformer. In:
+  Proceedings of The Web Conference 2020. pp. 2704--2710 (2020)
+
+\bibitem{jaderberg2015spatial}
+Jaderberg, M., Simonyan, K., Zisserman, A., et~al.: Spatial transformer
+  networks. In: NeurIPS (2015)
+
+\bibitem{kenney2011dedicated}
+Kenney, J.B.: Dedicated short-range communications (dsrc) standards in the
+  united states. Proceedings of the IEEE  \textbf{99}(7),  1162--1182 (2011)
+
+\bibitem{kingma2014adam}
+Kingma, D.P., Ba, J.: Adam: A method for stochastic optimization. arXiv
+  preprint arXiv:1412.6980  (2014)
+
+\bibitem{lang2019pointpillars}
+Lang, A.H., Vora, S., Caesar, H., Zhou, L., Yang, J., Beijbom, O.:
+  Pointpillars: Fast encoders for object detection from point clouds. In: CVPR.
+  pp. 12697--12705 (2019)
+
+\bibitem{lei2022latency}
+Lei, Z., Ren, S., Hu, Y., Zhang, W., Chen, S.: Latency-aware collaborative
+  perception. arXiv preprint arXiv:2207.08560  (2022)
+
+\bibitem{Li_2021_RAL}
+Li, Y., Ma, D., An, Z., Wang, Z., Zhong, Y., Chen, S., Feng, C.: V2x-sim:
+  Multi-agent collaborative perception dataset and benchmark for autonomous
+  driving. IEEE Robotics and Automation Letters  (2022)
+
+\bibitem{li2021learning}
+Li, Y., Ren, S., Wu, P., Chen, S., Feng, C., Zhang, W.: Learning distilled
+  collaboration graph for multi-agent perception. NeurIPS  \textbf{34} (2021)
+
+\bibitem{li2020toward}
+Li, Y., Zhuang, Y., Hu, X., Gao, Z., Hu, J., Chen, L., He, Z., Pei, L., Chen,
+  K., Wang, M., et~al.: Toward location-enabled iot (le-iot): Iot positioning
+  techniques, error sources, and error mitigation. IEEE Internet of Things
+  Journal  \textbf{8}(6),  4035--4062 (2020)
+
+\bibitem{liang2018deep}
+Liang, M., Yang, B., Wang, S., Urtasun, R.: Deep continuous fusion for
+  multi-sensor 3d object detection. In: ECCV. pp. 641--656 (2018)
+
+\bibitem{lin2017focal}
+Lin, T.Y., Goyal, P., Girshick, R., He, K., Doll{\'a}r, P.: Focal loss for
+  dense object detection. In: ICCV. pp. 2980--2988 (2017)
+
+\bibitem{liu2020who2com}
+Liu, Y.C., Tian, J., Ma, C.Y., Glaser, N., Kuo, C.W., Kira, Z.: Who2com:
+  Collaborative perception via learnable handshake communication. In: 2020 IEEE
+  International Conference on Robotics and Automation (ICRA). pp. 6876--6883.
+  IEEE (2020)
+
+\bibitem{liu2021swin}
+Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., Guo, B.: Swin
+  transformer: Hierarchical vision transformer using shifted windows. arXiv
+  preprint arXiv:2103.14030  (2021)
+
+\bibitem{mo2021method}
+Mo, Y., Zhang, P., Chen, Z., Ran, B.: A method of vehicle-infrastructure
+  cooperative perception based vehicle state information fusion using improved
+  kalman filter. Multimedia Tools and Applications pp. 1--18 (2021)
+
+\bibitem{rauch2011analysis}
+Rauch, A., Klanner, F., Dietmayer, K.: Analysis of v2x communication parameters
+  for the development of a fusion architecture for cooperative perception
+  systems. In: 2011 IEEE Intelligent Vehicles Symposium (IV). pp. 685--690.
+  OPTorganization (2011)
+
+\bibitem{rauch2012car2x}
+Rauch, A., Klanner, F., Rasshofer, R., Dietmayer, K.: Car2x-based perception in
+  a high-level fusion architecture for cooperative perception systems. In: 2012
+  IEEE Intelligent Vehicles Symposium. pp. 270--275. OPTorganization (2012)
+
+\bibitem{rawashdeh2018collaborative}
+Rawashdeh, Z.Y., Wang, Z.: Collaborative automated driving: A machine
+  learning-based method to enhance the accuracy of shared information. In: 2018
+  21st International Conference on Intelligent Transportation Systems (ITSC).
+  pp. 3961--3966. OPTorganization (2018)
+
+\bibitem{shi2020pv}
+Shi, S., Guo, C., Jiang, L., Wang, Z., Shi, J., Wang, X., Li, H.: Pv-rcnn:
+  Point-voxel feature set abstraction for 3d object detection. In: CVPR. pp.
+  10529--10538 (2020)
+
+\bibitem{shi2019pointrcnn}
+Shi, S., Wang, X., Li, H.: Pointrcnn: 3d object proposal generation and
+  detection from point cloud. In: CVPR. pp. 770--779 (2019)
+
+\bibitem{treml2016speeding}
+Treml, M., Arjona-Medina, J., Unterthiner, T., Durgesh, R., Friedmann, F.,
+  Schuberth, P., Mayr, A., Heusel, M., Hofmarcher, M., Widrich, M., et~al.:
+  Speeding up semantic segmentation for autonomous driving. In: NeurIPS
+  workshop MLITS (2016)
+
+\bibitem{tsukada2020autoc2x}
+Tsukada, M., Oi, T., Ito, A., Hirata, M., Esaki, H.: Autoc2x: Open-source
+  software to realize v2x cooperative perception among autonomous vehicles. In:
+  2020 IEEE 92nd Vehicular Technology Conference (VTC2020-Fall). pp.~1--6.
+  OPTorganization (2020)
+
+\bibitem{tu2022maxim}
+Tu, Z., Talebi, H., Zhang, H., Yang, F., Milanfar, P., Bovik, A., Li, Y.:
+  Maxim: Multi-axis mlp for image processing. In: Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition. pp. 5769--5780 (2022)
+
+\bibitem{tu2022maxvit}
+Tu, Z., Talebi, H., Zhang, H., Yang, F., Milanfar, P., Bovik, A., Li, Y.:
+  Maxvit: Multi-axis vision transformer. arXiv preprint arXiv:2204.01697
+  (2022)
+
+\bibitem{vadivelu2020learning}
+Vadivelu, N., Ren, M., Tu, J., Wang, J., Urtasun, R.: Learning to communicate
+  and correct pose errors. arXiv preprint arXiv:2011.05289  (2020)
+
+\bibitem{vaswani2021scaling}
+Vaswani, A., Ramachandran, P., Srinivas, A., Parmar, N., Hechtman, B., Shlens,
+  J.: Scaling local self-attention for parameter efficient visual backbones.
+  In: CVPR. pp. 12894--12904 (2021)
+
+\bibitem{vaswani2017attention}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N.,
+  Kaiser, {\L}., Polosukhin, I.: Attention is all you need. In: NeurIPS. pp.
+  5998--6008 (2017)
+
+\bibitem{wang2020axial}
+Wang, H., Zhu, Y., Green, B., Adam, H., Yuille, A., Chen, L.C.: Axial-deeplab:
+  Stand-alone axial-attention for panoptic segmentation. In: European
+  Conference on Computer Vision. pp. 108--126. Springer (2020)
+
+\bibitem{wang2020v2vnet}
+Wang, T.H., Manivasagam, S., Liang, M., Yang, B., Zeng, W., Urtasun, R.:
+  V2vnet: Vehicle-to-vehicle communication for joint perception and prediction.
+  In: ECCV. pp. 605--621. Springer (2020)
+
+\bibitem{wang2021uformer}
+Wang, Z., Cun, X., Bao, J., Liu, J.: Uformer: A general u-shaped transformer
+  for image restoration. arXiv preprint arXiv:2106.03106  (2021)
+
+\bibitem{xia2021advancing}
+Xia, X., Hang, P., Xu, N., Huang, Y., Xiong, L., Yu, Z.: Advancing estimation
+  accuracy of sideslip angle by fusing vehicle kinematics and dynamics
+  information with fuzzy logic. IEEE Transactions on Vehicular Technology
+  (2021)
+
+\bibitem{xu2021opencda}
+Xu, R., Guo, Y., Han, X., Xia, X., Xiang, H., Ma, J.: Opencda: an open
+  cooperative driving automation framework integrated with co-simulation. In:
+  2021 IEEE International Intelligent Transportation Systems Conference (ITSC).
+  pp. 1155--1162. OPTorganization (2021)
+
+\bibitem{xu2022cobevt}
+Xu, R., Tu, Z., Xiang, H., Shao, W., Zhou, B., Ma, J.: Cobevt: Cooperative
+  bird's eye view semantic segmentation with sparse transformers. arXiv
+  preprint arXiv:2207.02202  (2022)
+
+\bibitem{xu2021opv2v}
+Xu, R., Xiang, H., Xia, X., Han, X., Liu, J., Ma, J.: Opv2v: An open benchmark
+  dataset and fusion pipeline for perception with vehicle-to-vehicle
+  communication. arXiv preprint arXiv:2109.07644  (2021)
+
+\bibitem{yan2018second}
+Yan, Y., Mao, Y., Li, B.: Second: Sparsely embedded convolutional detection.
+  Sensors  \textbf{18}(10), ~3337 (2018)
+
+\bibitem{yang2018pixor}
+Yang, B., Luo, W., Urtasun, R.: Pixor: Real-time 3d object detection from point
+  clouds. In: CVPR. pp. 7652--7660 (2018)
+
+\bibitem{yang2019std}
+Yang, Z., Sun, Y., Liu, S., Shen, X., Jia, J.: Std: Sparse-to-dense 3d object
+  detector for point cloud. In: CVPR. pp. 1951--1960 (2019)
+
+\bibitem{yuan2022keypoints}
+Yuan, Y., Cheng, H., Sester, M.: Keypoints-based deep feature fusion for
+  cooperative vehicle detection of autonomous driving. IEEE Robotics and
+  Automation Letters  \textbf{7}(2),  3054--3061 (2022)
+
+\bibitem{zhao2022track}
+Zelin, Z., Ze, W., Yueqing, Z., Boxun, L., Jiaya, J.: Tracking objects as
+  pixel-wise distributions. arXiv preprint arXiv:2207.05518  (2022)
+
+\bibitem{zhang2020resnest}
+Zhang, H., Wu, C., Zhang, Z., Zhu, Y., Lin, H., Zhang, Z., Sun, Y., He, T.,
+  Mueller, J., Manmatha, R., et~al.: Resnest: Split-attention networks. arXiv
+  preprint arXiv:2004.08955  (2020)
+
+\bibitem{zhang2021safe}
+Zhang, Z., Fisac, J.F.: Safe occlusion-aware autonomous driving via
+  game-theoretic active perception. arXiv preprint arXiv:2105.08169  (2021)
+
+\bibitem{zhao2017cooperative}
+Zhao, X., Mu, K., Hui, F., Prehofer, C.: A cooperative vehicle-infrastructure
+  based urban driving environment perception method using a ds theory-based
+  credibility map. Optik  \textbf{138},  407--415 (2017)
+
+\bibitem{zhong2021vin}
+Zhong, Y., Zhu, M., Peng, H.: Vin: Voxel-based implicit network for joint 3d
+  object detection and segmentation for lidars. arXiv preprint arXiv:2107.02980
+   (2021)
+
+\bibitem{zhou2018voxelnet}
+Zhou, Y., Tuzel, O.: Voxelnet: End-to-end learning for point cloud based 3d
+  object detection. In: CVPR. pp. 4490--4499 (2018)
+
+\bibitem{zhou2021r}
+Zhou, Z., Fan, X., Shi, P., Xin, Y.: R-msfm: Recurrent multi-scale feature
+  modulation for monocular depth estimating. In: Proceedings of the IEEE/CVF
+  International Conference on Computer Vision. pp. 12777--12786 (2021)
+
+\end{thebibliography}

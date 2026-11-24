@@ -1,0 +1,138 @@
+% CVPR 2022 Paper Template
+% based on the CVPR template provided by Ming-Ming Cheng (https://github.com/MCG-NKU/CVPR_Template)
+% modified and extended by Stefan Roth (stefan.roth@NOSPAMtu-darmstadt.de)
+\pdfoutput=1 
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+
+
+%%%%%%%%% PAPER TYPE  - PLEASE UPDATE FOR FINAL VERSION
+%\usepackage[review]{cvpr}      % To produce the REVIEW version
+\usepackage{cvpr}              % To produce the CAMERA-READY version
+%\usepackage[pagenumbers]{cvpr} % To force page numbers, e.g. for an arXiv version
+
+% Include other packages here, before hyperref.
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{stfloats}
+\usepackage{stfloats}
+\usepackage[accsupp]{axessibility}
+
+% It is strongly recommended to use hyperref, especially for the review version.
+% hyperref with option pagebackref eases the reviewers' job.
+% Please disable hyperref *only* if you encounter grave issues, e.g. with the
+% file validation for the camera-ready version.
+%
+% If you comment hyperref and then uncomment it, you should delete
+% ReviewTempalte.aux before re-running LaTeX.
+% (Or just hit 'q' on the first LaTeX run, let it finish, and you
+%  should be clear).
+\usepackage[pagebackref,breaklinks,colorlinks]{hyperref}
+
+
+% Support for easy cross-referencing
+\usepackage[capitalize]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\Crefname{table}{Table}{Tables}
+\crefname{table}{Tab.}{Tabs.}
+
+
+%%%%%%%%% PAPER ID  - PLEASE UPDATE
+\def\cvprPaperID{10407} % *** Enter the CVPR Paper ID here
+\def\confName{CVPR}
+\def\confYear{2022}
+
+%%%%% Setting %%%%%%%%%%%
+\usepackage{enumitem}
+\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+\setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+\setdescription{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+
+\usepackage{color}
+\usepackage{flushend}
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{0.97} 
+\begin{document}
+
+%%%%%%%%% TITLE - PLEASE UPDATE
+\title{DAIR-V2X: A Large-Scale Dataset for Vehicle-Infrastructure Cooperative \\ 3D Object Detection}
+\author{Haibao Yu$^{1}$, Yizhen Luo$^{1,3}$, Mao Shu$^{2}$, Yiyi Huo$^{1,4}$, Zebang Yang$^{1,3}$, Yifeng Shi$^{2}$, Zhenglong Guo$^{2}$,
+\and Hanyu Li$^{2}$, Xing Hu$^{2}$, Jirui Yuan$^{1}$, Zaiqing Nie$^{1}$\thanks{Corresponding author. $^{3,4}$ Work done while at AIR.} \\
+$^{1}$Institute for AI Industry Research(AIR), Tsinghua University \\
+$^{2}$ Baidu Inc. $^{3}$ Department of Computer Science and Technology, Tsinghua University\\$^{4}$ University of Chinese Academy of Science \\
+{\tt\small \{yuhaibao@air.,luoyz18@mails.,yzb19@mails.,yuanjirui@air.,zaiqing@air.\}tsinghua.edu.cn,} \\ 
+{\tt\small \{shumao,shiyifeng,guozhenglong,lihanyu02,huxing\}@baidu.com,  huoyiyi18@mails.ucas.ac.cn} 
+% For a paper whose authors are all at the same institution,
+% omit the following lines up until the closing ``}''.
+% Additional authors and addresses can be added with ``\and'',
+% just like the second author.
+% To save space, use either the email address or home page, not both
+}
+
+\maketitle
+
+%%%%%%%%% ABSTRACT
+\begin{abstract}
+Autonomous driving faces great safety challenges for a lack of global perspective and the limitation of long-range perception capabilities. 
+It has been widely agreed that vehicle-infrastructure cooperation is required to achieve Level 5 autonomy. 
+However, there is still NO dataset from real scenarios available for computer vision researchers to work on vehicle-infrastructure cooperation-related problems. To accelerate computer vision research and innovation for Vehicle-Infrastructure Cooperative Autonomous Driving (VICAD), we release DAIR-V2X Dataset, which is the first large-scale, multi-modality, multi-view dataset from real scenarios for VICAD. 
+DAIR-V2X comprises 71254 LiDAR frames and 71254 Camera frames, and all frames are captured from real scenes with 3D annotations.
+The Vehicle-Infrastructure Cooperative 3D Object Detection problem (VIC3D) is introduced, formulating the problem of collaboratively locating and identifying 3D objects using sensory inputs from both vehicle and infrastructure. 
+In addition to solving traditional 3D object detection problems, the solution of VIC3D needs to consider the temporal asynchrony problem between vehicle and infrastructure sensors and the data transmission cost between them. 
+Furthermore, we propose Time Compensation Late Fusion (TCLF), a late fusion framework for the VIC3D task as a benchmark based on DAIR-V2X.
+% Results show that integrating data from infrastructure sensors achieves an average of 15\% higher precision than single-vehicle 3d detection, and TCLF makes up 60\% of the precision loss (IoU=0.7) caused by the temporal asynchrony problem. 
+Find data, code, and more up-to-date information
+at \href{https://thudair.baai.ac.cn/index}{https://thudair.baai.ac.cn/index} and \href{https://github.com/AIR-THU/DAIR-V2X}{https://github.com/AIR-THU/DAIR-V2X}.
+\end{abstract}
+
+%%%%%%%%% BODY TEXT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{1.introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{2.relatedworks}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{3.dataset}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{4.vic3d}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{5.benchmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+In this paper, we introduce DAIR-V2X, the first large-scale, multi-modality, multi-view dataset for vehicle-infrastructure cooperative autonomous driving, and all frames are captured from real scenes with 3D annotations. 
+We also define VIC3D object detection to formulate the problem of collaboratively locating and identifying 3D objects using sensory input from both vehicle and infrastructure. 
+In addition to solving traditional 3D object detection problems, the solution of VIC3D needs to consider the temporal asynchrony problem between vehicle and infrastructure sensors and the data transmission cost between them.   
+To facilitate future research, we provide a VIC3D benchmark for detection models with our proposed Time Compensation Late Fusion framework, as well as extensive benchmarks for 3D detection on vehicle-view and infrastructure-view datasets. 
+Results show that integrating data from infrastructure sensors achieves an average of 15\% AP higher than single-vehicle 3D detection, and TCLF can alleviate temporal asynchrony problems.
+
+\section*{Acknowledgements} 
+We thank Fan Yang, Ruiwen Zhang, Wenyue Wu, and Xiao Wang from Baidu Inc. for the support in data processing. 
+We thank Jilei Mao, Taohua Zhou, Yingjuan Tang, Zan Mao, and Zhiwen Yang for their support in the benchmark construction. 
+Thanks to Beijing High-level Autonomous Driving Demonstration Area, Beijing Connected and Autonomous Vehicles Technology Co., Ltd, Baidu Apollo, and Beijing Academy of Artificial Intelligence for their support throughout the dataset construction and release process.
+
+
+%%%%%%%%% REFERENCES
+{\small
+\bibliographystyle{ieee_fullname}
+\bibliography{egbib}
+}
+
+\end{document}

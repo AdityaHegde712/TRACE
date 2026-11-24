@@ -1,0 +1,31 @@
+\begin{table*}[!t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Performance comparison (AP@0.3 / 0.5 / 0.7) of mainstream methods.}
+\label{tab:main-comparison}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccccccc@{}}
+\toprule
+& & \multicolumn{3}{c}{\textbf{OPV2V}} & \multicolumn{3}{c}{\textbf{V2XSet}} & \multicolumn{3}{c}{\textbf{DAIR-V2X}} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}\cmidrule(lr){9-11}
+\textbf{Method} & \textbf{Comm. (KiB)} & \textbf{0.3} & \textbf{0.5} & \textbf{0.7}
+& \textbf{0.3} & \textbf{0.5} & \textbf{0.7} & \textbf{0.3} & \textbf{0.5} & \textbf{0.7} \\
+\midrule
+No Fusion   & 0      & 0.7185 & 0.7118 & 0.6136 & 0.6407 & 0.6328 & 0.5041 & 0.5669 & 0.5402 & 0.4365 \\
+Late Fusion & 64     & 0.8638 & 0.8458 & 0.6885 & 0.8131 & 0.7888 & 0.6069 & 0.5267 & 0.4591 & 0.2932 \\
+Early Fusion & 64     & 0.8246 & 0.8136 & 0.6818 & 0.7835 & 0.7573 & 0.5514 & 0.5806 & 0.5280 & 0.3843 \\
+\midrule
+DiscoNet~\cite{discoNet}     & 64     & 0.8279 & 0.7818 & 0.5669 & 0.7942 & 0.7211 & 0.4850 & 0.6087 & 0.5084 & 0.3062 \\
+V2X-ViT~\cite{v2xvit}         & 64     & 0.7669 & 0.7457 & 0.5540 & 0.7078 & 0.6806 & 0.4706 & 0.5515 & 0.4966 & 0.3225 \\
+CoAlign~\cite{coalign}         & 64     & 0.7408 & 0.7133 & 0.5507 & 0.6963 & 0.6458 & 0.4390 & 0.5353 & 0.4730 & 0.3591 \\
+How2comm~\cite{yang2023how2comm} & 64 & 0.8583 & 0.8422 & 0.7312 & 0.8999 & 0.8693 & 0.6754 & 0.5394 & 0.4711 & 0.3150 \\
+ERMVP~\cite{ermvp}           & 64     & 0.8768 & 0.8630 & 0.7536 & 0.8387 & 0.8133 & 0.6685 & 0.6016 & 0.5529 & 0.3856 \\
+MRCNet~\cite{mrcnet}           & 64     & 0.8395 & 0.8220 & 0.6756 & 0.7722 & 0.7464 & 0.5388 & 0.5380 & 0.4905 & 0.3652 \\
+CoSDH~\cite{cosdh}           & 64     & 0.8420 & 0.8265 & 0.6726 & 0.7684 & 0.7447 & 0.6138 & \textbf{0.6316} & 0.5700 & 0.3737 \\
+MDD~\cite{huang2025v2xr}       & 64     & 0.7145 & 0.6976 & 0.5781 & 0.6490 & 0.6110 & 0.4443 & 0.5074 & 0.4540 & 0.3395 \\
+WhisperNet~\cite{whispernet} & 64 & 0.8723 & 0.8671 & 0.7844 & 0.8133 & 0.8075 & 0.7079 & 0.5889 & 0.5558 & 0.4373 \\
+\midrule
+\textbf{Ours} & 64 & \textbf{0.9089} & \textbf{0.9034} & \textbf{0.8081} & \textbf{0.8680} & \textbf{0.8614} & \textbf{0.7461} & 0.6303 & \textbf{0.5873} & \textbf{0.4463} \\
+\bottomrule
+\end{tabular*}
+\end{table*}

@@ -1,0 +1,96 @@
+
+\input{figure/figure4.tex}
+\section{Experimental Results}
+% \section{AirSim-CP Dataset and Baselines}
+\label{sec:result}
+% \input{table/case_description.tex}
+
+% \subsection{Implementation Details}
+\subsection{AirSim-CP Dataset}
+%\paragraph{Experimental environment.}
+\textbf{Dataset.} Our \DatasetName~dataset is built upond the AirSim simulator~\cite{airsim2017fsr}, where a group of \textbf{five} drones fly over a map with diverse landscapes, such as roads, grasslands, buildings, lakes, \textit{etc}. 
+Currently, in our \DatasetName~dataset, we use  semantic segmentation as the downstream task to benchmark methods for the collaborative perception problem. 
+For each drone, RGB images, depth images, and poses are recorded. We also provide the semantic segmentation mask of one of agents. 
+
+\subsection{Proposed Experimental Settings.}
+\label{sec:setting}
+As illustrated in Figure~\ref{fig:case_des}, in order to obtain perceptual data under realistic trajectories, the drones perform pre-specified tasks of waypoint following and multi-agent random exploration. 
+We then consider \textbf{four} experimental settings: (1) hidden target view (waypoint following trajectories), (2-3) accurate or inaccurate pose (waypoint following trajectories), and (4) accurate pose (random exploration trajectories). We collect approximately 10-20k images per setting, with a roughly 60\%/20\%/20\% train/val/test split.
+In all cases, there is a degraded target agent. 
+We perturb the target agent's view by applying a Gaussian blur filter with random size (from $1$ to $100$) and Gaussian noise.
+When specified, depth and pose information is used to warp the normal agents' views to the target view. In terms of the optimization, we use ResNet18~\cite{he2016deep} as our feature backbone and train it for $200k$ iterations with Adam optimizer with learning rate $10^{-5}$.
+                                
+\textbf{Hidden Target View with Multi-agent Waypoint Following.} 
+The agents are asked to navigate between waypoints but when performing the semantic segmentation task, rather than the \textit{normal} agents being all of the neighboring agents, we replace one of the normal agent with an \textit{un-degraded} version of the target view. 
+This task tests whether the baseline and the proposed method can help the target agent find the \textit{hidden} ground-truth target view in one of the neighboring agents. 
+This experiment thus can be regarded as a sanity check on communication. 
+Note that we do not use any 3D information to warp normal views to the target view. 
+The motivation for this case is to remove the confound of geometric warping and image misalignments (which is important for the semantic segmentation task~\cite{ronneberger2015u})
+from the study of the collaborative perception task.
+Our focus is to make sure that communication can be effective and accurate in a bandwidth-limited manner.
+Hence, we can directly assess only communication effectiveness from this case.
+
+\textbf{Accurate Pose with Multi-agent Waypoint Following.}  
+Similar to the previous setting, the five drones are performing waypoint following  jointly. 
+Differently, the field-of-view (FOV) of the target agent only partially overlaps with some subset of the normal agents. 
+This case is designed to test whether the proposed method can select the normal agent with partially overlapping FOVs, in order to aid the downstream perception task. 
+In order to maintain the image alignment for a better segmentation prediction, we use 3D information from the depth maps of each normal agent's view and an accurate relative pose transformation to the target view to warp the pixels of the normal agent's observations to the target's view. Note that the depth maps do not have to be transmitted (warping is done locally on each agent) but we include the transmission of the target's pose to the other agents in the bandwidth used, although it is minimal.
+
+\textbf{Inaccurate Pose with Multi-agent Waypoint Following.} To further make our experimental setting more realistic, we add noise in the  agents' positions. This results in warped images that are not well-aligned with the target view.
+
+\textbf{Accurate Pose with Multi-agent Random Exploration.} We also investigate collaborative perception during multi-agent random exploration, where agents approach a target location, disperse, and wander. As the agents explore the environment individually, the relative positions and overlapping fields-of-view of agents change frequently.
+
+\subsection{Baselines}
+We consider the following methods for comparison:
+\begin{itemize}
+    \item \textit{Single normal (upper bound)} and \textit{Single degraded (lower bound) }: the models are trained with single non-degraded and degraded images respectively for the target agent.
+    \item \textit{CatAll (centralized)}: the model uses the concatenation of all features from both degraded and normal agents as input for semantic segmentation.
+    \item \textit{Attention (centralized)}:     the \textit{Attention} mechanism weights and sums up  feature maps instead of the concatenation of the \textit{CatAll} method. 
+    \item \textit{Compression (centralized)}: the compression model applies two additional convolutional layers and performs uniform compression of all observations at rate $25\%$, with concatenation used for combining them. Note that we can certainly replace our image encoder with more sophisticated compression encoders to further improve the compression rate~\cite{cheng2019learning}.
+    
+    \item \textit{Random selection (distributed)}: 
+    instead of learning to select which agent to communicate with, here the feature map from a random normal agent is selected.
+    \item \textit{Ours (distributed)}: we denote our proposed method as ours with message (\textit{ours w/ msg}), and another variant where the message request $\bm{\mu}_j$ is set to a constant vector with ones to check whether the message request is essential. It is worth noting that we \textit{do not} use any label indicating the best agent during the training. 
+\end{itemize}
+Both \textit{CatAll} and \textit{Attention} require all feature maps from normal agents to be sent to the degraded agent. The bandwidth of the centralized baselines scales linearly with the number of agents in the system, while \textit{Random selection} and \textit{ours} only requires a single image feature map to be transmitted.
+
+\subsection{Evaluation metrics.}
+In order to evaluate and analyze the effectiveness of models, we use 1) overall accuracy to measure the performance of semantic segmentation~\cite{long2015fully} and 2) Kbytes per frame (kbpf) to measure the bandwidth usage (BW) to examine the ability of communication and selection. 
+In addition, to better benchmark the performances on the collaborative perception task under limited bandwidth, we introduce the \textbf{Bandwidth-Improvement Score} (BIS) defined as:
+\begin{equation}
+    BIS = \dfrac{ \delta -\bar{\delta}}{(\hat{\delta}-\bar{\delta})\omega},
+\end{equation}
+where $\delta$ is the overall accuracy of the examined method, $\bar{\delta}$ is the overall accuracy of the single degraded model (\textit{i.e.,} lower bound on overall accuracy), $\hat{\delta}$ is the overall accuracy of the single normal model (\textit{i.e.,} upper bound on overall accuracy), and $\omega$ is the bandwidth usage (in Mbytes per frame) of the examined method. The BIS score is defined as a ratio of relative improvement in overall accuracy over bandwidth usage. Smaller bandwidth usage and larger improvements in overall accuracy lead to higher scores. 
+
+\input{table/table_nav_unified.tex}
+ \input{figure/message_key_figure.tex}
+
+\section{Results and Ablation Studies}
+\label{sec:results-cases}
+
+In this section, we compare our proposed method with baselines on the four cases (Sec.~\ref{sec:setting}) as shown in Table~\ref{tab:res_nav}.
+
+\textbf{ Hidden Target View with Multi-agent Waypoint Following.}
+As mentioned, geometric warping is not applied for this case. This results in better evaluation of communication, since the warping noise for the target view is removed and non-warped normal images make the selection more difficult.
+
+Several observations can be made from this case.
+First, as the centralized baselines are able to access all observations from different views, it should be the upper bounds of all distributed methods including our proposed models. However, we find that our model improves overall accuracy by a relative \textit{$16.51\%$} with respect to CatAll with only one quarter bandwidth usage. This shows that simply concatenating all of the information cannot guarantee that the network will combine it meaningfully and bandwidth is likely to be wasted. Second, in order to predict pixel-wise outputs and accurately predict fine-grained classes, scene understanding tasks require high-dimensional feature maps during inference. Using the overly compressed feature map may degrade the overall accuracy, hence our model with the message can improve overall accuracy a relative $20.06\%$ with respect to the \textit{Compression} model. Lastly, we also observe that our model with the message can improve mIoU by a relative $29.49\%$ compared to without the message. This demonstrates the necessity of the message in the communication.
+
+\textbf{Accurate and Inaccurate Pose with Multi-agent Waypoint Following.}
+One challenge for these cases is that the field of view between target and normal agents are partially overlapping. With the forward geometric warping on the visual observations of the normal agents, we observe that only one or two agents contain(s) partial information of the target view. Thus the performances of distributed models drop compared to the previous task. Our models are still able to achieve similar results compared with centralized methods, using only a quarter of the bandwidth, and still achieve the highest BIS among these methods. 
+It is worth noting that our models with and without the message perform similarly because the model can rely on cues from warping (\textit{e.g.,} amount of overlap) from the normal agent images, hence reducing the need for conditioning on the message. Note also that although the BIS degrades somewhat due to inaccurate pose, it is still able to significantly beat the baselines.
+
+\textbf{Accurate Pose with Multi-agent Random Exploration.}
+Although overlapping FOVs and motions of agents change frequently in this case, we observe that our models still perform favorably against other baseline methods. This shows our models' robustness in different environments and tasks. 
+
+\textbf{Message and key sizes.} 
+To better examine the accuracy of agent selection, we manually label the "best" agent of the testing sets of Hidden Target View 
+and further measure the selection accuracy and overall accuracy of various models. 
+
+When using the \textit{general} attention, the size of message and key can be set to different values. We first analyze the effect of message size by varying it from $1$ to $64$ as shown in Figure~\ref{fig:message_key}a.
+We observe that a larger message size results in increased selection accuracy and segmentation quality. 
+Note that a message size of $4$ is sufficient to achieve comparable performance on both selection and segmentation, after which the performance plateaus. 
+We also conduct a similar experiment by varying the key size from $4$ to $1024$, and the same trend can be observed in Figure~\ref{fig:message_key}b. 
+Also, we empirically found that a small message (\textit{e.g.,} 8) paired with large key size (\textit{e.g.,} 1024) can achieve amenable performance. 
+This is also the sizes of our models for all experiments in Sec.~\ref{sec:results-cases}. 
+Importantly, the effectiveness of asymmetric sizes is an interesting finding as it allows us to use a small size for the message that is sent to other agents while using larger sizes for the key used locally by each agent to compute the scores (and hence does not need to be transmitted). These results validate this advantage. 

@@ -1,0 +1,378 @@
+\begin{thebibliography}{10}\itemsep=-1pt
+
+\bibitem{bender2014lanelets}
+Philipp Bender, Julius Ziegler, and Christoph Stiller.
+\newblock Lanelets: Efficient map representation for autonomous driving.
+\newblock In {\em 2014 IEEE Intelligent Vehicles Symposium Proceedings}, pages
+  420--425. IEEE, 2014.
+
+\bibitem{caesar2020nuscenes}
+Holger Caesar, Varun Bankiti, Alex~H Lang, Sourabh Vora, Venice~Erin Liong,
+  Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom.
+\newblock nuscenes: A multimodal dataset for autonomous driving.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition}, pages 11621--11631, 2020.
+
+\bibitem{chang2019argoverse}
+Ming-Fang Chang, John Lambert, Patsorn Sangkloy, Jagjeet Singh, Slawomir Bak,
+  Andrew Hartnett, De Wang, Peter Carr, Simon Lucey, Deva Ramanan, et~al.
+\newblock Argoverse: 3d tracking and forecasting with rich maps.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 8748--8757, 2019.
+
+\bibitem{chen2019f}
+Qi Chen, Xu Ma, Sihai Tang, Jingda Guo, Qing Yang, and Song Fu.
+\newblock F-cooper: Feature based cooperative perception for autonomous vehicle
+  edge computing system using 3d point clouds.
+\newblock In {\em Proceedings of the 4th ACM/IEEE Symposium on Edge Computing},
+  pages 88--100, 2019.
+
+\bibitem{chen2019cooper}
+Qi Chen, Sihai Tang, Qing Yang, and Song Fu.
+\newblock Cooper: Cooperative perception for connected autonomous vehicles
+  based on 3d point clouds.
+\newblock In {\em 2019 IEEE 39th International Conference on Distributed
+  Computing Systems (ICDCS)}, pages 514--524. IEEE, 2019.
+
+\bibitem{chen2018domain}
+Yuhua Chen, Wen Li, Christos Sakaridis, Dengxin Dai, and Luc Van~Gool.
+\newblock Domain adaptive faster r-cnn for object detection in the wild.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 3339--3348, 2018.
+
+\bibitem{chui2017kalman}
+Charles~K Chui, Guanrong Chen, et~al.
+\newblock {\em Kalman filtering}.
+\newblock Springer, 2017.
+
+\bibitem{cordts2016cityscapes}
+Marius Cordts, Mohamed Omran, Sebastian Ramos, Timo Rehfeld, Markus Enzweiler,
+  Rodrigo Benenson, Uwe Franke, Stefan Roth, and Bernt Schiele.
+\newblock The cityscapes dataset for semantic urban scene understanding.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 3213--3223, 2016.
+
+\bibitem{crescenzi2001roadrunner}
+Valter Crescenzi, Giansalvatore Mecca, Paolo Merialdo, et~al.
+\newblock Roadrunner: Towards automatic data extraction from large web sites.
+\newblock In {\em VLDB}, volume~1, pages 109--118, 2001.
+
+\bibitem{cui2022coopernaut}
+Jiaxun Cui, Hang Qiu, Dian Chen, Peter Stone, and Yuke Zhu.
+\newblock Coopernaut: end-to-end driving with cooperative perception for
+  networked vehicles.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 17252--17262, 2022.
+
+\bibitem{dosovitskiy2017carla}
+Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen
+  Koltun.
+\newblock Carla: An open urban driving simulator.
+\newblock In {\em Conference on robot learning}, pages 1--16. PMLR, 2017.
+
+\bibitem{fan2022embracing}
+Lue Fan, Ziqi Pang, Tianyuan Zhang, Yu-Xiong Wang, Hang Zhao, Feng Wang, Naiyan
+  Wang, and Zhaoxiang Zhang.
+\newblock Embracing single stride 3d object detector with sparse transformer.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 8458--8468, 2022.
+
+\bibitem{ganin2015unsupervised}
+Yaroslav Ganin and Victor Lempitsky.
+\newblock Unsupervised domain adaptation by backpropagation.
+\newblock In {\em International conference on machine learning}, pages
+  1180--1189. PMLR, 2015.
+
+\bibitem{geiger2012we}
+Andreas Geiger, Philip Lenz, and Raquel Urtasun.
+\newblock Are we ready for autonomous driving? the kitti vision benchmark
+  suite.
+\newblock In {\em 2012 IEEE conference on computer vision and pattern
+  recognition}, pages 3354--3361. IEEE, 2012.
+
+\bibitem{han2023collaborative}
+Yushan Han, Hui Zhang, Huifang Li, Yi Jin, Congyan Lang, and Yidong Li.
+\newblock Collaborative perception in autonomous driving: Methods, datasets and
+  challenges.
+\newblock {\em arXiv preprint arXiv:2301.06262}, 2023.
+
+\bibitem{huang2021bevdet}
+Junjie Huang, Guan Huang, Zheng Zhu, and Dalong Du.
+\newblock Bevdet: High-performance multi-camera 3d object detection in
+  bird-eye-view.
+\newblock {\em arXiv preprint arXiv:2112.11790}, 2021.
+
+\bibitem{kingma2014adam}
+Diederik~P Kingma and Jimmy Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock {\em arXiv preprint arXiv:1412.6980}, 2014.
+
+\bibitem{lang2019pointpillars}
+Alex~H Lang, Sourabh Vora, Holger Caesar, Lubing Zhou, Jiong Yang, and Oscar
+  Beijbom.
+\newblock Pointpillars: Fast encoders for object detection from point clouds.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition}, pages 12697--12705, 2019.
+
+\bibitem{li2020sustech}
+E Li, Shuaijun Wang, Chengyang Li, Dachuan Li, Xiangbin Wu, and Qi Hao.
+\newblock Sustech points: A portable 3d point cloud interactive annotation
+  platform system.
+\newblock In {\em 2020 IEEE Intelligent Vehicles Symposium (IV)}, pages
+  1108--1115. IEEE, 2020.
+
+\bibitem{li2022v2x}
+Yiming Li, Ziyan An, Zixun Wang, Yiqi Zhong, Siheng Chen, and Chen Feng.
+\newblock V2x-sim: A virtual collaborative perception dataset for autonomous
+  driving.
+\newblock {\em arXiv preprint arXiv:2202.08449}, 2022.
+
+\bibitem{li2022deepfusion}
+Yingwei Li, Adams~Wei Yu, Tianjian Meng, Ben Caine, Jiquan Ngiam, Daiyi Peng,
+  Junyang Shen, Yifeng Lu, Denny Zhou, Quoc~V Le, et~al.
+\newblock Deepfusion: Lidar-camera deep fusion for multi-modal 3d object
+  detection.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 17182--17191, 2022.
+
+\bibitem{li2023voxformer}
+Yiming Li, Zhiding Yu, Christopher Choy, Chaowei Xiao, Jose~M Alvarez, Sanja
+  Fidler, Chen Feng, and Anima Anandkumar.
+\newblock Voxformer: Sparse voxel transformer for camera-based 3d semantic
+  scene completion.
+\newblock {\em arXiv preprint arXiv:2302.12251}, 2023.
+
+\bibitem{liu2022yolov5}
+Wei Liu, Karoll Quijano, and Melba~M Crawford.
+\newblock Yolov5-tassel: detecting tassels in rgb uav imagery with improved
+  yolov5 based on transfer learning.
+\newblock {\em IEEE Journal of Selected Topics in Applied Earth Observations
+  and Remote Sensing}, 15:8085--8094, 2022.
+
+\bibitem{liu2021automated}
+Wei Liu, Xin Xia, Lu Xiong, Yishi Lu, Letian Gao, and Zhuoping Yu.
+\newblock Automated vehicle sideslip angle estimation considering signal
+  measurement characteristic.
+\newblock {\em IEEE Sensors Journal}, 21(19):21675--21687, 2021.
+
+\bibitem{loshchilov2017decoupled}
+Ilya Loshchilov and Frank Hutter.
+\newblock Decoupled weight decay regularization.
+\newblock {\em arXiv preprint arXiv:1711.05101}, 2017.
+
+\bibitem{lu2022robust}
+Yifan Lu, Quanhao Li, Baoan Liu, Mehrdad Dianati, Chen Feng, Siheng Chen, and
+  Yanfeng Wang.
+\newblock Robust collaborative 3d object detection in presence of pose errors.
+\newblock {\em arXiv preprint arXiv:2211.07214}, 2022.
+
+\bibitem{manivasagam2020lidarsim}
+Sivabalan Manivasagam, Shenlong Wang, Kelvin Wong, Wenyuan Zeng, Mikita
+  Sazanovich, Shuhan Tan, Bin Yang, Wei-Chiu Ma, and Raquel Urtasun.
+\newblock Lidarsim: Realistic lidar simulation by leveraging the real world.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 11167--11176, 2020.
+
+\bibitem{prakash2021multi}
+Aditya Prakash, Kashyap Chitta, and Andreas Geiger.
+\newblock Multi-modal fusion transformer for end-to-end autonomous driving.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 7077--7087, 2021.
+
+\bibitem{qi2018frustum}
+Charles~R Qi, Wei Liu, Chenxia Wu, Hao Su, and Leonidas~J Guibas.
+\newblock Frustum pointnets for 3d object detection from rgb-d data.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 918--927, 2018.
+
+\bibitem{autocast}
+Hang Qiu, Pohan Huang, Namo Asavisanu, Xiaochen Liu, Konstantinos Psounis, and
+  Ramesh Govindan.
+\newblock Autocast: Scalable infrastructure-less cooperative perception for
+  distributed collaborative driving.
+\newblock In {\em Proceedings of the 20th Annual International Conference on
+  Mobile Systems, Applications, and Services}, MobiSys '22, 2022.
+
+\bibitem{rawashdeh2018collaborative}
+Zaydoun~Yahya Rawashdeh and Zheng Wang.
+\newblock Collaborative automated driving: A machine learning-based method to
+  enhance the accuracy of shared information.
+\newblock In {\em 2018 21st International Conference on Intelligent
+  Transportation Systems (ITSC)}, pages 3961--3966. IEEE, 2018.
+
+\bibitem{reading2021categorical}
+Cody Reading, Ali Harakeh, Julia Chae, and Steven~L Waslander.
+\newblock Categorical depth distribution network for monocular 3d object
+  detection.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 8555--8564, 2021.
+
+\bibitem{roddick2018orthographic}
+Thomas Roddick, Alex Kendall, and Roberto Cipolla.
+\newblock Orthographic feature transform for monocular 3d object detection.
+\newblock {\em arXiv preprint arXiv:1811.08188}, 2018.
+
+\bibitem{ros2016synthia}
+German Ros, Laura Sellart, Joanna Materzynska, David Vazquez, and Antonio~M
+  Lopez.
+\newblock The synthia dataset: A large collection of synthetic images for
+  semantic segmentation of urban scenes.
+\newblock In {\em CVPR}, pages 3234--3243, 2016.
+
+\bibitem{rukhovich2022imvoxelnet}
+Danila Rukhovich, Anna Vorontsova, and Anton Konushin.
+\newblock Imvoxelnet: Image to voxels projection for monocular and multi-view
+  general-purpose 3d object detection.
+\newblock In {\em Proceedings of the IEEE/CVF Winter Conference on Applications
+  of Computer Vision}, pages 2397--2406, 2022.
+
+\bibitem{sun2020scalability}
+Pei Sun, Henrik Kretzschmar, Xerxes Dotiwalla, Aurelien Chouard, Vijaysai
+  Patnaik, Paul Tsui, James Guo, Yin Zhou, Yuning Chai, Benjamin Caine, et~al.
+\newblock Scalability in perception for autonomous driving: Waymo open dataset.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition}, pages 2446--2454, 2020.
+
+\bibitem{suo2021trafficsim}
+Simon Suo, Sebastian Regalado, Sergio Casas, and Raquel Urtasun.
+\newblock Trafficsim: Learning to simulate realistic multi-agent behaviors.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 10400--10409, 2021.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock {\em Advances in neural information processing systems}, 30, 2017.
+
+\bibitem{vora2020pointpainting}
+Sourabh Vora, Alex~H Lang, Bassam Helou, and Oscar Beijbom.
+\newblock Pointpainting: Sequential fusion for 3d object detection.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition}, pages 4604--4612, 2020.
+
+\bibitem{wang2020v2vnet}
+Tsun-Hsuan Wang, Sivabalan Manivasagam, Ming Liang, Bin Yang, Wenyuan Zeng, and
+  Raquel Urtasun.
+\newblock V2vnet: Vehicle-to-vehicle communication for joint perception and
+  prediction.
+\newblock In {\em European Conference on Computer Vision}, pages 605--621.
+  Springer, 2020.
+
+\bibitem{wang2020pillar}
+Yue Wang, Alireza Fathi, Abhijit Kundu, David~A Ross, Caroline Pantofaru, Tom
+  Funkhouser, and Justin Solomon.
+\newblock Pillar-based object detection for autonomous driving.
+\newblock In {\em European Conference on Computer Vision}, pages 18--34.
+  Springer, 2020.
+
+\bibitem{wang2022detr3d}
+Yue Wang, Vitor~Campagnolo Guizilini, Tianyuan Zhang, Yilun Wang, Hang Zhao,
+  and Justin Solomon.
+\newblock Detr3d: 3d object detection from multi-view images via 3d-to-2d
+  queries.
+\newblock In {\em Conference on Robot Learning}, pages 180--191. PMLR, 2022.
+
+\bibitem{weng20203d}
+Xinshuo Weng, Jianren Wang, David Held, and Kris Kitani.
+\newblock 3d multi-object tracking: A baseline and new evaluation metrics.
+\newblock In {\em 2020 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems (IROS)}, pages 10359--10366. IEEE, 2020.
+
+\bibitem{xiang2022v2xp}
+Hao Xiang, Runsheng Xu, Xin Xia, Zhaoliang Zheng, Bolei Zhou, and Jiaqi Ma.
+\newblock V2xp-asg: Generating adversarial scenes for vehicle-to-everything
+  perception.
+\newblock {\em arXiv preprint arXiv:2209.13679}, 2022.
+
+\bibitem{xu2022model}
+Runsheng Xu, Weizhe Chen, Hao Xiang, Lantao Liu, and Jiaqi Ma.
+\newblock Model-agnostic multi-agent perception framework.
+\newblock {\em arXiv e-prints}, pages arXiv--2203, 2022.
+
+\bibitem{xu2022bridging}
+Runsheng Xu, Jinlong Li, Xiaoyu Dong, Hongkai Yu, and Jiaqi Ma.
+\newblock Bridging the domain gap for multi-agent perception.
+\newblock {\em arXiv preprint arXiv:2210.08451}, 2022.
+
+\bibitem{xu2022cobevt}
+Runsheng Xu, Zhengzhong Tu, Hao Xiang, Wei Shao, Bolei Zhou, and Jiaqi Ma.
+\newblock Cobevt: Cooperative bird's eye view semantic segmentation with sparse
+  transformers.
+\newblock {\em arXiv preprint arXiv:2207.02202}, 2022.
+
+\bibitem{10045043}
+Runsheng Xu, Hao Xiang, Xu Han, Xin Xia, Zonglin Meng, Chia-Ju Chen, Camila
+  Correa-Jullian, and Jiaqi Ma.
+\newblock The opencda open-source ecosystem for cooperative driving automation
+  research.
+\newblock {\em IEEE Transactions on Intelligent Vehicles}, pages 1--13, 2023.
+
+\bibitem{xu2022v2xvit}
+Runsheng Xu, Hao Xiang, Zhengzhong Tu, Xin Xia, Ming-Hsuan Yang, and Jiaqi Ma.
+\newblock V2x-vit: Vehicle-to-everything cooperative perception with vision
+  transformer.
+\newblock In {\em Computer Vision--ECCV 2022: 17th European Conference, Tel
+  Aviv, Israel, October 23--27, 2022, Proceedings, Part XXXIX}, pages 107--124.
+  Springer, 2022.
+
+\bibitem{xu2022opv2v}
+Runsheng Xu, Hao Xiang, Xin Xia, Xu Han, Jinlong Li, and Jiaqi Ma.
+\newblock Opv2v: An open benchmark dataset and fusion pipeline for perception
+  with vehicle-to-vehicle communication.
+\newblock In {\em 2022 International Conference on Robotics and Automation
+  (ICRA)}, pages 2583--2589. IEEE, 2022.
+
+\bibitem{yan2018second}
+Yan Yan, Yuxing Mao, and Bo Li.
+\newblock Second: Sparsely embedded convolutional detection.
+\newblock {\em Sensors}, 18(10):3337, 2018.
+
+\bibitem{yang2018pixor}
+Bin Yang, Wenjie Luo, and Raquel Urtasun.
+\newblock Pixor: Real-time 3d object detection from point clouds.
+\newblock In {\em Proceedings of the IEEE conference on Computer Vision and
+  Pattern Recognition}, pages 7652--7660, 2018.
+
+\bibitem{yu2020bdd100k}
+Fisher Yu, Haofeng Chen, Xin Wang, Wenqi Xian, Yingying Chen, Fangchen Liu,
+  Vashisht Madhavan, and Trevor Darrell.
+\newblock Bdd100k: A diverse driving dataset for heterogeneous multitask
+  learning.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition}, pages 2636--2645, 2020.
+
+\bibitem{yu2022dair}
+Haibao Yu, Yizhen Luo, Mao Shu, Yiyi Huo, Zebang Yang, Yifeng Shi, Zhenglong
+  Guo, Hanyu Li, Xing Hu, Jirui Yuan, et~al.
+\newblock Dair-v2x: A large-scale dataset for vehicle-infrastructure
+  cooperative 3d object detection.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 21361--21370, 2022.
+
+\bibitem{zhao2021point}
+Hengshuang Zhao, Li Jiang, Jiaya Jia, Philip~HS Torr, and Vladlen Koltun.
+\newblock Point transformer.
+\newblock In {\em Proceedings of the IEEE/CVF international conference on
+  computer vision}, pages 16259--16268, 2021.
+
+\bibitem{zhao2022tracking}
+Zelin Zhao, Ze Wu, Yueqing Zhuang, Boxun Li, and Jiaya Jia.
+\newblock Tracking objects as pixel-wise distributions.
+\newblock In {\em European Conference on Computer Vision}, pages 76--94.
+  Springer, 2022.
+
+\bibitem{zhou2022cross}
+Brady Zhou and Philipp Kr{\"a}henb{\"u}hl.
+\newblock Cross-view transformers for real-time map-view semantic segmentation.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition}, pages 13760--13769, 2022.
+
+\bibitem{zhou2018voxelnet}
+Yin Zhou and Oncel Tuzel.
+\newblock Voxelnet: End-to-end learning for point cloud based 3d object
+  detection.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 4490--4499, 2018.
+
+\end{thebibliography}

@@ -1,0 +1,244 @@
+\begin{thebibliography}{10}
+
+\bibitem{v2vnet}
+Tsun-Hsuan Wang, Sivabalan Manivasagam, Ming Liang, Bin Yang, Wenyuan Zeng, and
+  Raquel Urtasun.
+\newblock V2vnet: Vehicle-to-vehicle communication for joint perception and
+  prediction.
+\newblock In {\em European Conference on Computer Vision}, pages 605--621.
+  Springer, 2020.
+
+\bibitem{disconet}
+Yiming Li, Shunli Ren, Pengxiang Wu, Siheng Chen, Chen Feng, and Wenjun Zhang.
+\newblock Learning distilled collaboration graph for multi-agent perception.
+\newblock {\em Advances in Neural Information Processing Systems}, 34, 2021.
+
+\bibitem{Chen20213DPC}
+Siheng Chen, Baoan Liu, Chen Feng, Carlos Vallespi-Gonzalez, and Carl~K.
+  Wellington.
+\newblock 3d point cloud processing and learning for autonomous driving:
+  Impacting map creation, localization, and perception.
+\newblock {\em IEEE Signal Processing Magazine}, 38:68--86, 2021.
+
+\bibitem{li2020mechanism}
+Zhi Li, Ali~Vatankhah Barenji, Jiazhi Jiang, Ray~Y Zhong, and Gangyan Xu.
+\newblock A mechanism for scheduling multi robot intelligent warehouse system
+  face with dynamic demand.
+\newblock {\em Journal of Intelligent Manufacturing}, 31(2):469--480, 2020.
+
+\bibitem{zaccaria2021multi}
+Michela Zaccaria, Mikhail Giorgini, Riccardo Monica, and Jacopo Aleotti.
+\newblock Multi-robot multiple camera people detection and tracking in
+  automated warehouses.
+\newblock In {\em 2021 IEEE 19th International Conference on Industrial
+  Informatics (INDIN)}, pages 1--6. IEEE, 2021.
+
+\bibitem{scherer2015autonomous}
+J{\"u}rgen Scherer, Saeed Yahyanejad, Samira Hayat, Evsen Yanmaz, Torsten
+  Andre, Asif Khan, Vladimir Vukadinovic, Christian Bettstetter, Hermann
+  Hellwagner, and Bernhard Rinner.
+\newblock An autonomous multi-uav system for search and rescue.
+\newblock In {\em Proceedings of the First Workshop on Micro Aerial Vehicle
+  Networks, Systems, and Applications for Civilian Use}, pages 33--38, 2015.
+
+\bibitem{alotaibi2019lsar}
+Ebtehal~Turki Alotaibi, Shahad~Saleh Alqefari, and Anis Koubaa.
+\newblock Lsar: Multi-uav collaboration for search and rescue missions.
+\newblock {\em IEEE Access}, 7:55817--55832, 2019.
+
+\bibitem{DVDET}
+Yue Hu, Shaoheng Fang, Weidi Xie, and Siheng Chen.
+\newblock Aerial monocular 3d object detection.
+\newblock {\em arXiv preprint arXiv:2208.03974}, 2022.
+
+\bibitem{V2XSim}
+Yiming Li, Ziyan An, Zixun Wang, Yiqi Zhong, Siheng Chen, and Chen Feng.
+\newblock {V2X-Sim}: A virtual collaborative perception dataset for autonomous
+  driving.
+\newblock {\em IEEE Robotics and Automation Letters}, 7, 2022.
+
+\bibitem{OPV2V}
+Runsheng Xu, Hao Xiang, Xin Xia, Xu~Han, Jinlong Liu, and Jiaqi Ma.
+\newblock {OPV2V}: An open benchmark dataset and fusion pipeline for perception
+  with vehicle-to-vehicle communication.
+\newblock {\em ICRA}, 2022.
+
+\bibitem{dair}
+Haibao Yu, Yizhen Luo, Mao Shu, Yiyi Huo, Zebang Yang, Yifeng Shi, Zhenglong
+  Guo, Hanyu Li, Xing Hu, Jirui Yuan, et~al.
+\newblock {DAIR-V2X}: A large-scale dataset for vehicle-infrastructure
+  cooperative 3d object detection.
+\newblock {\em In Proceedings of the IEEE/CVF Conference on computer vision and
+  pattern recognition (CVPR)}, 2022.
+
+\bibitem{when2com}
+Yen-Cheng Liu, Junjiao Tian, Nathaniel Glaser, and Zsolt Kira.
+\newblock When2com: Multi-agent perception via communication graph grouping.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on computer vision and
+  pattern recognition}, pages 4106--4115, 2020.
+
+\bibitem{who2com}
+Yen-Cheng Liu, Junjiao Tian, Chih-Yao Ma, Nathan Glaser, Chia-Wen Kuo, and
+  Zsolt Kira.
+\newblock Who2com: Collaborative perception via learnable handshake
+  communication.
+\newblock In {\em 2020 IEEE International Conference on Robotics and Automation
+  (ICRA)}, pages 6876--6883. IEEE, 2020.
+
+\bibitem{zhou2022multi}
+Yang Zhou, Jiuhong Xiao, Yue Zhou, and Giuseppe Loianno.
+\newblock Multi-robot collaborative perception with graph neural networks.
+\newblock {\em IEEE Robotics and Automation Letters}, 2022.
+
+\bibitem{ArnoldDT:22}
+Eduardo Arnold, Mehrdad Dianati, and Robert de~Temple.
+\newblock Cooperative perception for 3d object detection in driving scenarios
+  using infrastructure sensors.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems},
+  23:1852--1864, 2022.
+
+\bibitem{SyncNet}
+Zixing Lei, Shunli Ren, Yue Hu, Wenjun Zhang, and Siheng Chen.
+\newblock Latency-aware collaborative perception.
+\newblock {\em ECCV}, 2022.
+
+\bibitem{Li2022mrsc}
+Yiming Li, Juexiao Zhang, Dekun Ma, Yue Wang, and Chen Feng.
+\newblock Multi-robot scene completion: Towards task-agnostic collaborative
+  perception.
+\newblock In {\em Conference on Robot Learning (CoRL)}. PMLR, 2022.
+
+\bibitem{CoBEVT}
+Runsheng Xu, Zhengzhong Tu, Hao Xiang, Wei Shao, Bolei Zhou, and Jiaqi Ma.
+\newblock {CoBEVT}: Cooperative bird's eye view semantic segmentation with
+  sparse transformers.
+\newblock {\em CoRL}, 2022.
+
+\bibitem{UQ4CP}
+Sanbao Su, Yiming Li, Sihong He, Songyang Han, Chen Feng, Caiwen Ding, and Fei
+  Miao.
+\newblock Uncertainty quantification of collaborative detection for
+  self-driving, 2022.
+
+\bibitem{singh2018learning}
+Amanpreet Singh, Tushar Jain, and Sainbayar Sukhbaatar.
+\newblock Learning when to communicate at scale in multiagent cooperative and
+  competitive tasks.
+\newblock {\em ICLR}, 2019.
+
+\bibitem{tan1993multi}
+Ming Tan.
+\newblock Multi-agent reinforcement learning: Independent vs. cooperative
+  agents.
+\newblock In {\em Proceedings of the tenth international conference on machine
+  learning}, pages 330--337, 1993.
+
+\bibitem{qureshi2008smart}
+Faisal Qureshi and Demetri Terzopoulos.
+\newblock Smart camera networks in virtual reality.
+\newblock {\em Proceedings of the IEEE}, 96(10):1640--1656, 2008.
+
+\bibitem{li2010auction}
+Yiming Li, Bir Bhanu, and Wei Lin.
+\newblock Auction protocol for camera active control.
+\newblock In {\em 2010 IEEE International Conference on Image Processing},
+  pages 4325--4328. IEEE, 2010.
+
+\bibitem{sukhbaatar2016learning}
+Sainbayar Sukhbaatar, Rob Fergus, et~al.
+\newblock Learning multiagent communication with backpropagation.
+\newblock {\em Advances in neural information processing systems}, 29, 2016.
+
+\bibitem{hoshen2017vain}
+Yedid Hoshen.
+\newblock Vain: Attentional multi-agent predictive modeling.
+\newblock {\em Advances in Neural Information Processing Systems}, 30, 2017.
+
+\bibitem{xu2022v2x}
+Runsheng Xu, Hao Xiang, Zhengzhong Tu, Xin Xia, Ming-Hsuan Yang, and Jiaqi Ma.
+\newblock {V2X-V}i{T}: Vehicle-to-everything cooperative perception with vision
+  transformer.
+\newblock {\em ECCV}, 2022.
+
+\bibitem{comap}
+Y~Yuan and M~Sester.
+\newblock Comap: A synthetic dataset for collective multi-agent perception of
+  autonomous driving.
+\newblock {\em The International Archives of Photogrammetry, Remote Sensing and
+  Spatial Information Sciences}, 43:255--263, 2021.
+
+\bibitem{zhou2019objects}
+Xingyi Zhou, Dequan Wang, and Philipp Kr{\"a}henb{\"u}hl.
+\newblock Objects as points.
+\newblock In {\em arXiv preprint arXiv:1904.07850}, 2019.
+
+\bibitem{curriculum}
+Yoshua Bengio, J{\'e}r{\^o}me Louradour, Ronan Collobert, and Jason Weston.
+\newblock Curriculum learning.
+\newblock In {\em Proceedings of the 26th annual international conference on
+  machine learning}, pages 41--48, 2009.
+
+\bibitem{carla}
+Alexey Dosovitskiy, German Ros, Felipe Codevilla, Antonio Lopez, and Vladlen
+  Koltun.
+\newblock Carla: An open urban driving simulator.
+\newblock In {\em Conference on robot learning}, pages 1--16. PMLR, 2017.
+
+\bibitem{CaDDN}
+Cody Reading, Ali Harakeh, Julia Chae, and Steven~L. Waslander.
+\newblock Categorical depth distribution network for monocular 3d object
+  detection.
+\newblock {\em CVPR}, 2021.
+
+\bibitem{sumo}
+Daniel Krajzewicz, Jakob Erdmann, Michael Behrisch, and Laura Bieker.
+\newblock Recent development and applications of sumo-simulation of urban
+  mobility.
+\newblock {\em International journal on advances in systems and measurements},
+  5(3\&4), 2012.
+
+\bibitem{Wu2020MotionNetJP}
+Pengxiang Wu, Siheng Chen, and Dimitris~N. Metaxas.
+\newblock Motionnet: Joint perception and motion prediction for autonomous
+  driving based on bird’s eye view maps.
+\newblock {\em 2020 IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 11382--11392, 2020.
+
+\bibitem{Airsim}
+Shital Shah, Debadeepta Dey, Chris Lovett, and Ashish Kapoor.
+\newblock Airsim: High-fidelity visual and physical simulation for autonomous
+  vehicles.
+\newblock In {\em Field and service robotics}, pages 621--635. Springer, 2018.
+
+\bibitem{PointPillar}
+Alex~H. Lang, Sourabh Vora, Holger Caesar, Lubing Zhou, Jiong Yang, and Oscar
+  Beijbom.
+\newblock Pointpillars: Fast encoders for object detection from point clouds.
+\newblock {\em 2019 IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 12689--12697, 2019.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock {\em Advances in neural information processing systems}, 30, 2017.
+
+\bibitem{yu2018dla}
+Fisher Yu, Dequan Wang, Evan Shelhamer, and Trevor Darrell.
+\newblock Deep layer aggregation.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 2403--2412, 2018.
+
+\bibitem{DeformableDETR}
+Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang, and Jifeng Dai.
+\newblock Deformable {DETR}: Deformable transformers for end-to-end object
+  detection.
+\newblock {\em ICLR}, 2021.
+
+\bibitem{nuscenes2019}
+Holger Caesar, Varun Bankiti, Alex~H. Lang, Sourabh Vora, Venice~Erin Liong,
+  Qiang Xu, Anush Krishnan, Yu~Pan, Giancarlo Baldan, and Oscar Beijbom.
+\newblock nuscenes: A multimodal dataset for autonomous driving.
+\newblock {\em arXiv preprint arXiv:1903.11027}, 2019.
+
+\end{thebibliography}

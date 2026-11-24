@@ -1,0 +1,77 @@
+\section{Task \& Metrics}
+Autonomous driving faces great safety challenges for a lack of global perspective and the limitation of long-range perception capabilities. 
+Since 3D object detection is one of the key perception tasks in autonomous driving, in this paper, we focus on the vehicle-infrastructure cooperative (VIC) 3D object detection task, the vehicle receives and integrates information from infrastructure to localize and recognize objects surrounding itself.
+Compared with traditional multi-sensor 3D object detection tasks, VIC3D object detection has the following alternative characteristics:
+\begin{itemize}
+\item Transmission Cost. Limited by physical communication conditions, fewer data should be transmitted from infrastructure to reduce bandwidth consumption, alleviate time delay, and satisfy real-time requirements. Thus, the solution to VIC3D object detection needs to balance the trade-off between the performance and the transmission cost.
+\item Temporal Asynchrony. Timestamps of data from the vehicle sensors and the infrastructure sensors are different due to the asynchronous triggering and time delay caused by transmission cost, to generate the temporal-spatial error. Therefore, temporal synchronization should be considered in solving VIC3D.
+\end{itemize}
+
+To better formulate the VIC3D object detection task, we will give a detailed definition to the VIC3D object detection and then provide two metrics to measure detection performance and transmission cost in this section. 
+
+\subsection{VIC3D Object Detection} \label{sec: vic3d object detection}
+VIC3D object detection can be formulated as the optimization problem of effectively integrating infrastructure and vehicle information to localize and recognize 3D objects considering transmission cost.
+Here we discuss what the input and output of VIC3D should be. \\
+
+\noindent \textbf{Input.}
+The input of VIC3D is composed of data from the vehicle and the infrastructure. 
+\begin{itemize}
+    \item Vehicle Frame $I_{v}(t_{v})$: captured at time $t_{v}$ as well as its relative pose $M_{v}(t_{v})$, where $I_{v}(\cdot)$ denotes the capturing function of vehicle sensors.
+    \item Infrastructure Frame $I_{i}(t_{i})$: captured at time $t_{i}$ as well as its relative pose $M_{v}(t_{i})$, where $I_{i}(\cdot)$ denotes the capturing function of infrastructure sensors.
+\end{itemize}
+Note that $t_{i}$ should be earlier than $t_{v}$ because there is a time delay caused by data transmission from the infrastructure to the vehicle.
+Considering that the objects would move so slightly in the tiny time interval that the spatial offset can be ignored, we take the case that $|t_v-t_i|\le 10ms$ as Synchronous Case (i.e. $t_v\approx t_i$). 
+Similarly, we take the case that $|t_v-t_i|>10ms$ as Asynchronous Case.
+In addition, we allow using more infrastructure frames previous to $I_{i}(t_{i})$ in solving VIC3D to make full use of the infrastructure computing resources. \\
+
+\noindent \textbf{Ground Truth.}
+The outputs of VIC3D object detection contain 3D information like the location, category, and orientation of objects surrounding the vehicle. 
+The corresponding ground truth of VIC3D is the fusion result of infrastructure and vehicle ground truth, which could be formulated as:
+\begin{equation}
+    GT = GT_{v} \cup GT_{i},
+\end{equation}
+where $GT_{v}$ is the ground truth for vehicle sensor perception and $GT_{i}$ is the ground truth for infrastructure sensor perception.
+
+VIC3D is mainly used to improve the perception performance of the self-driving vehicle.
+We are more concerned about a certain range of egocentric surroundings and the 3D information of objects at time $t_v$ than at $t_i$.
+Therefore, $GT_{v}$ and $GT_{i}$ should both be based on time $t_v$.
+However, the timestamp of the input frames captured from the infrastructure and captured from the vehicle could be different that $t_v \neq t_i$.
+This not only brings challenges to fusing the infrastructure information in model prediction but also creates huge problems to generate the ground truth.
+That's because objects annotated with infrastructure frame at time $t_i$ may move to different locations at time $t_v$, and we cannot directly get the infrastructure frame at time $t_v$ to annotate.
+
+In response to these difficulties, we discuss how we generate the ground truth for VIC3D based on DAIR-V2X.
+\begin{itemize}
+    \item Synchronous Case (i.e. $t_{v}\approx t_{i}$).
+    Under this condition, an object that appears in vehicle frame $I_{v}(t_{v})$ should have the same spatial location as it appears in infrastructure frame $I_{i}(t_{i})$.
+    Therefore, we can directly take the vehicle-infrastructure cooperative 3D annotations obtained by semi-automatic labeling illustrated in Section~\ref{sec:DataAcquisition} as ground truth.
+    \item Asynchronous Case (i.e. $t_{v} \neq t_{i}$).
+    If we can find such infrastructure frame $I_i(t_i')$ satisfying $|t_v-t_{i}^{'}|\le 10ms$, we can generate ground truth with $I_i(t_{i}^{'})$.
+    If not, we have to estimate the 3D states of objects at $t_v$ to generate ground truth.
+    This work can be carried out based on the tracking ID and kinematic equation after we provide the tracking ID in future work.
+\end{itemize}
+
+\subsection{Evaluation Metrics.}
+VIC3D object detection has two major goals: better detection performance and less transmission cost.
+We describe the metrics for such two goals below. \\
+
+\noindent\textbf{Average Precision.}
+$AP$ (Average precision) is a popular metric for measuring the object detectors performance~\cite{everingham2010pascal}.
+We also use $AP$ to evaluate the 3d detection performance with cooperative annotations as ground truth.
+% In particular, we set those predicted boxes that have low 3D IoUs with all ground truths of the same category as false positives. The IoU threshold is 0.7, 0.7, 0.7, 0.7 for car, bus, truck, van respectively.
+% We merge the car, bus, van and truck class intoa super-class called vehicle, and we officially report the AP of vehicle class in the following experiments. 
+Since we are more concerned about egocentric surroundings, we remove objects outside the designed area.
+Here we set the designed area as a rectangular area as [0, -39.12, 100, 39.12].
+
+\noindent\textbf{Transmission Cost.}
+We use $AB$ (Average Byte) to measure the transmission cost.
+Here Byte is a unit of digital information that consists of eight $bit$s. 
+To simplify the problem, we ignore the time consumption of data encoders and decoders during transmission.
+That means the less transmission cost, the less time delay.
+Data to be transmitted from the infrastructure can be one or a combination of the following forms.
+\begin{itemize}
+    \item Raw data such as images or point clouds contains complete information but requires much transmission cost. 
+    \item Intermediate representation requires less transmission cost while retaining valuable information, which may achieve a better performance-transmission trade-off. 
+    Surely, this requires a more sophisticated design to extract suitable intermediate representation.
+    \item Object-level outputs directly provide 3D object information. Although it is transmission-efficient, it may lose valuable information.
+    \item Other auxiliary information like scene flows help to alleviate temporal asynchrony problems. 
+\end{itemize}

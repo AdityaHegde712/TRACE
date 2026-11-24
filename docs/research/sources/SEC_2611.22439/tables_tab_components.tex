@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Component-wise ablation on V2XSet at 64~KiB. $\Delta$ is relative to the full model; MBR: mask-before-refine.}
+\label{tab:components}
+\begin{tabular}{lcc}
+\toprule
+Configuration & AP@0.7 & $\Delta$ \\
+\midrule
+Full model (ours)                       & \textbf{0.7461} & -- \\
+w/o anti-dilation (MBR, retrained)     & 0.7105 & $-0.0356$ \\
+w/o 8-pt deformable (rigid grid)        & 0.6423 & $-0.1038$ \\
+w/o gate supervision (none)             & 0.6594 & $-0.0867$ \\
+w/ constant $\lambda_{\mathrm{aux}}$ (no decay)        & 0.7385 & $-0.0076$ \\
+w/o bilateral gate (supply-only)        & 0.7435 & $-0.0026$ \\
+w/o collaboration (ego-only)            & 0.5041 & $-0.2420$ \\
+\midrule
+Random selection (reference)            & 0.5087 & $-0.2374$ \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,201 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
+  \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{liu2019auto}
+C.~Liu, L.-C. Chen, F.~Schroff, H.~Adam, W.~Hua, A.~L. Yuille, and L.~Fei-Fei,
+  ``Auto-deeplab: Hierarchical neural architecture search for semantic image
+  segmentation,'' in \emph{Proceedings of the IEEE/CVF Conference on Computer
+  Vision and Pattern Recognition}, 2019, pp. 82--92.
+
+\bibitem{he2016deep}
+K.~He, X.~Zhang, S.~Ren, and J.~Sun, ``Deep residual learning for image
+  recognition,'' in \emph{Proceedings of the IEEE conference on computer vision
+  and pattern recognition}, 2016, pp. 770--778.
+
+\bibitem{qi2017pointnet}
+C.~R. Qi, H.~Su, K.~Mo, and L.~J. Guibas, ``Pointnet: Deep learning on point
+  sets for 3d classification and segmentation,'' in \emph{Proceedings of the
+  IEEE conference on computer vision and pattern recognition}, 2017, pp.
+  652--660.
+
+\bibitem{voxelnet}
+Y.~Zhou and O.~Tuzel, ``Voxelnet: End-to-end learning for point cloud based 3d
+  object detection,'' 06 2018, pp. 4490--4499.
+
+\bibitem{pointpillar}
+A.~Lang, S.~Vora, H.~Caesar, L.~Zhou, J.~Yang, and O.~Beijbom, ``Pointpillars:
+  Fast encoders for object detection from point clouds,'' 06 2019, pp.
+  12\,689--12\,697.
+
+\bibitem{Shi_2019_CVPR}
+S.~Shi, X.~Wang, and H.~Li, ``Pointrcnn: 3d object proposal generation and
+  detection from point cloud,'' in \emph{The IEEE Conference on Computer Vision
+  and Pattern Recognition (CVPR)}, June 2019.
+
+\bibitem{Shi2020PVRCNNPF}
+S.~Shi, C.~Guo, L.~Jiang, Z.~Wang, J.~Shi, X.~Wang, and H.~Li, ``Pv-rcnn:
+  Point-voxel feature set abstraction for 3d object detection,'' \emph{2020
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pp.
+  10\,526--10\,535, 2020.
+
+\bibitem{Liang2009}
+M.~Liang, B.~Yang, Y.~Chen, R.~Hu, and R.~Urtasun, ``Multi-task multi-sensor
+  fusion for 3d object detection,'' 06 2019, pp. 7337--7345.
+
+\bibitem{Liang2018}
+M.~Liang, B.~Yang, S.~Wang, and R.~Urtasun, ``Deep continuous fusion for
+  multi-sensor 3d object detection,'' in \emph{Computer Vision -- ECCV 2018},
+  V.~Ferrari, M.~Hebert, C.~Sminchisescu, and Y.~Weiss, Eds.\hskip 1em plus
+  0.5em minus 0.4em\relax Cham: Springer International Publishing, 2018, pp.
+  663--678.
+
+\bibitem{lochrane2020carma}
+\BIBentryALTinterwordspacing
+T.~Lochrane, L.~Dailey, and C.~Tucker, ``Carma℠: Driving innovation,''
+  \emph{Public Roads}, vol.~83, no.~4, 2020. [Online]. Available:
+  \url{https://its.dot.gov/cda/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{cooper}
+\BIBentryALTinterwordspacing
+Q.~Chen, S.~Tang, Q.~Yang, and S.~Fu, ``Cooper: Cooperative perception for
+  connected autonomous vehicles based on 3d point clouds,'' in \emph{2019 IEEE
+  39th International Conference on Distributed Computing Systems
+  (ICDCS)}.\hskip 1em plus 0.5em minus 0.4em\relax Los Alamitos, CA, USA: IEEE
+  Computer Society, jul 2019, pp. 514--524. [Online]. Available:
+  \url{https://doi.ieeecomputersociety.org/10.1109/ICDCS.2019.00058}
+\BIBentrySTDinterwordspacing
+
+\bibitem{nuscenes2019}
+H.~Caesar, V.~Bankiti, A.~H. Lang, S.~Vora, V.~E. Liong, Q.~Xu, A.~Krishnan,
+  Y.~Pan, G.~Baldan, and O.~Beijbom, ``nuscenes: A multimodal dataset for
+  autonomous driving,'' \emph{arXiv preprint arXiv:1903.11027}, 2019.
+
+\bibitem{sun2020scalability}
+P.~Sun, H.~Kretzschmar, X.~Dotiwalla, A.~Chouard, V.~Patnaik, P.~Tsui, J.~Guo,
+  Y.~Zhou, Y.~Chai, B.~Caine, \emph{et~al.}, ``Scalability in perception for
+  autonomous driving: Waymo open dataset,'' in \emph{Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition}, 2020, pp.
+  2446--2454.
+
+\bibitem{Geiger2013IJRR}
+A.~Geiger, P.~Lenz, C.~Stiller, and R.~Urtasun, ``Vision meets robotics: The
+  kitti dataset,'' \emph{International Journal of Robotics Research (IJRR)},
+  2013.
+
+\bibitem{Wang2020V2VNetVC}
+T.-H. Wang, S.~Manivasagam, M.~Liang, B.~Yang, W.~Zeng, J.~Tu, and R.~Urtasun,
+  ``V2vnet: Vehicle-to-vehicle communication for joint perception and
+  prediction,'' in \emph{ECCV}, 2020.
+
+\bibitem{rawaw018}
+Z.~Y. Rawashdeh and Z.~Wang, ``Collaborative automated driving: A machine
+  learning-based method to enhance the accuracy of shared information,'' in
+  \emph{2018 21st International Conference on Intelligent Transportation
+  Systems (ITSC)}, 2018, pp. 3961--3966.
+
+\bibitem{Zhang2021DistributedDM}
+Z.~Zhang, S.~Wang, Y.~Hong, L.~Zhou, and Q.~Hao, ``Distributed dynamic map
+  fusion via federated learning for intelligent networked vehicles,''
+  \emph{ArXiv}, vol. abs/2103.03786, 2021.
+
+\bibitem{xu2021opencda}
+R.~Xu, Y.~Guo, X.~Han, X.~Xia, H.~Xiang, and J.~Ma, ``Opencda: An open
+  cooperative driving automation framework integrated with co-simulation,'' in
+  \emph{2021 IEEE Intelligent Transportation Systems Conference (ITSC)}, 2021.
+
+\bibitem{Dosovitskiy17}
+A.~Dosovitskiy, G.~Ros, F.~Codevilla, A.~Lopez, and V.~Koltun, ``{CARLA}: {An}
+  open urban driving simulator,'' in \emph{Proceedings of the 1st Annual
+  Conference on Robot Learning}, 2017, pp. 1--16.
+
+\bibitem{Rauch2012}
+A.~Rauch, F.~Klanner, R.~Rasshofer, and K.~Dietmayer, ``Car2x-based perception
+  in a high-level fusion architecture for cooperative perception systems,'' in
+  \emph{2012 IEEE Intelligent Vehicles Symposium}, 2012, pp. 270--275.
+
+\bibitem{Rawashdeh2018}
+Z.~Y. Rawashdeh and Z.~Wang, ``Collaborative automated driving: A machine
+  learning-based method to enhance the accuracy of shared information,'' in
+  \emph{2018 21st International Conference on Intelligent Transportation
+  Systems (ITSC)}, 2018, pp. 3961--3966.
+
+\bibitem{f-cooper}
+\BIBentryALTinterwordspacing
+Q.~Chen, X.~Ma, S.~Tang, J.~Guo, Q.~Yang, and S.~Fu, ``F-cooper: Feature based
+  cooperative perception for autonomous vehicle edge computing system using 3d
+  point clouds,'' in \emph{Proceedings of the 4th ACM/IEEE Symposium on Edge
+  Computing}, ser. SEC '19.\hskip 1em plus 0.5em minus 0.4em\relax New York,
+  NY, USA: Association for Computing Machinery, 2019, p. 88–100. [Online].
+  Available: \url{https://doi.org/10.1145/3318216.3363300}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Lidarsim}
+S.~Manivasagam, S.~Wang, K.~Wong, W.~Zeng, M.~Sazanovich, S.~Tan, B.~Yang,
+  W.-C. Ma, and R.~Urtasun, ``Lidarsim: Realistic lidar simulation by
+  leveraging the real world,'' 06 2020, pp. 11\,164--11\,173.
+
+\bibitem{marvasti2020cooperative}
+E.~E. Marvasti, A.~Raftari, A.~E. Marvasti, Y.~P. Fallah, R.~Guo, and H.~Lu,
+  ``Cooperative lidar object detection via feature sharing in deep networks,''
+  in \emph{2020 IEEE 92nd Vehicular Technology Conference
+  (VTC2020-Fall)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2020, pp. 1--7.
+
+\bibitem{OlaverriMonreal2018ConnectionOT}
+C.~Olaverri-Monreal, J.~Errea-Moreno, A.~D{\'i}az-{\'A}lvarez, C.~Biurrun-Quel,
+  L.~Serrano-Arriezu, and M.~Kuba, ``Connection of the sumo microscopic traffic
+  simulator and the unity 3d game engine to evaluate v2x communication-based
+  systems,'' \emph{Sensors (Basel, Switzerland)}, vol.~18, 2018.
+
+\bibitem{roadrunner}
+\BIBentryALTinterwordspacing
+``Roadrunner: Design 3d scenes for automated driving simulation.'' [Online].
+  Available: \url{https://www.1stvision.com/cameras/models/Allied-Vision}
+\BIBentrySTDinterwordspacing
+
+\bibitem{noh2015learning}
+H.~Noh, S.~Hong, and B.~Han, ``Learning deconvolution network for semantic
+  segmentation,'' in \emph{Proceedings of the IEEE international conference on
+  computer vision}, 2015, pp. 1520--1528.
+
+\bibitem{vaswani2017attention}
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
+  {\L}.~Kaiser, and I.~Polosukhin, ``Attention is all you need,'' in
+  \emph{Advances in neural information processing systems}, 2017, pp.
+  5998--6008.
+
+\bibitem{Yan2018SECONDSE}
+Y.~Yan, Y.~Mao, and B.~Li, ``Second: Sparsely embedded convolutional
+  detection,'' \emph{Sensors (Basel, Switzerland)}, vol.~18, 2018.
+
+\bibitem{Yang2018PIXORR3}
+B.~Yang, W.~Luo, and R.~Urtasun, ``Pixor: Real-time 3d object detection from
+  point clouds,'' \emph{2018 IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition}, pp. 7652--7660, 2018.
+
+\bibitem{kingma2014adam}
+D.~P. Kingma and J.~Ba, ``Adam: A method for stochastic optimization,''
+  \emph{arXiv preprint arXiv:1412.6980}, 2014.
+
+\bibitem{arena2019overview}
+F.~Arena and G.~Pau, ``An overview of vehicular communications,'' \emph{Future
+  Internet}, vol.~11, no.~2, p.~27, 2019.
+
+\end{thebibliography}

@@ -1,0 +1,31 @@
+\begin{table*}
+\vspace{2mm}
+\caption{\textbf{Experimental results on Multi-agent Waypoint Following and Random Exploration.} }
+\label{tab:res_nav}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{cccccccccccccccccccc}
+\toprule
+& & &\multicolumn{2}{c}{Waypoint Following}& &\multicolumn{2}{c}{Waypoint Following}& & \multicolumn{2}{c}{Waypoint Following } & & \multicolumn{2}{c}{Random Exploration }\\
+
+& & &\multicolumn{2}{c}{(Hidden Target View)}& &\multicolumn{2}{c}{(Accurate Pose)}& & \multicolumn{2}{c}{(Inaccurate Pose)} & & \multicolumn{2}{c}{(Accurate Pose)}  \\
+\cmidrule(lr){4-5} \cmidrule(lr){7-8}\cmidrule(lr){10-11} \cmidrule(lr){13-14} 
+
+
+& & BW (kpbf) &Overall Acc & BIS& &Overall Acc & BIS& &Overall Acc & BIS& &Overall Acc & BIS \\
+\midrule
+Upper bound & Single Normal& -& 88.14   & -  & & 88.13  & -   & & 89.7 &-& & 89.16 &-\\
+\midrule
+\multirow{3}{*}{Centralized }  & CatAll & 4096 & 72.58 & 0.049& &80.05  & 0.17& & 80.33  & 0.172& & 78.74  & 0.133\\
+& Attention  & 4096.03 & 69.08  &  0.004 & & 84.38  & 0.212 & & 82.79  & 0.174& & 81.07  & 0.159\\
+& Compression &1024 & 70.44 &  0.085 & &76.2  & 0.527 & & 76.93  & 0.441& & 73.05  & 0.277\\
+\midrule
+\multirow{3}{*}{ Distributed }
+& Random Selection & 1024 & 69.16  & 0.019 & & 64.94  & 0.082& & 67.49  & 0.028& & 69.58  & 0.123\\
+& Ours w/o msg  & 1024.03 & 65.31  & -0.179 & & 78.10  & 0.602& &79.34  & 0.546& & 80.69  & 0.621\\
+& Ours w/ msg & 1028.03 &84.57  &   \textbf{0.812} & & 80.42  &  \textbf{0.691} & &79.44  & \textbf{0.549}& & 80.97  & \textbf{0.631}\\
+\midrule
+Lower bound & Single Degraded & - & 68.79  &  -  & & 62.88 & -  & &66.84 & - & &66.85 & -  \\
+\bottomrule
+\end{tabular}}
+\end{table*}

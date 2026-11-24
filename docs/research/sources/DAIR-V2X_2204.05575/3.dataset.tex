@@ -1,0 +1,97 @@
+\section{The DAIR-V2X Dataset}
+% introduce DAIR-V2X Dataset for VICAD
+In order to facilitate research on VICAD, we release DAIR-V2X, a large-scale, multi-modality, multi-view dataset from real scenarios with 3D annotations for vehicle infrastructure cooperation.
+Here we describe how we set up infrastructure and vehicle sensors, select interesting scenes, annotate the dataset and protect the privacy of third parties.
+
+%In order to facilitate VIC3D object detection task, we generate a large-scale, multi-modalityity, multi-view vehicle-infrastructure cooperative autonomous driving dataset. 
+%However, this faces a bunch of challenges, including calibration of various sensors placed at different positions, collection of plenty of data from diverse environments, annotation and privacy protection of selected data.
+%In this section, we will describe how to handle these challenges and publicly release such a thrilling dataset. More details about DAIR-V2X will be provided in supplementary materials.
+
+\subsection{Setup}
+\noindent \textbf{Equipment.}
+Equipment for data collection are composed of infrastructure sensors and vehicle sensors.
+a) Infrastructure sensors. Each of the 28 intersections selected from Beijing High-level Autonomous Driving Demonstration Area are deployed with four pairs of 300-beam LiDAR and high-resolution camera. 
+The DAIR-V2X dataset picks only one pair of them.
+b) Vehicle sensors. One 40-beam LiDAR and one high-quality camera looking forward are mounted on top of the autonomous vehicles. 
+Specific layout is posted in Figure \ref{fig:equipment}, and precise details are displayed in Table \ref{tab: sensors}.
+\begin{table}
+\caption{Key Sensor Specifications in DAIR-V2X. Veh. stands for vehicle view, and Inf. stands for infrastructure view.}
+\label{tab: sensors}
+\small
+\begin{tabular}{lp{5.4cm}}
+\hline
+\textbf{Sensor} & \textbf{Details} \\
+\hline
+Inf. LiDAR & 300 beams, 10Hz capture frequency, $100^o$ horizontal FOV, $-30^o$ to $10^o$ vertical FOV, $\leq 280m$ range, $\pm 3cm$ accuracy  \\
+Inf. Camera & RGB, 25Hz capture frequency, 1920x1080 resolution, JPEG compressed \\
+\hline
+Veh. LiDAR & 40 beams, 10Hz capture frequency, $360^{o}$ horizontal FOV, $-30^o$ to $10^o$ vertical FOV, $\leq 200m$ range, $\pm 0.33^{o}$ vertical resolution \\
+Veh. Camera & RGB, 20Hz capture frequency, 1920x1080 resolution, JPEG compressed \\
+Veh. GPS \& IMU & 1000HZ update rate \\
+\hline
+\end{tabular}
+\end{table} \\
+
+\noindent \textbf{Coordinate.}
+There are 5 types of coordinate systems on DAIR-V2X, $i.e.$, the LiDAR coordinate, the camera coordinate, the image coordinate, the world coordinate, and the positioning coordinate. 
+The origin of the LiDAR coordinate system is located at the center of the LiDAR sensor, the x-axis is positive forwards, the y-axis is positive to the left, and the z-axis is positive upwards.
+The infrastructure LiDAR coordinate system is converted from its original system which has an inclination angle with the ground. 
+The real-time relative pose of the equipped vehicle is obtained from GPS/IMU combined with SLAM and a local map. There is also manual secondary labeling confirmation to ensure calibration accuracy.
+The Lidar-to-Camera transformation is obtained by multiplying Lidar-to-World and World-to-Camera transformations.
+% Details are as follows. \\
+% \indent - LiDAR Coordinate System. 
+% The origin of the LiDAR coordinate system is located at the center of the LiDAR sensor, the x-axis is positive forwards, the y-axis is positive to the left, and the z-axis is positive upwards.
+% The infrastructure LiDAR coordinate system is converted from its original system which has an inclination angle with the ground. \\
+% \indent - Camera Coordinate System.
+% The origin of the camera coordinate system is placed at the center of the camera lens, the x-y plane is parallel to the image plane, and the z-axis is positive forwards. \\
+% \indent - Image Coordinate System.
+% The image coordinate system is a 2D coordinate system where the origin is at the top-left of the image, and the x-axis and the y-axis are along the image width and height respectively. \\
+% \indent - World Coordinate System.
+% The origin of the world coordinate system is located at a desensitized point on the earth, the x-y plane is parallel to the ground plane, and the z-axis is positive upwards. \\
+% \indent - Positioning System.
+% The real-time position and orientation angle of an autonomous vehicle are obtained by GPS/IMU. 
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.5 \textwidth]{figures/coordinates-system.png}
+%     \caption{Conversion between different coordinate systems. inf. denotes infrastructure, veh. denotes vehicle.}
+%     \label{fig:coordinate systems conversion}
+% \end{figure}
+
+\subsection{Data Acquisition}\label{sec:DataAcquisition}
+\noindent \textbf{Collection.}
+% All data is captured from real scenarios in city * under diverse environments. When the well-equipped vehicle drives through equipment deployed intersections, sensors from vehicle-side and infrastructure-side collect data respectively. It is worth noting that sensors (LiDAR and camera) from the same side are well-synchronized through GPS timing to achieve good alignments of cross-modality data. However, it is hard to implement time synchronization by triggering sensors from different sides. Therefore, timestamps of vehicle-side and infrastructure-side data are slightly varied due to the asynchrony. How to effectively solve the timestamp mismatch problem and exploit data from both sides to prompt the recognition accuracy remains to resolve.
+We drive a well-equipped vehicle in the collection area and save the corresponding vehicle frames and infrastructure frames respectively.
+After the collection of raw data, we manually select 100 representative scenes of 20s duration.
+Such scenes include vehicle data and infrastructure data, where vehicles drive through intersections deployed with equipment.
+We sample key frames at 10Hz from both sides to form DAIR-V2X-C.
+In DAIR-V2X-C, it is important to note that the timestamp difference between a vehicle frame and its closest infrastructure frame could be slightly varied, due to the asynchronous triggering between vehicle sensors and infrastructure sensors. 
+We sample 22K frames from additionally about 350 vehicle-only segments of 60s duration to form DAIR-V2X-V, and sample 10K frames from additionally about 150 infrastructure-only segments duration to form DAIR-V2X-I, to enlarge the dataset.
+Compared to the single-view data in DAIR-V2X-
+C, DAIR-V2X-V and DAIR-V2X-I contains more diverse scenes and will be more challenging to only improve the single-view performance.
+
+\noindent \textbf{Annotation.}
+With multiple validation steps and refinement processes, expert annotators make high-quality annotations for infrastructure frames and vehicle frames respectively.
+Specifically, annotators exhaustively label each of the 10 object classes in every image and point cloud frame with its category attribute, occlusion state, truncated state, and a 7-dimensional cuboid modeled as $x, y, z, width, length, height$, and $yaw\ angle$. 
+10 categories include different vehicles, pedestrian, different cyclists. 
+Moreover, experts also meticulously annotate objects in camera images with a rectangle bounding box modeled as $x, y, width$, and $length$. \\
+\indent To be mentioned, we also conduct semi-automatic labeling for the cooperative annotations with vehicle and infrastructure frame pairs.
+We first select vehicle and infrastructure frame pairs from DAIR-V2X-C. The timestamp differences between the two frames of the selected pairs are less than $10ms$ (We call it the Synchronous Case which is defined in Section~\ref{sec: vic3d object detection}. To obtain more cooperative annotations, we 
+extend the threshold from $10ms$ to $30ms$).
+Next, we convert infrastructure 3D boxes into vehicle LiDAR coordinate system and fuse the vehicle annotations and infrastructure annotations. 
+For each 3D box in the infrastructure annotation, if we can not find any 3D box in the vehicle annotation that has the same location and category, we add the infrastructure 3D box into the vehicle annotations; in this way, we get the vehicle-infrastructure cooperative annotations.
+We manually supervise and adjust the cooperative annotations to generate more accurate annotations.
+Here we take 9331 infrastructure frames and vehicle frames as well as the cooperative annotations to form the VIC-Sync dataset for our VIC3D object detection benchmark. 
+% \begin{figure*}
+% 	\centering
+% 	\includegraphics[width=\textwidth]{figures/fusionlabel.png}
+% 	\caption{Vehicle-Infrastructure Cooperative 3D Annotations with Semi-Automatic Labeling. %The time difference between selected vehicle frame and infrastructure frame is less than 10ms. 
+% 	We first annotate the vehicle frame and the infrastructure frame respectively.
+% 	Then we convert the infrastructure 3D boxes into vehicle LiDAR coordinate system.
+% 	Next we merge vehicle and infrastructure annotations while removing the same objects to generate cooperative annotations.
+% 	The cooperative annotations are supervised and adjusted by expert annotators.}
+% 	\label{fig:Joint annotation}
+% \end{figure*}
+
+\noindent \textbf{Protection.}
+The whole dataset is desensitized before public release. Complied with local laws and regulations, we erase all localization information, including road name, map data, and positioning information, to make sure our dataset meets requirements. In addition, we utilize professional labeling tools to blur all the information suspected of privacy violation, including road signs, license plates and faces, to protect  privacy and avoid violating personal rights. 

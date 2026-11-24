@@ -1,0 +1,23 @@
+
+
+\begin{table}
+\caption{\textbf{Evaluation on testing set of case5 with SegNet.} }
+\label{tab:seg_case5}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ccccccc}
+\toprule
+& & Overall Acc & Mean Acc & FreqW Acc & Mean IoU & Bandwidth (Kbytpes per frame) \\ \midrule
+Upper bound & Single Normal image & 82.81$\pm$0.15 & 46.78$\pm$0.27 & 72.4$\pm$0.13 & 38.38$\pm$0.29 & \\\midrule
+\multirow{3}{*}{ Fully Centralized } & Concatenates all features & 73.37$\pm$0.46 & 35.73$\pm$0.28 & 59.91$\pm$0.61 & 27.79$\pm$0.34 & 256 \\
+& Detached Encoder w/ msg (Weighted Sum) & 83.01$\pm$0.11 & 46.27$\pm$1.04 & 72.6$\pm$0.14 & 37.98$\pm$0.8 & 64.28 \\
+& Detached Encoder w/o msg (Weighted Sum) & 83.02$\pm$0.28 & 45.76$\pm$0.53 & 72.84$\pm$0.3 & 37.6$\pm$0.24 & 64.03 \\ \midrule
+\multirow{5}{*}{ Distributed }& Random Selection & 70.73$\pm$0.21 & 33.51$\pm$0.43 & 57.23$\pm$0.02 & 25.89$\pm$0.14 & 64 \\
+& Detached Encoder w/o msg (Argmax Test) & 82.98$\pm$0.31 & 45.75$\pm$0.49 & 72.79$\pm$0.34 & 37.56$\pm$0.24 & 64.03 \\
+& Detached Encoder w/o msg (2-head decoder) & 83.1$\pm$0.11 & 44.68$\pm$0.42 & 72.91$\pm$0.27 & 37.12$\pm$0.27 & 64.03 \\
+& Detached Encoder (Argmax Test) & 82.97$\pm$0.11 & 46.26$\pm$1.05 & 72.56$\pm$0.13 & 37.96$\pm$0.82 & 64.28 \\
+& Detached Encoder (2-head decoder) & 83.04$\pm$0.08 & 45.67$\pm$1.23 & 72.59$\pm$0.11 & 37.92$\pm$0.95 & 64.28 \\ \midrule
+Lower bound & Single Degraded image & 70.47$\pm$0.19 & 33.19$\pm$0.18 & 56.65$\pm$0.21 & 25.51$\pm$0.08 & \\
+\bottomrule
+\end{tabular}}
+\end{table}

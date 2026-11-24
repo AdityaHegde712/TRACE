@@ -1,0 +1,219 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{Araniti2013LTEFV}
+Araniti, G., Campolo, C., Condoluci, M., Iera, A., Molinaro, A.: Lte for
+  vehicular networking: a survey. IEEE Communications Magazine  \textbf{51},
+  148--157 (2013)
+
+\bibitem{curriculum}
+Bengio, Y., Louradour, J., Collobert, R., Weston, J.: Curriculum learning. In:
+  Proceedings of the 26th annual international conference on machine learning.
+  pp. 41--48 (2009)
+
+\bibitem{pointcloud}
+Chen, S., Liu, B., Feng, C., Vallespi-Gonzalez, C., Wellington, C.: 3d point
+  cloud processing and learning for autonomous driving: Impacting map creation,
+  localization, and perception. IEEE Signal Processing Magazine
+  \textbf{38}(1),  68--86 (2021). \doi{10.1109/MSP.2020.2984780}
+
+\bibitem{agnostic}
+Chen, W., Xu, R., Xiang, H., Liu, L., Ma, J.: Model-agnostic multi-agent
+  perception framework. arXiv preprint arXiv:2203.13168  (2022)
+
+\bibitem{minkowski}
+Choy, C., Gwak, J., Savarese, S.: 4d spatio-temporal convnets: Minkowski
+  convolutional neural networks. In: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition. pp. 3075--3084 (2019)
+
+\bibitem{coopernaut}
+Cui, J., Qiu, H., Chen, D., Stone, P., Zhu, Y.: Coopernaut: End-to-end driving
+  with cooperative perception for networked vehicles. In: Proceedings of the
+  IEEE/CVF Conference on Computer Vision and Pattern Recognition. pp.
+  17252--17262 (2022)
+
+\bibitem{carla}
+Dosovitskiy, A., Ros, G., Codevilla, F., Lopez, A., Koltun, V.: Carla: An open
+  urban driving simulator. In: Conference on robot learning. pp. 1--16. PMLR
+  (2017)
+
+\bibitem{handshaking}
+Glaser, N., Liu, Y.C., Tian, J., Kira, Z.: Overcoming obstructions via
+  bandwidth-limited multi-agent spatial handshaking. In: 2021 IEEE/RSJ
+  International Conference on Intelligent Robots and Systems (IROS). pp.
+  2406--2413. IEEE (2021)
+
+\bibitem{pcsurvey}
+Guo, Y., Wang, H., Hu, Q., Liu, H., Liu, L., Bennamoun, M.: Deep learning for
+  3d point clouds: A survey. IEEE transactions on pattern analysis and machine
+  intelligence  \textbf{43}(12),  4338--4364 (2020)
+
+\bibitem{lstm}
+Hochreiter, S., Schmidhuber, J.: Long short-term memory. Neural computation
+  \textbf{9}(8),  1735--1780 (1997)
+
+\bibitem{Jiang2008IEEE8T}
+Jiang, D., Delgrossi, L.: Ieee 802.11p: Towards an international standard for
+  wireless access in vehicular environments. VTC Spring 2008 - IEEE Vehicular
+  Technology Conference pp. 2036--2040 (2008)
+
+\bibitem{sumo}
+Krajzewicz, D., Erdmann, J., Behrisch, M., Bieker, L.: Recent development and
+  applications of sumo-simulation of urban mobility. International journal on
+  advances in systems and measurements  \textbf{5}(3\&4) (2012)
+
+\bibitem{latency}
+Lee, K., Kim, J., Park, Y., Wang, H., Hong, D.: Latency of cellular-based v2x:
+  Perspectives on tti-proportional latency and tti-independent latency. IEEE
+  Access  \textbf{5},  15800--15809 (2017). \doi{10.1109/ACCESS.2017.2731777}
+
+\bibitem{v2xsim}
+Li, Y., An, Z., Wang, Z., Zhong, Y., Chen, S., Feng, C.: {V2X-Sim}: A virtual
+  collaborative perception dataset for autonomous driving. IEEE Robotics and
+  Automation Letters  (2022)
+
+\bibitem{disconet}
+Li, Y., Ren, S., Wu, P., Chen, S., Feng, C., Zhang, W.: Learning distilled
+  collaboration graph for multi-agent perception. Advances in Neural
+  Information Processing Systems  \textbf{34} (2021)
+
+\bibitem{when2com}
+Liu, Y.C., Tian, J., Glaser, N., Kira, Z.: When2com: Multi-agent perception via
+  communication graph grouping. In: Proceedings of the IEEE/CVF Conference on
+  computer vision and pattern recognition. pp. 4106--4115 (2020)
+
+\bibitem{who2com}
+Liu, Y.C., Tian, J., Ma, C.Y., Glaser, N., Kuo, C.W., Kira, Z.: Who2com:
+  Collaborative perception via learnable handshake communication. In: 2020 IEEE
+  International Conference on Robotics and Automation (ICRA). pp. 6876--6883.
+  IEEE (2020)
+
+\bibitem{Mei2018ALA}
+Mei, J., Zheng, K., Zhao, L., Teng, Y., Wang, X.: A latency and reliability
+  guaranteed resource allocation scheme for lte v2v communication systems. IEEE
+  Transactions on Wireless Communications  \textbf{17},  3850--3860 (2018)
+
+\bibitem{frnn}
+Oliu, M., Selva, J., Escalera, S.: Folded recurrent neural networks for future
+  video prediction. In: Proceedings of the European Conference on Computer
+  Vision (ECCV). pp. 716--731 (2018)
+
+\bibitem{pointnet++}
+Qi, C.R., Yi, L., Su, H., Guibas, L.J.: Pointnet++: Deep hierarchical feature
+  learning on point sets in a metric space. Advances in neural information
+  processing systems  \textbf{30} (2017)
+
+\bibitem{pvrcnn}
+Shi, S., Guo, C., Jiang, L., Wang, Z., Shi, J., Wang, X., Li, H.: Pv-rcnn:
+  Point-voxel feature set abstraction for 3d object detection. In: Proceedings
+  of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. pp.
+  10529--10538 (2020)
+
+\bibitem{pointrcnn}
+Shi, S., Wang, X., Li, H.: Pointrcnn: 3d object proposal generation and
+  detection from point cloud. In: Proceedings of the IEEE/CVF conference on
+  computer vision and pattern recognition. pp. 770--779 (2019)
+
+\bibitem{convlstm}
+Shi, X., Chen, Z., Wang, H., Yeung, D.Y., Wong, W.K., Woo, W.c.: Convolutional
+  lstm network: A machine learning approach for precipitation nowcasting.
+  Advances in neural information processing systems  \textbf{28} (2015)
+
+\bibitem{convtt}
+Su, J., Byeon, W., Kossaifi, J., Huang, F., Kautz, J., Anandkumar, A.:
+  Convolutional tensor-train lstm for spatio-temporal learning. Advances in
+  Neural Information Processing Systems  \textbf{33},  13714--13726 (2020)
+
+\bibitem{pose}
+Vadivelu, N., Ren, M., Tu, J., Wang, J., Urtasun, R.: Learning to communicate
+  and correct pose errors. In: Conference on Robot Learning. pp. 1195--1210.
+  PMLR (2021)
+
+\bibitem{transformer}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N.,
+  Kaiser, L.u., Polosukhin, I.: Attention is all you need. In: Guyon, I.,
+  Luxburg, U.V., Bengio, S., Wallach, H., Fergus, R., Vishwanathan, S.,
+  Garnett, R. (eds.) Advances in Neural Information Processing Systems.
+  vol.~30. Curran Associates, Inc. (2017)
+
+\bibitem{v2vnet}
+Wang, T.H., Manivasagam, S., Liang, M., Yang, B., Zeng, W., Urtasun, R.:
+  V2vnet: Vehicle-to-vehicle communication for joint perception and prediction.
+  In: European Conference on Computer Vision. pp. 605--621. Springer (2020)
+
+\bibitem{predrnn++}
+Wang, Y., Gao, Z., Long, M., Wang, J., Philip, S.Y.: Predrnn++: Towards a
+  resolution of the deep-in-time dilemma in spatiotemporal predictive learning.
+  In: International Conference on Machine Learning. pp. 5123--5132. PMLR (2018)
+
+\bibitem{e3d}
+Wang, Y., Jiang, L., Yang, M.H., Li, L.J., Long, M., Fei-Fei, L.: Eidetic 3d
+  lstm: A model for video prediction and beyond. In: ICLR (2019)
+
+\bibitem{predrnn}
+Wang, Y., Long, M., Wang, J., Gao, Z., Yu, P.S.: Predrnn: Recurrent neural
+  networks for predictive learning using spatiotemporal lstms. Advances in
+  neural information processing systems  \textbf{30} (2017)
+
+\bibitem{mim}
+Wang, Y., Zhang, J., Zhu, H., Long, M., Wang, J., Yu, P.S.: Memory in memory: A
+  predictive neural network for learning higher-order non-stationarity from
+  spatiotemporal dynamics. In: Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition. pp. 9154--9162 (2019)
+
+\bibitem{kalman}
+Welch, G., Bishop, G., et~al.: An introduction to the kalman filter  (1995)
+
+\bibitem{motionnet}
+Wu, P., Chen, S., Metaxas, D.N.: Motionnet: Joint perception and motion
+  prediction for autonomous driving based on bird's eye view maps. In:
+  Proceedings of the IEEE/CVF conference on computer vision and pattern
+  recognition. pp. 11385--11395 (2020)
+
+\bibitem{v2xvit}
+Xu, R., Xiang, H., Tu, Z., Xia, X., Yang, M.H., Ma, J.: V2x-vit:
+  Vehicle-to-everything cooperative perception with vision transformer. arXiv
+  preprint arXiv:2203.10638  (2022)
+
+\bibitem{opv2v}
+Xu, R., Xiang, H., Xia, X., Han, X., Li, J., Ma, J.: Opv2v: An open benchmark
+  dataset and fusion pipeline for perception with vehicle-to-vehicle
+  communication. In: 2022 International Conference on Robotics and Automation
+  (ICRA). pp. 2583--2589. IEEE (2022)
+
+\bibitem{center}
+Yin, T., Zhou, X., Krahenbuhl, P.: Center-based 3d object detection and
+  tracking. In: Proceedings of the IEEE/CVF conference on computer vision and
+  pattern recognition. pp. 11784--11793 (2021)
+
+\bibitem{dair}
+Yu, H., Luo, Y., Shu, M., Huo, Y., Yang, Z., Shi, Y., Guo, Z., Li, H., Hu, X.,
+  Yuan, J., et~al.: Dair-v2x: A large-scale dataset for vehicle-infrastructure
+  cooperative 3d object detection. In: Proceedings of the IEEE/CVF Conference
+  on Computer Vision and Pattern Recognition. pp. 21361--21370 (2022)
+
+\bibitem{comap}
+Yuan, Y., Sester, M.: Comap: A synthetic dataset for collective multi-agent
+  perception of autonomous driving. The International Archives of
+  Photogrammetry, Remote Sensing and Spatial Information Sciences  \textbf{43},
+   255--263 (2021)
+
+\bibitem{keypoints}
+Yuan, Y., Cheng, H., Sester, M.: Keypoints-based deep feature fusion for
+  cooperative vehicle detection of autonomous driving. IEEE Robotics and
+  Automation Letters  \textbf{7}(2),  3054--3061 (2022)
+
+\bibitem{emp}
+Zhang, X., Zhang, A., Sun, J., Zhu, X., Guo, Y.E., Qian, F., Mao, Z.M.: Emp:
+  Edge-assisted multi-vehicle perception. In: Proceedings of the 27th Annual
+  International Conference on Mobile Computing and Networking. pp. 545--558
+  (2021)
+
+\bibitem{pointtrans}
+Zhao, H., Jiang, L., Jia, J., Torr, P.H., Koltun, V.: Point transformer. In:
+  Proceedings of the IEEE/CVF International Conference on Computer Vision. pp.
+  16259--16268 (2021)
+
+\end{thebibliography}

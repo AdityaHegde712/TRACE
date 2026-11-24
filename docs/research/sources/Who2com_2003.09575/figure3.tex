@@ -1,0 +1,15 @@
+
+\begin{figure*}[t]
+    \begin{center}
+    \centerline{\includegraphics[width=0.6\linewidth]{./figure/arch.pdf}}
+    \caption{
+        \textbf{Our proposed model and communication steps.}
+        The degraded agent first computes a low-dimensional vector as the request message and broadcasts it to other normal agents, and each normal agent then generates a matching score conditioned on the request message. 
+        Finally, the degraded agent accesses the requested information from one of the agents during inference (and from all agents during training).
+        The proposed method is trained end-to-end and significantly improves accuracy over decentralized baselines while minimizing bandwidth usage over centralized ones.
+    }
+    \label{fig:arch}
+    \end{center}
+\vspace{-6mm}
+\end{figure*}
+

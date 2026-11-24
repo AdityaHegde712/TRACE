@@ -1,0 +1,446 @@
+\vspace{-2mm}
+\section{Experimental Results}
+\vspace{-2mm}
+
+
+\begin{figure}[!t]
+  \centering
+    %################ UAV ################
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=0.9\linewidth]{figures/UAV_Performance/SOTA_Performance_AP0.50_vs_Commcost.png}
+    \caption{CoPerception-UAVs}
+    \label{fig:UAV_SOTA}
+  \end{subfigure}
+    %################ OPV2V ################
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=0.9\linewidth]{figures/OPV2V_Performance/SOTA_Performance_AP0.50_vs_Commcost.png}
+    \caption{OPV2V}
+    \label{fig:OPV2V_SOTA}
+  \end{subfigure}
+    % ################ V2X-Sim ################
+    \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=0.9\linewidth]{figures/V2X-Sim_Detections/CommGraph_AP0.50_vs_Commcost.png}
+    \caption{V2X-Sim}
+    \label{fig:V2X_SOTA}
+    \end{subfigure}
+     %################ DAIR-V2X ################
+    \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=0.9\linewidth]{figures/DAIR_V2X/SOTA_Performance_AP0.50_vs_Commcost.png}
+    \caption{DAIR-V2X}
+    \label{fig:DAIR_SOTA}
+    \end{subfigure}
+  \vspace{-1mm}
+  \caption{\texttt{Where2comm} achieves consistently superior performance-bandwidth trade-off on all the three collaborative perception datasets, e.g, \texttt{Where2comm} achieves \emph{5,000} times less communication volume and still outperforms When2com on CoPerception-UAVs dataset. The entire red curve comes from a single~\texttt{Where2comm} model evaluated at varying bandwidths.}
+  \label{fig:SOTA}
+  \vspace{-3mm}
+\end{figure}
+
+
+Our experiments covers four datasets, both real-world and simulation scenarios, two types of agents (cars and drones) and two types of sensors (LiDAR and cameras). Specifically, we conduct camera-only 3D object detection in the setting of V2X-communication aided autonomous driving on OPV2V dataset~\cite{OPV2V}, camera-only 3D object detection in the setting of drone swarm on the proposed CoPerception-UAVs dataset, and LiDAR-based 3D object detection on DAIR-V2X dataset~\cite{dair} and V2X-Sim dataset~\cite{V2XSim}. The detection results are evaluated by Average Precision (AP) at Intersection-over-Union (IoU) threshold of $0.50$ and $0.70$. The communication results count the message size by byte in log scale with base $2$. To compare communication results straightforward and fair, we do not consider any extra data/feature/model compression.
+
+\vspace{-2mm}
+% \subsection{Multi-agent collarabotive 3D object detection datasets and experimental settings}
+\subsection{Datasets and experimental settings}
+\label{sec:ExpDetails}
+\vspace{-2mm}
+\textbf{OPV2V.}
+OPV2V~\cite{OPV2V} is a vehicle-to-vehicle collaborative perception dataset, co-simulated by OpenCDA~\cite{OPV2V} and Carla~\cite{carla}. It includes $12$K frames of 3D point clouds and RGB images with $230$K annotated 3D boxes. The perception range is 40m$\times$40m. For camera-only 3D object detection task on OPV2V, we implement the detector following CADDN~\cite{CaDDN}. The input front-view image size is $(416, 160)$. The front-view input feature map is transformed to BEV with resolution $0.5$m/pixel.
+% The model is trained $100$ epoch with learning rate of $1$e-$3$. 
+
+\textbf{V2X-Sim.}
+V2X-Sim~\cite{V2XSim} is a vehicle-to-everything collaborative perception dataset, co-simulated by SUMO~\cite{sumo} and Carla, including 10K frames of 3D LiDAR  point clouds and 501K 3D boxes. The perception range is 64m$\times$64m. For LiDAR-based 3D object detection task, our detector follows MotionNet~\cite{Wu2020MotionNetJP}. We discretize 3D points into a BEV map with size  $(256, 256, 13)$ and the resolution is $0.4$m/pixel in length and width, $0.25$m in height.
+% We train $120$ epoch with learning rate $1$e-$3$. 
+
+\textbf{CoPerception-UAVs.}
+To enrich the collaborative perception datasets, we consider the swarm of unmanned aerial vehicles (UAV) and propose a UAV-swarm-based collaborative perception dataset: CoPerception-UAVs, co-simulated by AirSim~\cite{Airsim} and Carla~\cite{carla}, including 131.9K aerial images and 1.94M 3D boxes. The perception range is 200m$\times$350m. For the camera-only 3D object detection task on CoPerception-UAVs, our detector follows DVDET~\cite{DVDET}. The input aerial image size is $(800, 450)$. The aerial-view input feature map is transformed to BEV with the resolution of $0.25$m/pixel, and the size is $(192,352)$; see more details in Appendix.
+% The model is trained $140$ epochs with learning rate $5$e-$4$. 
+
+\textbf{DAIR-V2X.} DAIR-V2X~\cite{dair} is the only public \textbf{real-world} collaborative perception dataset. Each sample contains two agents: a vehicle and an infrastructure, with 3D annotations. The perception range is 201.6m$\times$80m.  Originally DAIR-V2X does not label objects outside the camera's view, we relabel all objects to cover 360-degree detection range. We complement several intermediate fusion-based baselines on DAIR-V2X to comprehensively validate our method on real data. For LiDAR-based 3D object detection task, our detector follows PointPillar~\cite{PointPillar}. We represent the field of view into a BEV map with size $(200, 504, 64)$ and the resolution is $0.4$m/pixel in length and width.
+
+
+% \textbf{Inference strategy in multi-round setting.} We strategically allocate communication budget across multiple communication rounds. For the initial broadcast round, a small bandwidth (about 20\%) is allocated to activate the collaboration; for the next round, a relatively large (about 60\%) bandwidth is allocated to transmit the targeted information to meet agents' request; then, the bandwidth is gradually reduced, accounting for the communication degradation with the increasing rounds. 
+
+\vspace{-2mm}
+\subsection{Quantitative evaluation}
+\vspace{-2mm}
+
+
+
+
+\textbf{Benchmark comparison.} Fig.~\ref{fig:SOTA} compares the proposed \texttt{Where2comm} with the previous methods in terms of the trade-off between detection performance (AP@IoU=0.50) and communication bandwidth; also see exact values in Table 3 of Appendix. We consider single-agent detection without collaboration ($\widehat{\mathcal{O}}_i^{(0)}$), When2com~\cite{when2com}, V2VNet~\cite{v2vnet}, DiscoNet~\cite{disconet}, V2X-ViT~\cite{xu2022v2x} and late fusion, where agents directly exchange the detected 3D boxes. The red curve comes from a single~\texttt{Where2comm} model evaluated at varying bandwidths. We see that the proposed \texttt{Where2comm}: i) achieves a far-more superior perception-communication trade-off across all the communication bandwidth choices and various collaborative perception tasks, including camera-only 3D object detection from aerial view and car front view, and LiDAR-based 3D object detection; ii) achieves significant improvements over previous state-of-the-arts on both real-world (DAIR-V2X) and simulation scenarios, improves the SOTA performance by 7.7\% on DAIR-V2X, 6.62\% on CoPerception-UAVs, 25.81\% on OPV2V, 1.9\% on V2X-Sim; iii) achieves the same detection performance of previous state-of-the-arts with extremely less communication volume: 5128 times less on CoPerception-UAVs, more than 100K times less on OPV2V, 55 times less on V2X-Sim, 105 times less on DAIR-V2X.
+% {\HC improves the SOTA performance to 65.71 on CoPerception-UAVs, 47.14 on OPV2V, and 59.1 on V2X-Sim in AP@0.50;}
+
+
+
+\begin{figure}[!t]
+  \centering
+    %################ UAV ################
+  \begin{subfigure}{0.32\linewidth}
+    \includegraphics[width=0.85\linewidth]{figures/UAV_Performance/Multiround_AP0.50_vs_Commcost.png}
+    \vspace{-1mm}
+    \caption{CoPerception-UAVs}
+    \label{fig:UAV_MultiRound}
+  \end{subfigure}
+    %################ OPV2V ################
+  \begin{subfigure}{0.32\linewidth}
+    \includegraphics[width=0.85\linewidth]{figures/OPV2V_Performance/Multiround_AP0.50_vs_Commcost.png}
+    \vspace{-1mm}
+    \caption{OPV2V}
+    \label{fig:OPV2V_MultiRound}
+  \end{subfigure}
+    %################ V2X-Sim ################
+    \begin{subfigure}{0.32\linewidth}
+    \includegraphics[width=0.85\linewidth]{figures/V2X-Sim_Detections/CommGraph_AP0.50_vs_Commcost_round.png}
+    \vspace{-1mm}
+    \caption{V2X-Sim}
+    \label{fig:V2X_MultiRound}
+    \end{subfigure}
+  \vspace{-2mm}
+  \caption{More communication rounds continuously improve performance-bandwidth trade-off.}
+  \label{fig:multiround}
+  \vspace{-5mm}
+\end{figure}
+
+
+
+% \textbf{Multi-round communication improves performance-bandwidth trade-off.}
+\textbf{Multi-round evaluation.} Fig.~\ref{fig:multiround} presents the performances of~\texttt{Where2comm} at communication rounds ranging from 1 to 3. Each curve comes from a single~\texttt{Where2comm} model with a certain communication round evaluated at varying bandwidths. Results show that 1 communication round is good, more rounds are even better. Multi-round communication steadily improves the performance-bandwidth trade-off across all three datasets, reflecting its effectiveness and robustness. This encourages the agents to actively collaborate without worrying the performance degradation. This also validates that~\texttt{Where2comm} can well work at various communication bandwidths and rounds.
+
+
+
+\begin{figure}
+    \centering
+    \centering
+  \begin{subfigure}{0.32\linewidth}
+    \includegraphics[width=0.95\linewidth]{figures/LocalizationError/LocalizationError_UAV.png}
+    % \caption{$\mathcal{O}_1$}
+    \caption{CoPerception-UAVs}
+    \label{fig:UAV}
+  \end{subfigure}
+%   \hfill
+  \begin{subfigure}{0.32\linewidth}
+    \includegraphics[width=0.95\linewidth]{figures/LocalizationError/LocalizationError_OPV2V.png}
+    % \caption{$\mathbf{C}_1^{(0)}$}
+    \caption{OPV2V}
+    \label{fig:OPV2V}
+  \end{subfigure}
+  \begin{subfigure}{0.32\linewidth}
+    \includegraphics[width=0.95\linewidth]{figures/LocalizationError/LocalizationError_V2X.png}
+    % \caption{$\mathbf{C}_1^{(0)}$}
+    \caption{V2X-Sim}
+    \label{fig:V2X}
+  \end{subfigure}
+  \vspace{-1mm}
+    \caption{Robustness to localization error. Gaussian noise with zero mean and varying std is introduced. \textit{Where2comm} consistently outperforms previous SOTAs and No Collaboration.}
+    \label{fig:loc_noise}
+    \vspace{-4mm}
+\end{figure}
+
+\textbf{Robustness to localization noise.}
+We follow the localization noise setting in V2VNet and V2X-ViT (Gaussian noise with a mean of 0m and a standard deviation of 0m-0.6m) and conduct experiments on all the three datasets to validate the robustness against realistic localization noise. \textit{Where2comm} is more robust to the localization noise than previous SOTAs. Fig.~\ref{fig:loc_noise} shows the detection performances as a function of localization noise level in CoPerception-UAVs, OPV2V and V2X-Sim datasets, respectively We see: i) overall the collaborative perception performance degrades with the increasing localization noise, while \textit{where2comm} outperforms previous SOTAs (When2com, V2VNet,DiscoNet) under all the localization noise. ii) \textit{where2comm} keeps being superior to \textit{No~Collaboration} while V2VNet fails when noise is over 0.4m and DiscoNet fails when noise is over 0.5m on CoPerception-UAVs. The reasons are: i) the powerful transformer architecture in fusion module attentively select the most suitable collaborative feature; ii) the spatial confidence map helps filter out noisy features, these two designs work together to mitigate noise localization distortion effects.
+
+
+
+\begin{figure}[!t]
+
+  \centering
+%   \begin{subfigure}{0.22\linewidth}
+%     \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/1_GT.png}
+%     \caption{$\mathcal{X}_1+\mathcal{O}_1$}
+%     \label{fig:UAV_Image}
+%   \end{subfigure}
+    \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/1_Image.png}
+    \vspace{-5mm}
+    \caption{$\mathcal{X}_1$ in BEV}
+    \label{fig:UAV_BEVImage1}
+  \end{subfigure}
+%   \hfill
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/1_ConfidenceMap.png}
+    \vspace{-5mm}
+    \caption{$\mathbf{C}_1^{(0)}$}
+    \label{fig:UAV_ConfMap1}
+  \end{subfigure}
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/1_SelectionMatrix.png}
+    \vspace{-5mm}
+    \caption{$\mathbf{M}_{1\rightarrow 2}^{(0)}$}
+    \label{fig:UAV_SelectMat1}
+  \end{subfigure}
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/1to1_AttentionWeight.png}
+    \vspace{-5mm}
+    \caption{$\mathbf{W}_{1\rightarrow 1}^{(0)}$}
+    \label{fig:UAV_AttenWeight1to1}
+  \end{subfigure}
+%   \hfill
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/1_DetectionSingle.png}
+    \vspace{-5mm}
+    \caption{$\widehat{\mathcal{O}}_{1}^{(0)}$}
+    \label{fig:UAV_DetectionBeforeComm}
+  \end{subfigure}
+  \begin{subfigure}{0.04\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Weights/ColorBar.png}
+    % \caption{Fusion Weight}
+    % \label{fig:UAV_FusionWeight}
+  \end{subfigure}
+  \centering
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/2_Image.png}
+    \vspace{-5mm}
+    \caption{$\mathcal{X}_2$ in BEV}
+    \label{fig:UAV_BEVImage2}
+  \end{subfigure}
+%   \hfill
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/2_RequestMap.png}
+    \vspace{-5mm}
+    \caption{$\mathbf{R}_2^{(0)}$}
+    \label{fig:UAV_RequestMap2}
+  \end{subfigure}
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/2_Feature.png}
+    \vspace{-5mm}
+    \caption{$\mathcal{Z}_{2\rightarrow 1}^{(0)}$}
+    \label{fig:UAV_Message2}
+  \end{subfigure}
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/2to1_AttentionWeight.png}
+    \vspace{-5mm}
+    \caption{$\mathbf{W}_{2\rightarrow 1}^{(0)}$}
+    \label{fig:UAV_AttenWeight2to1}
+  \end{subfigure}
+%   \hfill
+  \begin{subfigure}{0.18\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Pair/1_Detection.png}
+    \vspace{-5mm}
+    \caption{$\widehat{\mathcal{O}}_{1}^{(1)}$}
+    \label{fig:UAV_DetectionAfterComm}
+  \end{subfigure}
+  \begin{subfigure}{0.04\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/UAV_Weights/ColorBar.png}
+    % \caption{Fusion Weight}
+    % \label{fig:UAV_FusionWeight}
+    \end{subfigure}
+\vspace{-2mm}
+  \caption{Visualization of collaboration between Drone 1 and Drone 2 on CoPerception-UAVs dataset, including spatial confidence map ($\mathbf{C}_1^{(0)}$), selection matrix ($\mathbf{M}_{1\rightarrow2}^{(0)}$), message ($\{\mathbf{R}_2^{(0)},\mathcal{Z}_{2\rightarrow1}^{(0)}\}$) in the communication module, attention weight in the fusion module ($\mathbf{W}_{1\rightarrow1}^{(0)}$,$\mathbf{W}_{2\rightarrow1}^{(0)}$), and Drone 1's detection results before ($\widehat{\mathcal{O}}_{1}^{(0)}$) and after ($\widehat{\mathcal{O}}_{1}^{(1)}$) collaboration. \textcolor{green}{Green} and \textcolor{red}{red} boxes denote ground-truth and detection, respectively. The objects occluded by a tall building can be detected through transmitting spatially sparse, yet perceptually critical message. }
+  \label{fig:UAV_Weights}
+  \vspace{-4mm}
+\end{figure}
+
+\vspace{-2mm}
+\subsection{Qualitative evaluation}
+\vspace{-2mm}
+
+\textbf{Visualization of spatial confidence map.} Fig.~\ref{fig:UAV_Weights} illustrates how~\texttt{Where2comm} is empowered by the proposed spatial confidence map. In the scene, Drone 1's view is occluded by a tall building. With Drone 2's help, Drone 1 is able to detect through occlusion. Fig.~\ref{fig:UAV_Weights} (a-d) shows Drone 1's observation, spatial confidence map~\eqref{eq:generator}, binary selection matrix~\eqref{eq:selector}, and ego attention weight~\eqref{eq:attention}. Fig.~\ref{fig:UAV_Weights} (f-h) shows Drone 2's observation and message sent to Drone 1, including the request map (opposite of confidence map) and the sparse feature map, achieving efficient communication. Fig.~\ref{fig:UAV_Weights} (i) shows the attention weight for Drone 1 to fuse Drone 2's messages, which is sparse, yet highlights the objects' positions. Fig.~\ref{fig:UAV_Weights} (e) and (j) compares the detection results before and after the collaboration with Drone 2. We see that the proposed spatial confidence map contributes to spatially sparse, yet perceptually critical message, which effectively helps Drone 1 detect occluded objects.
+
+% Each of them is a matrix, reflecting the perceptual critical level, communication state, and collaboration attention in a cell-level resolution, respectively. 
+
+% They are shown as heat maps, the brighter the larger. We see that i) the spatial confidence map is extremely sparse and the spatial areas with objects are brighter than elsewhere, see Fig~\ref{fig:UAV_ConfMap1}; ii) accordingly, the selection matrix selects only a few spatial areas to communicate, reducing tremendous communication cost, see Fig~\ref{fig:UAV_SelectMat1}; iii) in message fusion module, attention weights adaptively find beneficial region from the received message, e.g., given the received message from Agent2 Fig.~\ref{fig:UAV_RequestMap2}~\ref{fig:UAV_Message2}, Agent1 especially emphasize more on foreground spatial areas that are occluded in agent's perspective but visible for the partner, see Fig~\ref{fig:UAV_AttenWeight1to1}~\ref{fig:UAV_AttenWeight2to1}; iv) the occluded objects are detected after communication, see Fig~\ref{fig:UAV_DetectionBeforeComm}~\ref{fig:UAV_DetectionAfterComm}.
+
+
+\textbf{Visualization of detection results.} Fig.~\ref{fig:dairdetections} shows that compared to~\textit{No Collaboration},~\textit{When2com} and~\textit{DiscoNet},~\texttt{Where2comm} is able to achieves more complete and accurate detection results. The reason is that~\textit{When2com} employs a scalar to denote the agent-to-agent attention, which cannot distinguish which spatial area is more informative;~\textit{DiscoNet} employs a MLP-based fusion weight learning, which cannot well capture the complex collaboration attention; while \texttt{Where2comm} can zoom in to critical spatial areas in a cell-level resolution and leverage  the spatial confidence map and sensing distances as priors to achieve more comprehensive fusion.
+
+
+
+% \begin{figure}[!t]
+%   \centering
+%   \begin{subfigure}{0.22\linewidth}
+%     \includegraphics[width=0.99\linewidth]{figures/OPV2V_Weights/sample_206_agent_1_bbx_50_transformer_black.png}
+%     \caption{Image}
+%     \label{fig:UAV_Image}
+%   \end{subfigure}
+% %   \hfill
+%   \begin{subfigure}{0.22\linewidth}
+%     \includegraphics[width=0.99\linewidth]{figures/UAV_Weights/ConfidenceMap.png}
+%     \caption{Confidence Map}
+%     \label{fig:UAV_ConfMap}
+%   \end{subfigure}
+%   \begin{subfigure}{0.22\linewidth}
+%     \includegraphics[width=0.99\linewidth]{figures/UAV_Weights/CommGraph.png}
+%     \caption{Comm Graph}
+%     \label{fig:UAV_CommGraph}
+%   \end{subfigure}
+% %   \hfill
+%   \begin{subfigure}{0.22\linewidth}
+%     \includegraphics[width=0.99\linewidth]{figures/OPV2V_Weights/sample_206_agent_1_hm_transformer.png}
+%     % \caption{Fusion Weight}
+%     \label{fig:UAV_FusionWeight}
+%   \end{subfigure}
+%   \begin{subfigure}{0.07\linewidth}
+%     \includegraphics[width=0.99\linewidth]{figures/UAV_Weights/ColorBar.png}
+%     % \caption{Fusion Weight}
+%     \label{fig:UAV_FusionWeight}
+%   \end{subfigure}
+% \vspace{-2mm}
+%   \caption{Visualization of OPV2V dataset. The spatial confidence map is extremely sparse and the spatial regions with objects are highlighted. The constructed binary communication graph promotes similar sparsity as the spatial confidence map. And among the communicating spatial areas, the regions with objects have higher fusion weights than background areas.}
+%   \label{fig:UAV_Weights}
+%   \vspace{-3mm}
+% \end{figure}
+
+% % Detection results
+% \begin{figure}[!t]
+
+
+
+\begin{figure}
+    \centering
+  \begin{subfigure}{0.24\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/DAIR_V2X/single_bev_00019.png}
+    % \caption{$\mathcal{O}_1$}
+    \caption{No Collaboration}
+    \label{fig:no_comm}
+  \end{subfigure}
+%   \hfill
+  \begin{subfigure}{0.24\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/DAIR_V2X/when2com_bev_00019.png}
+    % \caption{$\mathbf{C}_1^{(0)}$}
+    \caption{When2com}
+    \label{fig:when2com}
+  \end{subfigure}
+  \begin{subfigure}{0.24\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/DAIR_V2X/disconet_bev_00019.png}
+    \caption{DiscoNet}
+    \label{fig:disconet}
+  \end{subfigure}
+  \begin{subfigure}{0.24\linewidth}
+    \includegraphics[width=0.99\linewidth]{figures/DAIR_V2X/where2comm_bev_00019.png}
+    \caption{Where2comm}
+    \label{fig:where2comm}
+  \end{subfigure}
+  \vspace{-2mm}
+    \caption{\texttt{Where2comm} qualitatively outperforms When2com and DiscoNet in DAIR-V2X dataset. \textcolor{green}{Green} and \textcolor{red}{red} boxes denote ground-truth and detection, respectively. \textcolor{yellow}{Yellow} and \textcolor{blue}{blue} denote the point clouds collected from vehicle and infrastructure, respectively. }
+    \label{fig:dairdetections}
+    \vspace{-4mm}
+\end{figure}
+
+
+
+
+% \begin{figure}[!t]
+
+%   %################ UAV ################
+%   \centering
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/UAV_Detections/55/NoColla.png}
+%     % \caption{No Collaboration}
+%     \label{fig:UAV_Image}
+%   \end{subfigure}
+%   \vspace{-3mm}
+% %   \hfill
+%     \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/UAV_Detections/55/when2com.png}
+%     % \caption{When2com}
+%     \label{fig:UAV_CommGraph}
+%   \end{subfigure}
+% %   \hfill
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/UAV_Detections/55/DiscoNet.png}
+%     % \caption{DiscoNet}
+%     \label{fig:UAV_ConfMap}
+%   \end{subfigure}
+% %   \hfill  
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/UAV_Detections/55/Where2comm.png}
+%     % \caption{Where2comm}
+%     \label{fig:UAV_Detections}
+%   \end{subfigure}
+  
+%     %################ V2X-Sim ################
+%   \centering
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/V2X-Sim_Detections/single_cut_82_3.png}
+%     % \caption{No Collaboration}
+%     \label{fig:UAV_Image}
+%   \end{subfigure}
+% %   \hfill
+% \vspace{-3mm}
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/V2X-Sim_Detections/when2com_cut_82_3.png}
+%     % \caption{When2com}
+%     \label{fig:UAV_ConfMap}
+%   \end{subfigure}
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/V2X-Sim_Detections/disconet_cut_82_3.png}
+%     % \caption{DiscoNet}
+%     \label{fig:UAV_CommGraph}
+%   \end{subfigure}
+% %   \hfill
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/V2X-Sim_Detections/transformer_cut_82_3.png}
+%     % \caption{Where2comm}
+%     \label{fig:UAV_Detections}
+%   \end{subfigure}
+  
+%   %################ OPV2V ################
+%   \centering
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/OPV2V_Detections/2_sample_215_agent_2_bbx_30_no_comm_black.png}
+%     \caption{No Collaboration}
+%     \label{fig:opv2v_cam_result_no_comm}
+%   \end{subfigure}
+% %   \hfill
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/OPV2V_Detections/2_sample_215_agent_2_bbx_30_when2com_black.png}
+%     \caption{When2com}
+%     \label{fig:opv2v_cam_result_disconet}
+%   \end{subfigure}
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/OPV2V_Detections/2_sample_215_agent_2_bbx_30_disconet_black.png}
+%     \caption{DiscoNet}
+%     \label{fig:opv2v_cam_result_v2vnet}
+%   \end{subfigure}
+% %   \hfill
+%   \begin{subfigure}{0.245\linewidth}
+%     \includegraphics[width=\linewidth]{figures/OPV2V_Detections/2_sample_215_agent_2_bbx_30_transformer_black.png}
+%     \caption{Where2comm}
+%     \label{fig:opv2v_cam_result_where2comm}
+%   \end{subfigure}
+  
+% \vspace{-2mm}
+%   \caption{\texttt{Where2comm} qualitatively outperforms the state-of-the-art methods. \textcolor{green}{Green} and \textcolor{red}{red} boxes denote ground-truth and detection, respectively. \Note{sc: add dataset on left side} }
+%   \label{fig:detections}
+%   \vspace{-3mm}
+% \end{figure}
+
+\begin{minipage}{0.38\textwidth}
+     \includegraphics[width=1.0\linewidth]{figures/UAV_Performance/GaussianSmooth_AP0.50_vs_Commcost_04.png}
+    % \caption{CoPerception-UAVs}
+    % \label{fig:UAV_Gaussian}
+    % %################ V2X-Sim ################
+%     % \begin{subfigure}{0.32\linewidth}
+%     % \includegraphics[width=0.99\linewidth]{figures/V2X-Sim_Detections/CommGraph_AP@0.50_vs_Commcost_gaussian.png}
+%     % \caption{V2X-Sim}
+%     % \label{fig:V2X_MultiRound}
+%     % \end{subfigure}
+  \captionof{figure}{Selection matrix ablation study. Applying Gaussian filter improves performance.}
+  \label{fig:uav_gaussian}
+%   \vspace{-1mm}
+\end{minipage}
+\hspace{2mm}
+\begin{minipage}{0.6\textwidth}
+\setlength\tabcolsep{3pt}
+\renewcommand{\arraystretch}{1.3}
+\captionof{table}{Fusion component ablation study. \label{tab:fusion}
+Multi-head attention (MHA), sensor positional encoding (SPE) and spatial confidence map (SCM) all improves the performances. Results are reported in AP@0.50/AP@0.70.}
+\begin{footnotesize}
+    \centering
+    \begin{tabular}{ccc|ccc}
+\hline
+MHA    & SPE  & SCM      & OPV2V & CoPerception-UAVs & V2X-Sim     \\ \hline
+&           &                        & 34.96/13.92  & 63.48/44.23  & 51.2/45.7 \\
+\checkmark &            &            & 38.75/13.28  & 63.99/44.46  & 57.3/50.8 \\
+\checkmark & \checkmark &            & 39.82/16.43  & 64.34/46.86  & 59.1/52.0   \\
+\checkmark & \checkmark & \checkmark & \textbf{47.30/19.30}  & \textbf{64.83/47.62}  & \textbf{59.1/52.2}   \\ \hline
+\end{tabular}
+\end{footnotesize}
+\end{minipage}
+
+\vspace{-1mm}
+\subsection{Ablation studies}
+\vspace{-2mm}
+\textbf{Effect of Gaussian filter in perceptually critical area selection.} Fig.~\ref{fig:uav_gaussian} compares two versions of the selection matrix~\eqref{eq:selector} with and without Gaussian filter. We see that applying Gaussian filter improves the overall performance. The reason is that: i) Gaussian filter could help filter out the outliers in the input map, selecting more robust critical regions; ii) it considers the context, benefiting the independent feature selection at each certain location by providing more information.
+
+\textbf{Effect of components in spatial confidence-aware message fusion.} Tab.~\ref{tab:fusion} assesses the effectiveness of the proposed fusion with two priors. We see that: i) per-location multi-head attention (MHA) outperforms the vanilla attention by 10.84\% on OPV2V on AP@0.50, because MHA leverages information from multiple heads, better capturing cross-agent attention; and ii) As two informative priors, both sensing position encoding (SPE) and spatial confidence map (SCM) can consistently improve the performance. Especially, the version with all three designs improves the detection performance by 22.06\% on OPV2V on AP@0.50.

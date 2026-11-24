@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Selection-policy ablation at 64~KiB on OPV2V and V2XSet (AP@0.7). Multiplicative is our full gate.}
+\label{tab:policy-ap}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcc@{}}
+\toprule
+Selection policy & OPV2V & V2XSet \\
+\midrule
+Random                        & 0.6136 & 0.5087 \\
+Demand-only                   & 0.6133 & 0.5488 \\
+Supply-only                   & 0.8068 & 0.7435 \\
+\textbf{Multiplicative (ours)} & \textbf{0.8081} & \textbf{0.7461} \\
+\bottomrule
+\end{tabular*}
+\end{table}

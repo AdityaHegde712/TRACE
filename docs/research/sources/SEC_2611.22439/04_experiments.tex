@@ -1,0 +1,95 @@
+
+\section{Experiments}
+\label{sec:experiments}
+\input{tables/tab_main_comparison}
+
+
+\input{tables/tab_components}
+
+\subsection{Experimental Settings}
+\label{sec:setup}
+\noindent\textbf{Datasets and Evaluation Metrics.}
+We evaluate on OPV2V~\cite{opv2v}, V2XSet~\cite{v2xvit}, and DAIR-V2X~\cite{dairv2x} for LiDAR-based 3D object detection, covering simulated and real-world scenarios. We use the official test splits for OPV2V and V2XSet and the validation split for DAIR-V2X, for which test annotations are not publicly released. Detection performance is measured by per-frame Average Precision (AP) at IoU thresholds 0.3, 0.5, and 0.7, without global re-sorting across frames. Communication cost is counted from the transmitted feature values and token coordinates. The main comparison fixes the feature payload at 64~KiB per collaborator. OPV2V and V2XSet scenes contain one ego vehicle and up to four collaborators within a 70~m communication range; DAIR-V2X contains one vehicle and one roadside unit.
+
+\noindent\textbf{Implementation Details.}
+We implement SEC on the OpenCOOD framework with a PointPillars backbone, a $0.4$~m BEV voxel size, at most 32 points per voxel, and $C{=}256$ feature channels. The BEV feature grid is $48\times176$ for OPV2V and V2XSet. SEC is trained end-to-end with Adam (learning rate $5\times10^{-4}$, weight decay $10^{-4}$), four warm-up epochs, and a cosine schedule. Random flip, yaw rotation, and scaling are applied consistently to all agents. All experiments run on NVIDIA RTX 4080 GPUs. At 64~KiB, SEC retains up to $99.4\%$ of the best observed AP using only $6.25\%$ of the maximum payload (Fig.~\ref{fig:supp-combined}a); we use $V_{\text{comm}}{=}16$ as the Pareto-optimal knee for all main results.
+
+
+
+
+\subsection{Quantitative Evaluation}
+\label{sec:main_results}
+\noindent\textbf{Benchmark Comparison.}
+Table~\ref{tab:main-comparison} compares SEC with prior methods at 64~KiB per collaborator; SEC attains the highest AP@0.7 on OPV2V, V2XSet, and DAIR-V2X ($0.8081$/$0.7461$/$0.4463$), beating the strongest prior method by $2.37$/$3.82$ points on OPV2V/V2XSet and $0.90$ on DAIR-V2X, and leading at AP@0.3/0.5 on OPV2V. On V2XSet, How2comm is competitive at loose thresholds ($0.8999$/$0.8693$) but falls to $0.6754$ at AP@0.7 (SEC $0.7461$), so the gap widens as IoU tightens. Over the ego-only model, SEC adds $19.5$/$24.2$ AP@0.7 points on OPV2V/V2XSet and still leads on DAIR-V2X, where margins are smaller. Table~\ref{tab:main-comparison} also shows deformable token fusion attaining the highest AP among late, early, and intermediate fusion at every threshold and dataset.
+
+\noindent\textbf{Accuracy--Bandwidth Trade-off.}
+Fig.~\ref{fig:supp-combined}(e) sweeps 16--256~KiB per collaborator. SEC gains $3.2$ AP@0.7 from 16 to 64~KiB but only $0.6$ for a further fourfold budget, so 64~KiB lies on the flat part of the curve. Both ablated variants rise more slowly; SEC's margin over the weaker one peaks at 16~KiB ($9.7$ points) and narrows with bandwidth.
+
+\noindent\textbf{Robustness to Pose Noise and Communication Latency.}
+Fig.~\ref{fig:supp-combined}(f) isolates the deformable sampler under pose drift: the rigid-grid variant shares the backbone and budget but uses zero offsets, and its AP@0.7 is lower at every noise level, with the gap widening at $0.6$~m/$3^\circ$. No Fusion stays flat, while WhisperNet and CoSDH degrade faster. Fig.~\ref{fig:supp-combined}(g) delays one collaborator by up to five 100~ms frames. SEC has the highest no-delay AP@0.5 ($0.898$) and stays above How2comm, WhisperNet, and CoSDH throughout; CoSDH degrades fastest and falls below no fusion at 500~ms.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_qual_token.pdf}
+\caption{Qualitative walk-through at $k{=}64$: (a) LiDAR/GT; (b) ego demand (where the ego needs help); (c) collaborator supply (where collaborators have evidence); (d) Hadamard (element-wise) gain; (e) selected tokens; (f) detection.}
+\label{fig:qual-token}
+\end{figure*}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_antidilation.pdf}
+\caption{Anti-dilation mechanism on a V2XSet frame with identical weights. Top: per-cell feature L2 norm (feature magnitude); bottom: non-zero support (active cells). Refine-before-mask keeps exactly $k$ cells; mask-before-refine becomes dense.}
+\label{fig:antidilation}
+\end{figure}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_supp_combined.pdf}
+\caption{Diagnostic analyses at 64~KiB: (a) efficiency; (b) token placement (solid: supply-only, hatched: multiplicative); (c) selection quality; (d) low-budget precision; (e)--(g) performance under bandwidth, pose, and delay; (h) accuracy--latency trade-off.}
+\label{fig:supp-combined}
+\end{figure*}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_compare_methods.png}
+\par\vspace{0.5pt}\noindent\fontsize{8}{9}\selectfont
+\makebox[\linewidth][l]{%
+  \hspace*{0.1105\linewidth}\makebox[0pt][c]{Ground Truth}%
+  \hspace*{0.161\linewidth}\makebox[0pt][c]{Single}%
+  \hspace*{0.161\linewidth}\makebox[0pt][c]{ERMVP}%
+  \hspace*{0.161\linewidth}\makebox[0pt][c]{CoSDH}%
+  \hspace*{0.161\linewidth}\makebox[0pt][c]{WhisperNet}%
+  \hspace*{0.161\linewidth}\makebox[0pt][c]{Ours}}
+\vspace{-3mm}
+\caption{Qualitative comparison with prior methods on dense and compact scenes. Green: GT; red/orange: predictions.}
+\label{fig:3d_vis}
+\end{figure*}
+
+\subsection{Ablation Studies}
+\label{sec:ablations}
+\input{tables/tab_policy_ap}
+\input{tables/tab_crossover}
+
+\noindent\textbf{Ablation Studies on Core Components.}
+Table~\ref{tab:components} isolates each design choice at 64~KiB and reports AP@0.7. (1) Retraining mask-before-refine gives $0.7105$ with dense support; the inference-only swap drops to $0.5198$. (2) Replacing the 8-point deformable sampler with a rigid grid gives $0.6423$, and removing gate supervision gives $0.6594$. (3) Removing the bilateral gate gives $0.7435$, while removing collaboration falls to $0.5041$, close to random selection ($0.5087$). (4) The retrained row measures accuracy; the swap isolates dilation under identical weights.
+
+\noindent\textbf{Ablation Studies on Selection Policy.}
+Fig.~\ref{fig:supp-combined}(b) splits the transmitted tokens into cells on targets the ego-only model misses, cells on targets it already sees, and background cells, with solid bars for supply-only selection and hatched bars for multiplicative gating, where more ego-missed and fewer ego-visible or background cells are better. (1) As the budget shrinks, multiplicative gating moves the token mix away from ego-visible cells and toward ego-missed ones. (2) Fig.~\ref{fig:supp-combined}(c) asks how the same 64 tokens are spent: how many fall on targets the ego misses ($\mathrm{Prec}_{\mathrm{egM}}\!\uparrow$), how many fall on targets it already sees ($\mathrm{Prec}_{\mathrm{egV}}\!\downarrow$), and how many of the missed targets are covered ($\mathrm{Rec}_{\mathrm{egM}}\!\uparrow$). The full gate spends more of them where the ego is blind and fewer where it already sees: $\mathrm{Prec}_{\mathrm{egM}}$ rises from $0.197$ to $0.222$ on OPV2V and from $0.229$ to $0.257$ on V2XSet, $\mathrm{Prec}_{\mathrm{egV}}$ falls from $0.591$ to $0.501$ and from $0.518$ to $0.447$, and $\mathrm{Rec}_{\mathrm{egM}}$ stays at $0.890$/$0.892$. Nothing the ego already had is lost, and what it was missing is recovered. (3) Table~\ref{tab:policy-ap} confirms the accuracy effect at 64~KiB: $0.8081$/$0.7461$ on OPV2V/V2XSet versus $0.8068$/$0.7435$ for supply-only, with the margin widening as the budget shrinks (Fig.~\ref{fig:supp-combined}d).
+
+\noindent\textbf{Ablation Studies on Consensus Design.}
+Table~\ref{tab:crossover} compares our multiplicative gate with a residual alternative, $G_{\text{res}}^{(i)} = M_{\text{supply}}^{(i)} \odot (1 + M_{\text{demand}})$. The two differ in what the ego can express. In the residual, demand only scales a collaborator token between $1\times$ and $2\times$, so a cell the ego already observes stays in the candidate set. The residual also sums the two signals, so a strong supply can outweigh a weak demand without either side agreeing. Multiplication is a conjunction: a cell survives only if the ego needs it and the collaborator supplies it, so ego-visible evidence is removed before top-$k$ runs and every transmitted token adds what the ego lacks. The two designs therefore agree at the operating point but diverge as the budget grows, since the residual spends a rising share on redundancy it cannot veto.
+
+\noindent\textbf{Ablation Studies on Anti-Dilation Refinement.}
+The order of refinement and masking decides whether the budget is enforceable. Refinement is not pointwise: a $3\times3$ convolution spreads each active cell into its neighbourhood. Applied after masking, it replaces the discrete support with that receptive field, so the network rather than $k$ sets the active count, and later layers make the map dense. Refinement before masking makes the budget an invariant, since the mask is the last operation and exactly $k$ cells leave the collaborator at any depth or width. The reversed order is not a bandwidth cost but a loss of what makes the budget binding, which is why it stays dense after retraining and loses accuracy at every budget (Fig.~\ref{fig:antidilation}, Fig.~\ref{fig:supp-combined}(e)).
+
+\noindent\textbf{Analysis on Accuracy--Latency Trade-off.}
+Fig.~\ref{fig:supp-combined}(h) places all Table~\ref{tab:main-comparison} methods at 64~KiB in the GPU-stage accuracy--latency plane. SEC attains the highest AP@0.7 at the lowest latency: against ERMVP and How2comm it gains $7.8$ and $7.1$ AP@0.7 points ($0.7461$ vs.\ $0.6685$/$0.6754$) at far lower latency ($9.1$ vs.\ $76.3$/$225.8$~ms), and no other entry exceeds $0.7079$ AP@0.7 or runs faster than $9.3$~ms. The remaining baselines, including CoSDH, WhisperNet, DiscoNet, and CoAlign, are therefore both less accurate and slower.
+
+\subsection{Qualitative Results}
+\label{sec:qualitative}
+
+\noindent\textbf{Visualization of Token Selection.}
+Fig.~\ref{fig:qual-token} traces a V2XSet frame with 30 GT objects and four collaborators at $k{=}64$. Multiplication makes transmission a conjunction: a cell survives only if the ego needs it (b) and a collaborator can supply it (c), so the product (d) drops ego-visible cells before top-$k$ selection and the 64 tokens (e) land on the ego-missed targets. In this frame, detection (f) recovers 10 of the 13 objects that the ego-only model misses, and matches the unconstrained 1024~KiB output at $1/16$ the payload.
+
+\noindent\textbf{Visualization of Sparsity and Method Comparison.}
+Fig.~\ref{fig:antidilation} isolates the ordering under fixed weights. Since the mask comes last, the support stays at exactly 64 cells after every layer; refinement first lets the convolution widen it to $8{,}448$, so the budget no longer bounds the payload. Fig.~\ref{fig:3d_vis} shows the same effect at 64~KiB on two scenes. Tokens spent on cells the ego already sees or on background leave distant vehicles undetected, whereas SEC places its tokens on the right targets.
