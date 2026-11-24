@@ -107,12 +107,12 @@ VERIFIED_QUOTES = [
         "quotes": [
             {
                 "claim": "Holistic Sparse Vision Transformer with Fused Axial Attention (FAX)",
-                "quote": "In this paper, we propose a holistic vision Transformer dubbed CoBEVT for multi-view cooperative semantic segmentation. % We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents.",
+                "quote": "We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents.",
                 "file": "main-arxiv.tex",
             },
             {
                 "claim": "Limitation on Simulation-Only Validation, Asynchrony, and Position Errors",
-                "quote": "Despite the proposed single-agent model outperforming the real-world nuScenes dataset, the entire cooperative framework has been trained and validated on simulated datasets only, and thus its real-world generalization capability remains unknown. % The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises.",
+                "quote": "The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises.",
                 "file": "main-arxiv.tex",
             },
         ],
@@ -228,7 +228,7 @@ VERIFIED_QUOTES = [
     {
         "paper_id": "SEC",
         "arxiv_id": "2611.22439",
-        "title": "Spatial Elastic Consensus for Collaborative Perception",
+        "title": "Where Demand Meets Supply: Spatial Elastic Consensus for Low-Bandwidth Collaborative Perception",
         "dir": "docs/research/sources/SEC_2611.22439",
         "quotes": [
             {

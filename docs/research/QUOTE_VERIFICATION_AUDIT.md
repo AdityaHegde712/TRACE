@@ -86,9 +86,9 @@ Every quote documented below was verified using the project verification utility
 
 ---
 
-### 4. QUEST (CVPR 2024 / AAAI 2024)
-- **Title:** Query Stream for Practical Cooperative Perception
-- **Citation:** Siwei Chen, Bencheng Liao, Chengrui Zhang, Qian Zhang, Wenyuan Zeng. *IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*, 2024. arXiv:2308.01804.
+### 4. QUEST (ICRA 2024)
+- **Title:** QUEST: Query Stream for Practical Cooperative Perception
+- **Citation:** Siqi Fan, Haibao Yu, Wenxian Yang, Jirui Yuan, Zaiqing Nie. *IEEE International Conference on Robotics and Automation (ICRA)*, 2024. arXiv:2308.01804.
 - **Source Directory:** `docs/research/sources/QUEST_2308.01804`
 
 #### Quote 1: Query Cooperation via Fusion & Complementation
@@ -138,17 +138,17 @@ Every quote documented below was verified using the project verification utility
 - **Source Directory:** `docs/research/sources/CoBEVT_2207.02202`
 
 #### Quote 1: Fused Axial Attention (FAX) Mechanism
-- **Source File & Line:** `main-arxiv.tex` (Line 793)
+- **Source File & Line:** `main-arxiv.tex` (Line 795)
 - **Verbatim Quote:**  
-  > "In this paper, we propose a holistic vision Transformer dubbed CoBEVT for multi-view cooperative semantic segmentation. % We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents."
+  > "We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents."
 - **Context Snippet:**  
   `...\section{Conclusion and Limitations} \label{sec:conclusion} In this paper, we propose a holistic vision Transformer dubbed CoBEVT for multi-view cooperative semantic segmentation. % We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents. % Extensive experiments on both simulated and real-world datasets show that CoBEVT achieves superior performance...`
 - **Relevance to TRACE:** Proves that multi-camera multi-agent BEV features can be efficiently fused with factorized sparse attention without blowing up compute budgets.
 
 #### Quote 2: Explicit Limitations: Asynchrony and Position Noise
-- **Source File & Line:** `main-arxiv.tex` (Line 801)
+- **Source File & Line:** `main-arxiv.tex` (Line 803)
 - **Verbatim Quote:**  
-  > "Despite the proposed single-agent model outperforming the real-world nuScenes dataset, the entire cooperative framework has been trained and validated on simulated datasets only, and thus its real-world generalization capability remains unknown. % The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises."
+  > "The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises."
 - **Context Snippet:**  
   `...\textbf{Limitations.} % Despite the proposed single-agent model outperforming the real-world nuScenes dataset, the entire cooperative framework has been trained and validated on simulated datasets only, and thus its real-world generalization capability remains unknown. % The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises. % The perception robustness against different domains such as severe weather or lighting conditions needs further examination...`
 - **Relevance to TRACE:** Explicitly identifies time asynchrony and position error as unaddressed failure modes in camera-based cooperative perception—the exact problems addressed in TRACE.
@@ -293,9 +293,9 @@ Every quote documented below was verified using the project verification utility
 
 ---
 
-### 13. SEC (IEEE RA-L 2024 / arXiv:2611.22439)
-- **Title:** Spatial Elastic Consensus for Collaborative Perception
-- **Citation:** Yicheng Xiao, Yiming Li, Chen Feng. *IEEE Robotics and Automation Letters (RA-L)*, 2024. arXiv:2611.22439.
+### 13. SEC (arXiv:2611.22439)
+- **Title:** Where Demand Meets Supply: Spatial Elastic Consensus for Low-Bandwidth Collaborative Perception
+- **Citation:** Linshan Yan. School of Software, Northwestern Polytechnical University, 2026. arXiv:2611.22439 (Preprint / CVPR 2027 Submission).
 - **Source Directory:** `docs/research/sources/SEC_2611.22439`
 
 #### Quote 1: Demand-Supply Consensus & Budget Enforcement
@@ -330,8 +330,8 @@ Every quote documented below was verified using the project verification utility
 | **QUEST** | 2308.01804 | `final.tex` | 350 | **[PASS] 100% Verbatim** | Onboard Query Architecture Constraint |
 | **V2X-ViT** | 2203.10638 | `main.tex` | 581 | **[PASS] 100% Verbatim** | Vision Transformer for V2X |
 | **V2X-ViT** | 2203.10638 | `main.tex` | 589 | **[PASS] 100% Verbatim** | Joint Perception-Prediction Scope |
-| **CoBEVT** | 2207.02202 | `main-arxiv.tex` | 793 | **[PASS] 100% Verbatim** | FAX Sparse Transformer |
-| **CoBEVT** | 2207.02202 | `main-arxiv.tex` | 801 | **[PASS] 100% Verbatim** | Asynchrony & Position Noise Gap |
+| **CoBEVT** | 2207.02202 | `main-arxiv.tex` | 795 | **[PASS] 100% Verbatim** | FAX Sparse Transformer |
+| **CoBEVT** | 2207.02202 | `main-arxiv.tex` | 803 | **[PASS] 100% Verbatim** | Asynchrony & Position Noise Gap |
 | **CoAlign** | 2211.07214 | `root.tex` | 576 | **[PASS] 100% Verbatim** | Agent-Object Pose Graph Optimization |
 | **CoAlign** | 2211.07214 | `root.tex` | 112 | **[PASS] 100% Verbatim** | Misalignment from Pose Noise |
 | **SyncNet** | 2207.08560 | `LA-Coperception.tex` | 581 | **[PASS] 100% Verbatim** | Latency Compensation Architecture |

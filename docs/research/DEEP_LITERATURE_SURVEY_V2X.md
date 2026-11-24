@@ -151,11 +151,11 @@ Collaborative perception systems operate across five interconnected technical la
 - **Venue, Year & arXiv:** Conference on Robot Learning (CoRL 2022) / arXiv:2207.02202
 - **Approach:** Factorized sparse transformer (`SinBEVT` and `FuseBEVT`) for multi-camera multi-agent BEV semantic segmentation. Factorizes attention into local and global axial attention blocks.
 - **Source Claim (Verbatim):**
-  > *"In this paper, we propose a holistic vision Transformer dubbed CoBEVT for multi-view cooperative semantic segmentation. % We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents."* (`main-arxiv.tex`, Line 793)
-- **Key Findings:** Achieves superior performance on multi-camera cooperative BEV segmentation, reducing computation through fused axial attention while improving multi-agent LiDAR detection.
-- **Source Limitation / Future Work (Verbatim):**
-  > *"Despite the proposed single-agent model outperforming the real-world nuScenes dataset, the entire cooperative framework has been trained and validated on simulated datasets only, and thus its real-world generalization capability remains unknown. % The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises."* (`main-arxiv.tex`, Line 801)
-- **Inference for TRACE:** Proves that sparse transformers are effective for multi-agent camera BEV fusion, but highlights that ignoring asynchronization and position errors severely threatens real-world viability—the exact vulnerabilities TRACE resolves.
+  > *"We propose a fused axial attention (FAX) mechanism that allows for local and global interactions across all views and agents."* (`main-arxiv.tex`, Line 795)
+- **Key Findings:** Achieves superior performance on multi-camera cooperative BEV segmentation (68.4% IoU across 4 camera feeds per vehicle), reducing computation through fused axial attention while improving multi-agent LiDAR detection.
+- **Author-Stated Limitation (Verbatim):**
+  > *"The proposed approach does not explicitly model realistic V2V challenges such as asynchronization and position errors, which may impair its robustness under these noises."* (`main-arxiv.tex`, Line 803)
+- **TRACE Architectural Critique / Research Gap:** Proves that sparse transformers are effective for multi-agent camera BEV fusion, but highlights that ignoring asynchronization and position errors severely threatens real-world viability—the exact vulnerabilities TRACE resolves.
 
 #### 10. DiscoNet: Distilled Collaboration for Communicative 3D Object Detection
 - **Authors:** Yiming Li, Shunli Ren, Pengxiang Wu, Siheng Chen, Chen Feng, Wenjun Zhang
@@ -255,17 +255,23 @@ Collaborative perception systems operate across five interconnected technical la
 ### Category D: Query-Driven, On-Demand & Asynchronous Collaboration
 
 #### 20. QUEST: Query Stream for Practical Cooperative Perception
-- **Authors:** Siwei Chen, Bencheng Liao, Chengrui Zhang, Qian Zhang, Wenyuan Zeng
-- **Venue, Year & arXiv:** IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2024) / AAAI 2024 / arXiv:2308.01804
-- **Approach:** Shifts cooperative perception from feature maps to **sparse object query streams**. Uses a DETR-like decoder where queries flow dynamically between vehicles and infrastructure:
+- **Authors:** Siqi Fan, Haibao Yu, Wenxian Yang, Jirui Yuan, Zaiqing Nie
+- **Venue, Year & arXiv:** IEEE International Conference on Robotics and Automation (ICRA 2024) / arXiv:2308.01804
+- **Approach:** Shifts cooperative perception from dense feature maps to **sparse object query streams** in camera-centric systems. Uses a DETR-like decoder (built on PETR) where queries flow dynamically between vehicles and infrastructure:
   - *Co-aware instances:* Queries shared by both agents are fused for precision.
   - *Unaware instances:* Queries for objects occluded to one agent are adopted directly from the collaborator (complementation).
 - **Source Claim (Verbatim):**
   > *"Aiming at interpretable and flexible cooperative perception, we propose the concept of query cooperation in this paper, which enables instance-level feature interaction among agents via the query stream. To specifically describe the query cooperation, a representative cooperative perception framework (QUEST) is proposed. It performs cross-agent query interaction by fusion and complementation, which are designed for co-aware objects and unaware objects respectively."* (`final.tex`, Line 354)
-- **Key Findings:** Outperforms Where2comm on DAIR-V2X with only $0.008\text{ MB/frame}$ payload ($>1000\times$ lower than raw data).
-- **Source Limitation / Future Work (Verbatim):**
+- **Key Findings (Verified Table 1 & Table 2 Metrics on DAIR-V2X-Seq):**
+  - Evaluated on camera-centric vehicle-infrastructure cooperative detection:
+    - Single-vehicle baseline (PETR): $\text{AP}_{3D}@0.5 = 9.4\%$, $\text{AP}_{BEV}@0.5 = 10.9\%$.
+    - Result cooperation (Late fusion): $\text{AP}_{3D}@0.5 = 10.7\%$, $\text{AP}_{BEV}@0.5 = 14.7\%$.
+    - Ablated QUEST-f (fusion only): $\text{AP}_{3D}@0.5 = 10.7\%$, $\text{AP}_{BEV}@0.5 = 12.8\%$.
+    - Full QUEST (fusion + complementation): $\text{AP}_{3D}@0.5 = \mathbf{14.1\%}$, $\text{AP}_{BEV}@0.5 = \mathbf{20.3\%}$ (with $\text{AP}_{3D}@0.3 = 33.3\%$, $\text{AP}_{BEV}@0.3 = 39.4\%$).
+  - Bandwidth trade-off: Achieves $\text{AP}_{3D}@0.5 = 14.1\%$ with only 48.0 KB/frame transmission (threshold 0.3), down to 31.9 KB/frame (threshold 0.5, $\text{AP}_{3D}@0.5 = 13.8\%$).
+- **Author-Stated Limitation (Verbatim):**
   > *"Behind all the advances, the limitation is also foreseeable. Since query cooperation is on the basis of the query stream, it naturally requests all agents participating in the symbioses to employ a query-based onboard system."* (`final.tex`, Line 350)
-- **Inference for TRACE:** State-of-the-art query cooperation framework. TRACE adopts the instance-query concept but overcomes the limitation by enabling queries from CNN feature extractors and adding common-cause error verification.
+- **TRACE Architectural Critique / Research Gap:** While QUEST introduces the instance-query cooperation concept, it assumes all collaborator queries are trustworthy and independent. If an ego vehicle queries an infrastructure or peer agent whose camera shares common-cause visual failure (lens glare, heavy rain, or correlated blind-spot geometry), unverified query complementation fails silently. TRACE generalizes queries beyond query-native backbones and adds dependence-aware verification.
 
 #### 21. SyncNet: Co-Designing Feature-Attention Symbiotic Latency Compensation for V2X Collaborative Perception
 - **Authors:** Zixing Lei, Shaoheng Fang, Yiqi Zhong, Siheng Chen
@@ -279,15 +285,20 @@ Collaborative perception systems operate across five interconnected technical la
 - **Inference for TRACE:** Mandatory foundation for handling asynchronous message arrival. TRACE integrates time-modulation and timestamp checking to discard or warp stale feature queries.
 
 #### 22. Spatial Elastic Consensus (SEC): On-Demand Collaborative Perception via Demand-Supply Alignment
-- **Authors:** Yicheng Xiao, Yiming Li, Chen Feng
-- **Venue, Year & arXiv:** IEEE Robotics and Automation Letters (RA-L 2024) / arXiv:2611.22439
-- **Approach:** Formalizes collaborative perception as an economic **demand-supply matching problem**. The ego vehicle publishes a spatial demand map (where it needs help), and surrounding CAVs reply with corresponding feature supplies.
+- **Authors:** Linshan Yan
+- **Venue, Year & arXiv:** arXiv:2611.22439 (2026 Preprint / CVPR 2027 Submission)
+- **Title (Source):** Where Demand Meets Supply: Spatial Elastic Consensus for Low-Bandwidth Collaborative Perception
+- **Approach:** Formalizes collaborative perception as an economic **demand-supply matching problem**. The ego vehicle generates a spatial demand map identifying occluded regions, and collaborators supply purified local feature tokens. Uses a single-round multiplicative gate coupled with an anti-dilation refine-before-mask pipeline to enforce strict token budgets without receptive-field leakage.
 - **Source Claim (Verbatim):**
   > *"This paper has introduced SEC, a novel bandwidth-adaptive framework that replaces sender-driven pruning with bilateral demand-supply consensus. By systematically coupling a single-round multiplicative gate with an anti-dilation selection pipeline, SEC strictly enforces exact token budgets while precisely isolating critical ego-missed information."* (`10_conclusion.tex`, Line 3)
-- **Key Findings:** Eliminates transmission of unrequested features, cutting redundant network load by $74\%$ in dense 6-vehicle intersections.
-- **Source Limitation / Future Work (Verbatim):**
+- **Key Findings (Verified Table 1 Metrics on OPV2V, V2XSet, DAIR-V2X):**
+  - Outperforms existing low-bandwidth collaborative methods at fixed 64 KiB/frame payload:
+    - **OPV2V (LiDAR):** $\text{AP}_{3D}@0.7 = \mathbf{80.81\%}$ (vs. WhisperNet 78.44%, How2comm 73.12%, Early Fusion 68.18%, No Fusion 61.36%).
+    - **V2XSet (LiDAR):** $\text{AP}_{3D}@0.7 = \mathbf{74.61\%}$ (vs. WhisperNet 70.79%, How2comm 67.54%, No Fusion 50.41%).
+    - **DAIR-V2X (Real-World V2I):** $\text{AP}_{3D}@0.7 = \mathbf{44.63\%}$ (vs. WhisperNet 43.73%, How2comm 31.50%, No Fusion 43.65%).
+- **Author-Stated Limitation (Verbatim):**
   > *"This sender-driven design inevitably wastes scarce bandwidth on transmitting targets the ego vehicle has already perceived, leaving critical occluded blind zones unassisted (Fig.~\ref{fig:teaser}c)."* (`01_intro.tex`, Line 11)
-- **Inference for TRACE:** Directly validates our proposed bilateral demand-supply querying concept, while leaving common-cause visual error correlation open—the exact gap TRACE addresses.
+- **TRACE Architectural Critique / Research Gap:** SEC demonstrates the power of bilateral demand-supply alignment over sender-driven broadcasting. However, SEC's demand-supply gating assumes agents make independent observation errors; when multiple supply agents suffer from correlated visual occlusion or sensor degradation, SEC can still request and fuse degraded features. TRACE incorporates geometric disparity checks to guarantee error diversity among selected supply partners.
 
 #### 23. Flow-based Latency Compensation for Collaborative Perception
 - **Authors:** Sanbao Su, Yiming Li, Siheng Chen, Chen Feng
@@ -307,10 +318,14 @@ Collaborative perception systems operate across five interconnected technical la
 - **Approach:** Multi-agent pose graph optimization. Aligns spatial feature maps dynamically using mutual consensus over detected 3D bounding boxes and landmark geometries, without requiring clean GPS or ground-truth pose supervision.
 - **Source Claim (Verbatim):**
   > *"This paper proposes a new hybrid collaboration framework $\mathtt{CoAlign}$ for robust 3D object detection. The proposed agent-object pose graph optimization empowers $\mathtt{CoAlign}$ to handle arbitrary pose errors without any accurate pose supervision."* (`root.tex`, Line 576)
-- **Key Findings:** Maintains $61.2\%$ $\text{AP}_{3D}@0.7$ on OPV2V under severe Gaussian localization noise ($\sigma_{\text{pos}} = 0.5\text{m}, \sigma_{\text{rot}} = 2.0^\circ$), where standard AttFuse collapses below $25\%$.
-- **Source Limitation / Future Work (Verbatim):**
+- **Key Findings (Verified Table 1 Metrics under Pose Noise):**
+  - Maintains state-of-the-art resistance to localization error under Gaussian pose noises ($\sigma_t \in [0.0, 0.6]\text{m}, \sigma_r \in [0.0, 0.6]^\circ$):
+    - **OPV2V (LiDAR):** Clean $\text{AP}_{3D}@0.7 = 91.2\%$; under high noise ($\sigma_t=0.6\text{m}, \sigma_r=0.6^\circ$), CoAlign retains $\mathbf{86.8\%}$ $\text{AP}_{3D}@0.7$ (whereas non-robust FPV-RCNN collapses from 84.0% to 20.0%, and F-Cooper collapses from 60.2% to 37.6%).
+    - **V2X-Sim 2.0 (LiDAR):** Clean $\text{AP}_{3D}@0.7 = 76.5\%$; under $\sigma_t=0.4\text{m}, \sigma_r=0.4^\circ$, CoAlign retains $\mathbf{71.1\%}$ $\text{AP}_{3D}@0.7$ (and 68.4% under 0.6m/0.6°).
+    - **DAIR-V2X (LiDAR):** Clean $\text{AP}_{3D}@0.7 = 60.4\%$; under 0.6m/0.6° noise, CoAlign retains $57.0\%$ $\text{AP}_{3D}@0.7$.
+- **Author-Stated Limitation (Verbatim):**
   > *"However, in practice, pose estimation errors due to imperfect localization would cause spatial message misalignment and significantly reduce the performance of collaboration."* (`root.tex`, Line 112)
-- **Inference for TRACE:** Critical module for ensuring coordinate transformation robustness. Proves that multi-agent collaborative systems must incorporate pose graph alignment when localization is noisy.
+- **TRACE Architectural Critique / Research Gap:** Critical module proving that multi-agent collaborative systems must incorporate pose graph optimization when localization is noisy. CoAlign requires at least two overlapping consensus objects across agents to constrain the pose graph; in sparse highway traffic where mutual overlap is minimal, pose correction must fall back to geometric line-of-sight bounding.
 
 #### 25. TruPercept: Trust Modeling for Autonomous Vehicle Cooperative Perception
 - **Authors:** Arthur Hunter, Sean Bradley, David A. Johnson
@@ -372,19 +387,28 @@ Collaborative perception systems operate across five interconnected technical la
 
 ## 3. Comparative SOTA Matrix & Synthesis
 
-| Paper | Year | Venue | Primary Benchmark | Fusion Level | Key Innovation | 3D Detection $\text{AP}_{3D}@0.7$ | Bandwidth Overhead |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **PointPillars** | 2019 | CVPR | Single-Agent | Single | Fast Pillar Encoder | $51.5\%$ (OPV2V) | $0\text{ MB/s}$ |
-| **Late Fusion** | — | — | OPV2V | Late | Box NMS Consensus | $59.4\%$ | $0.001\text{ MB/s}$ |
-| **F-Cooper** | 2019 | SEC | Custom | Intermediate | Max-out Feature Pooling | $64.2\%$ | $1.5\text{ MB/s}$ |
-| **V2VNet** | 2020 | ECCV | Simulated | Intermediate | Spatial Graph GNN | $68.1\%$ | $1.5\text{ MB/s}$ |
-| **AttFuse** | 2022 | ICRA | OPV2V | Intermediate | Self-Attention Fusion | $72.1\%$ | $1.5\text{ MB/s}$ |
-| **V2X-ViT** | 2022 | ECCV | OPV2V / V2XSet | Intermediate | Heterogeneous Swin-T | $75.3\%$ | $1.5\text{ MB/s}$ |
-| **CoBEVT** | 2022 | CoRL | OPV2V | Intermediate | Sparse BEV Transformer | $74.8\%$ | $1.2\text{ MB/s}$ |
-| **Where2comm**| 2022 | NeurIPS| OPV2V / V2X-Sim| Intermediate | Spatial Confidence Maps| **$74.2\%$** | **$0.05\text{ MB/s}$** |
-| **CoAlign** | 2023 | ICRA | OPV2V / DAIR | Intermediate | Pose Graph Alignment | $71.8\%$ (w/ noise) | $1.5\text{ MB/s}$ |
-| **QUEST** | 2024 | CVPR | DAIR-V2X | Intermediate | Query Stream Decoder | $73.9\%$ | **$0.008\text{ MB/s}$** |
-| **SEC** | 2024 | RA-L | V2X-Sim | Intermediate | Demand-Supply Handshake| $72.5\%$ | $0.08\text{ MB/s}$ |
+To prevent category confusion, benchmarks and metrics are strictly partitioned by sensor modality (**LiDAR Point Clouds** vs. **Multi-Camera Rigs**) and standard evaluation thresholds:
+
+### A. LiDAR-Based Collaborative Perception ($	ext{AP}_{3D}@0.7$)
+
+| Method | Venue & Year | Primary Benchmark | Fusion Paradigm | Reported $	ext{AP}_{3D}@0.7$ | Bandwidth Overhead |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **PointPillars** (Single) | CVPR 2019 | OPV2V (Clean) | Single-Agent Baseline | $51.5\%$ | $0\text{ KB/frame}$ |
+| **Late Fusion** | Benchmark standard | OPV2V (Clean) | Box NMS Consensus | $59.4\%$ | $\approx 1\text{ KB/frame}$ |
+| **F-Cooper** | SEC 2019 | OPV2V (Clean) | Max-out Voxel Pooling | $60.2\%$ | $\approx 1.5\text{ MB/frame}$ |
+| **V2VNet** | ECCV 2020 | OPV2V (Clean) | Spatial Graph GNN | $74.0\%$ | $\approx 1.5\text{ MB/frame}$ |
+| **AttFuse** | ICRA 2022 | OPV2V (Clean) | Self-Attention Feature Fusion | $72.1\%$ | $\approx 1.5\text{ MB/frame}$ |
+| **V2X-ViT** | ECCV 2022 | OPV2V (Clean / Noisy) | Multi-Agent Swin Transformer | $85.6\%$ (Clean) / $65.2\%$ (Noise) | $\approx 1.5\text{ MB/frame}$ |
+| **CoAlign** | ICRA 2023 | OPV2V ($\sigma_t=0.6\text{m}, \sigma_r=0.6^\circ$) | Agent-Object Pose Graph | **$86.8\%$** ($91.2\%$ Clean; V2X-Sim 2.0: $71.1\%$) | $\approx 1.5\text{ MB/frame}$ |
+| **SEC** | arXiv 2026 | OPV2V / V2XSet / DAIR | Demand-Supply Consensus | **$80.81\%$** (OPV2V) / $74.61\%$ (V2XSet) / $44.63\%$ (DAIR) | **$64\text{ KiB/frame}$** |
+
+### B. Camera-Based Collaborative Perception & BEV Segmentation ($	ext{AP}_{3D}@0.5$ / $	ext{IoU}_{BEV}$)
+
+| Method | Venue & Year | Primary Benchmark | Fusion Paradigm | Reported Accuracy | Bandwidth Overhead |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Where2comm** | NeurIPS 2022 | OPV2V (Camera Track) | Spatial Confidence Map Gating | $47.14\%$ $\text{AP}_{3D}@0.5$ ($19.07\%$ $\text{AP}_{3D}@0.7$) | Dynamic spatial selection |
+| **CoBEVT** | CoRL 2022 | OPV2V (Camera Track) | Fused Axial Attention (`FAX`) | **$68.4\%$** $\text{IoU}_{BEV}$ (Map-view Segmentation) | $\approx 1.2\text{ MB/frame}$ |
+| **QUEST** | ICRA 2024 | DAIR-V2X-Seq (Camera Track)| Instance Query Stream | **$14.1\%$** $\text{AP}_{3D}@0.5$ ($20.3\%$ $\text{AP}_{BEV}@0.5$) | **$31.9\text{--}74.4\text{ KB/frame}$** |
 
 ---
 
