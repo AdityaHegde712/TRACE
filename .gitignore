@@ -55,8 +55,8 @@ artifacts/corpus_900_calibrated_sweep/*
 !artifacts/corpus_900_calibrated_sweep/results.csv
 !artifacts/corpus_900_calibrated_sweep/run.json
 docs/Capstone-TRACE*.md
-docs/**/*/archived/
-docs/personal/
+docs/**/archived
+docs/personal
 
 # Detector weights, fetched on demand by ultralytics (yolo11m.pt is 40 MB).
 *.pt
